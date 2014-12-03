@@ -1,0 +1,19 @@
+.navbar-default{
+	background-color : #374051;
+}
+
+.padding-i{
+	margin-right: 8px;
+	
+}
+
+.navbar-default .navbar-nav > li > a.pseudo-navbar{
+	color : #FFFFFF;
+	font-size: 15px;
+}
+
+.navbar-default .navbar-nav > li > a.pseudo-navbar:hover {
+
+	text-decoration : underline;
+}
+

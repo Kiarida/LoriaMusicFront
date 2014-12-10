@@ -7,6 +7,10 @@
 	
 }
 
+.input-search-bar{
+  width: 100%;
+}
+
 .navbar-default .navbar-nav > li > a.pseudo-navbar{
 	color : #FFFFFF;
 	font-size: 15px;
@@ -15,5 +19,36 @@
 .navbar-default .navbar-nav > li > a.pseudo-navbar:hover {
 
 	text-decoration : underline;
+}
+
+.container-fluid{
+	padding-left: 0px;
+
+}
+
+.navbar{
+	margin-bottom: 0px;
+}
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 }
 

@@ -7,7 +7,7 @@
 	
 }
 
-.input-search-bar{
+.navbar-form .input-group.input-search-bar{
   width: 100%;
 }
 
@@ -16,19 +16,94 @@
 	font-size: 15px;
 }
 
-.navbar-default .navbar-nav > li > a.pseudo-navbar:hover {
 
-	text-decoration : underline;
-}
 
-.container-fluid{
-	padding-left: 0px;
-
-}
-
-.navbar{
+#topbar .navbar{
 	margin-bottom: 0px;
 }
+
+#topbar .container-fluid{
+  padding-left: 0px;
+}
+
+#topbar .col-sm-2{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#topbar .col-sm-5{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#topbar.navbar{
+  margin-bottom: 0px;
+}
+
+
+
+#topbar .pseudo-navbar{
+  width: 100%;
+}
+
+#topbar .ul-pseudo{
+  display : block;
+  width : 100%;
+}
+
+#topbar .a-pseudo{
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+#topbar .icon-arrow-down4{
+  display : inline-block;
+  position : absolute;
+  right: 10px;
+
+}
+
+/* ################################ SEARCH BAR ########################### */
+
+
+#topbar .navbar-form{
+  padding: 15px 0px;
+}
+
+#topbar .input-search-bar-button{
+  width: 10px;
+}
+
+#topbar .input-group-btn .btn-default{
+  background-color: #FFFFFF;
+}
+
+#topbar .form-control.input-search{
+  height: 41px;
+}
+
+#topbar .btn.btn-default.input-search{
+  height: 41px;
+  color: #374051;
+}
+
+
+
+/* ################################# BOUTONS #############################*/
+#topbar .btn-pseudo{
+  display : block;
+  width : 100%;
+  background-color : #374051;
+  padding-left: 30px;
+  text-align: left;
+  position : relative;
+
+}
+
+#topbar .btn-pseudo:hover{
+  background-color : #5A6985;
+}
+
 
 /* make sidebar nav vertical */ 
 @media (min-width: 768px) {

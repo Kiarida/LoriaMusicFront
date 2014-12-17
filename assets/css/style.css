@@ -1,3 +1,15 @@
+/*###################### BOOTSTRAP UI #######################*/
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
+
+
+
+
+/*############################ NAVBAR ####################################*/
+
+
 .navbar-default{
 	background-color : #374051;
 }
@@ -14,12 +26,18 @@
 .navbar-default .navbar-nav > li > a.pseudo-navbar{
 	color : #FFFFFF;
 	font-size: 15px;
-}
 
+
+}
 
 
 #topbar .navbar{
 	margin-bottom: 0px;
+}
+
+#topbar .btn-group{
+  width: 100%;
+  padding-top: 15px;
 }
 
 #topbar .container-fluid{
@@ -38,22 +56,25 @@
 
 #topbar.navbar{
   margin-bottom: 0px;
+  border-radius: 0px;
 }
 
+/* ########################## PSEUDO DE LA NAVBAR ##############################*/
 
 
-#topbar .pseudo-navbar{
-  width: 100%;
-}
 
 #topbar .ul-pseudo{
   display : block;
   width : 100%;
 }
 
-#topbar .a-pseudo{
+#topbar .pseudo-navbar.a-pseudo{
   padding-right: 0px;
   padding-left: 0px;
+  width: 100%;
+  padding-top: 0px;
+
+ 
 }
 
 #topbar .icon-arrow-down4{
@@ -61,6 +82,25 @@
   position : absolute;
   right: 10px;
 
+}
+
+#topbar .dropdown-menu, .select2-drop {
+    background-color: #374051;
+    border: medium none;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #FFF;
+    font-size: 14px;
+    margin-top: 0px;
+    min-width: 240px;
+    padding: 0;
+    z-index: 1000;
+}
+
+#topbar .dropdown-menu > li > a {
+    color: #fff;
+    line-height: 1.429;
+    padding: 6px 10px;
 }
 
 /* ################################ SEARCH BAR ########################### */
@@ -94,15 +134,126 @@
   display : block;
   width : 100%;
   background-color : #374051;
-  padding-left: 30px;
+  padding-left: 10px;
+  padding-bottom: 6px;
   text-align: left;
   position : relative;
+  font-size: 18px;
+  font-weight: normal;
+  color : #FFF;
 
 }
 
 #topbar .btn-pseudo:hover{
   background-color : #5A6985;
 }
+
+#topbar .dropdown-font{
+  color : #FFF;
+  padding-left: 10px;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+#topbar .icon-menu-left{
+  padding-right: 15px;
+}
+
+#topbar .dropdown-menu > li{
+  
+  padding-bottom: 8px;
+}
+
+#topbar .dropdown-menu > li > a:hover {
+  background: #64718C;
+}
+
+
+
+/*######################### LEFT MENU #############################*/
+
+#menu-left.col-sm-2.menu-left{
+    padding-left: 0px;
+    padding-right: 0px;
+    border-radius: 0px;
+
+}
+
+#menu-left .navbar{
+  border-radius: 0px;
+  height: 750px;
+}
+
+#menu-left .navbar-default{
+  background-color: #64718C;
+}
+
+#menu-left .navbar-default .navbar-nav > li > a{
+  color : #FFF;
+  padding-left: 10px;
+  font-weight: normal;
+  font-size: 18px;
+} 
+
+#menu-left .navbar-default .navbar-nav  > li > a .bold-text{
+  color : #FFF;
+  padding-left: 30px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#menu-left .navbar-default .navbar-nav > li:hover{
+  background-color : #374051;
+ 
+} 
+
+#menu-left .navbar-default .navbar-nav > li > a:focus{
+  background-color : #374051;
+ 
+} 
+
+/*#menu-left .navbar-default .navbar-nav > li > a:focus:hover{
+  background-color : #64718C;
+ 
+} */
+
+#menu-left .icon-menu-left{
+  padding-right: 15px;
+}
+
+#menu-left .ul-Playlist{
+  padding-left: 0px;
+}
+
+#menu-left .titrePlaylist{
+
+  font-size: 20px;
+  color : #FFF;
+  padding-left: 10px;
+  padding-bottom: 0px;
+}
+
+#menu-left .iconPlaylist{
+  color: #FFF;
+  float: right;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+
+#menu-left .playlist{
+  padding-bottom: 10px;
+}
+
+#menu-left .playlist > a{
+  font-size: 18px;
+  color : #FFF;
+  padding-left: 10px;
+  padding-bottom: 0px;
+}
+
+
+
+
 
 
 /* make sidebar nav vertical */ 

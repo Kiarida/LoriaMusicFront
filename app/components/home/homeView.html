@@ -1,82 +1,99 @@
-<div class="col-lg-12">
-	<form class="form-inline" role="form">
-	  <div class="form-group">
-	    <div class="input-group">
-	      <label class="sr-only" for="exampleInputEmail2">Email address</label>
-	      <div class="input-group-addon">@</div>
-	      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-	    </div>
-	  </div>
-	  <div class="form-group">
-	    <label class="sr-only" for="exampleInputPassword2">Password</label>
-	    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-	  </div>
-	  <div class="checkbox">
-	    <label>
-	      <input type="checkbox"> Remember me
-	    </label>
-	  </div>
-	  <button type="submit" class="btn btn-default">Sign in</button>
-	</form>
-</div>
-<div class="col-lg-6">
 
-	<h1>Why Signup ?</h1>
-	<p>Alii nullo quaerente vultus severitate adsimulata patrimonia sua in inmensum extollunt, cultorum ut puta feracium multiplicantes annuos fructus, quae a primo ad ultimum solem se abunde iactitant possidere, ignorantes profecto maiores suos, per quos ita magnitudo Romana porrigitur, non divitiis eluxisse sed per bella saevissima, nec opibus nec victu nec indumentorum vilitate gregariis militibus discrepantes opposita cuncta superasse virtute.
-
-	Montius nos tumore inusitato quodam et novo ut rebellis et maiestati recalcitrantes Augustae per haec quae strepit incusat iratus nimirum quod contumacem praefectum, quid rerum ordo postulat ignorare dissimulantem formidine tenus iusserim custodiri.</p>
+<div id="topBarSignUp" class="navbar navbar-default">
+	<div class="container">
+		<div class="col-lg-6">
+			  <p class="alert alert-danger" ng-show="errorSignIn">{{ errorConnection }}</p>
+		</div>
+		<div class="col-lg-6">
+			<form ng-submit="connectUser()" class="form-inline" role="form">
+			  <div class="form-group">
+			      <label class="sr-only" for="exampleInputEmail2">Username</label>
+			      <input type="text" class="form-control" ng-model="userConn._username" name="_username" id="exampleInputEmail2" placeholder="Username">
+			  </div>
+			  <div class="form-group">
+			    <label class="sr-only" for="exampleInputPassword2">Password</label>
+			    <input type="password" ng-model="userConn._password" class="form-control" name="_password" id="exampleInputPassword2" placeholder="Password">
+			  </div>
+			  <button type="submit" class="btn btn-default"><i class="icon-switch"></i>CONNEXION</button>
+			</form>
+		</div>
+	</div>
 </div>
-<div class="col-lg-6">
-	<h1>Signup</h1>
-	<form action="" class="form-horizontal" role="form" ng-submit="newUser()">
-		<div class="form-group">
-			<input class="form-control" ng-model="user.pseudo" name="login" type="text" placeholder="Pseudo">
-		</div>
-		<div class="form-group">
-			<input class="form-control" ng-model="user.mdp" name="password" type="password" placeholder="Mot de passe">
-		</div>
-		<div class="form-group">
-			<input class="form-control" ng-model="user.email" name="email" type="text" placeholder="Email">
-		</div>
-		<div class="form-group">
-			<div class="col-sm-4">
-				<select ng-model="user.birthday" name="day">
-					<option value=""></option>
-					<option ng-repeat="n in [] | range:31" value="{{n+1}}">
-						{{n+1}}
-					</option>
-				</select>
+<div class="container signup">
+	<div class="col-lg-6">
+
+		<h1>Why Signup ?</h1>
+		<p>Alii nullo quaerente vultus severitate adsimulata patrimonia sua in inmensum extollunt, cultorum ut puta feracium multiplicantes annuos fructus, quae a primo ad ultimum solem se abunde iactitant possidere, ignorantes profecto maiores suos, per quos ita magnitudo Romana porrigitur, non divitiis eluxisse sed per bella saevissima, nec opibus nec victu nec indumentorum vilitate gregariis militibus discrepantes opposita cuncta superasse virtute.
+
+		Montius nos tumore inusitato quodam et novo ut rebellis et maiestati recalcitrantes Augustae per haec quae strepit incusat iratus nimirum quod contumacem praefectum, quid rerum ordo postulat ignorare dissimulantem formidine tenus iusserim custodiri.</p>
+	</div>
+	<div class="col-lg-6">
+		<h1>Signup</h1>
+		<form id="formSignup" class="form-horizontal" name="form" role="form" ng-submit="newUser()">
+			<div class="form-group">
+				<input class="form-control" ng-model="user.username" required name="login" type="text" placeholder="Username">
 			</div>
-			<div class="col-sm-4">
-				<select ng-model="user.birthmonth" name="month">
-					<option value=""></option>
-					<option ng-repeat="n in [] | range:12" value="{{n+1}}">
-						{{n+1}}
-					</option>
-				</select>
+			<div class="form-group">
+				<input class="form-control" ng-model="user.plainPassword" required name="password" type="password" placeholder="Password">
 			</div>
-			<div class="col-sm-4">
-				<select ng-model="user.birthyear" name="year">
-					<option value=""></option>
-					<option ng-repeat="n in [] | yearRange:200" value="{{n+1}}">
-						{{n+1}}
-					</option>
-				</select>
+			<div class="form-group">
+				<input class="form-control" ng-model="confpwd" name="passwordconf" type="password" placeholder="Confirm password" compare-to="user.plainPassword" />
+				<p class="alert alert-danger" ng-show="form.passwordconf.$error.compareTo">Confirmation password and password doesn't match</p>
 			</div>
-		</div>
-		<label class="checkbox-inline">
-		  <input ng-model="user.man" type="checkbox" value="man"> Man
-		</label>
-		<label class="checkbox-inline">
-		  <input ng-model="user.woman" type="checkbox" value="woman"> Woman
-		</label>
-		<div class="form-group">
-			<select ng-model="user.country" name="country">
-				<option ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
-			</select>
-		</div>
-		<button class="btn btn-block btn-lg btn-primary">
-			<i class="glyphicon glyphicon-ok"></i>VALIDER
-		</button>
-	</form>
+			<div class="form-group">
+				<input class="form-control" ng-model="user.email" required name="email" type="text" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<div class="select-container">
+						<select data-toggle="select" ng-model="user.birthday" required name="day">
+							<option value=""></option>
+							<option ng-repeat="n in [] | range:31" value="{{n+1}}">
+								{{n+1}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="select-container">
+						<select ng-model="user.birthmonth" required name="month">
+							<option value=""></option>
+							<option ng-repeat="n in [] | range:12" value="{{n+1}}">
+								{{n+1}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="select-container">
+						<select ng-model="user.birthyear" required name="year">
+							<option value=""></option>
+							<option ng-repeat="n in [] | yearRange:200" value="{{n+1}}">
+								{{n+1}}
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="radio-inline">
+				  <input ng-model="user.man" required name="genre" type="radio" value="man"> Man
+				</label>
+				<label class="radio-inline">
+				  <input ng-model="user.woman" name="genre" type="radio" value="woman"> Woman
+				</label>
+			</div>
+			<div class="form-group">
+				<div class="select-container select-large">
+					<select ng-model="user.country" required="" name="country">
+						<option value=""></option>
+						<option ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
+					</select>
+				</div>
+			</div>
+			<button class="btn btn-block btn-lg btn-primary">
+				<i class="icon-checkmark"></i>VALIDER
+			</button>
+		</form>
+	</div>
 </div>

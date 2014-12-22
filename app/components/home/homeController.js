@@ -26,7 +26,13 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 			$scope.connectUser();
 		},
 		function(error){
-			$scope.errorSignIn = error.data.message;
+			$scope.errorSignUp = "";
+			if(typeof error.data.message != "undefined")
+				$scope.errorSignUp = error.data.message+"   ";
+			if(typeof error.data.email != "undefined")
+				$scope.errorSignUp += error.data.email[0]+"   ";
+			if(typeof error.data.username != "undefined")
+				$scope.errorSignUp += error.data.username[0]+"   ";
 		});
 	}
 
@@ -41,7 +47,7 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 			$location.path("/home");
 		},
 		function(error){
-			$scope.errorSignUp = error.data.message;
+			$scope.errorSignIn = error.data.message;
 
 		});
 	}

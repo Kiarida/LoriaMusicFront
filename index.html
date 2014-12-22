@@ -14,7 +14,8 @@
 
 <!-- NavBar -->
 
-<nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation">
+<!-- <nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation"> -->
+<nav id="topbar" class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     
@@ -127,7 +128,7 @@
 </div>
 
 
-  <div class="content" ng-view></div>
+ <!--  <div class="content" ng-view></div> -->
 
 <!--   ############## LIB JS ################# -->
 	<script src="assets/libs/angular.min.js"></script>
@@ -135,9 +136,15 @@
 	<script src="assets/libs/angular-resource.min.js"></script>
   <script src="assets/libs/angular-ui.js"></script>
   <script src="assets/libs/ng-tags-input.min.js"></script>
+  <script src="assets/libs/jquery-1.11.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/flat-ui.min.js"></script>
   <script src="assets/js/flatuiApp.js"></script>
+
+
+  <script src="app/app.module.js"></script>
+  <script src="app/app.routes.js"></script>
+
 <!--   ############### COMPONENTS ################# -->
   <script src="app/components/home/homeController.js"></script>
   <script src="app/components/home/homeService.js"></script>
@@ -146,9 +153,8 @@
   <script src="app/components/menu/menuController.js"></script>
   <script src="app/components/topbar/topbarController.js"></script>
   <script src="app/shared/form/formDirective.js"></script>
-	<script src="app/app.module.js"></script>
-	<script src="app/app.routes.js"></script>
-	<script src="assets/libs/jquery-1.11.1.min.js"></script>
+	
+	
 
 
 	

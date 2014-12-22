@@ -7,7 +7,7 @@
 
 
 
-/*############################ NAVBAR ####################################*/
+/*############################ DEBUT  NAVBAR ####################################*/
 
 
 .navbar-default{
@@ -169,6 +169,9 @@
 }
 
 
+/*############################### FIN NAVBAR ################################*/
+
+
 
 /*######################### LEFT MENU #############################*/
 
@@ -212,10 +215,6 @@
  
 } 
 
-/*#menu-left .navbar-default .navbar-nav > li > a:focus:hover{
-  background-color : #64718C;
- 
-} */
 
 #menu-left .icon-menu-left{
   padding-right: 15px;
@@ -241,15 +240,98 @@
 }
 
 #menu-left .playlist{
-  padding-bottom: 10px;
+  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
-#menu-left .playlist > a{
+#menu-left .playlist > div {
+  margin-bottom: 0px;
+}
+
+#menu-left .playlist-content > a{
   font-size: 18px;
   color : #FFF;
   padding-left: 10px;
   padding-bottom: 0px;
+
 }
+
+
+#menu-left .playlist-content{
+  display: inline-block;
+}
+
+#menu-left .playlist:hover{
+  background-color: #374051;
+}
+
+#menu-left .playlist:hover .playlist-icons{
+  display: inline-block;
+}
+
+#menu-left .playlist-icons{
+  width: 100px;
+  float: right;
+  display: none;
+
+}
+
+
+#menu-left .playlist-tag{
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin-bottom: 0px;
+  background-color: #374051;
+  border: none;
+  color: #FFFFFF;
+
+}
+
+#menu-left div.tags{
+
+  background-color: #374051;
+  border: none;
+  box-shadow: none;
+
+}
+
+#menu-left .tag-item{
+
+  background: #FFF;
+  color: #374051;
+  border: none;
+}
+
+#menu-left .input.ng-valid{
+  color: #374051;
+  border-radius: 3px;
+    display: inline-block;
+    float: left;
+    font: 14px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    height: 26px;
+    margin: 2px;
+    padding: 0 5px;
+    width: 80px;
+   
+}
+
+#menu-left span.input{
+  padding-left: 10px;
+}
+
+#menu-left .playlist:focus{
+background: #FFF;
+padding-top: 0px;
+padding-bottom: 0px;
+
+}
+
+
+
+
+
 
 
 

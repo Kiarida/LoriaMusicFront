@@ -14,6 +14,14 @@ app.controller('topbarController',function ($scope, $log) {
     $scope.status.isopen = !$scope.status.isopen;
   };
 
+  $scope.user = {
+
+    id : 177383,
+    lastName : "John",
+    firstName : "Thomas"
+
+  };
+
   
 
 });

@@ -1,4 +1,4 @@
-var app= angular.module('PlayerApp',['ngRoute', 'ngResource', 'ui.bootstrap']);
+var app= angular.module('PlayerApp',['ngRoute', 'ngResource', 'ui.bootstrap', 'ngTagsInput']);
 app.filter('range', function() {
   return function(input, total) {
     total = parseInt(total);

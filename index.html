@@ -7,6 +7,7 @@
     <link href="assets/css/flat-ui.min.css" rel="stylesheet">
     <link href="assets/css/icon-moon.css" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/ng-tags-input.min.css">  
 </head>
 <body ng-app="PlayerApp">
 <!-- NavBar -->
@@ -30,7 +31,7 @@
         
                 <button type="button" class="btn btn-pseudo dropdown-toggle" dropdown-toggle ng-disabled="disabled">
                   <i class="glyphicon glyphicon-user padding-i"></i>
-                    Thomas
+                    {{user.firstName}}
                   <i class="icon-arrow-down4"></i>
                 </button>
                   <ul class="dropdown-menu" role="menu">
@@ -81,20 +82,44 @@
           <ul class="nav navbar-nav">
             <li><a href="#"><i class="icon-menu-left icon-trophy"></i>Les Tops</a></li>
             <li><a href="#"><i class="icon-menu-left icon-feed"></i>Radios</a></li>
-            <li><a href="#"><i class="icon-menu-left icon-clock"></i>Mes écoutes</a></li>
+            <li my-focus="isFocused"><a href="#"><i class="icon-menu-left icon-clock"></i>Mes écoutes</a></li>
           </ul>
 
           <div ng-controller="menuController">
           <ul class="ul-Playlist">
             <li><p class="titrePlaylist">PLAYLIST <a href="#" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
-            <li class="playlist" ng-repeat="playlist in playlists"><a href="">{{playlist.name}}</a></li>
+            <li class="playlist" ng-repeat="playlist in playlists" >
+              <div class="one-playlist">
+                <div class="playlist-name playlist-content">
+                <a href="">{{playlist.name}}</a>
+              </div>
+                <div class="playlist-icons playlist-content">
+                  <a href=""><i class="icon-pencil"></i></a>
+                  <a href=""><i class="icon-trash"></i></a>
+                  <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed; changeColor()" ng-style="styleIconTag"><i class="icon-tag"></i></a>
+                </div>
+
+                <div class="playlist-tags" collapse="isCollapsed">
+                  <div class="well well-lg playlist-tag">
+                    
+                    <tags-input class="tags-playlist" ng-model="tags" min-length="1" max-length="5"></tags-input>
+                  
+
+                  </div> 
+                </div>
+
+              </div>
+            </li>
           </ul>
           
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
   </div>
+</div>
   <div class="col-sm-9">
+
+    
     
     
 </div>
@@ -105,6 +130,7 @@
 	<script src="assets/libs/angular-route.min.js"></script>
 	<script src="assets/libs/angular-resource.min.js"></script>
   <script src="assets/libs/angular-ui.js"></script>
+  <script src="assets/libs/ng-tags-input.min.js"></script>
 	<script src="app/app.module.js"></script>
 	<script src="app/app.routes.js"></script>
 	<script src="assets/libs/jquery-1.11.1.min.js"></script>

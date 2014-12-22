@@ -39,6 +39,7 @@ h1{
 #topBarSignUp input{ width:100%; }
 #topBarSignUp .form-group:nth-child(2){ margin-right: 0;}
 #topBarSignUp.navbar{ margin-bottom: 0px; }
+#topBarSignUp .alert { padding: 3px 10px; margin:0; }
 
 
 /*  SIGNUP  */
@@ -53,6 +54,7 @@ body{
 #formSignup .col-sm-4:last-child{	padding-right: 0; }
 #formSignup .radio-inline { line-height: 1.3; }
 #formSignup .alert-danger { margin : 20px 0 0; font-size:0.938em; padding:5px 15px; }
+#formSignup .alert-danger.alert-signup { margin-bottom: 10px; }
 
 
 

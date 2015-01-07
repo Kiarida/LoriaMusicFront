@@ -85,36 +85,64 @@
           <ul class="nav navbar-nav">
             <li><a href="#"><i class="icon-menu-left icon-trophy"></i>Les Tops</a></li>
             <li><a href="#"><i class="icon-menu-left icon-feed"></i>Radios</a></li>
-            <li my-focus="isFocused"><a href="#"><i class="icon-menu-left icon-clock"></i>Mes écoutes</a></li>
+            <li><a href="#"><i class="icon-menu-left icon-clock"></i>Mes écoutes</a></li>
           </ul>
 
           <div ng-controller="menuController">
-          <ul class="ul-Playlist">
-            <li><p class="titrePlaylist">PLAYLIST <a href="#" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
-            <li class="playlist" ng-repeat="playlist in playlists" >
+          <ul class="ul-menuleft">
+            <li><p class="titre-menuleft">PLAYLIST <a ng-click="changeNewPlaylist()" href="#" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
+           
+            <div>
+              <input ng-if="newPlaylist" type="text" class="form-control input-new-playlist" value="Nouvelle Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
+            </div>
+
+            <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController">
               <div class="one-playlist">
                 <div class="playlist-name playlist-content">
-                <a href="">{{playlist.name}}</a>
+                <a ng-if="!getEditPlaylist()" class="playlistFocus"href="">{{playlist.name}}</a>
+                <input ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
               </div>
-                <div class="playlist-icons playlist-content">
-                  <a href=""><i class="icon-pencil"></i></a>
+                <div class="playlist-icons playlist-content playlist-hover">
+                  <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
+                    <i class="icon-pencil"></i>
+                  </a>
                   <a href=""><i class="icon-trash"></i></a>
-                  <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed; changeColor()" ng-style="styleIconTag"><i class="icon-tag"></i></a>
+                  <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed;" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
+                    <i class="icon-tag"></i>
+                  </a>
                 </div>
 
                 <div class="playlist-tags" collapse="isCollapsed">
                   <div class="well well-lg playlist-tag">
                     
-                    <tags-input class="tags-playlist" ng-model="tags" min-length="1" max-length="5"></tags-input>
+                    <tags-input class="tags-playlist" ng-model="tags" min-length="1" max-length="10"></tags-input>
                   
 
                   </div> 
                 </div>
 
               </div>
+
+        
             </li>
           </ul>
-          
+
+        </div>
+
+        <!-- Track history -->
+
+          <div ng-controller="historyController">
+          <ul class="ul-menuleft">
+            <li><p class="titre-menuleft">MON HISTORIQUE</p></li>
+            <li class="track li-repeat-track" ng-repeat="track in getHistoryTracks()">
+            
+              <div class="one-track">
+                <a href=""><i class="icon-music icon-menu-left"></i>{{track.title}}</a>
+              </div>
+
+        
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -151,8 +179,15 @@
   <script src="app/components/home/homeController.js"></script>
   <script src="app/components/home/homeService.js"></script>
   <script src="app/components/menu/menuController.js"></script>
+  <script src="app/components/menu/historyController.js"></script>
+  <script src="app/components/menu/playlistController.js"></script>
+
   <script src="app/components/topbar/topbarController.js"></script>
   <script src="app/shared/form/formDirective.js"></script>
+  <script src="app/shared/menuleft/showTagPlaylist.js"></script>
+  <script src="app/shared/menuleft/editPlaylist.js"></script>
+  <script src="app/shared/menuleft/editPlaylistName.js"></script>
+  <script src="app/shared/menuleft/newPlaylist.js"></script>
 	
 	
 

@@ -1,6 +1,9 @@
 app.controller('menuController',function ($scope, $log) {
   
-$scope.playlists = [
+
+// Playlists to get
+
+var playlists = [
 
     {
       id : 1,
@@ -18,26 +21,22 @@ $scope.playlists = [
 
   ];
 
-   $scope.tags = [
-    { text: 'Tag1' }
-  ];
+  $scope.newPlaylist = false;     //when user click on add 
 
-
-  $scope.isCollapsed = true;
-  $scope.isFocused = false;
-
-  $scope.styleIconTag = {
-    color : 'white'
-  };
-
-  $scope.changeColor = function(){
-    if($scope.styleIconTag.color == 'white'){
-      $scope.isFocused = true;
-      $scope.styleIconTag.color = '#7B9EDF';
-    }
-    else{
-      $scope.styleIconTag.color = 'white';
-    }
+  $scope.changeNewPlaylist = function(){
+    $scope.newPlaylist = !$scope.newPlaylist;
   }
+
+  
+   $scope.getPlaylists = function(){ 
+    return playlists;
+  }
+
+
+
+
+
+
+
 
 });

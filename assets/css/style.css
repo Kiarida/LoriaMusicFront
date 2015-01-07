@@ -95,6 +95,11 @@ select{
    	-moz-appearance: meterchunk;
     appearance: none;
 }
+textarea{
+	background: none;
+	border:1px solid #fff;
+	font-size: 15px;
+}
 
 /* FORM */
 .form-horizontal .form-group {

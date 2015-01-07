@@ -37,7 +37,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             }
           }
         });
-        //if the user hasn't been checked via the IsConnected resource we do it in order to check if the x-wsse for the user is valid
+        // if the user hasn't been checked via the IsConnected resource we do it in order to check if the x-wsse for the user is valid
         if(!Auth.getUser().checked){
           var post = Connected.query(null, function(){
             var user = Auth.getUser();
@@ -53,6 +53,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $location.path("/");
           });
         }
+        else{
+            $rootScope.connected = true;
+        }
       }
       else{
         $location.path("/");
@@ -64,5 +67,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 app.constant("routeRessource", {
   "CreateToken" : "http://loriamusic.loc:8888/api/app.php/security/tokens/creates.json",
   "CreateUser"  : "http://loriamusic.loc:8888/api/app.php/users",
-  "IsConnected" : "http://loriamusic.loc:8888/api/app.php/api/connected"
+  "IsConnected" : "http://loriamusic.loc:8888/api/app.php/api/connected",
+  "PrefUser" : "http://loriamusic.loc:8888/api/app.php/user/:id"
 })

@@ -6,7 +6,8 @@ h1{
 	text-transform: uppercase;
 	margin-bottom: 40px;
 }
-.content{ margin-bottom: 20px; }
+.content{ margin-bottom: 20px; position: relative; }
+.content .container{ position: relative; }
 
 
 /*  NAVBAR   */
@@ -106,6 +107,20 @@ textarea{
 	margin-left: 0;
 	margin-right: 0;
 }
+
+/*  PREFERENCES  */
+.round.back{
+    font-size: 1.9em;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.round.back a{ color: #374051; }
+.centre, .centre select, .centre input { background: #d9dcde; color:#374051; }
+.centre select, .centre input { border: 1px solid #374051; }
+.centre .select-container.select-large{ background : url("../img/arrowdown-dark.gif") no-repeat scroll 97% 50% #d9dcde; border-color: #374051; }
+
+
 
 
 

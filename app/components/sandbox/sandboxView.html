@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="col-lg-6">
+		<form role="form" ng-submit="send()">
+			<div class="form-group">
+				<div class="select-container select-large">
+					<select data-toggle="select" ng-model="methode" name="methode">
+						<option value="0">GET</option>
+						<option value="1">POST</option>
+						<option value="2">PUT</option>
+						<option value="3">DELETE</option>				
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="text" ng-model="lien" class="form-control" placeholder="Lien">
+			</div>
+			<div class="form-group">
+				<textarea name="param" ng-model="param" style="width:100%" placeholder="Paramètres à envoyer"></textarea>
+			</div>
+			<button type="submit" class="btn btn-default">Envoyer</button>
+		</form>
+	</div>
+
+	<div class="col-lg-6">
+		<p>
+			{{result}}
+		</p>
+	</div>
+
+</div>

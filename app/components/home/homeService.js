@@ -20,3 +20,22 @@ app.factory('PaysFactory',['$http',"$q", function($http, $q){
 	}
 	return factory;
 }]);
+
+app.factory('Auth', function(){
+
+	var user;
+
+	return{
+		setUser : function(aUser){
+	    	user = aUser;
+		},
+		getUser : function(){
+	    	return user;
+		},
+		isLoggedIn : function(){
+			console.log(user);
+	    	return(user)? user : false;
+		}
+		
+	}
+});

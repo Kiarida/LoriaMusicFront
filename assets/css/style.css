@@ -22,7 +22,8 @@ h1{
 	text-transform: uppercase;
 	margin-bottom: 40px;
 }
-.content{ margin-bottom: 20px; }
+.content{ margin-bottom: 20px; position: relative; }
+.content .container{ position: relative; }
 
 
 .navbar-form .input-group.input-search-bar{
@@ -460,6 +461,7 @@ padding-bottom: 0px;
 #topBarSignUp input{ width:100%; }
 #topBarSignUp .form-group:nth-child(2){ margin-right: 0;}
 #topBarSignUp.navbar{ margin-bottom: 0px; }
+#topBarSignUp .alert { padding: 3px 10px; margin:0; }
 
 
 /*  SIGNUP  */
@@ -474,6 +476,7 @@ body{
 #formSignup .col-sm-4:last-child{	padding-right: 0; }
 #formSignup .radio-inline { line-height: 1.3; }
 #formSignup .alert-danger { margin : 20px 0 0; font-size:0.938em; padding:5px 15px; }
+#formSignup .alert-danger.alert-signup { margin-bottom: 10px; }
 
 
 
@@ -514,12 +517,31 @@ select{
    	-moz-appearance: meterchunk;
     appearance: none;
 }
+textarea{
+	background: none;
+	border:1px solid #fff;
+	font-size: 15px;
+}
 
 /* FORM */
 .form-horizontal .form-group {
 	margin-left: 0;
 	margin-right: 0;
 }
+
+/*  PREFERENCES  */
+.round.back{
+    font-size: 1.9em;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.round.back a{ color: #374051; }
+.centre, .centre select, .centre input { background: #d9dcde; color:#374051; }
+.centre select, .centre input { border: 1px solid #374051; }
+.centre .select-container.select-large{ background : url("../img/arrowdown-dark.gif") no-repeat scroll 97% 50% #d9dcde; border-color: #374051; }
+
+
 
 
 

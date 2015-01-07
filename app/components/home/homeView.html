@@ -1,16 +1,17 @@
-
 <div id="topBarSignUp" class="navbar navbar-default">
 	<div class="container">
-		<div class="col-lg-6"></div>
+		<div class="col-lg-6">
+			  <p class="alert alert-danger" ng-show="errorSignIn">{{ errorSignIn }}</p>
+		</div>
 		<div class="col-lg-6">
 			<form ng-submit="connectUser()" class="form-inline" role="form">
 			  <div class="form-group">
 			      <label class="sr-only" for="exampleInputEmail2">Username</label>
-			      <input type="text" class="form-control" name="_username" id="exampleInputEmail2" placeholder="Username">
+			      <input type="text" class="form-control" ng-model="userConn._username" name="_username" id="exampleInputEmail2" placeholder="Username">
 			  </div>
 			  <div class="form-group">
 			    <label class="sr-only" for="exampleInputPassword2">Password</label>
-			    <input type="password" class="form-control" name="_password" id="exampleInputPassword2" placeholder="Password">
+			    <input type="password" ng-model="userConn._password" class="form-control" name="_password" id="exampleInputPassword2" placeholder="Password">
 			  </div>
 			  <button type="submit" class="btn btn-default"><i class="icon-switch"></i>CONNEXION</button>
 			</form>
@@ -22,29 +23,28 @@
 
 		<h1>Why Signup ?</h1>
 		<p>Alii nullo quaerente vultus severitate adsimulata patrimonia sua in inmensum extollunt, cultorum ut puta feracium multiplicantes annuos fructus, quae a primo ad ultimum solem se abunde iactitant possidere, ignorantes profecto maiores suos, per quos ita magnitudo Romana porrigitur, non divitiis eluxisse sed per bella saevissima, nec opibus nec victu nec indumentorum vilitate gregariis militibus discrepantes opposita cuncta superasse virtute.
-
 		Montius nos tumore inusitato quodam et novo ut rebellis et maiestati recalcitrantes Augustae per haec quae strepit incusat iratus nimirum quod contumacem praefectum, quid rerum ordo postulat ignorare dissimulantem formidine tenus iusserim custodiri.</p>
 	</div>
 	<div class="col-lg-6">
 		<h1>Signup</h1>
-		<form id="formSignup" action="" class="form-horizontal" name="form" role="form" ng-submit="newUser()">
+		<form id="formSignup" class="form-horizontal" name="form" role="form" ng-submit="newUser()">
 			<div class="form-group">
-				<input class="form-control" ng-model="user._username" name="login" type="text" placeholder="Username">
+				<input class="form-control" ng-model="user.username" required name="login" type="text" placeholder="Username">
 			</div>
 			<div class="form-group">
-				<input class="form-control" ng-model="user._password" name="password" type="password" placeholder="Password">
+				<input class="form-control" ng-model="user.plainPassword" required name="password" type="password" placeholder="Password">
 			</div>
 			<div class="form-group">
-				<input class="form-control" ng-model="confpwd" name="passwordconf" type="password" placeholder="Confirm password" compare-to="user._password" />
+				<input class="form-control" ng-model="confpwd" name="passwordconf" type="password" placeholder="Confirm password" compare-to="user.plainPassword" />
 				<p class="alert alert-danger" ng-show="form.passwordconf.$error.compareTo">Confirmation password and password doesn't match</p>
 			</div>
 			<div class="form-group">
-				<input class="form-control" ng-model="user.email" name="email" type="text" placeholder="Email">
+				<input class="form-control" ng-model="user.email" required name="email" type="text" placeholder="Email">
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4">
 					<div class="select-container">
-						<select data-toggle="select" ng-model="user.birthday" name="day">
+						<select data-toggle="select" ng-model="user.birthday" required name="day">
 							<option value=""></option>
 							<option ng-repeat="n in [] | range:31" value="{{n+1}}">
 								{{n+1}}
@@ -54,7 +54,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="select-container">
-						<select ng-model="user.birthmonth" name="month">
+						<select ng-model="user.birthmonth" required name="month">
 							<option value=""></option>
 							<option ng-repeat="n in [] | range:12" value="{{n+1}}">
 								{{n+1}}
@@ -64,7 +64,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="select-container">
-						<select ng-model="user.birthyear" name="year">
+						<select ng-model="user.birthyear" required name="year">
 							<option value=""></option>
 							<option ng-repeat="n in [] | yearRange:200" value="{{n+1}}">
 								{{n+1}}
@@ -75,19 +75,21 @@
 			</div>
 			<div class="form-group">
 				<label class="radio-inline">
-				  <input ng-model="user.man" name="genre" type="radio" value="man"> Man
+				  <input ng-model="user.genre" required name="genre" type="radio" value="1"> Man
 				</label>
 				<label class="radio-inline">
-				  <input ng-model="user.woman" name="genre" type="radio" value="woman"> Woman
+				  <input ng-model="user.genre" name="genre" type="radio" value="0"> Woman
 				</label>
 			</div>
 			<div class="form-group">
 				<div class="select-container select-large">
-					<select ng-model="user.country" name="country">
+					<select ng-model="user.country" required="" name="country">
+						<option value=""></option>
 						<option ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
 					</select>
 				</div>
 			</div>
+			<p class="alert alert-danger alert-signup" ng-show="errorSignUp">{{ errorSignUp }}</p>
 			<button class="btn btn-block btn-lg btn-primary">
 				<i class="icon-checkmark"></i>VALIDER
 			</button>

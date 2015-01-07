@@ -1,5 +1,5 @@
-app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', function ($scope, $resource, $rootScope){
-	$rootScope.connected = false;
-
+app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies){
+	
 
 }]);

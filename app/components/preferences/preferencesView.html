@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="col-lg-6">
+		<form role="form" ng-submit="send()">
+			<div class="form-group">
+				<input type="email" ng-model="user.email" class="form-control" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<input class="form-control" ng-model="user.plainPassword" name="password" type="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<input class="form-control" ng-model="confpwd" name="passwordconf" type="password" placeholder="Confirm password" compare-to="user.plainPassword" />
+				<p class="alert alert-danger" ng-show="form.passwordconf.$error.compareTo">Confirmation password and password doesn't match</p>
+			</div>
+			<div class="form-group">
+				<div class="select-container select-large">
+					<select ng-model="user.country" name="country">
+						<option value="{{ user.country }}">{{user.country}}</option>
+						<option ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
+					</select>
+				</div>
+			</div>
+			<p ng-show="error" class="alert alert-danger">
+				{{ error }}
+			</p>
+			<button type="submit" class="btn btn-default"><i class="icon-checkmark"></i>Valider</button>
+			<button class="btn btn-default"><i class="icon-close"></i>Annuler</button>
+
+		</form>
+	</div>
+
+</div>

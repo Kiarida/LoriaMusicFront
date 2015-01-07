@@ -43,6 +43,9 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 			$rootScope.connected = true;
 			var user = {};
 			user.wsse = post.WSSE;
+			user.email = post.email;
+			user.country = post.country;
+			user.id = post.id;
 			Auth.setUser(user);
 			$location.path("/home");
 		},

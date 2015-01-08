@@ -99,8 +99,12 @@
             <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController">
               <div class="one-playlist">
                 <div class="playlist-name playlist-content">
-                <a ng-if="!getEditPlaylist()" class="playlistFocus"href="">{{playlist.name}}</a>
+                <a ng-if="!getEditPlaylist()" class="playlistFocus"href=""  ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
+                  {{playlist.name}}
+                  <i ng-if="playlistHover" class="icon-play2 icon-menu-left icon-play-playlist"></i>
+                </a>
                 <input ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
+
               </div>
                 <div class="playlist-icons playlist-content playlist-hover">
                   <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
@@ -115,7 +119,7 @@
                 <div class="playlist-tags" collapse="isCollapsed">
                   <div class="well well-lg playlist-tag">
                     
-                    <tags-input class="tags-playlist" ng-model="tags" min-length="1" max-length="10"></tags-input>
+                    <tags-input class="tags-playlist" ng-model="tags" ng-pattern="tagsPattern"></tags-input>
                   
 
                   </div> 
@@ -137,7 +141,13 @@
             <li class="track li-repeat-track" ng-repeat="track in getHistoryTracks()">
             
               <div class="one-track">
-                <a href=""><i class="icon-music icon-menu-left"></i>{{track.title}}</a>
+                <a href="" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
+                  <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
+                  <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
+
+                  {{track.title}}
+
+                </a>
               </div>
 
         

@@ -303,6 +303,10 @@ h1{
   float: right;
 }
 
+#menu-left .icon-play-playlist{
+  padding-left: 10px;
+}
+
 #menu-left .playlist-hover{
   
   display: none;  
@@ -384,6 +388,8 @@ padding-bottom: 0px;
     transition: border 0.25s linear 0s, color 0.25s linear 0s, background-color 0.25s linear 0s;
     width: 130px;
 }
+
+
 
 /*##################### HISTORY #####################*/
 

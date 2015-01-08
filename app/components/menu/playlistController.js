@@ -9,6 +9,8 @@ app.controller('playlistController',function ($scope, $log) {
     { text: 'Tag1' }
   ];
 
+
+
   // return playlists
 
  
@@ -36,6 +38,7 @@ app.controller('playlistController',function ($scope, $log) {
   $scope.isCollapsed = true;  // true if the tag div is collapsed
   $scope.editPlaylist = false; // true if user click on the editPlaylist icon
   $scope.ctrl = "playlistController";
+  $scope.playlistHover = false;   // true if hover on the playlist
 
 
 

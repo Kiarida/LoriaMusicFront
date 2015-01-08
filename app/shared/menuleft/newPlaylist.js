@@ -5,18 +5,25 @@ app.directive('ngNewPlaylist', function($timeout) {
            },
     link: function(scope, element) {
       element.bind("keypress", function(event) {
-                if(event.which == 13) {
+
+
+                if(event.keyCode == 13) {
 
                     scope.$apply(function () {
                       scope.newPlaylist();
                     });
-                        
-                        console.log(scope);
-                        
-
-
+       
                 }
-            });
+
+                if(event.keyCode == 27) {
+
+                    scope.$apply(function () {
+                      scope.newPlaylist();
+                    });
+       
+                }
+    });
+               
     }
   };
 });

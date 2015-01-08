@@ -21,6 +21,8 @@ var history = [
 
   ];
 
+  $scope.hoverHistory = false;
+
   
    $scope.getHistoryTracks = function(){ 
     return history;

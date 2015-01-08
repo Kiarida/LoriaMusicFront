@@ -5,6 +5,7 @@ body {
 h1{
 	text-transform: uppercase;
 	margin-bottom: 40px;
+	font-size: 2.1em;
 }
 .content{ margin-bottom: 20px; position: relative; }
 .content .container{ position: relative; }
@@ -112,15 +113,79 @@ textarea{
 .round.back{
     font-size: 1.9em;
     position: absolute;
-    right: 10px;
+    right: 30px;
     top: 10px;
 }
 .round.back a{ color: #374051; }
 .centre, .centre select, .centre input { background: #d9dcde; color:#374051; }
 .centre select, .centre input { border: 1px solid #374051; }
 .centre .select-container.select-large{ background : url("../img/arrowdown-dark.gif") no-repeat scroll 97% 50% #d9dcde; border-color: #374051; }
+#preferences { padding: 20px; }
 
+/*  ACCUEIL  */
 
+.droit{ background: #9a929f; color: #374051; padding: 20px; }
+.centre { padding:20px;  box-shadow: 7px 6px 26px -2px rgba(0, 0, 0, 0.7); z-index: 10; }
+.droit, .centre { min-height: 600px;}
+.deckgrid .ng-scope{
+    position: relative;
+    margin:10px 5px;
+}
+.deckgrid .ng-scope .caption{ 
+	margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    z-index: 21;
+    top:27%;
+    transition: all 0.5s ease 0s;
+    width: 100%;
 
+}
+.deckgrid .ng-scope .thumbnail {  padding: 0; border: 0; color: #fff;}
+.deckgrid .ng-scope:hover .play { opacity: 1; top:33%; }
+.deckgrid .ng-scope .play { opacity: 0; transition: all 0.5s ease 0s; position: absolute; top:0; z-index: 22; left:41%; font-size: 1.7em; color: #fff; }
+.deckgrid .ng-scope:hover > .overlay{ opacity: 1; }
+.deckgrid .ng-scope:hover .caption{ opacity: 0; }
+.deckgrid .ng-scope > .overlay{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    transition: all 0.5s ease 0s;
+    z-index: 20;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    right: 0;
+    margin:0 5px;
+    top: 0;
+}
+.deckgrid[deckgrid]::before {
+    /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '3 .column.column-1-4';
+    font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
+    visibility: hidden;
+}
+
+.deckgrid .column {
+    float: left;
+}
+
+.deckgrid .column-1-4 {
+    width: 33.3%;
+}
+
+@media screen and (max-width: 480px){
+    .deckgrid[deckgrid]::before {
+        content: '1 .column.column-1-1';
+    }
+
+    .deckgrid .column-1-1 {
+        width: 100%;
+    }
+}
 
 

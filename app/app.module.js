@@ -1,4 +1,4 @@
-var app= angular.module('PlayerApp',['ngRoute', 'ngResource', 'ngCookies']);
+var app= angular.module('PlayerApp',['ngRoute', 'ngResource', 'ngCookies','akoenig.deckgrid']);
 app.filter('range', function() {
   return function(input, total) {
     total = parseInt(total);
@@ -68,5 +68,9 @@ app.constant("routeRessource", {
   "CreateToken" : "http://loriamusic.loc:8888/api/app.php/security/tokens/creates.json",
   "CreateUser"  : "http://loriamusic.loc:8888/api/app.php/users",
   "IsConnected" : "http://loriamusic.loc:8888/api/app.php/api/connected",
-  "PrefUser" : "http://loriamusic.loc:8888/api/app.php/user/:id"
+  "PrefUser" : "http://loriamusic.loc:8888/api/app.php/user/:id",
+  "Genre" : "http://loriamusic.loc:8888/api/app.php/genres",
+  "ItemGenre" : "http://loriamusic.loc:8888/api/app.php/item/genre/:id",
+  "Artistes" : "http://loriamusic.loc:8888/api/app.php/artistes/",
+  "ItemArtiste" : "http://loriamusic.loc:8888/api/app.php/item/artiste/:id"
 })

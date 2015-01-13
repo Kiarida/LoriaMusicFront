@@ -60,7 +60,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $cookieStore.put('user',user);
             Auth.getUser().checked = true;
             $rootScope.connected = true;
-            if($location.url() == "/"){
+            if($location.url() == "/" || $location.url() == ""){
               $location.path("/home");
             }
           },
@@ -71,6 +71,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         }
         else{
             $rootScope.connected = true;
+            console.log($location.url() == "");
+            if($location.url() == "/" || $location.url() == ""){
+              $location.path("/home");
+            }
         }
       }
       else{

@@ -15,7 +15,7 @@
 <!-- NavBar -->
 
 <!-- <nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation"> -->
-<nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation">
+<nav ng-if="connected" id="topbar" class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     
@@ -64,17 +64,8 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-
-
-
-
-
-
-<!-- Left Menu -->
-
-
-  <div id="menu-left" class="col-lg-2 menu-left">
+	<!-- Left Menu -->
+<div ng-if="connected" id="menu-left" class="col-lg-2 menu-left">
     <div class="sidebar-nav">
       <div class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
@@ -90,10 +81,10 @@
 
           <div ng-controller="menuController">
           <ul class="ul-menuleft">
-            <li><p class="titre-menuleft">PLAYLIST <a ng-click="changeNewPlaylist()" href="#" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
+            <li><p class="titre-menuleft">PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
            
             <div>
-              <input ng-if="newPlaylist" type="text" class="form-control input-new-playlist" value="Nouvelle Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
+              <input ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
             </div>
 
             <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController">
@@ -148,17 +139,11 @@
     </div>
   </div>
 </div>
-  <div class="col-lg-10">
 
-    
-    
-    
+<div class="content col-lg-10" ng-view>
+
+
 </div>
-
-
-	<div class="content" ng-view>
-		
-	</div>
 
 <!--   ############## LIB JS ################# -->
 	<script src="assets/libs/angular.min.js"></script>

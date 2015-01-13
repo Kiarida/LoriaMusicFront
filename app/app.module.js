@@ -11,8 +11,8 @@ var app= angular.module('PlayerApp',
     "com.2fdevs.videogular.plugins.poster",
     "com.2fdevs.videogular.plugins.buffering",
     "ui.bootstrap",
+    'ngTagsInput',
   ]);
-
 
 
 app.filter('range', function() {

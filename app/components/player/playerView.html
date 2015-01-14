@@ -1,0 +1,25 @@
+<div class="col-lg-6 centre">
+	<div class="videogular-container">
+		<videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
+			<vg-video vg-src="controller.config.sources"
+					  vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
+			</vg-video>
+
+			<vg-controls id="controlsBar">
+				<control-player></control-player>
+			</vg-controls>
+			<vg-scrubBar>
+				<vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+			</vg-scrubBar>
+			<vg-overlay-play></vg-overlay-play>
+			<vg-poster-image vg-url='controller.videos[controller.currentVideo].poster'></vg-poster-image>
+		</videogular>
+	</div>
+	<div class="playlist" playlist-player>
+		
+	</div>	
+	
+</div>
+<div class="droit col-lg-6">
+	
+</div>

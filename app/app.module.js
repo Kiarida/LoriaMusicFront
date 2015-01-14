@@ -1,4 +1,21 @@
-var app= angular.module('PlayerApp',['ngRoute', 'ngResource', 'ui.bootstrap', 'ngTagsInput', 'ngCookies']);
+
+var app= angular.module('PlayerApp',
+  [
+    'ngRoute',
+    'ngResource',
+    'ngCookies',
+    'akoenig.deckgrid',
+    "ngSanitize",
+    "com.2fdevs.videogular",
+    "com.2fdevs.videogular.plugins.controls",
+    "com.2fdevs.videogular.plugins.overlayplay",
+    "com.2fdevs.videogular.plugins.poster",
+    "com.2fdevs.videogular.plugins.buffering",
+    "ui.bootstrap",
+    'ngTagsInput',
+  ]);
+
+>>>>>>> bb9132c18e99e9229d48c2c99665ae49df502780
 
 app.filter('range', function() {
   return function(input, total) {
@@ -45,7 +62,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $cookieStore.put('user',user);
             Auth.getUser().checked = true;
             $rootScope.connected = true;
-            if($location.url() == "/"){
+            if($location.url() == "/" || $location.url() == ""){
               $location.path("/home");
             }
           },
@@ -56,6 +73,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         }
         else{
             $rootScope.connected = true;
+            console.log($location.url() == "");
+            if($location.url() == "/" || $location.url() == ""){
+              $location.path("/home");
+            }
         }
       }
       else{
@@ -69,5 +90,9 @@ app.constant("routeRessource", {
   "CreateToken" : "http://loriamusic.loc:8888/api/app.php/security/tokens/creates.json",
   "CreateUser"  : "http://loriamusic.loc:8888/api/app.php/users",
   "IsConnected" : "http://loriamusic.loc:8888/api/app.php/api/connected",
-  "PrefUser" : "http://loriamusic.loc:8888/api/app.php/user/:id"
+  "PrefUser" : "http://loriamusic.loc:8888/api/app.php/user/:id",
+  "Genre" : "http://loriamusic.loc:8888/api/app.php/genres",
+  "ItemGenre" : "http://loriamusic.loc:8888/api/app.php/item/genre/:id",
+  "Artistes" : "http://loriamusic.loc:8888/api/app.php/artistes/",
+  "ItemArtiste" : "http://loriamusic.loc:8888/api/app.php/item/artiste/:id"
 })

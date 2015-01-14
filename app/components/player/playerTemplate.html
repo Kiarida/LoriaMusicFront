@@ -1,0 +1,34 @@
+<div class="col-lg-3">
+	
+	<div class="button-control">
+		<button class="iconButton" ng-class="{ active: controller.loop }" type="button" aria-label="loop listening" ng-click="loop()"><i class="icon-loop2"></i></button>
+	</div>
+	<div class="button-control">
+		<button class="iconButton" type="button" aria-label="never listen this song again" ng-click="block()"><i class="icon-blocked"></i></button>
+	</div>
+	<vg-volume>
+		<vg-mutebutton></vg-mutebutton>
+		<vg-volumebar></vg-volumebar>
+	</vg-volume>
+</div>
+<div class="col-lg-6">
+	<div class="maincontrol">
+		<div class="button-control">
+			<button class="iconButton" type="button" aria-label="previous track" ng-click="previousTrack()"><i class="icon-backward"></i></button>
+		</div>
+		<vg-play-pause-button></vg-play-pause-button>
+		<div class="button-control">
+			<button class="iconButton" type="button" aria-label="next track" ng-click="nextTrack()"><i class="icon-forward2"></i></button>
+		</div>
+	</div>
+</div>
+<div class="col-lg-3">
+	<div class="button-control">
+		<button class="iconButton" type="button" aria-label="like" ng-class="{ active: controller.like }" ng-click="like()"><i class="icon-thumbs-up"></i></button>
+	</div>
+	<div class="button-control">
+		<button class="iconButton" type="button" ng-class="{ active: controller.random }" aria-label="random listening" ng-click="random()"><i class="icon-shuffle"></i></button>
+	</div>
+</div>
+
+		

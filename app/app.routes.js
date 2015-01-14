@@ -3,7 +3,8 @@ app.config(function ($routeProvider){
 		.when('/',{templateUrl: 'app/components/home/homeView.html', controller:"HomeCtrl"})
 		.when('/home',{templateUrl: 'app/components/homeConnected/homeConnectedView.html', controller:"HomeConnectedCtrl"})
 		.when('/sandbox',{templateUrl: 'app/components/sandbox/sandboxView.html', controller:"SandboxCtrl"})
-		.when('/preferences',{templateUrl: 'app/components/preferences/preferencesView.html', controller:"PreferencesCtrl"})		
-
+		.when('/preferences',{templateUrl: 'app/components/preferences/preferencesView.html', controller:"PreferencesCtrl"})
+		.when('/play',{templateUrl: 'app/components/player/playerView.html', controller:"PlayerCtrl as controller"})
+		.otherwise({redirectTo: '/home'});		
 
 });

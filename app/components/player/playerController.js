@@ -84,7 +84,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		},
 		plugins: {
 			poster: "http://www.videogular.com/assets/images/videogular.png"
-		}
+		},
+		small: false
 	};
 
 	this.onPlayerReady = function(API) {

@@ -1,5 +1,5 @@
 <table>
-	<tr ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="video in controller.videos">
+	<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="video in controller.videos">
 		<td ng-click="setVideo($index)" class="index">
 			<a href="">
 				<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
@@ -11,11 +11,11 @@
 		<td class="title">
 			{{video.name}}
 		</td>
-		<td><i class="icon-microphone"></i> {{video.artiste}}</td>
-		<td>
+		<td class="artiste"><i class="icon-microphone"></i> {{video.artiste}}</td>
+		<td class="rating">
 			<rating ng-model="video.rate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 		</td>
-		<td class="action">
+		<td class="action" ng-class="{'hide': controller.config.small}">
 			<div class="addplaylist">
 
 				<a href ng-click="isCollapsed = !isCollapsed">

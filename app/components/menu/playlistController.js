@@ -45,6 +45,7 @@ app.controller('playlistController',function ($scope, $log) {
   }
 
 
+
   $scope.isCollapsed = true;  // true if the tag div is collapsed
   $scope.editPlaylist = false; // true if user click on the editPlaylist icon
   $scope.ctrl = "playlistController";

@@ -46,6 +46,11 @@ var playlists = [
 
   }
 
+  $scope.deletePlaylist = function(id){
+
+    //TO DO
+  }
+
   
 
 console.log($scope.titleNewPlaylist);

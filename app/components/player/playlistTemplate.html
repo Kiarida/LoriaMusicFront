@@ -1,0 +1,50 @@
+<table>
+	<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="video in controller.videos">
+		<td ng-click="setVideo($index)" class="index">
+			<a href="">
+				<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
+				<i class="icon-pause" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
+				<i class="icon-play2" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
+				<span ng-class="{hide: hover || controller.currentVideo==$index}">{{ $index+1 }}.</span>
+			</a>
+		</td>
+		<td class="title">
+			{{video.name}}
+		</td>
+		<td class="artiste"><i class="icon-microphone"></i> {{video.artiste}}</td>
+		<td class="rating">
+			<rating ng-model="video.rate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+		</td>
+		<td class="action" ng-class="{'hide': controller.config.small}">
+			<div class="addplaylist">
+
+				<a href ng-click="isCollapsed = !isCollapsed">
+					<i class="icon-plus"></i>
+				</a>
+				<div class="well addtoplaylist" collapse="isCollapsed">
+					<h3>ADD TO A PLAYLIST</h3>
+					<form action="addTrackToPlaylist(video.id)" method="POST">
+						<div class="select-container">
+							<select data-toggle="select" name="playlist">
+								<option ng-repeat="playlist in playlistUser" value="{{$index}}">{{playlist}}</option>
+							</select>
+						</div>
+						<input type="text" placeholder="New playlist name">
+						<button type="submit" class="btn btn-primary"><i class="icon-checkmark"></i> Validate</button>
+					</form>
+				</div>
+			</div>
+			<a href="">
+				<i class="icon-trash"></i>
+			</a>
+			<a href="">
+				<i class="icon-tags"></i>
+			</a>
+			<a href="">
+				<i class="icon-arrow-down4"></i>
+			</a>
+		</td>
+		
+		
+	</tr>
+</table>

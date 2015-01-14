@@ -1,0 +1,25 @@
+<div class="col-lg-2"></div>
+<div class="col-lg-5 centre">
+	<div class="videogular-container" ng-class="{'col-sm-6 small': controller.config.small}">
+		<videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
+			<vg-video vg-src="controller.config.sources"
+					  vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
+			</vg-video>
+
+			<vg-controls id="controlsBar">
+				<control-player></control-player>
+			</vg-controls>
+			<vg-scrubBar>
+				<vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+			</vg-scrubBar>
+			<vg-overlay-play ng-class="{'hide': controller.config.small}"></vg-overlay-play>
+			<vg-poster-image vg-url='controller.videos[controller.currentVideo].poster'></vg-poster-image>
+		</videogular>
+	</div>
+	<div class="playlist-player" playlist-player ng-class="{'col-sm-6 small':controller.config.small}">
+		
+	</div>	
+</div>
+<div class="droit col-lg-5">
+	
+</div>

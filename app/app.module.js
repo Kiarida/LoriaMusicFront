@@ -1,4 +1,20 @@
-var app= angular.module('PlayerApp',['ngRoute', 'ngResource', 'ngCookies','akoenig.deckgrid']);
+var app= angular.module('PlayerApp',
+  [
+    'ngRoute',
+    'ngResource',
+    'ngCookies',
+    'akoenig.deckgrid',
+    "ngSanitize",
+    "com.2fdevs.videogular",
+    "com.2fdevs.videogular.plugins.controls",
+    "com.2fdevs.videogular.plugins.overlayplay",
+    "com.2fdevs.videogular.plugins.poster",
+    "com.2fdevs.videogular.plugins.buffering",
+    "ui.bootstrap",
+  ]);
+
+
+
 app.filter('range', function() {
   return function(input, total) {
     total = parseInt(total);

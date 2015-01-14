@@ -1,4 +1,4 @@
-app.controller('menuController',function ($scope, $log) {
+app.controller('menuController',['$scope','$rootScope',function ($scope, $rootScope) {
   
 
 // Playlists to get
@@ -21,6 +21,8 @@ var playlists = [
 
   ];
 
+  $scope.titleNewPlaylist = "";
+
   $scope.newPlaylist = false;     //when user click on add 
 
   $scope.changeNewPlaylist = function(){
@@ -32,11 +34,21 @@ var playlists = [
     return playlists;
   }
 
+  $scope.addPlaylist = function(playlistName){
+
+    var count = playlists.length+1;
+    var playlist = {id : count, name : playlistName }
+    playlists.push(playlist);
+
+    /*
+      to do with backend
+    */
+
+  }
+
+  
+
+console.log($scope.titleNewPlaylist);
 
 
-
-
-
-
-
-});
+}]);

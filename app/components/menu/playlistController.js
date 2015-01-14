@@ -34,11 +34,23 @@ app.controller('playlistController',function ($scope, $log) {
     return $scope.editPlaylist;
   }
 
+  $scope.editPlaylistName = function(playlistName){
+
+    $scope.playlist.name = playlistName;
+
+    /*
+      To do with backend
+    */
+
+  }
+
 
   $scope.isCollapsed = true;  // true if the tag div is collapsed
   $scope.editPlaylist = false; // true if user click on the editPlaylist icon
   $scope.ctrl = "playlistController";
   $scope.playlistHover = false;   // true if hover on the playlist
+
+  $scope.playlistNameEdit = $scope.playlist.name;
 
 
 
@@ -47,7 +59,7 @@ app.controller('playlistController',function ($scope, $log) {
   };
 
 
- $scope.tagPattern = "\w{3,10}";
+ //$scope.tagPattern = "\w{3,10}";
 
 
 

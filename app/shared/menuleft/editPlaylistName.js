@@ -1,21 +1,28 @@
 app.directive('ngEditPlaylistName', function($timeout) {
   return {
     
-    scope: { changeEditPlaylistFalse: '&ngEditPlaylistName'
-           },
+    // scope: { changeEditPlaylistFalse: '&ngEditPlaylistName'
+    //        },
+    scope : false,
     link: function(scope, element) {
       element.bind("keypress", function(event) {
                 if(event.which == 13) {
 
-                  
-                        
                         scope.$apply(function () {
                       scope.changeEditPlaylistFalse();
+                      console.log(scope);
+                      scope.editPlaylistName(scope.playlistNameEdit);
                     });
-                        console.log(scope);
-                        
+                   
 
+                }
 
+                if(event.keyCode == 27) {
+
+                    scope.$apply(function () {
+                      scope.changeEditPlaylistFalse();
+                    });
+       
                 }
             });
     }

@@ -38,7 +38,7 @@
                   <i class="icon-arrow-down4"></i>
                 </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a class="dropdown-font" href="#"><i class="icon-menu-left icon-cog2"></i>Preférences</a></li>
+                    <li><a class="dropdown-font" href="#/preferences"><i class="icon-menu-left icon-cog2"></i>Preférences</a></li>
                     <li><a class="dropdown-font" href="#"><i class="icon-menu-left icon-switch"></i>Déconnexion</a></li>
                   </ul>
 
@@ -84,7 +84,7 @@
             <li><p class="titre-menuleft">PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
            
             <div>
-              <input ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
+              <input ng-model="titleNewPlaylist" ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
             </div>
 
             <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController">
@@ -94,7 +94,7 @@
                   {{playlist.name}}
                   <i ng-if="playlistHover" class="icon-play2 icon-menu-left icon-play-playlist"></i>
                 </a>
-                <input ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
+                <input ng-model="playlistNameEdit" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlistNameEdit}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
 
               </div>
                 <div class="playlist-icons playlist-content playlist-hover">

@@ -15,7 +15,7 @@ var app= angular.module('PlayerApp',
     'ngTagsInput',
   ]);
 
->>>>>>> bb9132c18e99e9229d48c2c99665ae49df502780
+
 
 app.filter('range', function() {
   return function(input, total) {
@@ -87,12 +87,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 }]);
 
 app.constant("routeRessource", {
-  "CreateToken" : "http://loriamusic.loc:8888/api/app.php/security/tokens/creates.json",
-  "CreateUser"  : "http://loriamusic.loc:8888/api/app.php/users",
-  "IsConnected" : "http://loriamusic.loc:8888/api/app.php/api/connected",
-  "PrefUser" : "http://loriamusic.loc:8888/api/app.php/user/:id",
-  "Genre" : "http://loriamusic.loc:8888/api/app.php/genres",
-  "ItemGenre" : "http://loriamusic.loc:8888/api/app.php/item/genre/:id",
-  "Artistes" : "http://loriamusic.loc:8888/api/app.php/artistes/",
-  "ItemArtiste" : "http://loriamusic.loc:8888/api/app.php/item/artiste/:id"
+  "CreateToken" : "http://LoriaMusic.local/api/app.php/security/tokens/creates.json",
+  "CreateUser"  : "http://LoriaMusic.local/api/app.php/users",
+  "IsConnected" : "http://LoriaMusic.local/api/app.php/api/connected",
+  "PrefUser" : "http://LoriaMusic.local/api/app.php/user/:id",
+  "Genre" : "http://LoriaMusic.local/api/app.php/genres",
+  "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",
+  "Artistes" : "http://LoriaMusic.local/api/app.php/artistes/",
+  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id"
 })

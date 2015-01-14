@@ -47,7 +47,7 @@ app.controller('playlistController',function ($scope, $log) {
   };
 
 
- $scope.tagPattern = \w{3,10};
+ $scope.tagPattern = "\w{3,10}";
 
 
 

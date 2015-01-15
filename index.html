@@ -81,21 +81,26 @@
 
           <div ng-controller="menuController">
           <ul class="ul-menuleft">
-            <li><p class="titre-menuleft">PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a></p></li>
-           
+            <li>
+            	<h3 class="titre-menuleft">
+            		PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a>
+        		</h3>
+    		</li>
             <div>
               <input ng-model="titleNewPlaylist" ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
             </div>
-
-            <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController">
+            <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController" ng-mouseenter="playlistliHover=true" ng-mouseleave="playlistliHover=false">
               <div class="one-playlist">
                 <div class="playlist-name playlist-content">
-                <a ng-if="!getEditPlaylist()" class="playlistFocus"href=""  ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
-                  {{playlist.name}}
-                  <i ng-if="playlistHover" class="icon-play2 icon-menu-left icon-play-playlist"></i>
-                </a>
-                <input ng-model="playlistNameEdit" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlistNameEdit}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
-
+	                <div class="ellipsis" ng-mouseenter="playlistHover=true" ng-class="{active: playlistHover|| playlistliHover}" ng-mouseleave="playlistHover=false">
+		                <a ng-if="!getEditPlaylist()" class="playlistFocus" href="">
+		                  {{playlist.name}}
+		                </a>
+	                </div>
+	                <div class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
+                		<i class="icon-play2 icon-menu-left icon-play-playlist"></i>
+	                </div>
+                	<input ng-model="playlist.name" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
               </div>
                 <div class="playlist-icons playlist-content playlist-hover">
                   <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">

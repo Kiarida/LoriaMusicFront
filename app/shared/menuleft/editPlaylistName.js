@@ -11,7 +11,7 @@ app.directive('ngEditPlaylistName', function($timeout) {
                         scope.$apply(function () {
                       scope.changeEditPlaylistFalse();
                       console.log(scope);
-                      scope.editPlaylistName(scope.playlistNameEdit);
+                      //scope.editPlaylistName(scope.playlistNameEdit);
                     });
                    
 

@@ -8,7 +8,6 @@ app.directive('ngShowTagPlaylist', function($timeout) {
 
       scope.$watchGroup(['showTag', 'editPlaylist'], function(newValues, oldValues, scope) {
 
-
         if(newValues[0] == false){
 
         	element.children().css("color", "#7B9EDF");
@@ -23,7 +22,6 @@ app.directive('ngShowTagPlaylist', function($timeout) {
       			
       			element.parent().parent().parent().css( "background-color", "" );
       			element.parent().addClass('playlist-hover');
-
       		}
       			
       	}

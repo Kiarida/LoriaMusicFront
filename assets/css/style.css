@@ -282,7 +282,7 @@ button { text-transform: uppercase;}
   margin-bottom: 0px;
 }
 
-#menu-left .playlist-content > a{
+#menu-left .playlist-content .ellipsis > a, #menu-left .playlist-content > a{
   font-size: 18px;
   color : #FFF;
   padding-left: 10px;
@@ -290,9 +290,26 @@ button { text-transform: uppercase;}
 
 }
 
+#menu-left .playlist-content .ellipsis.active{
+  overflow: hidden;
+}
+#menu-left .playlist-content .ellipsis{
+  width: 96px;
+  text-overflow :ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  float: left;
+}
+#menu-left .playlist-content .play-icon{
+  display: inline-block;
+  float: left;
+  margin-top: 3px;
+}
+
 
 #menu-left .playlist-content{
   display: inline-block;
+  
 }
 
 

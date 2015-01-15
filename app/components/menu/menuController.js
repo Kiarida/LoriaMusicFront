@@ -51,9 +51,6 @@ var playlists = [
     //TO DO
   }
 
-  
-
-console.log($scope.titleNewPlaylist);
 
 
 }]);

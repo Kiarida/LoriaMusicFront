@@ -5,9 +5,7 @@ app.directive('ngEditPlaylist', function($timeout) {
            },
     link: function(scope, element) {
       element.bind('click', function() {
-
       scope.$watchGroup(['editPlaylist', 'showTag'], function(newValues, oldValues, scope) {
-
         if(newValues[0] == true){
       			
       			element.parent().parent().parent().css( "background-color", "#374051" );

@@ -1,32 +1,467 @@
-body {
+/*###################### BOOTSTRAP UI #######################*/
+
+
+body, .form-control {
+
     font-family: 'Dosis', sans-serif;
 }
 
 h1{
-	text-transform: uppercase;
-	margin-bottom: 40px;
-	font-size: 2.1em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  font-size: 2.1em;
 }
 h3{
-	font-size: 1.17em;
-	margin-top: 15px;
+  font-size: 1.17em;
+  margin-top: 15px;
 }
 button { text-transform: uppercase;}
-.content{ margin-bottom: 20px; position: relative; }
+.content{ margin-bottom: 20px; position: relative; padding: 0; }
 .content .container{ position: relative; }
 
 
-/*  NAVBAR   */
+
+/*############################ DEBUT  NAVBAR ####################################*/
 .navbar-default{
-	background-color : #374051;
+  background-color : #374051;
+
 }
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.navbar-form .input-group.input-search-bar{
+  width: 100%;
+}
+
+
 .navbar-default .navbar-nav > li > a.pseudo-navbar{
 	color : #FFFFFF;
 	font-size: 15px;
+
+
 }
+
+
+#topbar .navbar{
+	margin-bottom: 0px;
+}
+
+#topbar .btn-group{
+  width: 100%;
+  padding-top: 15px;
+}
+
+#topbar .container-fluid{
+  padding-left: 0px;
+}
+
+#topbar .col-sm-2{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#topbar .col-sm-5{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#topbar.navbar{
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+
+/* ########################## PSEUDO DE LA NAVBAR ##############################*/
+
+
+
+#topbar .ul-pseudo{
+  display : block;
+  width : 100%;
+}
+
+#topbar .pseudo-navbar.a-pseudo{
+  padding-right: 0px;
+  padding-left: 0px;
+  width: 100%;
+  padding-top: 0px;
+
+ 
+}
+
+#topbar .icon-arrow-down4{
+  display : inline-block;
+  position : absolute;
+  right: 10px;
+
+}
+
+#topbar .dropdown-menu, .select2-drop {
+    background-color: #374051;
+    border: medium none;
+    border-radius: 3px;
+    box-shadow: none;
+    color: #fff;
+    font-size: 14px;
+    margin-left: 4px;
+    margin-top: 17px;
+    min-width: 230px;
+    padding: 0;
+    z-index: 1000;
+}
+
+#topbar .dropdown-menu > li > a {
+    color: #fff;
+    line-height: 1.429;
+    padding: 6px 10px;
+}
+
+/* ################################ SEARCH BAR ########################### */
+
+
+#topbar .navbar-form{
+  padding: 15px 0px;
+}
+
+#topbar .input-search-bar-button{
+  width: 10px;
+}
+
+#topbar .input-group-btn .btn-default{
+  background-color: #FFFFFF;
+}
+
+#topbar .form-control.input-search{
+  height: 41px;
+  background: #fff;
+  color: #374051;
+}
+#topbar .form-control.input-search:focus, #topbar .input-search-bar.focus button{ border:0px solid #5a6985; color: #374051; }
+
+#topbar .btn.btn-default.input-search{
+  height: 41px;
+  color: #374051;
+}
+
+
+
+/* ################################# BOUTONS #############################*/
+#topbar .btn-pseudo{
+  background-color: #374051;
+  color: #fff;
+  display: block;
+  font-size: 18px;
+  font-weight: normal;
+  margin-left: 5px;
+  padding-bottom: 6px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+
+}
+
+#topbar .btn-pseudo:hover{
+  background-color : #5A6985;
+}
+
+#topbar .dropdown-font{
+  color : #FFF;
+  padding-left: 10px;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+#topbar .icon-menu-left{
+  padding-right: 15px;
+}
+
+#topbar .dropdown-menu > li{
+  
+  padding-bottom: 8px;
+}
+
+#topbar .dropdown-menu > li > a:hover {
+  color: #0079a6;
+  background: inherit;
+}
+
+
+/*############################### FIN NAVBAR ################################*/
+
+
+
+/*######################### LEFT MENU #############################*/
+
+
+
+#menu-left.col-lg-2.menu-left{
+    padding-left: 0px;
+    padding-right: 0px;
+    border-radius: 0px;
+
+}
+
+#menu-left .navbar{
+  border-radius: 0px;
+  height: 750px;
+}
+
+#menu-left .navbar-default{
+  background-color: #64718C;
+}
+
+#menu-left .navbar-default .navbar-nav > li > a{
+  color : #FFF;
+  padding-left: 10px;
+  font-weight: normal;
+  font-size: 18px;
+} 
+
+#menu-left .navbar-default .navbar-nav  > li > a .bold-text{
+  color : #FFF;
+  padding-left: 30px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#menu-left .navbar-default .navbar-nav > li:hover{
+  background-color : #374051;
+ 
+} 
+
+#menu-left .navbar-default .navbar-nav > li > a:focus{
+  background-color : #374051;
+ 
+} 
+
+
+#menu-left .icon-menu-left{
+  padding-right: 15px;
+}
+
+#menu-left .ul-menuleft{
+  padding-left: 0px;
+}
+
+#menu-left .titre-menuleft{
+
+  font-size: 20px;
+  color : #FFF;
+  padding-left: 10px;
+  padding-bottom: 0px;
+}
+
+
+#menu-left .input-new-playlist{
+    border: 1px solid #fff;
+    border-radius: 3px;
+    box-shadow: none;
+    color: #FFF;
+    background-color: transparent;
+    font-size: 16px;
+    height: 40px;
+    line-height: 1.467;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    transition: border 0.25s linear 0s, color 0.25s linear 0s, background-color 0.25s linear 0s;
+    width: 200px;
+    margin : 0 9px;
+}
+
+
+#menu-left .iconPlaylist{
+  color: #FFF;
+  float: right;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+
+#menu-left .li-repeat-playlist{
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+#menu-left .li-repeat-playlist > div {
+  margin-bottom: 0px;
+}
+
+#menu-left .playlist-content .ellipsis > a, #menu-left .playlist-content > a{
+  font-size: 18px;
+  color : #FFF;
+  padding-left: 10px;
+  padding-bottom: 0px;
+
+}
+
+#menu-left .playlist-content .ellipsis.active{
+  overflow: hidden;
+}
+#menu-left .playlist-content .ellipsis{
+  width: 96px;
+  text-overflow :ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  float: left;
+}
+#menu-left .playlist-content .play-icon{
+  display: inline-block;
+  float: left;
+  margin-top: 3px;
+}
+
+
+#menu-left .playlist-content{
+  display: inline-block;
+  
+}
+
+
+#menu-left .playlist:hover{
+  background-color: #374051;
+}
+
+#menu-left .playlist:hover .playlist-icons{
+  display: inline-block;
+  
+}
+
+#menu-left .playlist-icons{
+  width: 100px;
+  float: right;
+}
+
+#menu-left .icon-play-playlist{
+  padding-left: 10px;
+}
+
+#menu-left .playlist-hover{
+  
+  display: none;  
+
+}
+
+
+#menu-left .playlist-tag{
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  margin-bottom: 0px;
+  background-color: #374051;
+  border: none;
+  color: #FFFFFF;
+
+}
+
+#menu-left div.tags{
+
+  background-color: #374051;
+  border: none;
+  box-shadow: none;
+
+}
+
+#menu-left .tag-item{
+
+  background: #FFF;
+  color: #374051;
+  border: none;
+}
+
+#menu-left .input.ng-valid{
+  color: #374051;
+  border-radius: 3px;
+    display: inline-block;
+    float: left;
+    font: 14px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    height: 26px;
+    margin: 2px;
+    padding: 0 5px;
+    width: 80px;
+   
+}
+
+#menu-left span.input{
+  padding-left: 10px;
+}
+
+#menu-left .test:focus{
+background: #888888;
+padding-top: 0px;
+padding-bottom: 0px;
+
+}
+
+/* Remove shadow on tag list */
+#menu-left .well{
+  box-shadow: none;
+}
+
+
+#menu-left .input-edit-playlist-name{
+  background-color: transparent;
+  border: 1px solid #bdc3c7;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.467;
+  margin-left: 7px;
+  width: 120px;
+
+}
+
+
+
+/*##################### HISTORY #####################*/
+
+
+
+#menu-left .li-repeat-track{
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+#menu-left .li-repeat-track > div {
+  margin-bottom: 0px;
+}
+
+#menu-left .one-track > a{
+  font-size: 18px;
+  color : #FFF;
+  padding-left: 10px;
+  padding-bottom: 0px;
+
+}
+
+#menu-left .track:hover{
+  background-color: #374051;
+}
+
+
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+    transition: all 0.5s ease 0s;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
 .navbar-default .navbar-nav > li > a.pseudo-navbar:hover {
 	text-decoration : underline;
 }
+
 
 
 /*  BUTTONS */
@@ -131,10 +566,12 @@ textarea{
 .droit{ background: #9a929f; color: #374051; padding: 20px; }
 .centre { box-shadow: 7px 6px 26px -2px rgba(0, 0, 0, 0.7); z-index: 10; padding: 0;}
 .droit, .centre { min-height: 600px;}
+.centre h1, .droit h1{ padding: 20px; margin-bottom: 10px; }
 .deckgrid .ng-scope{
     position: relative;
     margin:10px 5px;
 }
+.deckgrid.ng-isolate-scope{ padding: 10px; }
 .deckgrid .ng-scope .caption{ 
 	margin: 0;
     padding: 0;

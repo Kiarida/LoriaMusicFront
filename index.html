@@ -8,40 +8,171 @@
     <link href="assets/css/flat-ui.min.css" rel="stylesheet">
     <link href="assets/css/icon-moon.css" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/ng-tags-input.min.css">  
 </head>
 <body ng-app="PlayerApp">
-	<nav ng-show="connected" class="navbar navbar-default" role="navigation">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    
 
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      
-	      <form class="navbar-form navbar-left" role="search">
-	                <div class="input-group">
-	                    <input type="text" class="form-control" placeholder="Recherche" name="q">
-	                    <div class="input-group-btn">
-	                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-	                    </div>
+<!-- NavBar -->
+
+<!-- <nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation"> -->
+<nav ng-if="connected" id="topbar" class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+      <div class="col-sm-2">
+        <ul class="nav navbar-nav navbar-left ul-pseudo">
+          <li class="ul-pseudo">
+            <div class="pseudo-navbar a-pseudo">
+
+             
+              <div class="btn-group" dropdown is-open="status.isopen" ng-controller="topbarController">
+        
+                <button type="button" class="btn btn-pseudo dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                  <i class="glyphicon glyphicon-user padding-i"></i>
+                    {{user.firstName}}
+                  <i class="icon-arrow-down4"></i>
+                </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a class="dropdown-font" href="#/preferences"><i class="icon-menu-left icon-cog2"></i>Preférences</a></li>
+                    <li><a class="dropdown-font" href="#"><i class="icon-menu-left icon-switch"></i>Déconnexion</a></li>
+                  </ul>
+
+              </div>
+        
+            </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm-5">
+        <form class="navbar-form" role="search">
+          <div class="input-group input-search-bar">
+            <input type="text" class="form-control input-search" placeholder="Recherche" name="q">
+            <div class="input-group-btn input-search-bar-button">
+              <button class="btn btn-default input-search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>      
+          </div>
+        </form>
+      </div>
+    
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	<!-- Left Menu -->
+<div ng-if="connected" id="menu-left" class="col-lg-2 menu-left">
+    <div class="sidebar-nav">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <span class="visible-xs navbar-brand">Sidebar menu</span>
+        </div>
+        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+         
+          <ul class="nav navbar-nav">
+            <li><a href="#"><i class="icon-menu-left icon-trophy"></i>Les Tops</a></li>
+            <li><a href="#"><i class="icon-menu-left icon-feed"></i>Radios</a></li>
+            <li><a href="#"><i class="icon-menu-left icon-clock"></i>Mes écoutes</a></li>
+          </ul>
+
+          <div ng-controller="menuController">
+          <ul class="ul-menuleft">
+            <li>
+            	<h3 class="titre-menuleft">
+            		PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a>
+        		</h3>
+    		</li>
+            <div>
+              <input ng-model="titleNewPlaylist" ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
+            </div>
+            <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController" ng-mouseenter="playlistliHover=true" ng-mouseleave="playlistliHover=false">
+              <div class="one-playlist">
+                <div class="playlist-name playlist-content">
+	                <div class="ellipsis" ng-mouseenter="playlistHover=true" ng-class="{active: playlistHover|| playlistliHover}" ng-mouseleave="playlistHover=false">
+		                <a ng-if="!getEditPlaylist()" class="playlistFocus" href="">
+		                  {{playlist.name}}
+		                </a>
 	                </div>
-	            </form>
-	      <ul class="nav navbar-nav navbar-right">
-	        <li><a class="pseudo-navbar" href="#" ><i class="glyphicon glyphicon-off padding-i"></i>Thomas</a></li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-	
-	
-	<div class="content" ng-view></div>
+	                <div class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
+                		<i class="icon-play2 icon-menu-left icon-play-playlist"></i>
+	                </div>
+                	<input ng-model="playlist.name" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
+              </div>
+                <div class="playlist-icons playlist-content playlist-hover">
+                  <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
+                    <i class="icon-pencil"></i>
+                  </a>
+                  <a href=""><i class="icon-trash"></i></a>
+                  <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed;" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
+                    <i class="icon-tag"></i>
+                  </a>
+                </div>
+
+                <div class="playlist-tags" collapse="isCollapsed">
+                  <div class="well well-lg playlist-tag">
+                    
+                    <tags-input class="tags-playlist" ng-model="tags" ng-pattern="tagsPattern"></tags-input>
+                  
+
+                  </div> 
+                </div>
+
+              </div>
+
+        
+            </li>
+          </ul>
+
+        </div>
+
+        <!-- Track history -->
+
+          <div ng-controller="historyController">
+          <ul class="ul-menuleft">
+            <li><p class="titre-menuleft">MON HISTORIQUE</p></li>
+            <li class="track li-repeat-track" ng-repeat="track in getHistoryTracks()">
+            
+              <div class="one-track">
+                <a href="" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
+                  <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
+                  <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
+
+                  {{track.title}}
+
+                </a>
+              </div>
+
+        
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="content col-lg-10" ng-view>
+
+
+
+</div>
+
+<!--   ############## LIB JS ################# -->
 	<script src="assets/libs/angular.min.js"></script>
 	<script src="assets/libs/angular-route.min.js"></script>
 	<script src="assets/libs/angular-resource.min.js"></script>
+
+
 	<script src="assets/libs/angular-cookies.min.js"></script>
 	<script src="assets/libs/angular-deckgrid.js"></script>
 	<script src="assets/libs/ui-bootstrap-0.12.0.min.js"></script>
 	<script src="assets/libs/ui-bootstrap-tpls-0.12.0.min.js"></script>
+	<script src="assets/libs/ng-tags-input.min.js"></script>
 	<script src="assets/libs/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="assets/libs/bower_components/videogular/videogular.js"></script>
 	<script src="assets/libs/bower_components/videogular-controls/controls.js"></script>
@@ -52,8 +183,8 @@
 	<script src="app/app.routes.js"></script>
 	<script src="assets/libs/jquery-1.11.1.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/flat-ui.min.js"></script>
-    <script src="assets/js/flatuiApp.js"></script>
+	<script src="assets/js/flat-ui.min.js"></script>
+	<script src="assets/js/flatuiApp.js"></script>
 	<script src="app/components/home/homeController.js"></script>
 	<script src="app/components/home/homeService.js"></script>
 	<script src="app/shared/form/formDirective.js"></script>
@@ -64,10 +195,14 @@
 	<script src="app/components/player/playerController.js"></script>
 	<script src="app/shared/player/controlPlayerDirective.js"></script>
 	<script src="app/shared/player/playlistPlayerDirective.js"></script>
-
-
-
-
+	<script src="app/components/menu/menuController.js"></script>
+	<script src="app/components/menu/historyController.js"></script>
+	<script src="app/components/menu/playlistController.js"></script>
+	<script src="app/components/topbar/topbarController.js"></script>
+	<script src="app/shared/menuleft/showTagPlaylist.js"></script>
+	<script src="app/shared/menuleft/editPlaylist.js"></script>
+	<script src="app/shared/menuleft/editPlaylistName.js"></script>
+	<script src="app/shared/menuleft/newPlaylist.js"></script>
 
 
 

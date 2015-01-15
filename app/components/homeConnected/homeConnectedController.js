@@ -62,6 +62,8 @@ app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth'
 	}
 	*/
 
+	$scope.toto = "toto";
+
 	$scope.itemgenres = [
     	{id: 'p1', 'title': 'classic', src: "http://lorempixel.com/200/200/"},
 	    {id: 'p2', 'title': 'Pop', src: "http://lorempixel.com/200/200/sports"},

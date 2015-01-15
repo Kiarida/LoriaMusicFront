@@ -34,12 +34,12 @@
         
                 <button type="button" class="btn btn-pseudo dropdown-toggle" dropdown-toggle ng-disabled="disabled">
                   <i class="glyphicon glyphicon-user padding-i"></i>
-                    {{user.firstName}}
+                    {{user.username}}
                   <i class="icon-arrow-down4"></i>
                 </button>
                   <ul class="dropdown-menu" role="menu">
                     <li><a class="dropdown-font" href="#/preferences"><i class="icon-menu-left icon-cog2"></i>Preférences</a></li>
-                    <li><a class="dropdown-font" href="#"><i class="icon-menu-left icon-switch"></i>Déconnexion</a></li>
+                    <li><a class="dropdown-font" ng-click="logout()" href=""><i class="icon-menu-left icon-switch"></i>Déconnexion</a></li>
                   </ul>
 
               </div>
@@ -156,7 +156,7 @@
 </div>
 
 
-<div class="content col-lg-10" ng-view>
+<div class="content" ng-class="{'col-lg-10' : connected}" ng-view>
 
 
 

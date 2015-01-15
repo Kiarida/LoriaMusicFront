@@ -1,11 +1,17 @@
-app.controller('topbarController',function ($scope, $log) {
+app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location',function ($scope, $cookieStore, Auth, $location) {
+
   
    $scope.status = {
     isopen: false
   };
 
+  $scope.logout = function(){
+    Auth.setUser(null);
+    $cookieStore.remove("user");
+    $location.path("/preferences");
+  }
+
   $scope.toggled = function(open) {
-    $log.log('Dropdown is now: ', open);
   };
 
   $scope.toggleDropdown = function($event) {
@@ -14,14 +20,8 @@ app.controller('topbarController',function ($scope, $log) {
     $scope.status.isopen = !$scope.status.isopen;
   };
 
-  $scope.user = {
-
-    id : 177383,
-    lastName : "John",
-    firstName : "Thomas"
-
-  };
+  $scope.user = Auth.getUser();
 
   
 
-});
+}]);

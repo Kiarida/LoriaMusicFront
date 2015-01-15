@@ -676,9 +676,10 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player td.rating, .playlist-player td.action{ text-align: center }
 .playlist-player td.artiste{ padding-left: 10px; }
 .playlist-player td.index { width : 5%; transition: all 0.5s ease 0s; text-align: right; }
-.playlist-player td.index a{ transition: all 0.5s ease 0s; color:#374051; }
+.playlist-player td.index a{ display: inline-block; width:18px; transition: all 0.5s ease 0s; color:#374051; }
 .playlist-player td.index a:hover{ color:#0079a6; }
-.playlist-player td.title { width : 20%; }
+.playlist-player td.title { width : 25%; }
+.playlist-player td.rating { width : 20%; }
 .playlist-player td a { color:#374051; }
 .playlist-player td a:hover { color:#0079a6; }
 .addplaylist .addtoplaylist{ 

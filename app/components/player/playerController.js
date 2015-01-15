@@ -1,23 +1,5 @@
 app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce',
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce){
-	/* this.config = {
-		sources: [
-			{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-		],
-		tracks: [
-			{
-				src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt",
-				kind: "subtitles",
-				srclang: "en",
-				label: "English",
-				default: ""
-			}
-		],
-		theme: "assets/libs/bower_components/videogular-themes-default/videogular.css",
-		plugins: {
-			poster: "http://www.videogular.com/assets/images/videogular.png"
-		}
-	};*/
 
 	var controller = this;
 	controller.state = null;
@@ -72,6 +54,13 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		}
 
 	];
+	
+	this.configPlaylist = {
+		addToPlaylist : true,
+		remove : true,
+		tags : true,
+		more : false,
+	};
 
 	this.config = {
 		preload: "none",

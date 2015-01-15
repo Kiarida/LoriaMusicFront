@@ -16,7 +16,7 @@
 			<rating ng-model="video.rate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 		</td>
 		<td class="action" ng-class="{'hide': controller.config.small}">
-			<div class="addplaylist">
+			<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
 				<a href ng-click="isCollapsed = !isCollapsed">
 					<i class="icon-plus"></i>
@@ -34,14 +34,14 @@
 					</form>
 				</div>
 			</div>
-			<a href="">
+			<a ng-if="controller.configPlaylist.remove" href="">
 				<i class="icon-trash"></i>
 			</a>
-			<a href="">
+			<a ng-if="controller.configPlaylist.tags" href="">
 				<i class="icon-tags"></i>
 			</a>
 			<a href="">
-				<i class="icon-arrow-down4"></i>
+				<i class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
 			</a>
 		</td>
 		

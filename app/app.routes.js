@@ -5,7 +5,8 @@ app.config(function ($routeProvider){
 		.when('/sandbox',{templateUrl: 'app/components/sandbox/sandboxView.html', controller:"SandboxCtrl"})
 		.when('/preferences',{templateUrl: 'app/components/preferences/preferencesView.html', controller:"PreferencesCtrl"})
 		.when('/play',{templateUrl: 'app/components/player/playerView.html', controller:"PlayerCtrl as controller"})
-		.when('/radios',{templateUrl: 'app/components/radios/radiosView.html', controller:"RadioCtrl"})		
+		.when('/radios',{templateUrl: 'app/components/radios/radiosView.html', controller:"RadioCtrl"})
+		.when('/tops',{templateUrl: 'app/components/tops/topsView.html', controller:"TopsCtrl as controller"})		
 		.otherwise({redirectTo: '/home'});		
 
 

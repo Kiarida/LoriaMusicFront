@@ -15,6 +15,7 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 		{
 			date: "25/01/2015",
 			duration: "1h12",
+			tags: ["rap","rock","violent"],
 			videos : [
 				{
 					id : 1,

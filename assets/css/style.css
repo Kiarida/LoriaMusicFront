@@ -726,8 +726,12 @@ videogular vg-timedisplay{ display: none; }
 .session-duration{ margin-left: 30px; }
 .detail-histo:hover, .detail-histo, .detail-histo:focus{ color: #000; margin-right: 10px; }
 { color: #000; }
-#myhistory li{ background: #b9bbbd; margin-bottom: 1px; padding : 10px 20px;}
+#myhistory > li{ background: #b9bbbd; margin-bottom: 1px; padding : 10px 20px;}
 #myhistory .track-list{ margin: 10px -20px -10px; }
+#myhistory .playlist-tags{ background: #d9dcde; }
+#myhistory tags-input .tags { background: none; border:none; box-shadow: none;}
+#myhistory tags-input .tags .tag-item { background: #374051; color:#fff; height: 28px; padding:0 10px; border-radius: 4px; border:none; }
+#myhistory tags-input .tags .tag-item .remove-button { color: #fff; }
 
 
 

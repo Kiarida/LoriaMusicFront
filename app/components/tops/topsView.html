@@ -1,8 +1,7 @@
 <div class="col-lg-5 centre">
 	<h1>Top list</h1>
 	<div class="round back" click-link="/home"></div>
-	
-	<div class="playlist-player" playlist-player ng-class="{'col-sm-6 small':controller.config.small}">
+	<div class="playlist-player" playlist-player controller="controller" content="controller.videos" ng-class="{'col-sm-6 small':controller.config.small}">
 		
 	</div>	
 </div>

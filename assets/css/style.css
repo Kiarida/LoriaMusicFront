@@ -717,6 +717,23 @@ videogular vg-timedisplay{ display: none; }
 .addplaylist button{ width: 100%; }
 
 
+/****** MY HISTORY ***********/
+#myhistory{ 
+  list-style: none;
+  padding-left: 0;
+}
+.session-date,.session-duration{ display: inline-block; }
+.session-duration{ margin-left: 30px; }
+.detail-histo:hover, .detail-histo, .detail-histo:focus{ color: #000; margin-right: 10px; }
+{ color: #000; }
+#myhistory li{ background: #b9bbbd; margin-bottom: 1px; padding : 10px 20px;}
+#myhistory .track-list{ margin: 10px -20px -10px; }
+
+
+
+
+
+
 @media screen and (max-width: 480px){
     .deckgrid[deckgrid]::before {
         content: '1 .column.column-1-1';

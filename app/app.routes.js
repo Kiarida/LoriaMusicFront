@@ -6,7 +6,8 @@ app.config(function ($routeProvider){
 		.when('/preferences',{templateUrl: 'app/components/preferences/preferencesView.html', controller:"PreferencesCtrl"})
 		.when('/play',{templateUrl: 'app/components/player/playerView.html', controller:"PlayerCtrl as controller"})
 		.when('/radios',{templateUrl: 'app/components/radios/radiosView.html', controller:"RadioCtrl"})
-		.when('/tops',{templateUrl: 'app/components/tops/topsView.html', controller:"TopsCtrl as controller"})		
+		.when('/tops',{templateUrl: 'app/components/tops/topsView.html', controller:"TopsCtrl as controller"})
+		.when('/history',{templateUrl: 'app/components/history/historyView.html', controller:"HistoryCtrl as controller"})		
 		.otherwise({redirectTo: '/home'});		
 
 

@@ -1,5 +1,5 @@
 <table>
-	<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="video in controller.videos">
+	<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-repeat="video in content">
 		<td ng-click="setVideo($index)" class="index">
 			<a href="">
 				<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>

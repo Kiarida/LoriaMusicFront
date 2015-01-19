@@ -19,7 +19,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			name: "Videogular",
 			artiste : "Angular",
 			rate: 3,
-			poster: "http://www.videogular.com/assets/images/videogular.png"
+			poster: "http://www.videogular.com/assets/images/videogular.png",
+			tags:["test","rap"]
 		},
 		{
 			id : 1,

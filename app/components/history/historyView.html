@@ -11,6 +11,14 @@
 			</div>
 			<a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed" href="" class="pull-right detail-histo"><i class="icon-arrow-down4"></i></a>
 			<div class="track-list" collapse="isCollapsed">
+				<div class="playlist-tags">
+                  <div class="well-lg playlist-tag">
+                    
+                    <tags-input class="tags-playlist" ng-model="session.tags" ng-pattern="tagsPattern"></tags-input>
+                  
+
+                  </div> 
+                </div>
 				<div class="playlist-player" playlist-player controller="controller" content="session.videos" ng-class="{'col-sm-6 small':controller.config.small}">
 			</div>
 		</li>

@@ -667,13 +667,15 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player tr:nth-child(2n).active,
 .playlist-player tr:nth-child(3n).active,
 .playlist-player tr:first-child.active{ background: #fff; }
-.playlist-player tr:nth-child(2n){ background: #d9dcde; }
-.playlist-player tr:nth-child(3n),.playlist-player tr:first-child{ background: #e1e4e6; }
+.playlist-player tbody:nth-child(2n){ background: #d9dcde; }
+.playlist-player tbody:nth-child(3n),.playlist-player tbody:first-child{ background: #e1e4e6; }
 .playlist-player li{ list-style: none; }
 .playlist-player table { width : 100%; }
 .playlist-player td { width : 25%; }
 .playlist-player td.index,.playlist-player td.title{ padding-left: 5px; }
 .playlist-player td.rating, .playlist-player td.action{ text-align: center }
+.playlist-player td.action .tags{ display: inline-block; }
+
 .playlist-player td.artiste{ padding-left: 10px; }
 .playlist-player td.index { width : 5%; transition: all 0.5s ease 0s; text-align: right; }
 .playlist-player td.index a{ display: inline-block; width:18px; transition: all 0.5s ease 0s; color:#374051; }
@@ -715,6 +717,7 @@ videogular vg-timedisplay{ display: none; }
 }
 .addplaylist input { padding: 4px 10px; }
 .addplaylist button{ width: 100%; }
+.playlist-player .playlist-tag{ padding: 0 25px; }
 
 
 /****** MY HISTORY ***********/
@@ -726,9 +729,23 @@ videogular vg-timedisplay{ display: none; }
 .session-duration{ margin-left: 30px; }
 .detail-histo:hover, .detail-histo, .detail-histo:focus{ color: #000; margin-right: 10px; }
 { color: #000; }
-#myhistory li{ background: #b9bbbd; margin-bottom: 1px; padding : 10px 20px;}
+#myhistory > li{ background: #b9bbbd; margin-bottom: 1px; padding : 10px 20px;}
 #myhistory .track-list{ margin: 10px -20px -10px; }
+#myhistory .playlist-tags{ background: #d9dcde; }
+#myhistory tags-input .tags,
+.playlist-tag tags-input .tags,
+#myhistory tags-input .tags.focused,
+.playlist-tag tags-input .tags.focused{ background: none; border:none; box-shadow: none;}
+#myhistory tags-input .tags .tag-item, .playlist-tag tags-input .tags .tag-item{ background: #374051; color:#fff; height: 28px; padding:0 10px; border-radius: 4px; border:none; }
+#myhistory tags-input .tags .tag-item .remove-button, .playlist-tag tags-input .tags .tag-item .remove-button{ color: #fff; }
 
+
+/******** TAG *********/
+.playlist-tag .label{ float: left; margin: 10px 4px; background: #374051; padding: 6px; }
+.playlist-tag .label a{ color: #fff; font-size: 0.7em; }
+.playlist-tag .label a:first-child{ margin-right: 4px; }
+.playlist-tag .label a:last-child{ margin-left: 4px; }
+.icon-tag-list.active{ color:#0079a6; }
 
 
 

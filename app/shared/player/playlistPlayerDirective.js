@@ -32,9 +32,19 @@ app.directive('playlistPlayer', function() {
 		};
 
     	scope.isCollapsed = true;
+    	scope.hideTags = true;
 		scope.hover = false;
+		scope.test = function(){
+			console.log("ukiiuy");
+		}
 		scope.addTrackToPlaylist = function(id){
 
+		}
+		scope.agree = function(){
+			console.log("plussoyer");
+		}
+		scope.disagree = function(){
+			console.log("moinssoyer");
 		}
 
     },

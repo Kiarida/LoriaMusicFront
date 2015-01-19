@@ -25,7 +25,8 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 					name: "Videogular",
 					artiste : "Angular",
 					rate: 3,
-					poster: "http://www.videogular.com/assets/images/videogular.png"
+					poster: "http://www.videogular.com/assets/images/videogular.png",
+					tags: ["rap","rock"]
 				},
 				{
 					id : 1,

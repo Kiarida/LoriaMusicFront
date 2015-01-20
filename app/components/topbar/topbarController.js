@@ -1,5 +1,8 @@
-app.controller('topbarController',function ($scope, $log) {
+app.controller('topbarController',["$scope",'$log','$location', '$rootScope',function ($scope, $log, $location,$rootScope) {
   
+    $rootScope.wordSearched = {search : null};
+   
+
    $scope.status = {
     isopen: false
   };
@@ -21,7 +24,13 @@ app.controller('topbarController',function ($scope, $log) {
     firstName : "Thomas"
 
   };
+  $scope.search = function(){
+    if($location.url() != "search")
+      $location.path('/search');
+
+    
+  };
 
   
 
-});
+}]);

@@ -1,25 +1,7 @@
-app.controller('menuController',['$scope','$rootScope',function ($scope, $rootScope) {
+app.controller('menuController',['$scope','$rootScope',"$sce",function ($scope, $rootScope,$sce) {
   
 
 // Playlists to get
-
-var playlists = [
-
-    {
-      id : 1,
-      name : "Playlist 1"
-    },
-
-    {
-      id : 2,
-      name : "Playlist 2"
-    },
-    {
-      id : 3,
-      name : "Playlist 3"
-    }
-
-  ];
 
   $scope.titleNewPlaylist = "";
 

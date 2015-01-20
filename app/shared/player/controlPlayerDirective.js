@@ -8,17 +8,17 @@ app.directive('controlPlayer', function() {
 			if(scope.controller.random){
 				var random = scope.controller.currentVideo;
 				while(random == scope.controller.currentVideo){
-					random = Math.floor(Math.random()*(scope.controller.videos.length));
+					random = Math.floor(Math.random()*(scope.$root.playlist.length));
 				}
 				scope.controller.currentVideo = random;
 			}
 			else{
-				if(scope.controller.currentVideo == scope.controller.videos.length-1)
+				if(scope.controller.currentVideo == scope.$root.playlist.length-1)
 					scope.controller.currentVideo = 0
 				else
 					scope.controller.currentVideo++;
 			}
-			scope.controller.config.sources = scope.controller.videos[scope.controller.currentVideo].sources;
+			scope.controller.config.sources = scope.$root.playlist[scope.controller.currentVideo].sources;
 			scope.controller.like = false;
 
 			scope.controller.API.play();
@@ -30,17 +30,17 @@ app.directive('controlPlayer', function() {
 			if(scope.controller.random){
 				var random = scope.controller.currentVideo;
 				while(random == scope.controller.currentVideo){
-					random = Math.floor(Math.random()*(scope.controller.videos.length));
+					random = Math.floor(Math.random()*(scope.$root.playlist.length));
 				}
 				scope.controller.currentVideo = random;
 			}
 			else{
 				if(scope.controller.currentVideo == 0)
-					scope.controller.currentVideo = scope.controller.videos.length-1;
+					scope.controller.currentVideo = scope.$root.playlist.length-1;
 				else
 					scope.controller.currentVideo--;
 			}
-			scope.controller.config.sources = scope.controller.videos[scope.controller.currentVideo].sources;
+			scope.controller.config.sources = scope.$root.playlist[scope.controller.currentVideo].sources;
 			scope.controller.like = false;
 			scope.controller.API.play();
 
@@ -64,17 +64,17 @@ app.directive('controlPlayer', function() {
 			if(scope.controller.random){
 				var random = scope.controller.currentVideo;
 				while(random == scope.controller.currentVideo){
-					random = Math.floor(Math.random()*(scope.controller.videos.length));
+					random = Math.floor(Math.random()*(scope.$root.playlist.length));
 				}
 				scope.controller.currentVideo = random;
 			}
 			else{
-				if(scope.controller.currentVideo == scope.controller.videos.length-1)
+				if(scope.controller.currentVideo == scope.$root.playlist.length-1)
 					scope.controller.currentVideo = 0
 				else
 					scope.controller.currentVideo++;
 			}
-			scope.controller.config.sources = scope.controller.videos[scope.controller.currentVideo].sources;
+			scope.controller.config.sources = scope.$root.playlist[scope.controller.currentVideo].sources;
 			scope.controller.API.play();
 
 			//TODO CALL API TO RECORD THE BLOCK

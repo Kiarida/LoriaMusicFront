@@ -499,7 +499,7 @@ angular.module("com.2fdevs.videogular", ["ngSanitize"])
         $scope.$on('$destroy', this.clearMedia);
 
         // Empty mediaElement when router changes
-        $scope.$on('$routeChangeStart', this.clearMedia);
+        //$scope.$on('$routeChangeStart', this.clearMedia);
 
         $scope.init();
       }],

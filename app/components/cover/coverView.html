@@ -1,10 +1,12 @@
 <div class='overlay'></div>
 <div  class='thumbnail'>
-	<a href="#" class='play'>
+	<a href="" ng-click="mother.launchPlay(card)" class='play'>
 		<i class='icon-play2'></i>
 	</a>
 	<div class='caption'>
-		<h4>{{card.title}}</h4>
+		{{playing}}
+		<h4>{{card.name}}</h4>
+		
 	</div>
-	<img src='{{ card.src }}' alt='{{card.title}}'>
+	<img src='{{ card.cover }}' alt='{{card.name}}'>
 </div>

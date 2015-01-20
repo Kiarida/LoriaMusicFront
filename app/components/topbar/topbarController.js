@@ -1,4 +1,5 @@
-app.controller('topbarController',["$scope",'$log','$location', '$rootScope',function ($scope, $log, $location,$rootScope) {
+app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location','$rootScope',"$window",
+  function ($scope, $cookieStore, Auth, $location,$rootScope,$window) {
   
     $rootScope.wordSearched = {search : null};
    
@@ -7,8 +8,13 @@ app.controller('topbarController',["$scope",'$log','$location', '$rootScope',fun
     isopen: false
   };
 
+  $scope.logout = function(){
+    Auth.setUser(null);
+    $cookieStore.remove("user");
+    $window.location.reload();
+  }
+
   $scope.toggled = function(open) {
-    $log.log('Dropdown is now: ', open);
   };
 
   $scope.toggleDropdown = function($event) {
@@ -17,20 +23,11 @@ app.controller('topbarController',["$scope",'$log','$location', '$rootScope',fun
     $scope.status.isopen = !$scope.status.isopen;
   };
 
-  $scope.user = {
-
-    id : 177383,
-    lastName : "John",
-    firstName : "Thomas"
-
-  };
+  $scope.user = Auth.getUser();
   $scope.search = function(){
     if($location.url() != "search")
       $location.path('/search');
 
     
   };
-
-  
-
 }]);

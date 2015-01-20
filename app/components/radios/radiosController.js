@@ -1,5 +1,5 @@
-app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies){
+app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce){
 	/*
 	var Genres = $resource(routeRessource.Genre,{},
 		{
@@ -63,15 +63,18 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 	*/
 
 	$scope.itemgenres = [
-    	{id: 'p1', 'title': 'classic', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Pop', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p2', 'title': 'The Hives', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'rock', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p1', 'title': 'classic', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p3', 'title': 'Queen', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p2', 'title': 'Pop', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p1', 'title': 'led zepelin', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p3', 'title': 'rock', src: "http://lorempixel.com/200/200/nightlife"},
+		{
+			id : 1,
+			sources: [
+				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+			],
+			name: "Classic",
+			artiste : "Angular",
+			rate: 3,
+			poster: "http://www.videogular.com/assets/images/videogular.png",
+			tags:["test","rap"],
+			cover: "http://lorempixel.com/200/200/",
+		},
 	];
 
 

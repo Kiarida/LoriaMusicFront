@@ -58,12 +58,18 @@ app.controller('SearchCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				}
 			];	
 	$scope.itemartistes = [
-    	{id: 'p1', 'title': 'Acdc', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Alain Souchon', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'Assassin', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p1', 'title': 'IAM', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'The Hives', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'Queen', src: "http://lorempixel.com/200/200/nightlife"},
+		{
+			id : 1,
+			sources: [
+				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+			],
+			name: "Angular",
+			artiste : "Angular",
+			rate: 3,
+			poster: "http://www.videogular.com/assets/images/videogular.png",
+			tags:["test","rap"],
+			cover: "http://lorempixel.com/200/200/",
+		},
 	];
 
 }]);

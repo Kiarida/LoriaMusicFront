@@ -1,5 +1,42 @@
-app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies){
+app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies','$sce',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies,$sce){
+
+ 	$scope.itemgenres = [
+		{
+			id : 1,
+			sources: [
+				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+			],
+			name: "Classic",
+			artiste : "Angular",
+			rate: 3,
+			poster: "http://www.videogular.com/assets/images/videogular.png",
+			tags:["test","rap"],
+			cover: "http://lorempixel.com/200/200/",
+		},
+	];
+
+	$rootScope.itemartistes = [
+		{
+			id : 2,
+			sources: [
+				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+			],
+			name: "Videogular",
+			artiste : "Angular",
+			rate: 3,
+			poster: "http://www.videogular.com/assets/images/videogular.png",
+			tags:["test","rap"],
+			cover: "http://lorempixel.com/200/200/",
+		},
+	];
+	
+
+
+
+
+
+
 	/*
 	var Genres = $resource(routeRessource.Genre,{},
 		{
@@ -62,31 +99,9 @@ app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth'
 	}
 	*/
 
-	$scope.toto = "toto";
-
-	$scope.itemgenres = [
-    	{id: 'p1', 'title': 'classic', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Pop', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'rock', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p1', 'title': 'classic', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Pop', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'rock', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p1', 'title': 'classic', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Pop', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'rock', src: "http://lorempixel.com/200/200/nightlife"},
-	];
 
 
-	$scope.itemartistes = [
-    	{id: 'p1', 'title': 'Acdc', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Alain Souchon', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'Assassin', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p1', 'title': 'IAM', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'The Hives', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'Queen', src: "http://lorempixel.com/200/200/nightlife"},
-	    {id: 'p1', 'title': 'led zepelin', src: "http://lorempixel.com/200/200/"},
-	    {id: 'p2', 'title': 'Tryo', src: "http://lorempixel.com/200/200/sports"},
-	    {id: 'p3', 'title': 'David Guetta', src: "http://lorempixel.com/200/200/nightlife"},
-	];
+
+	
 
 }]);

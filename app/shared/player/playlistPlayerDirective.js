@@ -4,10 +4,13 @@ app.directive('playlistPlayer', function() {
     templateUrl: "app/components/player/playlistTemplate.html?t=000",
     scope : {
     	content:"=",
-    	controller:"="
+    	controller:"=",
+    	withPlayer:"="
     },
-    link: function(scope, sce){
-    	scope.playlistUser = ["rap","rock", "pop"];
+    link: function(scope, sce, rootScope){
+    	scope.playlistUser = "";
+    	scope.newPlaylistUser = "";
+
 		scope.rate = 2;
 
 		scope.ratingStates = [
@@ -19,26 +22,15 @@ app.directive('playlistPlayer', function() {
 			scope.percent = 100 * (value / scope.max);
 		};
 
-		scope.setVideo = function(index) {
-			if(scope.controller.API.currentState == "play" && scope.controller.currentVideo == index){
-				scope.controller.API.pause();
-			}
-			else {
-				scope.controller.currentVideo = index;
-				scope.controller.config.sources = scope.content[index].sources;
-				scope.controller.API.play();
-			}
-			
-		};
-
     	scope.isCollapsed = true;
     	scope.hideTags = true;
 		scope.hover = false;
 		scope.test = function(){
 			console.log("ukiiuy");
 		}
-		scope.addTrackToPlaylist = function(id){
-
+		scope.addTrackToPlaylist = function(track,indexPlaylist){
+			scope.$root.userPlaylist[indexPlaylist].playlist.push(track);
+			console.log("ok");
 		}
 		scope.agree = function(){
 			console.log("plussoyer");
@@ -46,6 +38,7 @@ app.directive('playlistPlayer', function() {
 		scope.disagree = function(){
 			console.log("moinssoyer");
 		}
+
 
     },
     

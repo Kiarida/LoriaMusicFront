@@ -64,104 +64,130 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-	<!-- Left Menu -->
-<div ng-if="connected" id="menu-left" class="col-lg-2 menu-left">
-    <div class="sidebar-nav">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <span class="visible-xs navbar-brand">Sidebar menu</span>
-        </div>
-        <div class="navbar-collapse collapse sidebar-navbar-collapse">
-         
-          <ul class="nav navbar-nav">
-            <li><a href="#/tops"><i class="icon-menu-left icon-trophy"></i>Top list</a></li>
-            <li><a href="#/radios"><i class="icon-menu-left icon-feed"></i>Radio</a></li>
-            <li><a href="#/history"><i class="icon-menu-left icon-clock"></i>My Listening</a></li>
-          </ul>
+<div class="contain">
+  	<!-- Left Menu -->
+  <div ng-if="connected" id="menu-left" class="col-lg-2 menu-left">
+      <div class="sidebar-nav">
+        <div class="navbar navbar-default" role="navigation">
+          <div class="navbar-header">
+            <span class="visible-xs navbar-brand">Sidebar menu</span>
+          </div>
+          <div class="navbar-collapse collapse sidebar-navbar-collapse">
+           
+            <ul class="nav navbar-nav">
+              <li><a href="#/tops"><i class="icon-menu-left icon-trophy"></i>Top list</a></li>
+              <li><a href="#/radios"><i class="icon-menu-left icon-feed"></i>Radio</a></li>
+              <li><a href="#/history"><i class="icon-menu-left icon-clock"></i>My Listening</a></li>
+            </ul>
 
-          <div ng-controller="menuController">
-          <ul class="ul-menuleft">
-            <li>
-            	<h3 class="titre-menuleft">
-            		PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a>
-        		</h3>
-    		</li>
-            <div>
-              <input ng-model="titleNewPlaylist" ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
-            </div>
-            <li class="playlist li-repeat-playlist" ng-repeat="playlist in getPlaylists()" ng-controller="playlistController" ng-mouseenter="playlistliHover=true" ng-mouseleave="playlistliHover=false">
-              <div class="one-playlist">
-                <div class="playlist-name playlist-content">
-	                <div class="ellipsis" ng-mouseenter="playlistHover=true" ng-class="{active: playlistHover|| playlistliHover}" ng-mouseleave="playlistHover=false">
-		                <a ng-if="!getEditPlaylist()" class="playlistFocus" href="">
-		                  {{playlist.name}}
-		                </a>
-	                </div>
-	                <div class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
-                		<i class="icon-play2 icon-menu-left icon-play-playlist"></i>
-	                </div>
-                	<input ng-model="playlist.name" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
+            <div ng-controller="menuController">
+            <ul class="ul-menuleft">
+              <li>
+              	<h3 class="titre-menuleft">
+              		PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a>
+          		</h3>
+      		</li>
+              <div>
+                <input ng-model="titleNewPlaylist" ng-if="newPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist="changeNewPlaylist()">
               </div>
-                <div class="playlist-icons playlist-content playlist-hover">
-                  <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
-                    <i class="icon-pencil"></i>
-                  </a>
-                  <a href=""><i class="icon-trash"></i></a>
-                  <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed;" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
-                    <i class="icon-tag"></i>
-                  </a>
+              <li class="playlist li-repeat-playlist" ng-repeat="playlist in userPlaylist" ng-controller="playlistController" ng-mouseenter="playlistliHover=true" ng-mouseleave="playlistliHover=false">
+                <div class="one-playlist">
+                  <div class="playlist-name playlist-content">
+  	                <div class="ellipsis" ng-mouseenter="playlistHover=true" ng-class="{active: playlistHover|| playlistliHover}" ng-mouseleave="playlistHover=false">
+  		                <a ng-click="launchPlay(playlist.playlist)" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
+  		                  {{playlist.name}}
+  		                </a>
+  	                </div>
+  	                <div ng-click="launchPlay(playlist.playlist)" class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
+                  		<i class="icon-play2 icon-menu-left icon-play-playlist"></i>
+  	                </div>
+                  	<input ng-model="playlist.name" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
                 </div>
+                  <div class="playlist-icons playlist-content playlist-hover">
+                    <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
+                      <i class="icon-pencil"></i>
+                    </a>
+                    <a href=""><i class="icon-trash"></i></a>
+                    <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed;" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
+                      <i class="icon-tag"></i>
+                    </a>
+                  </div>
 
-                <div class="playlist-tags" collapse="isCollapsed">
-                  <div class="well well-lg playlist-tag">
+                  <div class="playlist-tags" collapse="isCollapsed">
+                    <div class="well well-lg playlist-tag">
+                      
+                      <tags-input class="tags-playlist" ng-model="tags" ng-pattern="tagsPattern"></tags-input>
                     
-                    <tags-input class="tags-playlist" ng-model="tags" ng-pattern="tagsPattern"></tags-input>
-                  
 
-                  </div> 
+                    </div> 
+                  </div>
+
                 </div>
 
-              </div>
+          
+              </li>
+            </ul>
 
-        
-            </li>
-          </ul>
+          </div>
 
-        </div>
+          <!-- Track history -->
 
-        <!-- Track history -->
+            <div ng-controller="historyController as controllerHistory">
+            <ul class="ul-menuleft">
+              <li><p class="titre-menuleft">MY HISTORY</p></li>
+              <li class="track li-repeat-track" ng-repeat="track in controllerHistory.history">
+              
+                <div class="one-track">
+                  <a href="" ng-click="launchPlay(track)" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
+                    <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
+                    <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
 
-          <div ng-controller="historyController">
-          <ul class="ul-menuleft">
-            <li><p class="titre-menuleft">MY HISTORY</p></li>
-            <li class="track li-repeat-track" ng-repeat="track in getHistoryTracks()">
-            
-              <div class="one-track">
-                <a href="" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
-                  <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
-                  <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
+                    {{track.name}}
 
-                  {{track.title}}
+                  </a>
+                </div>
 
-                </a>
-              </div>
-
-        
-            </li>
-          </ul>
+          
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+
+  <div class="content" ng-class="{'col-lg-5 centre' : connected}">
+    <div ng-if="!playing || small" class="changing" ng-view>
+      
+    </div>
+    <div ng-controller="PlayerCtrl as controller" ng-if="connected && playing" ng-class="{reduced : small}" class="player-reduced">
+      <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
+        <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
+          <vg-video vg-src="playlist[controller.currentVideo].sources"
+            vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
+          </vg-video>
+
+          <vg-controls id="controlsBar">
+            <control-player></control-player>
+          </vg-controls>
+          <vg-scrubBar>
+            <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+          </vg-scrubBar>
+          <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
+          <vg-poster-image vg-url='playlist[controller.currentVideo].poster'></vg-poster-image>
+        </videogular>
+      </div>
+      <div class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      </div>  
+    </div>
+
+  </div>
+  <div ng-if="connected" class="col-lg-5 droit">
+    <h1>ARTIST LIBRARY</h1>
+    <div deckgrid class="deckgrid" source="itemartistes" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+  </div>
 </div>
-
-
-<div class="content" ng-class="{'col-lg-10' : connected}" ng-view>
-
-
-
-</div>
-
 <!--   ############## LIB JS ################# -->
 	<script src="assets/libs/angular.min.js"></script>
 	<script src="assets/libs/angular-route.min.js"></script>

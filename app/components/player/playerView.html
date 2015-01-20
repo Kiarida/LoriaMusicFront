@@ -15,7 +15,7 @@
 			<vg-poster-image vg-url='controller.videos[controller.currentVideo].poster'></vg-poster-image>
 		</videogular>
 	</div>
-	<div class="playlist-player" playlist-player ng-class="{'col-sm-6 small':controller.config.small}">
+	<div class="playlist-player" playlist-player controller="controller" content="controller.videos" ng-class="{'col-sm-6 small':controller.config.small}">
 		
 	</div>	
 </div>

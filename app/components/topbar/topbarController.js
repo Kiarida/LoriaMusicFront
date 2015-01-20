@@ -1,6 +1,9 @@
-app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location',function ($scope, $cookieStore, Auth, $location) {
-
+app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location','$rootScope',"$window",
+  function ($scope, $cookieStore, Auth, $location,$rootScope,$window) {
   
+    $rootScope.wordSearched = {search : null};
+   
+
    $scope.status = {
     isopen: false
   };
@@ -8,7 +11,7 @@ app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location'
   $scope.logout = function(){
     Auth.setUser(null);
     $cookieStore.remove("user");
-    $location.path("/preferences");
+    $window.location.reload();
   }
 
   $scope.toggled = function(open) {
@@ -21,7 +24,10 @@ app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location'
   };
 
   $scope.user = Auth.getUser();
+  $scope.search = function(){
+    if($location.url() != "search")
+      $location.path('/search');
 
-  
-
+    
+  };
 }]);

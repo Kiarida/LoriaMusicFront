@@ -1,0 +1,35 @@
+<div class="col-lg-6 centre">
+	<h1>My listening</h1>
+	<div class="round back" click-link="/home"></div>
+	<ul id="myhistory">
+		<li ng-repeat="session in controller.sessions">
+			<div class="session-date">
+				<i class="icon-calendar3"></i>{{session.date}}	
+			</div>
+			<div class="session-duration">
+				<i class="icon-stopwatch"></i>{{session.duration}}
+			</div>
+			<a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed" href="" class="pull-right detail-histo"><i class="icon-arrow-down4"></i></a>
+			<div class="track-list" collapse="isCollapsed">
+				<div class="playlist-tags">
+                  <div class="well-lg playlist-tag">
+                    
+                    <tags-input class="tags-playlist" ng-model="session.tags" ng-pattern="tagsPattern"></tags-input>
+                  
+
+                  </div> 
+                </div>
+				<div class="playlist-player" playlist-player controller="controller" content="session.videos" ng-class="{'col-sm-6 small':controller.config.small}">
+			</div>
+		</li>
+	</ul>
+
+
+
+	<!-- <div class="playlist-player" playlist-player ng-class="{'col-sm-6 small':controller.config.small}">
+		
+	</div> -->	
+</div>
+<div class="droit col-lg-6">
+	
+</div>

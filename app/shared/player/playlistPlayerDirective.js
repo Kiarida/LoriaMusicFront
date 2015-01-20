@@ -2,8 +2,11 @@ app.directive('playlistPlayer', function() {
   return {
     restrict: 'A',
     templateUrl: "app/components/player/playlistTemplate.html?t=000",
+    scope : {
+    	content:"=",
+    	controller:"="
+    },
     link: function(scope, sce){
-
     	scope.playlistUser = ["rap","rock", "pop"];
 		scope.rate = 2;
 
@@ -22,16 +25,26 @@ app.directive('playlistPlayer', function() {
 			}
 			else {
 				scope.controller.currentVideo = index;
-				scope.controller.config.sources = scope.controller.videos[index].sources;
+				scope.controller.config.sources = scope.content[index].sources;
 				scope.controller.API.play();
 			}
 			
 		};
 
     	scope.isCollapsed = true;
+    	scope.hideTags = true;
 		scope.hover = false;
+		scope.test = function(){
+			console.log("ukiiuy");
+		}
 		scope.addTrackToPlaylist = function(id){
 
+		}
+		scope.agree = function(){
+			console.log("plussoyer");
+		}
+		scope.disagree = function(){
+			console.log("moinssoyer");
 		}
 
     },

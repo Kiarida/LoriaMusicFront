@@ -248,10 +248,10 @@ app.constant("routeRessource", {
   "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",
   "Artistes" : "http://LoriaMusic.local/api/app.php/artistes/",
   "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
-<<<<<<< HEAD
+
   "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json"
-=======
-  "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
-  "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key"
->>>>>>> f1b333e7aaa139d5a5734debe15fc23a4f46c09f
+
+  "ItemSearch" : "http://LoriaMusic.local/api/app.php/items/search/:key",
+  "ArtisteSearch" : "http://LoriaMusic.local/api/app.php/artistes/search/:key"
+
 })

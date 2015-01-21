@@ -24,7 +24,7 @@
 			<td class="rating">
 				<rating ng-model="video.rate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 			</td>
-			<td class="action" ng-class="{'hide': $root.small}">
+			<td class="action" ng-class="{'hide': $root.small && withPlayer }">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
 					<a href ng-click="isCollapsed = !isCollapsed">

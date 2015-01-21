@@ -18,11 +18,11 @@
 				</a>
 			</td>
 			<td class="title">
-				{{video.name}}
+				{{video.titre}}
 			</td>
 			<td class="artiste"><i class="icon-microphone"></i> {{video.artiste}}</td>
 			<td class="rating">
-				<rating ng-model="video.rate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+				<rating ng-model="video.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 			</td>
 			<td class="action" ng-class="{'hide': $root.small && withPlayer }">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">

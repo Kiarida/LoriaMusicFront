@@ -98,7 +98,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track){
       if(Array.isArray(track)){
-        console.log("uuuu");
         $rootScope.playing = true;
         $rootScope.playlist = [];
         for(var i=0;i<track.length;i++){
@@ -189,5 +188,6 @@ app.constant("routeRessource", {
   "Genre" : "http://LoriaMusic.local/api/app.php/genres",
   "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",
   "Artistes" : "http://LoriaMusic.local/api/app.php/artistes/",
-  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id"
+  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
+  "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json"
 })

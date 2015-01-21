@@ -176,6 +176,65 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.playing = false;
     $rootScope.location = $location.url();
     $rootScope.small = false;
+    $rootScope.wordSearched = {search : null};
+    $rootScope.resItem = [];
+    $rootScope.resArtiste = [];
+    //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
+    if(typeof $cookieStore.get('user') != 'undefined'){
+      Auth.setUser($cookieStore.get('user'));
+    }
+
+    $rootScope.Search = $resource(routeRessource.ItemSearch,{},
+    {
+      'query': {
+          method: 'GET',
+          isArray: true,
+          headers: { 
+            "Authorization" : 'WSSE profile="UsernameToken"',
+            "X-wsse" : Auth.getUser().wsse
+          },
+          params:{key: "@key"}
+      }
+    });
+
+    $rootScope.SearchArtiste = $resource(routeRessource.ArtisteSearch,{},
+    {
+      'query': {
+          method: 'GET',
+          isArray: true,
+          headers: { 
+            "Authorization" : 'WSSE profile="UsernameToken"',
+            "X-wsse" : Auth.getUser().wsse
+          },
+          params:{key: "@key"}
+      }
+    });
+
+    $rootScope.search = function(){
+      if($location.url() != "search")
+        $location.path('/search');
+      console.log($rootScope.wordSearched.search);
+      if($rootScope.wordSearched.search!= null && $rootScope.wordSearched.search.length >= 3){
+        var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
+          function(){ 
+            $rootScope.resItem = item;
+          },
+          function(error){
+            $rootScope.resItem = error.data;
+          }
+        );
+        var artisteItem = $rootScope.Search.query({key:$rootScope.wordSearched.search},
+            function(){ 
+              $rootScope.resArtiste = artisteItem;
+            },
+            function(error){
+              $rootScope.resArtiste = error.data;
+            }
+        );   
+      }
+    };
+    
+
     $(".contain").height($(document).height());
 
 
@@ -189,5 +248,7 @@ app.constant("routeRessource", {
   "Genre" : "http://LoriaMusic.local/api/app.php/genres",
   "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",
   "Artistes" : "http://LoriaMusic.local/api/app.php/artistes/",
-  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id"
+  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
+  "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
+  "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key"
 })

@@ -1,8 +1,5 @@
 app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location','$rootScope',"$window",
-  function ($scope, $cookieStore, Auth, $location,$rootScope,$window) {
-  
-    $rootScope.wordSearched = {search : null};
-   
+  function ($scope, $cookieStore, Auth, $location,$rootScope,$window) {   
 
    $scope.status = {
     isopen: false
@@ -24,10 +21,5 @@ app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location'
   };
 
   $scope.user = Auth.getUser();
-  $scope.search = function(){
-    if($location.url() != "search")
-      $location.path('/search');
-
-    
-  };
+  
 }]);

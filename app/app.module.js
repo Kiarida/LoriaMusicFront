@@ -182,9 +182,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 }]);
 
 app.constant("routeRessource", {
-  "CreateToken" : "http://LoriaMusic.loc:8888/api/app.php/security/tokens/creates.json",
+  "CreateToken" : "http://LoriaMusic.local/api/app.php/security/tokens/creates.json",
   "CreateUser"  : "http://LoriaMusic.local/api/app.php/users",
-  "IsConnected" : "http://LoriaMusic.loc:8888/api/app.php/api/connected",
+  "IsConnected" : "http://LoriaMusic.local/api/app.php/api/connected",
   "PrefUser" : "http://LoriaMusic.local/api/app.php/user/:id",
   "Genre" : "http://LoriaMusic.local/api/app.php/genres",
   "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",

@@ -99,7 +99,7 @@ $scope.lienGenres = routeRessource.Genres;
 $scope.lienArtistes = routeRessource.Artistes;
 
 $scope.itemgenres = getGenres();
-$scope.itemartistes = getArtistes();
+$rootScope.itemartistes = getArtistes();
 
 function getGenres(){
 
@@ -133,7 +133,7 @@ function getGenres(){
 	        }
         });
 		
-				Res.query(null,function(mess){ $scope.itemartistes = mess; },function(error){ $scope.itemartistes = error.data; });
+				Res.query(null,function(mess){ $rootScope.itemartistes = mess; },function(error){ $rootSscope.itemartistes = error.data; });
 				
 	}
 

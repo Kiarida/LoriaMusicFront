@@ -244,12 +244,12 @@ app.constant("routeRessource", {
   "CreateUser"  : "http://LoriaMusic.local/api/app.php/users",
   "IsConnected" : "http://LoriaMusic.local/api/app.php/api/connected",
   "PrefUser" : "http://LoriaMusic.local/api/app.php/user/:id",
-  "Genre" : "http://LoriaMusic.local/api/app.php/genres",
+  "Genres" : "http://LoriaMusic.local/api/app.php/genres.json",
   "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",
-  "Artistes" : "http://LoriaMusic.local/api/app.php/artistes/",
+  "Artistes" : "http://LoriaMusic.local/api/app.php/artistes.json",
   "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
 
-  "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json"
+  "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",
 
   "ItemSearch" : "http://LoriaMusic.local/api/app.php/items/search/:key",
   "ArtisteSearch" : "http://LoriaMusic.local/api/app.php/artistes/search/:key"

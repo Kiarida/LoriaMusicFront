@@ -1,41 +1,35 @@
 app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies','$sce',
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies,$sce){
 
- 	$scope.itemgenres = [
-		{
-			id : 1,
-			sources: [
-				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-			],
-			name: "Classic",
-			artiste : "Angular",
-			rate: 3,
-			poster: "http://www.videogular.com/assets/images/videogular.png",
-			tags:["test","rap"],
-			cover: "http://lorempixel.com/200/200/",
-		},
-	];
+ // 	$scope.itemgenres = [
+	// 	{
+	// 		id : 1,
+	// 		sources: [
+	// 			{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+	// 		],
+	// 		name: "Classic",
+	// 		artiste : "Angular",
+	// 		rate: 3,
+	// 		poster: "http://www.videogular.com/assets/images/videogular.png",
+	// 		tags:["test","rap"],
+	// 		cover: "http://lorempixel.com/200/200/",
+	// 	},
+	// ];
 
-	$rootScope.itemartistes = [
-		{
-			id : 2,
-			sources: [
-				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-			],
-			name: "Videogular",
-			artiste : "Angular",
-			rate: 3,
-			poster: "http://www.videogular.com/assets/images/videogular.png",
-			tags:["test","rap"],
-			cover: "http://lorempixel.com/200/200/",
-		},
-	];
-	
-
-
-
-
-
+	// $rootScope.itemartistes = [
+	// 	{
+	// 		id : 2,
+	// 		sources: [
+	// 			{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+	// 		],
+	// 		name: "Videogular",
+	// 		artiste : "Angular",
+	// 		rate: 3,
+	// 		poster: "http://www.videogular.com/assets/images/videogular.png",
+	// 		tags:["test","rap"],
+	// 		cover: "http://lorempixel.com/200/200/",
+	// 	},
+	// ];
 
 	/*
 	var Genres = $resource(routeRessource.Genre,{},
@@ -99,7 +93,49 @@ app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth'
 	}
 	*/
 
+var controller = this;
 
+$scope.lienGenres = routeRessource.Genres;
+$scope.lienArtistes = routeRessource.Artistes;
+
+$scope.itemgenres = getGenres();
+$scope.itemartistes = getArtistes();
+
+function getGenres(){
+
+		var Res = $resource($scope.lienGenres,{},
+		{
+	        'query': {
+	            method: 'GET',
+	            isArray: true,
+	            headers: { 
+	              "Authorization" : 'WSSE profile="UsernameToken"',
+	              "X-wsse" : Auth.getUser().wsse
+	            }
+	        }
+        });
+		
+				Res.query(null,function(mess){ $scope.itemgenres = mess; },function(error){ $scope.itemgenres = error.data; });
+				
+	}
+
+	function getArtistes(){
+
+		var Res = $resource($scope.lienArtistes,{},
+		{
+	        'query': {
+	            method: 'GET',
+	            isArray: true,
+	            headers: { 
+	              "Authorization" : 'WSSE profile="UsernameToken"',
+	              "X-wsse" : Auth.getUser().wsse
+	            }
+	        }
+        });
+		
+				Res.query(null,function(mess){ $scope.itemartistes = mess; },function(error){ $scope.itemartistes = error.data; });
+				
+	}
 
 
 	

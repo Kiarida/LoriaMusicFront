@@ -62,6 +62,8 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 	// ];
 
 
+
+
 	function getTops(){
 
 		var Res = $resource($scope.lien,{},
@@ -76,9 +78,11 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 	        }
         });
 		
-				Res.query(null,function(mess){ $scope.tops = mess; },function(error){ $scope.tops = error.data; });
+				Res.query(null,function(mess){ controller.tops = mess; },function(error){ controller.tops = error.data; });
 				
 	}
+
+
 
 
 }]);

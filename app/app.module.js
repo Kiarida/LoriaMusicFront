@@ -183,36 +183,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       Auth.setUser($cookieStore.get('user'));
     }
 
-    $rootScope.Search = $resource(routeRessource.ItemSearch,{},
-    {
-      'query': {
-          method: 'GET',
-          isArray: true,
-          headers: { 
-            "Authorization" : 'WSSE profile="UsernameToken"',
-            "X-wsse" : Auth.getUser().wsse
-          },
-          params:{key: "@key"}
-      }
-    });
-
-    $rootScope.SearchArtiste = $resource(routeRessource.ArtisteSearch,{},
-    {
-      'query': {
-          method: 'GET',
-          isArray: true,
-          headers: { 
-            "Authorization" : 'WSSE profile="UsernameToken"',
-            "X-wsse" : Auth.getUser().wsse
-          },
-          params:{key: "@key"}
-      }
-    });
-
     $rootScope.search = function(){
       if($location.url() != "search")
         $location.path('/search');
-      console.log($rootScope.wordSearched.search);
+      $rootScope.initSearch();
       if($rootScope.wordSearched.search!= null && $rootScope.wordSearched.search.length >= 3){
         var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
           function(){ 
@@ -230,6 +204,37 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               $rootScope.resArtiste = error.data;
             }
         );   
+      }
+    };
+
+    $rootScope.initSearch = function(){
+      if(Auth.getUser() && $rootScope.Search == null){
+        console.log("oo");
+        $rootScope.Search = $resource(routeRessource.ItemSearch,{},
+        {
+          'query': {
+              method: 'GET',
+              isArray: true,
+              headers: { 
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{key: "@key"}
+          }
+        });
+
+        $rootScope.SearchArtiste = $resource(routeRessource.ArtisteSearch,{},
+        {
+          'query': {
+              method: 'GET',
+              isArray: true,
+              headers: { 
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{key: "@key"}
+          }
+        });
       }
     };
     

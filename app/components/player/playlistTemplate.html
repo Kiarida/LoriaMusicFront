@@ -20,7 +20,7 @@
 			<td class="title">
 				{{video.titre}}
 			</td>
-			<td class="artiste"><i class="icon-microphone"></i> {{video.artiste}}</td>
+			<td class="artiste"><i class="icon-microphone"></i> {{video.idartiste[0].nom}}</td>
 			<td class="rating">
 				<rating ng-model="video.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 			</td>

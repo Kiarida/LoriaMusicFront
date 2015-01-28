@@ -8,10 +8,10 @@ var controller = this;
 $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByGenre;
 
 
-$scope.randomItem;
+$rootScope.randomItem;
 
 
- $scope.getRandomItemByGenre = function(idGenre){
+ $scope.launchRandomTrack = function(idGenre){
 
 		var Res = $resource($scope.lienRandomItemByGenre,{},
 		{
@@ -26,18 +26,25 @@ $scope.randomItem;
 	        }
         });
 		
-				Res.query({id:idGenre},function(mess){ $scope.randomItem = mess; },function(error){ $scope.randomItem = error.data; });
+				Res.query(
+					{id:idGenre},
+					function(mess){ 
+						$rootScope.randomItem = mess;
 
-				console.log($scope.randomItem);
+
+
+						$rootScope.randomItem[0].sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp3"}];
+						
+						$rootScope.launchPlay($rootScope.randomItem);
+						console.log($rootScope.randomItem[0].url);
+					},
+					function(error){ $rootScope.randomItem = error.data; });
+
 				
+			
 	}
 
-	$scope.launchRandomTrack = function(idGenre){
-
-		$scope.randomItem = $scope.getRandomItemByGenre(idGenre);
-
-		$rootScope.launchPlay($scope.randomItem);
-	}
+	
 
 
 }]);

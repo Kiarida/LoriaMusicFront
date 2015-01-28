@@ -108,7 +108,7 @@
                       <i class="icon-pencil"></i>
                     </a>
                     <a href=""><i class="icon-trash"></i></a>
-                    <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed;" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
+                    <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed; getPlaylistTag(playlist.id)" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
                       <i class="icon-tag"></i>
                     </a>
                   </div>
@@ -116,7 +116,7 @@
                   <div class="playlist-tags" collapse="isCollapsed">
                     <div class="well well-lg playlist-tag">
                       
-                      <tags-input class="tags-playlist" ng-model="tags" ng-pattern="tagsPattern"></tags-input>
+                      <tags-input class="tags-playlist" ng-model="playlist.tags" on-tag-added="addTagPlaylist(playlist)" ng-pattern="tagsPattern"></tags-input>
                     
 
                     </div> 

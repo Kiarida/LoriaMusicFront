@@ -219,4 +219,5 @@ app.constant("routeRessource", {
   "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
   "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key",
   "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
+  "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags",
 })

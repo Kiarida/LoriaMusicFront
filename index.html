@@ -94,11 +94,11 @@
                 <div class="one-playlist">
                   <div class="playlist-name playlist-content">
   	                <div class="ellipsis" ng-mouseenter="playlistHover=true" ng-class="{active: playlistHover|| playlistliHover}" ng-mouseleave="playlistHover=false">
-  		                <a ng-click="launchPlay(playlist.playlist)" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
+  		                <a ng-click="launchPlaylist(playlist.id)" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
   		                  {{playlist.name}}
   		                </a>
   	                </div>
-  	                <div ng-click="launchPlay(playlist.playlist)" class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
+  	                <div ng-click="launchPlaylist(playlist.id)" class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
                   		<i class="icon-play2 icon-menu-left icon-play-playlist"></i>
   	                </div>
                   	<input ng-model="playlist.name" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
@@ -175,7 +175,7 @@
             <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
           </vg-scrubBar>
           <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
-          <vg-poster-image vg-url='playlist[controller.currentVideo].poster'></vg-poster-image>
+          <vg-poster-image vg-url='playlist[controller.currentVideo].urlPoster'></vg-poster-image>
         </videogular>
       </div>
       <div class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">

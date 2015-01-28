@@ -101,6 +101,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.playing = true;
         $rootScope.playlist = [];
         for(var i=0;i<track.length;i++){
+
           $rootScope.playlist.push(track[i]);
 
         }
@@ -122,44 +123,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       {
         id : 1,
         name : "Playlist 1",
-        playlist: [
-          {
-            id : 1,
-            sources: [
-              {src: $sce.trustAsResourceUrl("http://b.rdb.so/d/JJXPDZ46WULAO/La%20Vie%20En%20Rose%20lyrics%20-%20Cristin%20Milioti.mp3"), type: "audio/mp3"}
-            ],
-            name: "La vie en rose",
-            artiste : "Cristin Milioti",
-            rate: 3,
-            poster: "http://i.ytimg.com/vi/S8gL_7HjLGU/maxresdefault.jpg",
-            tags:["test","rap"],
-            cover: "http://lorempixel.com/200/200/",
-          },
-          {
-            id : 12,
-            sources: [
-              {src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-            ],
-            name: "Dangerous",
-            artiste : "David Guetta",
-            rate: 3,
-            poster: "http://www.videogular.com/assets/images/videogular.png",
-            tags:["test","rap"],
-            cover: "http://lorempixel.com/200/200/",
-          },
-          {
-            id : 1,
-            sources: [
-              {src: $sce.trustAsResourceUrl("http://a.rdb.so/d/7YLYC3ZUMW6XY/Justin%20Timberlake%20-%20Cry%20Me%20A%20River%20%28Official%29.mp3"), type: "audio/mp3"}
-            ],
-            name: "Cry me a river",
-            artiste : "Justin Timberlake",
-            rate: 3,
-            poster: "http://horrordisco.com/wp-content/uploads/2012/08/Justin-Timberlake.jpg",
-            tags:["test","rap"],
-            cover: "http://lorempixel.com/200/200/",
-          },
-        ]
       },
 
       {
@@ -209,7 +172,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.initSearch = function(){
       if(Auth.getUser() && $rootScope.Search == null){
-        console.log("oo");
         $rootScope.Search = $resource(routeRessource.ItemSearch,{},
         {
           'query': {
@@ -256,7 +218,8 @@ app.constant("routeRessource", {
 
   "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",
 
-  "ItemSearch" : "http://LoriaMusic.local/api/app.php/items/search/:key",
-  "ArtisteSearch" : "http://LoriaMusic.local/api/app.php/artistes/search/:key"
+  "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
+  "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key",
+  "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
 
 })

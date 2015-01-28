@@ -185,7 +185,10 @@
   </div>
   <div ng-if="connected" class="col-lg-5 droit">
     <h1>ARTIST LIBRARY</h1>
+
+<div ng-controller="ArtisteCoverCtrl">
     <div deckgrid class="deckgrid" source="itemartistes" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+  </div>
   </div>
 </div>
 <!--   ############## LIB JS ################# -->
@@ -225,7 +228,8 @@
 	<script src="app/components/menu/historyController.js"></script>
 	<script src="app/components/menu/playlistController.js"></script>
 	<script src="app/components/topbar/topbarController.js"></script>
-  <script src="app/components/cover/coverController.js"></script>
+  <script src="app/components/cover/genreCoverController.js"></script>
+  <script src="app/components/cover/artisteCoverController.js"></script>
 	<script src="app/shared/menuleft/showTagPlaylist.js"></script>
 	<script src="app/shared/menuleft/editPlaylist.js"></script>
 	<script src="app/shared/menuleft/editPlaylistName.js"></script>

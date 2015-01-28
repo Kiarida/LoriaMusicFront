@@ -3,19 +3,6 @@ app.controller('playlistController',function ($scope, $log) {
 
 
 
-  var PlaylistTags = $resource(routeRessource.PlaylistTags,{},
-    {
-      query: {
-        method: 'GET',
-        isArray: true,
-        headers: { 
-          "Authorization" : 'WSSE profile="UsernameToken"',
-          "X-wsse" : Auth.getUser().wsse
-        },
-        params:{iduser: "@iduser", id:"@id"}
-      }
-    });
-
 
 
   // return playlists

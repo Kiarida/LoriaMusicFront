@@ -13,7 +13,17 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
         "X-wsse" : Auth.getUser().wsse
       },
       params:{iduser: "@iduser", id:"@id"}
+    },
+    query: {
+      method: 'GET',
+      isArray: true,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser", id:"@id"}
     }
+
   });
   
   $scope.addTagPlaylist= function(playlist){
@@ -23,8 +33,14 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
     }
   }
 
-  $scope.getPlaylistTag = function(playlist.id){
-    
+  $scope.getPlaylistTag = function(playlist){
+    var tags = PlaylistTags.query({iduser : Auth.getUser().id, id : playlist.id },
+      function(){
+        playlist.tags = [{id:1, libelle:"toto"},{id:2, libelle:"tutu"}];
+        console.log(playlist.tags);
+      },
+      function(){}
+    )
   }  
 
 

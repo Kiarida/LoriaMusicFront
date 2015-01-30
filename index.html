@@ -95,19 +95,19 @@
                   <div class="playlist-name playlist-content">
   	                <div class="ellipsis" ng-mouseenter="playlistHover=true" ng-class="{active: playlistHover|| playlistliHover}" ng-mouseleave="playlistHover=false">
   		                <a ng-click="launchPlaylist(playlist.id)" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
-  		                  {{playlist.name}}
+  		                  {{playlist.nom}}
   		                </a>
   	                </div>
   	                <div ng-click="launchPlaylist(playlist.id)" class="play-icon" ng-show="playlistHover" ng-mouseenter="playlistHover=true" ng-mouseleave="playlistHover=false">
                   		<i class="icon-play2 icon-menu-left icon-play-playlist"></i>
   	                </div>
-                  	<input ng-model="playlist.name" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
+                  	<input ng-model="playlist.nom" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
                 </div>
                   <div class="playlist-icons playlist-content playlist-hover">
-                    <a href=""  ng-click="changeEditPlaylist()" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
+                    <a href=""  ng-click="changeEditPlaylist(playlist)" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
                       <i class="icon-pencil"></i>
                     </a>
-                    <a href=""><i class="icon-trash"></i></a>
+                    <a href="" ng-click="deletePlaylist(playlist)"><i class="icon-trash"></i></a>
                     <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed; getPlaylistTag(playlist)" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
                       <i class="icon-tag"></i>
                     </a>
@@ -116,7 +116,7 @@
                   <div class="playlist-tags" collapse="isCollapsed">
                     <div class="well well-lg playlist-tag">
                       
-                      <tags-input class="tags-playlist" ng-model="playlist.tags" on-tag-added="addTagPlaylist(playlist)" ng-pattern="tagsPattern"></tags-input>
+                      <tags-input ng-if="playlist.tagLoaded" class="tags-playlist" ng-model="playlist.tags" on-tag-added="addTagPlaylist(playlist)" on-tag-removed="deleteTagPlaylist(playlist,$tag)" ng-pattern="tagsPattern"  display-property="libelle"></tags-input>
                     
 
                     </div> 

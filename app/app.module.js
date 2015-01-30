@@ -120,22 +120,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.playlist = [];
-    $rootScope.userPlaylist = [
-      {
-        id : 1,
-        name : "Playlist 1",
-      },
-
-      {
-        id : 2,
-        name : "Playlist 2"
-      },
-      {
-        id : 3,
-        name : "Playlist 3"
-      }
-
-    ];;
     $rootScope.playing = false;
     $rootScope.location = $location.url();
     $rootScope.small = false;
@@ -219,5 +203,6 @@ app.constant("routeRessource", {
   "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
   "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key",
   "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
-  "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags",
+  "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
+  "PlaylistUser" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist",
 })

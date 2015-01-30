@@ -1,8 +1,56 @@
 app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','Auth','$resource',
   function ($scope, $rootScope,$sce, routeRessource, Auth, $resource) {
   
+  var PlaylistUser = $resource(routeRessource.PlaylistUser,{},
+  {
+    get: {
+      method: 'GET',
+      isArray: true,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser", idplaylist : "@idplaylist"}
+    },
+    query: {
+      method: 'GET',
+      isArray: true,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser"}
+    },
+    delete: {
+      method: 'DELETE',
+      isArray: true,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser", idplaylist:"@idplaylist"}
+    },
+    save: {
+      method: 'POST',
+      isArray: false,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser"}
+    },
+    update: {
+      method: 'PUT',
+      isArray: false,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser",idplaylist:"@idplaylist"}
+    },
+  });
 
-// Playlists to get
+  // Playlists to get
 
   $scope.titleNewPlaylist = "";
 
@@ -12,44 +60,37 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     $scope.newPlaylist = !$scope.newPlaylist;
   }
 
-  
-   $scope.getPlaylists = function(){ 
-    return playlists;
-  }
-
   $scope.addPlaylist = function(playlistName){
 
-    var count = playlists.length+1;
-    var playlist = {id : count, name : playlistName }
-    playlists.push(playlist);
+    var playlist = {id : 0, nom : playlistName }
+    var userPlaylist = PlaylistUser.save({iduser: Auth.getUser().id},{nomPlaylist : playlistName},
+      function(){
+        $rootScope.userPlaylist.push({id : userPlaylist.id, nom : playlistName});
+      },
+      function(error){
 
-    /*
-      to do with backend
-    */
+      });
 
   }
 
-  $scope.deletePlaylist = function(id){
+  $scope.deletePlaylist = function(playlist){
+    var userPlaylist = PlaylistUser.delete({iduser: Auth.getUser().id, idplaylist: playlist.id});
+    $rootScope.userPlaylist.splice($rootScope.userPlaylist.indexOf(playlist),1);
+  }
 
-    //TO DO
+  $scope.editPlaylistName = function(playlist){
+    var userPlaylist = PlaylistUser.update({iduser: Auth.getUser().id, idplaylist : playlist.id},{nomPlaylist : playlist.nom},
+      function(){
+        console.log(userPlaylist);
+      },
+      function(error){
+
+      });
   }
 
   $rootScope.launchPlaylist = function(idplaylist){
 
-    var PlaylistDetail = $resource(routeRessource.PlaylistDetail,{},
-    {
-      query: {
-        method: 'GET',
-        isArray: true,
-        headers: { 
-          "Authorization" : 'WSSE profile="UsernameToken"',
-          "X-wsse" : Auth.getUser().wsse
-        },
-        params:{iduser: "@iduser", id:"@id"}
-      }
-    });
-
-    var playlist = PlaylistDetail.query({iduser: Auth.getUser().id, id: idplaylist},
+    var playlist = PlaylistUser.get({iduser: Auth.getUser().id, idplaylist: idplaylist},
       function(){
         var track = playlist[0].iditem;
         if(track.length==0)
@@ -74,8 +115,17 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
         console.log("error");
       }
     );
-    
   }
+
+  var userPlaylist = PlaylistUser.query({iduser: Auth.getUser().id},
+    function(){
+      $rootScope.userPlaylist = userPlaylist;
+      
+    },
+    function(error){
+      console.log("error");
+    }
+  );
 
 
 

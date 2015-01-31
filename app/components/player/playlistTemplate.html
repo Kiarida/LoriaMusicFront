@@ -35,7 +35,7 @@
 						<form ng-submit="addTrackToPlaylist(video,playlistUser)" method="POST">
 							<div class="select-container">
 								<select ng-model="playlistUser" data-toggle="select" name="playlist">
-									<option ng-repeat="playlist in $root.userPlaylist" value="{{$index}}">{{playlist.name}}</option>
+									<option ng-repeat="playlist in $root.userPlaylist" value="plailist.id">{{playlist.nom}}</option>
 								</select>
 							</div>
 							<input type="text" ng-model="newPlaylistUser" placeholder="New playlist name">

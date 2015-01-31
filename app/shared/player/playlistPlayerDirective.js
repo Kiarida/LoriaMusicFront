@@ -28,10 +28,14 @@ app.directive('playlistPlayer', function() {
 		scope.test = function(){
 			console.log("ukiiuy");
 		}
+
+
 		scope.addTrackToPlaylist = function(track,indexPlaylist){
-			scope.$root.userPlaylist[indexPlaylist].playlist.push(track);
 			console.log("ok");
 		}
+
+
+
 		scope.agree = function(){
 			console.log("plussoyer");
 		}

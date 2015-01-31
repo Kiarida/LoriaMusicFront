@@ -43,16 +43,17 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
   }
 
   $scope.getPlaylistTag = function(playlist){
-    var tags = PlaylistTags.query({iduser : Auth.getUser().id, id : playlist.id },
-      function(){
-        console.log(tags);
-        playlist.tags = tags;
-        playlist.tagLoaded = true;
-      },
-      function(){
-        playlist.tagLoaded = true;
-      }
-    )
+    if(!playlist.tagLoaded){
+      var tags = PlaylistTags.query({iduser : Auth.getUser().id, id : playlist.id },
+        function(){
+          playlist.tags = tags;
+          playlist.tagLoaded = true;
+        },
+        function(){
+          playlist.tagLoaded = true;
+        }
+      )
+    }
   }
 
   $scope.deleteTagPlaylist=function(playlist,tag){

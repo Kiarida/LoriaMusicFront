@@ -1,5 +1,5 @@
 <h1>Top list</h1>
 <div class="round back" click-link="/home"></div>
-<div class="playlist-player" playlist-player controller="controller" content="controller.videos" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+<div ng-if="videos" class="playlist-player" playlist-player controller="controller" content="videos" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
 	
 </div>	

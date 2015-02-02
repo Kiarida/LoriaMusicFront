@@ -646,6 +646,12 @@ videogular vg-timedisplay{ display: none; }
 .videogular-container .iconButton { transition: all 0.5s ease 0s;}
 .videogular-container .iconButton:hover { color: #0079a6; }
 .videogular-container .active{ color: #0079a6; }
+.videogular-container videogular vg-mutebutton .level3:before{ font-family: "icomoon"; content:""; }
+.videogular-container videogular vg-mutebutton .level1:before{ font-family: "icomoon"; content:""; }
+.videogular-container videogular vg-mutebutton .level2:before{ font-family: "icomoon"; content:""; }
+.videogular-container videogular vg-mutebutton .level0:before{ font-family: "icomoon"; content:""; }
+.videogular-container videogular vg-mutebutton .mute:before{ font-family: "icomoon"; content:""; }
+.videogular-container videogular vg-overlay-play .play:before { font-family: "icomoon"; content:"" }
 .addplaylist { display: inline-block; position: relative;}
 .small.videogular-container,.small.playlist-player{ padding: 0; height: 159px; overflow: scroll;}
 .playlist-player td{ padding:5px 0; }
@@ -686,6 +692,7 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player td.index a:hover{ color:#0079a6; }
 .playlist-player td.title { width : 25%; }
 .playlist-player td.rating { width : 20%; }
+.playlist-player td.rating .userRating{color:#0079a6; }
 .playlist-player td a { color:#374051; }
 .playlist-player td a:hover { color:#0079a6; }
 .addplaylist .addtoplaylist{ 
@@ -695,7 +702,6 @@ videogular vg-timedisplay{ display: none; }
     z-index: 10;
     top : 45px;
 }
-
 .addplaylist .addtoplaylist:after,
 .addplaylist .addtoplaylist:before{
 	bottom: 100%;

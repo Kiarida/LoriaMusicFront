@@ -106,6 +106,8 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
           $rootScope.playlist.push(track);
           track.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
         }
+        $rootScope.playlist.id = playlist[0].id;
+        $rootScope.playlist.nom = playlist[0].nom;
         $rootScope.playing = true;
         $rootScope.small = false;
         console.log($rootScope.playlist);

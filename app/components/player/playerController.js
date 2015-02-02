@@ -25,7 +25,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		autoPlay: true,
 		sources: $rootScope.playlist[0].sources,
 		theme: {
-			url: "http://www.videogular.com/styles/themes/default/videogular.css"
+			url: "assets/css/videogular.css"
 		},
 		plugins: {
 			poster: $rootScope.playlist[0].poster

@@ -29,7 +29,7 @@
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
 					<a href ng-click="isCollapsed = !isCollapsed; successAdd();">
-						<i class="icon-plus"></i>
+						<i tooltip="add to a playlist" class="icon-plus"></i>
 					</a>
 					<div class="well addtoplaylist" collapse="isCollapsed">
 						<h3>ADD TO A PLAYLIST</h3>
@@ -47,13 +47,13 @@
 					</div>
 				</div>
 				<a ng-if="controller.configPlaylist.remove" ng-click="removeItem($root.playlist.id,video.id,$index)" href="">
-					<i class="icon-trash"></i>
+					<i tooltip="remove from the playlist" class="icon-trash"></i>
 				</a>
 				<a ng-class="{ active: !hideTags }" ng-show="controller.configPlaylist.tags" class="icon-tag-list" href="" ng-click="hideTags = !hideTags">
-					<i class="icon-tag"></i>
+					<i tooltip="show tags" class="icon-tag"></i>
 				</a>
 				<a href="">
-					<i class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
+					<i tooltip="more" class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
 				</a>
 			</td>
 		</tr>

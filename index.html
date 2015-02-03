@@ -84,7 +84,7 @@
             <ul class="ul-menuleft">
               <li>
               	<h3 class="titre-menuleft">
-              		PLAYLIST <a ng-click="changeNewPlaylist()" href="" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a>
+              		PLAYLIST <a ng-click="changeNewPlaylist()" href="" class="add-playlist-icon" tooltip="Create new playlist" title="Create new playlist"><i class="icon-plus iconPlaylist"></i></a>
           		</h3>
       		</li>
               <div>
@@ -104,12 +104,12 @@
                   	<input ng-model="playlist.nom" ng-if="getEditPlaylist()" type="text" class="form-control input-edit-playlist-name" value="{{playlist.name}}" aria-describedby="basic-addon1" ng-edit-playlist-name="changeEditPlaylistFalse()">
                 </div>
                   <div class="playlist-icons playlist-content playlist-hover">
-                    <a href=""  ng-click="changeEditPlaylist(playlist)" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
-                      <i class="icon-pencil"></i>
+                    <a href="" ng-click="changeEditPlaylist(playlist)" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
+                      <i tooltip="Edit playlist name" class="icon-pencil"></i>
                     </a>
-                    <a href="" ng-click="deletePlaylist(playlist)"><i class="icon-trash"></i></a>
+                    <a href="" ng-click="deletePlaylist(playlist)"><i tooltip="Delete playlist" class="icon-trash"></i></a>
                     <a class="icon-tag-list" href="" ng-click="isCollapsed = !isCollapsed; getPlaylistTag(playlist)" ng-style="styleIconTag" ng-show-tag-playlist="isCollapsed" edit-playlist="editPlaylist">
-                      <i class="icon-tag"></i>
+                      <i tooltip="Edit playlist tags" class="icon-tag"></i>
                     </a>
                   </div>
 

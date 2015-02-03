@@ -13,7 +13,7 @@
 			    <label class="sr-only" for="exampleInputPassword2">Password</label>
 			    <input type="password" ng-model="userConn._password" class="form-control" name="_password" id="exampleInputPassword2" placeholder="Password">
 			  </div>
-			  <button type="submit" class="btn btn-default"><i class="icon-switch"></i>CONNEXION</button>
+			  <button type="submit" class="btn btn-default"><i class="icon-switch"></i>SIGN IN</button>
 			</form>
 		</div>
 	</div>
@@ -45,8 +45,7 @@
 				<div class="col-sm-4">
 					<div class="select-container">
 						<select data-toggle="select" ng-model="user.birthday" required name="day">
-							<option value=""></option>
-							<option ng-repeat="n in [] | range:31" value="{{n+1}}">
+							<option ng-init="user.birthday=01" ng-repeat="n in [] | range:31" value="{{n+1}}">
 								{{n+1}}
 							</option>
 						</select>
@@ -55,8 +54,7 @@
 				<div class="col-sm-4">
 					<div class="select-container">
 						<select ng-model="user.birthmonth" required name="month">
-							<option value=""></option>
-							<option ng-repeat="n in [] | range:12" value="{{n+1}}">
+							<option ng-init="user.birthmonth = 12" ng-repeat="n in [] | range:12" value="{{n+1}}">
 								{{n+1}}
 							</option>
 						</select>
@@ -65,8 +63,7 @@
 				<div class="col-sm-4">
 					<div class="select-container">
 						<select ng-model="user.birthyear" required name="year">
-							<option value=""></option>
-							<option ng-repeat="n in [] | yearRange:200" value="{{n+1}}">
+							<option ng-init="user.birthyear = 1901" ng-repeat="n in [] | yearRange:200" value="{{n+1}}">
 								{{n+1}}
 							</option>
 						</select>
@@ -84,14 +81,13 @@
 			<div class="form-group">
 				<div class="select-container select-large">
 					<select ng-model="user.country" required="" name="country">
-						<option value=""></option>
-						<option ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
+						<option ng-init="user.country = countries[0].name.common" ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
 					</select>
 				</div>
 			</div>
 			<p class="alert alert-danger alert-signup" ng-show="errorSignUp">{{ errorSignUp }}</p>
 			<button class="btn btn-block btn-lg btn-primary">
-				<i class="icon-checkmark"></i>VALIDER
+				<i class="icon-checkmark"></i>SIGN UP
 			</button>
 		</form>
 	</div>

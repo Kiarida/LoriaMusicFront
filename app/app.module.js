@@ -46,7 +46,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.small = false;
 
 
-      $(".centre,.droit,#menu-left").height($(document).height());
 
       //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
       if(typeof $cookieStore.get('user') != 'undefined'){
@@ -183,9 +182,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         });
       }
     };
-    
+    console.log("jjj");
 
-    $(".contain").height($(document).height());
+    $(".contain").height(window.innerHeight-53);
+    $(".centre,.droit,#menu-left").height(window.innerHeight-53);
+
 
 
 }]);

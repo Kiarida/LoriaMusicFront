@@ -16,8 +16,9 @@ h3{
   margin-top: 15px;
 }
 button { text-transform: uppercase;}
-.content{ margin-bottom: 20px; position: relative; padding: 0; }
+.content{ position: relative; padding: 0; }
 .content .container{ position: relative; }
+.changing { height: 81%; overflow: auto;}
 
 
 
@@ -455,6 +456,7 @@ padding-bottom: 0px;
     padding-top: 12px;
     padding-bottom: 12px;
   }
+  .sidebar-nav .navbar li a.add-playlist-icon { padding: 0; float: right; display: inline-block;}
 
 .navbar-default .navbar-nav > li > a.pseudo-navbar:hover {
 	text-decoration : underline;
@@ -555,6 +557,7 @@ textarea{
     top: 10px;
 }
 .round.back a{ color: #374051; }
+.round .tooltip{z-index: 1000000;}
 .centre, .centre select, .centre input { background: #d9dcde; color:#374051; }
 .centre select, .centre input { border: 1px solid #374051; }
 .centre .select-container.select-large, .centre .select-container{ background : url("../img/arrowdown-dark.gif") no-repeat scroll 97% 50% #d9dcde; border-color: #374051; }
@@ -666,9 +669,8 @@ videogular vg-timedisplay{ display: none; }
     top: 25%;
 }
 .player-reduced.reduced {
-    bottom: 0;
     width: 100%;
-    margin-top: 40px;
+    position: absolute;
 }
 
 
@@ -701,11 +703,12 @@ videogular vg-timedisplay{ display: none; }
     position: absolute;
     z-index: 10;
     top : 45px;
+    font-size: 70%
 }
 .addplaylist .addtoplaylist:after,
 .addplaylist .addtoplaylist:before{
 	bottom: 100%;
-	left: 50%;
+	left: 64%;
 	border: solid transparent;
 	content: " ";
 	height: 0;

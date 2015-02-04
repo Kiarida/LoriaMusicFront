@@ -18,10 +18,10 @@
 				</a>
 			</td>
 			<td class="title">
-				{{ecoutes.titre}}
+				<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre.length > 18 ? ecoutes.titre.substring(0,18)+"..." : ecoutes.titre}}</span>
 			</td>
 
-			<td class="artiste"><i class="icon-microphone"></i> {{ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom}}</td>
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom" class="artiste"><i class="icon-microphone"></i><span tooltip="{{artiste}}">{{artiste.length > 16 ? artiste.substring(0,13)+"..." : artiste}}</span></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
 				<rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 				<rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
@@ -45,7 +45,7 @@
 									<option ng-repeat="playlist in $root.userPlaylist" value="{{playlist.id}}">{{playlist.nom}}</option>
 								</select>
 							</div>
-							<input type="text" ng-model="newPlaylistUser" placeholder="New playlist name">
+							<input ng-model="titleNewPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist />
 							<button type="submit" class="btn btn-primary"><i class="icon-checkmark"></i> Validate</button>
 						</form>
 					</div>

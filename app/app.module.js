@@ -183,8 +183,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         });
       }
     };
-    console.log("jjj");
-
     $(".contain").height(window.innerHeight-53);
     $(".centre,.droit,#menu-left").height(window.innerHeight-53);
 

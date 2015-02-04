@@ -59,7 +59,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     $scope.newPlaylist = !$scope.newPlaylist;
   }
 
-  $scope.addPlaylist = function(playlistName){
+  $rootScope.addPlaylist = function(playlistName){
 
     var playlist = {id : 0, nom : playlistName }
     var userPlaylist = PlaylistUser.save({iduser: Auth.getUser().id},{nomPlaylist : playlistName},

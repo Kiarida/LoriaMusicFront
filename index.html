@@ -184,11 +184,14 @@
 
   </div>
   <div ng-if="connected" class="col-lg-5 droit">
-    <h1>ARTIST LIBRARY</h1>
-
-<div ng-controller="ArtisteCoverCtrl">
-    <div deckgrid class="deckgrid" source="itemartistes" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
-  </div>
+    <div ng-if="!playing" ng-controller="ArtisteCoverCtrl">
+        <h1>ARTIST LIBRARY</h1>
+        <div deckgrid class="deckgrid" source="itemartistes" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+    </div>
+    <div ng-if="playing" ng-controller="TopsCtrl as controller">
+        <h1>Suggestions</h1>
+        <div ng-if="controller.tops" class="playlist-player" playlist-player controller="controller" content="controller.tops" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+    </div>
   </div>
 </div>
 <!--   ############## LIB JS ################# -->

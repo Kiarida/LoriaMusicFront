@@ -202,10 +202,10 @@ app.constant("routeRessource", {
   "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
 
 
-  "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json"
+  "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",
 
   "ItemSearch" : "http://LoriaMusic.local/api/app.php/items/search/:key",
-  "ArtisteSearch" : "http://LoriaMusic.local/api/app.php/artistes/search/:key"
+  "ArtisteSearch" : "http://LoriaMusic.local/api/app.php/artistes/search/:key",
 
   "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
   "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
@@ -214,4 +214,4 @@ app.constant("routeRessource", {
   "RateItem" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/note/item/:iditem",
   "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem",
 
-})
+});

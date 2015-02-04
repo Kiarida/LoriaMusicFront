@@ -12,7 +12,7 @@ app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth'
 			rate: 3,
 			poster: "http://www.videogular.com/assets/images/videogular.png",
 			tags:["test","rap"],
-			cover: "http://lorempixel.com/200/200/",
+			urlCover: "http://lorempixel.com/200/200/",
 		},
 	];
 
@@ -27,7 +27,7 @@ app.controller('HomeConnectedCtrl', ['$scope', '$resource', '$rootScope', 'Auth'
 			rate: 3,
 			poster: "http://www.videogular.com/assets/images/videogular.png",
 			tags:["test","rap"],
-			cover: "http://lorempixel.com/200/200/",
+			urlCover: "http://lorempixel.com/200/200/",
 		},
 	];
 	

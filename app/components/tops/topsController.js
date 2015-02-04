@@ -5,6 +5,18 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 	controller.currentVideo = -1;
 	controller.hover = false;
 
+	// var Popular = $resource(routeRessource.Popular,{},
+ //    {
+ //      query: {
+ //        method: 'GET',
+ //        isArray: true,
+ //        headers: { 
+ //          "Authorization" : 'WSSE profile="UsernameToken"',
+ //          "X-wsse" : Auth.getUser().wsse
+ //        }
+ //      }
+ //    });
+
 	this.configPlaylist = {
 		addToPlaylist : true,
 		remove : false,
@@ -12,8 +24,9 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 		more : false,
 	};
 
+
 	$scope.lien = routeRessource.ItemPopular;
-	console.log(routeRessource.ItemPopular)
+	console.log(routeRessource.ItemPopular);
 	this.tops = getTops();
 
 	// this.videos = [

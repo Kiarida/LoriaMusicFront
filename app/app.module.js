@@ -46,7 +46,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.small = false;
 
 
-      $(".centre,.droit,#menu-left").height($(document).height());
 
       //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
       if(typeof $cookieStore.get('user') != 'undefined'){
@@ -120,22 +119,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.playlist = [];
-    $rootScope.userPlaylist = [
-      {
-        id : 1,
-        name : "Playlist 1",
-      },
-
-      {
-        id : 2,
-        name : "Playlist 2"
-      },
-      {
-        id : 3,
-        name : "Playlist 3"
-      }
-
-    ];;
     $rootScope.playing = false;
     $rootScope.location = $location.url();
     $rootScope.small = false;
@@ -200,9 +183,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         });
       }
     };
-    
+    console.log("jjj");
 
-    $(".contain").height($(document).height());
+    $(".contain").height(window.innerHeight-53);
+    $(".centre,.droit,#menu-left").height(window.innerHeight-53);
+
 
 
 }]);
@@ -217,6 +202,7 @@ app.constant("routeRessource", {
   "Artistes" : "http://LoriaMusic.local/api/app.php/artistes.json",
   "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
 
+
   "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",
 
   "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
@@ -227,5 +213,15 @@ app.constant("routeRessource", {
 
   "Sessions" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions",
   "EcoutesBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session",
-  "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags"
-})
+  "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags",
+  "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
+  "PlaylistUser" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist",
+
+  "RateItem" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/note/item/:iditem",
+  "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem"
+});
+
+
+
+  
+

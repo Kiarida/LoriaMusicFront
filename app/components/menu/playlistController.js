@@ -1,6 +1,65 @@
-app.controller('playlistController',function ($scope, $log) {
+app.controller('playlistController',['$scope','$resource', 'routeRessource','Auth',function ($scope, $resource, routeRessource, Auth){
   
 
+
+
+
+  var PlaylistTags = $resource(routeRessource.PlaylistTags,{},
+  {
+    save: {
+      method: 'POST',
+      isArray: false,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser", id:"@id"}
+    },
+    query: {
+      method: 'GET',
+      isArray: true,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser", id:"@id"}
+    },
+    delete: {
+      method: 'DELETE',
+      isArray: false,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{iduser: "@iduser", id:"@id", idtag:"@idtag"}
+    }
+
+  });
+  
+  $scope.addTagPlaylist= function(playlist){
+    for(var i=0;i<playlist.tags.length;i++){
+      var tag = { libelle : playlist.tags[i].text }
+      var res = PlaylistTags.save({iduser : Auth.getUser().id, id : playlist.id },tag);
+    }
+  }
+
+  $scope.getPlaylistTag = function(playlist){
+    if(!playlist.tagLoaded){
+      var tags = PlaylistTags.query({iduser : Auth.getUser().id, id : playlist.id },
+        function(){
+          playlist.tags = tags;
+          playlist.tagLoaded = true;
+        },
+        function(){
+          playlist.tagLoaded = true;
+        }
+      )
+    }
+  }
+
+  $scope.deleteTagPlaylist=function(playlist,tag){
+    PlaylistTags.delete({iduser : Auth.getUser().id, id : playlist.id, idtag : tag.id});
+  }  
 
 
 
@@ -19,8 +78,10 @@ app.controller('playlistController',function ($scope, $log) {
       $scope.editPlaylist = false;
   }
 
-  $scope.changeEditPlaylist = function(){
+  $scope.changeEditPlaylist = function(playlist){
     $scope.editPlaylist = !$scope.editPlaylist;
+    $scope.playlistEdited = playlist;
+
   }
 
 
@@ -28,15 +89,7 @@ app.controller('playlistController',function ($scope, $log) {
     return $scope.editPlaylist;
   }
 
-  $scope.editPlaylistName = function(playlistName){
-
-    $scope.playlist.name = playlistName;
-
-    /*
-      To do with backend
-    */
-
-  }
+  
 
 
 
@@ -45,7 +98,7 @@ app.controller('playlistController',function ($scope, $log) {
   $scope.ctrl = "playlistController";
   $scope.playlistHover = false;   // true if hover on the playlist
 
-  $scope.playlistNameEdit = $scope.playlist.name;
+  $scope.playlistEdited = false;
 
 
 
@@ -63,4 +116,4 @@ app.controller('playlistController',function ($scope, $log) {
 
 
 
-});
+}]);

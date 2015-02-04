@@ -30,7 +30,6 @@ app.directive('ngEditPlaylist', function($timeout) {
       			
       		}
 
-          console.log(scope);
       });
   });
     }

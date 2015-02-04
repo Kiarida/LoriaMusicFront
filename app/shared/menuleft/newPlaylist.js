@@ -6,8 +6,6 @@ app.directive('ngNewPlaylist', function($timeout) {
     link: function(scope, element) {
       element.bind("keypress", function(event) {
 
-console.log(scope);
-
                 if(event.keyCode == 13) {
 
                     scope.$apply(function () {
@@ -16,8 +14,6 @@ console.log(scope);
 
                     });
 
-                    console.log(scope.getPlaylists());
-       
                 }
 
                 if(event.keyCode == 27) {

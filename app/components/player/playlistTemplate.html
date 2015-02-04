@@ -20,22 +20,29 @@
 			<td class="title">
 				{{ecoutes.titre}}
 			</td>
-			<td class="artiste"><i class="icon-microphone"></i> {{ecoutes.idartiste[0].nom}}</td>
-			<td class="rating">
-				<rating ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+
+			<td class="artiste"><i class="icon-microphone"></i> {{video.idartiste[0] ? video.idartiste[0].nom : video.nom}}</td>
+			<td class="rating" ng-click="editRate(video)">
+				<rating class="userRating" ng-if="video.userRate" ng-click="addRate()" ng-model="video.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+				<rating ng-if="!video.userRate" ng-click="addRate()" ng-model="video.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+
 			</td>
 			<td class="action" ng-class="{'hide': $root.small && withPlayer }">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
-					<a href ng-click="isCollapsed = !isCollapsed">
-						<i class="icon-plus"></i>
+					<a href ng-click="isCollapsed = !isCollapsed; successAdd();">
+						<i tooltip="add to a playlist" class="icon-plus"></i>
 					</a>
 					<div class="well addtoplaylist" collapse="isCollapsed">
 						<h3>ADD TO A PLAYLIST</h3>
-						<form ng-submit="addTrackToPlaylist(ecoutes,playlistUser)" method="POST">
+
+						<form ng-submit="addTrackToPlaylist(video,playlistUser)" method="POST">
+							<div class="hide alert alert-success">The track {{video.titre}} has been succefuly added to the playlist</div>
+							<div class="hide alert alert-info">The track {{video.titre}} has been already succefuly added to the playlist</div>
+
 							<div class="select-container">
 								<select ng-model="playlistUser" data-toggle="select" name="playlist">
-									<option ng-repeat="playlist in $root.userPlaylist" value="{{$index}}">{{playlist.name}}</option>
+									<option ng-repeat="playlist in $root.userPlaylist" value="{{playlist.id}}">{{playlist.nom}}</option>
 								</select>
 							</div>
 							<input type="text" ng-model="newPlaylistUser" placeholder="New playlist name">
@@ -43,14 +50,14 @@
 						</form>
 					</div>
 				</div>
-				<a ng-if="controller.configPlaylist.remove" href="">
-					<i class="icon-trash"></i>
+				<a ng-if="controller.configPlaylist.remove" ng-click="removeItem($root.playlist.id,video.id,$index)" href="">
+					<i tooltip="remove from the playlist" class="icon-trash"></i>
 				</a>
 				<a ng-class="{ active: !hideTags }" ng-show="controller.configPlaylist.tags" class="icon-tag-list" href="" ng-click="hideTags = !hideTags">
-					<i class="icon-tag"></i>
+					<i tooltip="show tags" class="icon-tag"></i>
 				</a>
 				<a href="">
-					<i class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
+					<i tooltip="more" class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
 				</a>
 			</td>
 		</tr>

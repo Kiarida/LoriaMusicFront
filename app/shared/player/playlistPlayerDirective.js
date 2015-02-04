@@ -56,8 +56,10 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      }
 	    });
 
+	    console.log(scope.content);
 
 		for(var i=0;i<scope.content.length;i++){
+
 			var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : scope.content[i].id},
 				function(res){
 					for(var i=0;i<scope.content.length;i++){

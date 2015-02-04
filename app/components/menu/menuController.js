@@ -32,7 +32,6 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     },
     save: {
       method: 'POST',
-      isArray: false,
       headers: { 
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse

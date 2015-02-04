@@ -223,5 +223,9 @@ app.constant("routeRessource", {
   "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key",
   "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
   "RandomItemByGenre" : "http://LoriaMusic.local/api/app_dev.php/items/genre/:id",
-  "RandomItemByArtiste" : "http://LoriaMusic.local/api/app_dev.php/items/artiste/:id"
+  "RandomItemByArtiste" : "http://LoriaMusic.local/api/app_dev.php/items/artiste/:id",
+
+  "Sessions" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions",
+  "EcoutesBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session",
+  "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags"
 })

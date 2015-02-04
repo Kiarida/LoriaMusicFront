@@ -3,7 +3,7 @@
 <ul id="myhistory">
 	<li ng-repeat="session in controller.sessions">
 		<div class="session-date">
-			<i class="icon-calendar3"></i>{{session.date}}	
+			<i class="icon-calendar3"></i>{{session.dateDisplay}}	
 		</div>
 		<div class="session-duration">
 			<i class="icon-stopwatch"></i>{{session.duration}}
@@ -13,12 +13,12 @@
 			<div class="playlist-tags">
               <div class="well-lg playlist-tag">
                 
-                <tags-input class="tags-playlist" ng-model="session.tags" ng-pattern="tagsPattern"></tags-input>
+                <tags-input class="tags-playlist" ng-model="session.tags" ng-pattern="tagsPattern" display-property="libelle"></tags-input>
               
 
               </div> 
             </div>
-			<div class="playlist-player" playlist-player controller="controller" content="session.videos" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+			<div class="playlist-player" playlist-player controller="controller" content="session.ecoutes" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
 		</div>
 	</li>
 </ul>

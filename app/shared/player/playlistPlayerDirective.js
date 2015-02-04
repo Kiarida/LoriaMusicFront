@@ -9,7 +9,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
     },
     link: function(scope, sce, rootScope){
     	scope.playlistUser = "";
-    	scope.newPlaylistUser = "";
+    	scope.titleNewPlaylist = "";
 		scope.rate = 2;
 
 		var RateItem = $resource(routeRessource.RateItem,{},
@@ -93,6 +93,8 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 
 
 		scope.addTrackToPlaylist = function(track,idPlaylist){
+			if(idPlaylist=="")
+				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
 				function(){ $(".addtoplaylist .alert-success.hide").removeClass("hide"); },
 				function(){ $(".addtoplaylist .alert-info.hide").removeClass("hide"); });

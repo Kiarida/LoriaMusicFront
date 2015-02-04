@@ -4,13 +4,15 @@ app.directive('ngNewPlaylist', function($timeout) {
     scope: false,
     
     link: function(scope, element) {
+
       element.bind("keypress", function(event) {
 
                 if(event.keyCode == 13) {
 
                     scope.$apply(function () {
-                      scope.changeNewPlaylist();
-                      scope.addPlaylist(scope.titleNewPlaylist);
+                      if(scope.changeNewPlaylist)
+                        scope.changeNewPlaylist();
+                      scope.$root.addPlaylist(scope.titleNewPlaylist);
 
                     });
 
@@ -19,7 +21,8 @@ app.directive('ngNewPlaylist', function($timeout) {
                 if(event.keyCode == 27) {
 
                     scope.$apply(function () {
-                      scope.changeNewPlaylist();
+                      if(scope.changeNewPlaylist)
+                        scope.changeNewPlaylist();
                     });
        
                 }

@@ -704,7 +704,8 @@ videogular vg-timedisplay{ display: none; }
     position: absolute;
     z-index: 10;
     top : 45px;
-    font-size: 70%
+    font-size: 70%;
+    width:192px;
 }
 .addplaylist .addtoplaylist:after,
 .addplaylist .addtoplaylist:before{

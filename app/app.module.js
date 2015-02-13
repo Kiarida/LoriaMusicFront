@@ -194,11 +194,11 @@ app.constant("routeRessource", {
   "CreateToken" : "http://LoriaMusic.local/api/app.php/security/tokens/creates.json",
   "CreateUser"  : "http://LoriaMusic.local/api/app.php/users",
   "IsConnected" : "http://LoriaMusic.local/api/app.php/api/connected",
-  "PrefUser" : "http://LoriaMusic.local/api/app.php/user/:id",
-  "Genres" : "http://LoriaMusic.local/api/app.php/genres.json",
-  "ItemGenre" : "http://LoriaMusic.local/api/app.php/item/genre/:id",
+  "PrefUser" : "http://LoriaMusic.local/api/app.php/api/users/:id",
+  "Genres" : "http://LoriaMusic.local/api/app.php/genres",
+  "ItemGenre" : "http://LoriaMusic.local/api/app.php/items/genre/:id",
   "Artistes" : "http://LoriaMusic.local/api/app.php/artistes.json",
-  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/item/artiste/:id",
+  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/items/artiste/:id",
 
 
   "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",

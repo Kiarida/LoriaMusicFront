@@ -6,15 +6,14 @@
 			<input type="email" ng-model="user.email" class="form-control" placeholder="Email">
 		</div>
 		<div class="form-group">
-			<input class="form-control" ng-model="user.plainPassword" name="password" type="password" placeholder="Password">
+			<input class="form-control" ng-model="user.plainPassword" name="password" type="password" placeholder="Current password">
 		</div>
 		<div class="form-group">
-			<input class="form-control" ng-model="confpwd" name="passwordconf" type="password" placeholder="Confirm password" compare-to="user.plainPassword" />
-			<p class="alert alert-danger" ng-show="form.passwordconf.$error.compareTo">Confirmation password and password doesn't match</p>
+			<input class="form-control" ng-model="user.newPassword" name="newpassword" type="password" placeholder="New password" />
 		</div>
 		<div class="form-group">
 			<div class="select-container select-large">
-				<select ng-model="user.country" name="country">
+				<select ng-init="user.pays = user.country" ng-model="user.pays" name="country">
 					<option value="{{ user.country }}">{{user.country}}</option>
 					<option ng-repeat="country in countries" value="{{country.name.common}}">{{country.name.common}}</option>
 				</select>
@@ -23,8 +22,11 @@
 		<p ng-show="error" class="alert alert-danger">
 			{{ error }}
 		</p>
-		<a type="submit" class="btn btn-default"><i class="icon-checkmark"></i>Valider</a>
-		<a class="btn btn-default" href="#/home"><i class="icon-close"></i>Annuler</a>
+		<p ng-show="success" class="alert alert-success">
+			{{ success }}
+		</p>
+		<button type="submit" class="btn btn-default"><i class="icon-checkmark"></i>Valider</button>
+		<button class="btn btn-default" href="#/home"><i class="icon-close"></i>Annuler</button>
 
 	</form>
 </div>

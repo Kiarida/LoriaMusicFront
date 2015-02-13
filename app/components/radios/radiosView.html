@@ -1,8 +1,13 @@
 <div class="round back" click-link="/home"></div>
 
 <h1>Radios</h1>
-
 <!-- <div class="cover" ng-cover title="classic" cover-link="foo" cover-content="bar"></div> -->
-<div deckgrid class="deckgrid" source="itemgenres" cardTemplate="app/components/cover/coverView.html?t=000"></div>
+<div ng-controller="GenreCoverCtrl">
+	<div deckgrid class="deckgrid" source="genres" cardTemplate="app/components/cover/coverView.html?t=000"></div>		
+</div>
+<div class="clearfix"></div>
+<div ng-controller="ArtisteCoverCtrl">
+    <div deckgrid class="deckgrid" source="artistes" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+</div>
 <div class="clearfix"></div>
 	

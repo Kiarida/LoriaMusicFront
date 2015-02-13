@@ -33,7 +33,6 @@ app.factory('Auth', function(){
 	    	return user;
 		},
 		isLoggedIn : function(){
-			console.log(user);
 	    	return(user)? user : false;
 		}
 		

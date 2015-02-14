@@ -115,7 +115,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         //$route.reload();
       }
       $rootScope.small = false;
-
+      $rootScope.createEcoute({"idItem" : track.id, "typeEcoute" : $rootScope.typeEcoute});
     }
 
     $rootScope.playlist = [];
@@ -125,6 +125,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.wordSearched = {search : null};
     $rootScope.resItem = [];
     $rootScope.resArtiste = [];
+    $rootScope.typeEcoute = -1;
     //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
     if(typeof $cookieStore.get('user') != 'undefined'){
       Auth.setUser($cookieStore.get('user'));
@@ -183,6 +184,31 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         });
       }
     };
+
+    $rootScope.createEcoute = function(params){
+      console.log(params);
+      var Ecoute = $resource(routeRessource.AddEcoute,{},
+      {
+        'save': {
+            method: 'POST',
+            headers: { 
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params:{iduser: "@iduser"}
+        },
+      });
+
+      Ecoute.save({iduser:Auth.getUser().id},params,
+      function(mess){
+        console.log("lmkll"+mess);
+        $rootScope.currentEcoute = mess.id;
+      },
+      function(error){
+        console.log(error);
+      });
+    }
+
     $(".contain").height(window.innerHeight-53);
     $(".centre,.droit,#menu-left").height(window.innerHeight-53);
 
@@ -199,24 +225,21 @@ app.constant("routeRessource", {
   "ItemGenre" : "http://LoriaMusic.local/api/app.php/items/genre/:id",
   "Artistes" : "http://LoriaMusic.local/api/app.php/artistes.json",
   "ItemArtiste" : "http://LoriaMusic.local/api/app.php/items/artiste/:id",
-
-
   "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",
-
   "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
   "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key",
   "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
   "RandomItemByGenre" : "http://LoriaMusic.local/api/app_dev.php/items/genre/:id",
   "RandomItemByArtiste" : "http://LoriaMusic.local/api/app_dev.php/items/artiste/:id",
-
   "Sessions" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions",
   "EcoutesBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session",
   "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags",
   "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
   "PlaylistUser" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist",
-
   "RateItem" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/note/item/:iditem",
-  "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem"
+  "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem",
+  "AddInteraction" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/interaction",
+  "AddEcoute" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/ecoute",
 });
 
 

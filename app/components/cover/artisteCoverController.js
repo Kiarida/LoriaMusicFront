@@ -33,6 +33,7 @@ $rootScope.randomItem;
 
 						$rootScope.randomItem[0].sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp3"}];
 						
+						$rootScope.typeEcoute = 1;
 						$rootScope.launchPlay($rootScope.randomItem);
 						
 					},

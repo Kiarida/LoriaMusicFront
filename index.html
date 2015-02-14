@@ -138,7 +138,7 @@
               <li class="track li-repeat-track" ng-repeat="track in controllerHistory.history">
               
                 <div class="one-track">
-                  <a href="" ng-click="launchPlay(track)" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
+                  <a href="" ng-click="$root.typeEcoute = 0;launchPlay(track);" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
                     <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
                     <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
 

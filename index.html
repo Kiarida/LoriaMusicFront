@@ -132,17 +132,18 @@
 
           <!-- Track history -->
 
-            <div ng-controller="historyController as controllerHistory">
+            <div ng-controller="HistoryCtrl as controllerHistory">
             <ul class="ul-menuleft">
+
               <li><p class="titre-menuleft">MY HISTORY</p></li>
-              <li class="track li-repeat-track" ng-repeat="track in controllerHistory.history">
+              <li class="track li-repeat-track" ng-repeat="track in $root.historyTracks">
               
                 <div class="one-track">
                   <a href="" ng-click="launchPlay(track)" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
                     <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
                     <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
 
-                    {{track.name}}
+                    {{track.titre}}
 
                   </a>
                 </div>

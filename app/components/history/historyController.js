@@ -12,100 +12,49 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 		more : false,
 	};
 
-	// this.sessions = [
-	// 	{
-	// 		date: "25/01/2015",
-	// 		duration: "1h12",
-	// 		tags: ["rap","rock","violent"],
-	// 		videos : [
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-	// 				],
-	// 				name: "Videogular",
-	// 				artiste : "Angular",
-	// 				rate: 3,
-	// 				poster: "http://www.videogular.com/assets/images/videogular.png",
-	// 				tags: ["rap","rock"]
-	// 			},
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("http://incompetech.com/music/royalty-free/mp3-royaltyfree/Gonna%20Start%20v2.mp3"), type: "audio/mp3"}
-	// 				],
-	// 				name: "Gonna start",
-	// 				artiste : "RoyalityFree",
-	// 				rate: 2,
-	// 				poster: "http://www.kvalitat.com/wp-content/uploads/2013/03/bandlogogic2-700x414.png"
 
-	// 			},
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("http://incompetech.com/music/royalty-free/mp3-royaltyfree/On%20the%20Ground.mp3"), type: "audio/mp3"}
-	// 				],
-	// 				name: "On the ground",
-	// 				artiste : "RoyalityFree",
-	// 				rate: 1,
-	// 				poster: "http://sensiblereason.com/wp-content/uploads/2012/01/on-the-ground.jpg"
-	// 			},
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("https://api.soundcloud.com/tracks/185445543/download?client_id=b45b1aa10f1ac2941910a7f0d10f8e28"), type: "audio/mp3"}
-	// 				],
-	// 				name: "Charlie",
-	// 				artiste : "Tryo",
-	// 				rate: 5,
-	// 				poster: "http://img.gala.fr/fit/http.3A.2F.2Fwww.2Egala.2Efr.2Fvar.2Fgal.2Fstorage.2Fimages.2Fmedia.2Fmultiupload_du_12_janvier_2015.2Ftryo.2F3206121-1-fre-FR.2Ftryo.2Ejpg/1140x499/crop-from/top/quality/80/tryo.jpg"
-	// 			}
-	// 		]
-	// 	},
-	// 	{
-	// 		date: "22/01/2015",
-	// 		duration: "20min",
-	// 		videos : [
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-	// 				],
-	// 				name: "Videogular",
-	// 				artiste : "Angular",
-	// 				rate: 3,
-	// 				poster: "http://www.videogular.com/assets/images/videogular.png"
-	// 			},
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("http://incompetech.com/music/royalty-free/mp3-royaltyfree/Gonna%20Start%20v2.mp3"), type: "audio/mp3"}
-	// 				],
-	// 				name: "Gonna start",
-	// 				artiste : "RoyalityFree",
-	// 				rate: 2,
-	// 				poster: "http://www.kvalitat.com/wp-content/uploads/2013/03/bandlogogic2-700x414.png"
-
-	// 			},
-	// 			{
-	// 				id : 1,
-	// 				sources: [
-	// 					{src: $sce.trustAsResourceUrl("https://api.soundcloud.com/tracks/185445543/download?client_id=b45b1aa10f1ac2941910a7f0d10f8e28"), type: "audio/mp3"}
-	// 				],
-	// 				name: "Charlie",
-	// 				artiste : "Tryo",
-	// 				rate: 5,
-	// 				poster: "http://img.gala.fr/fit/http.3A.2F.2Fwww.2Egala.2Efr.2Fvar.2Fgal.2Fstorage.2Fimages.2Fmedia.2Fmultiupload_du_12_janvier_2015.2Ftryo.2F3206121-1-fre-FR.2Ftryo.2Ejpg/1140x499/crop-from/top/quality/80/tryo.jpg"
-	// 			}
-
-	// 		]
-	// 	}
-	// ];
 
 	$scope.lienSessions = routeRessource.Sessions;
 	$scope.lienEcoutes = routeRessource.EcoutesBySession;
 	$scope.lienTags = routeRessource.TagsBySession;
+	$scope.lien5Ecoutes = routeRessource.LastEcoutes;
 	this.sessions;
+	
+	$scope.historyTracks = [];
+	
+
+
+	var SessionTags = $resource(routeRessource.TagsBySession,{},
+  {
+    save: {
+      method: 'POST',
+      isArray: false,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{id: "@id", id_session:"@id_session"}
+    },
+    query: {
+	   	method: 'GET',
+	    isArray: true,
+	    headers: { 
+	    "Authorization" : 'WSSE profile="UsernameToken"',
+	    "X-wsse" : Auth.getUser().wsse
+	     },
+	     params:{id:"@id", id_session:"@id_session"}
+	 },
+    delete: {
+      method: 'DELETE',
+      isArray: false,
+      headers: { 
+        "Authorization" : 'WSSE profile="UsernameToken"',
+        "X-wsse" : Auth.getUser().wsse
+      },
+      params:{id: "@id", id_session:"@id_session", idtag:"@idtag"}
+    }
+
+  });
 
 
 	function stringToDate(dateToConvert){
@@ -156,6 +105,42 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	}
 
 
+	// $scope.getEcoutesBySession = function(idSession){
+
+	// 	var deferred = $q.defer();
+
+	// 	var Res = $resource($scope.lienEcoutes,{},
+	// 	{
+	//         'query': {
+	//             method: 'GET',
+	//             isArray: true,
+	//             headers: { 
+	//               "Authorization" : 'WSSE profile="UsernameToken"',
+	//               "X-wsse" : Auth.getUser().wsse
+	//             },
+	//             params:{id:"@id", id_session:"@id_session"}
+	//         }
+ //        });
+		
+	// 			Res.query(
+	// 				{id: Auth.getUser().id, id_session : idSession},
+	// 				function(mess){ 
+
+	// 					var ecoutes = mess;
+						
+	// 					deferred.resolve(ecoutes);
+						
+	// 				},
+	// 				function(error){ 
+	// 					deferred.reject(error);
+						
+	// 				});
+
+	// 			return deferred.promise;
+		
+	// }
+
+
 	$scope.getEcoutesBySession = function(idSession){
 
 		var deferred = $q.defer();
@@ -177,53 +162,49 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 					{id: Auth.getUser().id, id_session : idSession},
 					function(mess){ 
 
+						
+
 						var ecoutes = mess;
-						
-						deferred.resolve(ecoutes);
-						
+						for(var i = 0; i < controller.sessions.length; i++){
+							
+
+							if(controller.sessions[i].id == idSession){
+								controller.sessions[i].ecoutes = ecoutes;
+								$scope.getTagsBySession(idSession);
+
+								deferred.resolve(mess);
+
+							}
+						}
 					},
 					function(error){ 
-						deferred.reject(error);
-						
+			
 					});
 
 				return deferred.promise;
+
 		
 	}
 
 	$scope.getTagsBySession = function(idSession){
 
-		var deferred = $q.defer();
-
-		var Res = $resource($scope.lienTags,{},
-		{
-	        'query': {
-	            method: 'GET',
-	            isArray: true,
-	            headers: { 
-	              "Authorization" : 'WSSE profile="UsernameToken"',
-	              "X-wsse" : Auth.getUser().wsse
-	            },
-	            params:{id:"@id", id_session:"@id_session"}
-	        }
-        });
 		
-				Res.query(
+				SessionTags.query(
 					{id: Auth.getUser().id, id_session : idSession},
 					function(mess){ 
 
-						var tags = mess;
+					for(var i = 0; i < controller.sessions.length; i++){
 						
-						deferred.resolve(tags);
-						
+
+							if(controller.sessions[i].id == idSession){
+								controller.sessions[i].tags = mess;
+					
+							}
+						}
 					},
-					function(error){ 
-						deferred.reject(error);
+					function(error){ 		
 						
 					});
-
-				return deferred.promise;
-		
 	}
 
 
@@ -249,6 +230,37 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 						for(var i = 0; i < controller.sessions.length; i++){
 
+						
+
+							for(var j = 0; j < controller.sessions.length; j++){
+			
+								// var deferred = $scope.getEcoutesBySession(controller.sessions[j].id);
+
+								// deferred.then(function(ecoutes) {
+
+								// for(var k = 0; k < ecoutes.length; k++){
+								// 	if($scope.historyTracks.length < 5){ 		
+											
+								// 		ecoutePushed = ecoutes[k];
+								// 		ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
+								// 		$scope.historyTracks.push(ecoutePushed);
+								// 		$scope.historyTracks[k]
+										
+
+										
+								// 	}
+								// 	else
+								// 		break;
+								// }
+								  
+								// }, function(error) {
+								  
+								// }, function() {
+								
+								// });
+
+							}
+
 
 							var session = controller.sessions[i];
 							var id = session.id;
@@ -258,61 +270,41 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 							session.duration = substractDate(session.datedebut, session.datefin);
 							session.dateDisplay = stringDatetoString(session.datedebut);
 
-							function closure(id, i){
-								
-								$scope.getEcoutesBySession(id)
-							.then(function(ecoutes){
-								controller.sessions[i].ecoutes = ecoutes;
-
-								for(var j = 0; j < controller.sessions[i].ecoutes.length; j++){
-
-									controller.sessions[i].ecoutes[j].sources =  [
-												{src: $sce.trustAsResourceUrl(controller.sessions[i].ecoutes[j].url), type: "audio/mp3"}
-								 				];
-								 				
-
-								}
-					
-							}).catch(function(error){
-
-
-							}).finally(function(){
-
-							});
-
-							$scope.getTagsBySession(id)
-							.then(function(tags){
-								controller.sessions[i].tags = tags;
-								console.log(tags);
-
-							}).catch(function(error){
-
-							}).finally(function(){
-
-							});
-
-							}
-
-							closure(session.id, i);
+							
 							
 						}
 
 					},
 					function(error){ controller.sessions = error.data; });
+
+
+
 		
 	}
 
 
+	
+
+	$scope.addTagSession = function(session){
+
+		console.log(session);
+		
+
+		for(var i=0;i<session.tags.length;i++){
+      var tag = { libelle : session.tags[i].text };
+      
+      var res = SessionTags.save({id : Auth.getUser().id, id_session : session.id },tag);
+    	}
+	}
+
+	$scope.deleteTagSession=function(session,tag){
+    SessionTags.delete({iduser : Auth.getUser().id, id_session : session.id, idtag : tag.id});
+  } 
+
+	
+
 	this.sessions = $scope.getSessions();
-
 	
-
-	
-
-
-
-
-
 
 
 }]);

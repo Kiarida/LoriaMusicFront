@@ -35,8 +35,8 @@ app.filter('yearRange', function() {
 });
 
 //check on each redirection if the user is logged if he is not, we redirect him to the login page
-app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce',
- function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce) {
+app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q',
+ function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q) {
     $rootScope.$on('$routeChangeStart', function (event) {
 
 
@@ -116,6 +116,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
       $rootScope.small = false;
 
+      $rootScope.getLast5Ecoutes();
+
     }
 
     $rootScope.playlist = [];
@@ -125,6 +127,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.wordSearched = {search : null};
     $rootScope.resItem = [];
     $rootScope.resArtiste = [];
+    $rootScope.historyTracks = [];
+
     //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
     if(typeof $cookieStore.get('user') != 'undefined'){
       Auth.setUser($cookieStore.get('user'));
@@ -183,7 +187,61 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         });
       }
     };
-    console.log("jjj");
+    
+    $rootScope.getLast5Ecoutes = function(){
+
+    var deferred = $q.defer();
+
+    var Res = $resource(routeRessource.LastEcoutes,{},
+    {
+          'query': {
+              method: 'GET',
+              isArray: true,
+              headers: { 
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{id:"@id"}
+          }
+        });
+    
+        Res.query(
+          {id: Auth.getUser().id},
+          function(mess){ 
+
+                deferred.resolve(mess);
+
+          },
+          function(error){ 
+      
+          });
+
+                deferred.promise.then(function(ecoutes) {
+
+                  $rootScope.historyTracks = [];
+
+                for(var k = 0; k < ecoutes.length; k++){
+                  if($rootScope.historyTracks.length < 5){    
+                      
+                    ecoutePushed = ecoutes[k].iditem;
+                    ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
+                    $rootScope.historyTracks.push(ecoutePushed);
+                    $rootScope.historyTracks[k]
+                    
+                  }
+                  else
+                    break;
+                }
+                  
+                }, function(error) {
+                  
+                }, function() {
+                
+                });
+
+  }
+
+  $rootScope.getLast5Ecoutes();
 
     $(".contain").height(window.innerHeight-53);
     $(".centre,.droit,#menu-left").height(window.innerHeight-53);
@@ -213,12 +271,14 @@ app.constant("routeRessource", {
 
   "Sessions" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions",
   "EcoutesBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session",
-  "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags",
+  "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags/:idtag",
   "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
   "PlaylistUser" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist",
 
   "RateItem" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/note/item/:iditem",
-  "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem"
+  "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem",
+  "LastEcoutes" : "http://LoriaMusic.local/api/app_dev.php/users/:id/ecoute.json"
+
 });
 
 

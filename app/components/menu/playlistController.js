@@ -24,7 +24,7 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
       },
       params:{iduser: "@iduser", id:"@id"}
     },
-    delete: {
+    delete: { 
       method: 'DELETE',
       isArray: false,
       headers: { 
@@ -105,11 +105,6 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
   $scope.styleIconTag = {
     color : 'white'
   };
-
-
- //$scope.tagPattern = "\w{3,10}";
-
-
 
 
 

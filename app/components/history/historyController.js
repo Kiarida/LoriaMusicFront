@@ -263,11 +263,8 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 
 							var session = controller.sessions[i];
-							var id = session.id;
-
-							
-
-							session.duration = substractDate(session.datedebut, session.datefin);
+							var id = session.id;							
+							session.duration = typeof session.datefin == "undefined" ? "en cours" : substractDate(session.datedebut, session.datefin);
 							session.dateDisplay = stringDatetoString(session.datedebut);
 
 							
@@ -286,20 +283,16 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	
 
 	$scope.addTagSession = function(session){
-
-		console.log(session);
-		
-
 		for(var i=0;i<session.tags.length;i++){
-      var tag = { libelle : session.tags[i].text };
-      
-      var res = SessionTags.save({id : Auth.getUser().id, id_session : session.id },tag);
+	      var tag = { libelle : session.tags[i].libelle };
+	      
+	      var res = SessionTags.save({id : Auth.getUser().id, id_session : session.id },tag);
     	}
 	}
 
 	$scope.deleteTagSession=function(session,tag){
-    SessionTags.delete({iduser : Auth.getUser().id, id_session : session.id, idtag : tag.id});
-  } 
+    	SessionTags.delete({id : Auth.getUser().id, id_session : session.id, idtag : tag.id});
+  	} 
 
 	
 

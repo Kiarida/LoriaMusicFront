@@ -186,7 +186,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     };
 
     $rootScope.createEcoute = function(params){
-      console.log(params);
       var Ecoute = $resource(routeRessource.AddEcoute,{},
       {
         'save': {
@@ -201,7 +200,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       Ecoute.save({iduser:Auth.getUser().id},params,
       function(mess){
-        console.log("lmkll"+mess);
         $rootScope.currentEcoute = mess.id;
       },
       function(error){
@@ -240,6 +238,15 @@ app.constant("routeRessource", {
   "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem",
   "AddInteraction" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/interaction",
   "AddEcoute" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/ecoute",
+  "nextInteraction" : 1,
+  "previousInetraction" : 2,
+  "stopInteraction" : 3,
+  "playInteraction" : 4,
+  "muteInteraction" : 5,
+  "loopInteraction" : 6,
+  "blockInteraction" : 7,
+  "randomInteraction" : 8,
+  "likeInteraction" : 9,
 });
 
 

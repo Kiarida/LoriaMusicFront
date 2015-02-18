@@ -63,6 +63,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		controller.config.sources = $rootScope.playlist[controller.currentVideo].sources;
 		controller.API.autoPlay = true;
 		controller.API.play();
+      	$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
+
 
 	};
 
@@ -74,6 +76,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			controller.currentVideo = index;
 			controller.config.sources = $rootScope.playlist[index].sources;
 			controller.API.play();
+      		$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
+
 		}
 		
 	};

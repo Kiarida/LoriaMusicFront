@@ -109,7 +109,8 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
         $rootScope.playlist.nom = playlist[0].nom;
         $rootScope.playing = true;
         $rootScope.small = false;
-        console.log($rootScope.playlist);
+        $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+
         
       },
       function(error){

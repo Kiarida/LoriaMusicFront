@@ -9,7 +9,7 @@
 					<span ng-class="{hide: hover || controller.currentecoutes==$index}">{{ $index+1 }}.</span>
 				</a>
 			</td>
-			<td ng-if="withPlayer" ng-click="controller.setecoutes($index)" class="index">
+			<td ng-if="withPlayer" ng-click="controller.setVideo($index)" class="index">
 				<a href="">
 					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentecoutes !=$index }"></i>
 					<i class="icon-volume-medium" ng-class="{hide : controller.currentecoutes!=$index || controller.API.currentState != 'play'}"></i>

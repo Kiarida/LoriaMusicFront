@@ -7,7 +7,7 @@
 		<button class="iconButton" type="button" ng-class="{ active: controller.random }" aria-label="random listening" ng-click="random()"><i class="icon-shuffle"></i></button>
 	</div>
 	<vg-volume>
-		<vg-mutebutton></vg-mutebutton>
+		<vg-mutebutton ng-click="mute()"></vg-mutebutton>
 		<vg-volumebar></vg-volumebar>
 	</vg-volume>
 </div>
@@ -16,7 +16,7 @@
 		<div class="button-control">
 			<button class="iconButton" type="button" aria-label="previous track" ng-click="previousTrack()"><i class="icon-backward"></i></button>
 		</div>
-		<vg-play-pause-button></vg-play-pause-button>
+		<vg-play-pause-button ng-click="pause()"></vg-play-pause-button>
 		<div class="button-control">
 			<button class="iconButton" type="button" aria-label="next track" ng-click="nextTrack()"><i class="icon-forward2"></i></button>
 		</div>

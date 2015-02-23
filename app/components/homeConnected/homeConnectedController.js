@@ -10,6 +10,8 @@ $scope.lienArtistes = routeRessource.Artistes;
 
 $scope.itemgenres = getGenres();
 $rootScope.itemartistes = getArtistes();
+$rootScope.getLast5Ecoutes();
+
 
 function getGenres(){
 

@@ -262,8 +262,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
   }
 
-  $rootScope.getLast5Ecoutes();
-
     $(".contain").height(window.innerHeight-53);
     $(".centre,.droit,#menu-left").height(window.innerHeight-53);
 

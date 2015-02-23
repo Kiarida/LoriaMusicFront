@@ -45,7 +45,7 @@ function getGenres(){
 	        }
         });
 		
-				Res.query(null,function(mess){ $rootScope.itemartistes = mess; },function(error){ $rootSscope.itemartistes = error.data; });
+				Res.query(null,function(mess){ $rootScope.itemartistes = mess; },function(error){ $rootScope.itemartistes = error.data; });
 				
 	}
 

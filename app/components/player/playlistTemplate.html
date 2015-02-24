@@ -1,20 +1,20 @@
 <table>
 	<tbody ng-init="hideTags=true" ng-repeat="ecoutes in content">
-		<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentecoutes ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+		<tr ng-class="{active : controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 			<td ng-if="!withPlayer" ng-click="$root.typeEcoute = 0;$root.launchPlay(ecoutes);" class="index">
 				<a href="">
-					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentecoutes !=$index }"></i>
-					<i class="icon-volume-medium" ng-class="{hide : controller.currentecoutes!=$index || controller.API.currentState != 'play'}"></i>
-					<i class="icon-play2" ng-class="{hide : !hover || controller.currentecoutes==$index}"></i>
-					<span ng-class="{hide: hover || controller.currentecoutes==$index}">{{ $index+1 }}.</span>
+					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
+					<i class="icon-volume-medium" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
+					<i class="icon-play2" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
+					<span ng-class="{hide: hover || controller.currentVideo==$index}">{{ $index+1 }}.</span>
 				</a>
 			</td>
 			<td ng-if="withPlayer" ng-click="controller.setVideo($index)" class="index">
 				<a href="">
-					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentecoutes !=$index }"></i>
-					<i class="icon-volume-medium" ng-class="{hide : controller.currentecoutes!=$index || controller.API.currentState != 'play'}"></i>
-					<i class="icon-play2" ng-class="{hide : !hover || controller.currentecoutes==$index}"></i>
-					<span ng-class="{hide: hover || controller.currentecoutes==$index}">{{ $index+1 }}.</span>
+					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
+					<i class="icon-volume-medium" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
+					<i class="icon-play2" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
+					<span ng-class="{hide: hover || controller.currentVideo==$index}">{{ $index+1 }}.</span>
 				</a>
 			</td>
 			<td class="title">
@@ -61,7 +61,7 @@
 				</a>
 			</td>
 		</tr>
-		<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentecoutes ==$index }" class="title-tags" collapse="hideTags">
+		<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" class="title-tags" collapse="hideTags">
 			<td align="center" colspan="5">
               <div class="well-sm playlist-tag">
               	<span class="label label-default" ng-repeat="tag in ecoutes.tags">

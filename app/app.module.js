@@ -147,7 +147,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $rootScope.resItem = error.data;
           }
         );
-        var artisteItem = $rootScope.Search.query({key:$rootScope.wordSearched.search},
+        var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
             function(){ 
               $rootScope.resArtiste = artisteItem;
             },

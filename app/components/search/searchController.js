@@ -13,19 +13,5 @@ app.controller('SearchCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		more : false,
 	};
 	
-	$scope.itemartistes = [
-		{
-			id : 1,
-			sources: [
-				{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
-			],
-			name: "Angular",
-			artiste : "Angular",
-			rate: 3,
-			poster: "http://www.videogular.com/assets/images/videogular.png",
-			tags:["test","rap"],
-			cover: "http://lorempixel.com/200/200/",
-		},
-	];
 
 }]);

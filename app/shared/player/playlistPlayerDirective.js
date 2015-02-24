@@ -56,7 +56,18 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      }
 	    });
 
-	    console.log(scope.content);
+	    var TagsItem = $resource(routeRessource.TagsItem,{},
+	    {
+	      query: {
+	        method: 'GET',
+	        isArray: true,
+	        headers: { 
+	          "Authorization" : 'WSSE profile="UsernameToken"',
+	          "X-wsse" : Auth.getUser().wsse
+	        },
+	        params : {id:"@id"}
+	      }
+	    });
 
 		for(var i=0;i<scope.content.length;i++){
 
@@ -91,12 +102,30 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 			$(".addtoplaylist .alert").addClass("hide");
 		};
 
+		scope.getItemTags = function(item){
+			if(!item.tags){
+				var tags = TagsItem.query({id:item.id},
+					function(){
+						item.tags = tags;
+					},
+					function(){
+						console.log("errorTagItem");
+					}
+				);	
+			}
+		}
+
 
 		scope.addTrackToPlaylist = function(track,idPlaylist){
 			if(idPlaylist=="")
 				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
-				function(){ $(".addtoplaylist .alert-success.hide").removeClass("hide"); },
+				function(){ 
+					$(".addtoplaylist .alert-success.hide").removeClass("hide");
+					if(scope.$root.playlist.id == idPlaylist){
+						scope.$root.playlist.push(track);
+					}
+				 },
 				function(){ $(".addtoplaylist .alert-info.hide").removeClass("hide"); });
 		}
 

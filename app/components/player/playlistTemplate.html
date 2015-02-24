@@ -21,7 +21,7 @@
 				<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre.length > 18 ? ecoutes.titre.substring(0,18)+"..." : ecoutes.titre}}</span>
 			</td>
 
-			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom" class="artiste"><i class="icon-microphone"></i><span tooltip="{{artiste}}">{{artiste.length > 16 ? artiste.substring(0,13)+"..." : artiste}}</span></td>
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom" class="artiste"><i class="icon-microphone"></i><span tooltip="{{artiste}}">{{artiste.length >= 15 ? artiste.substring(0,13)+"..." : artiste}}</span></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
 				<rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 				<rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
@@ -53,7 +53,7 @@
 				<a ng-if="controller.configPlaylist.remove" ng-click="removeItem($root.playlist.id,ecoutes.id,$index)" href="">
 					<i tooltip="remove from the playlist" class="icon-trash"></i>
 				</a>
-				<a ng-class="{ active: !hideTags }" ng-show="controller.configPlaylist.tags" class="icon-tag-list" href="" ng-click="hideTags = !hideTags">
+				<a ng-class="{ active: !hideTags }" ng-show="controller.configPlaylist.tags" class="icon-tag-list" href="" ng-click="hideTags = !hideTags; getItemTags(ecoutes)">
 					<i tooltip="show tags" class="icon-tag"></i>
 				</a>
 				<a href="">
@@ -65,7 +65,7 @@
 			<td align="center" colspan="5">
               <div class="well-sm playlist-tag">
               	<span class="label label-default" ng-repeat="tag in ecoutes.tags">
-              		<a ng-click="disagree()" href=""><i class="icon-minus"></i></a>{{tag}}<a ng-click="agree()" href=""><i class="icon-plus"></i></a>
+              		<a ng-click="disagree()" href=""><i class="icon-minus"></i></a>{{tag.libelle}}<a ng-click="agree()" href=""><i class="icon-plus"></i></a>
               	</span>
               </div> 
 			</td>

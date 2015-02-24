@@ -303,6 +303,7 @@ app.constant("routeRessource", {
   "randomInteraction" : 8,
   "likeInteraction" : 9,
   "LastEcoutes" : "http://LoriaMusic.local/api/app_dev.php/users/:id/ecoute.json",
+  "TagsItem" : "http://LoriaMusic.local/api/app_dev.php/items/:id/tags.json"
 });
 
 

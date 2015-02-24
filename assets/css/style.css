@@ -683,6 +683,7 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player tbody:nth-child(3n),.playlist-player tbody:first-child{ background: #e1e4e6; }
 .droit .playlist-player tbody:nth-child(3n),.droit .playlist-player tbody:first-child{ background: #b4abba; border-bottom: 2px solid #9a929f; }
 .droit .playlist-player tbody:nth-child(2n){ background: #b4abba; border-bottom: 2px solid #9a929f; }
+.droit .playlist-player tbody{ background: #b4abba; border-bottom: 2px solid #9a929f; }
 .playlist-player li{ list-style: none; }
 .playlist-player table { width : 100%; }
 .playlist-player td { width : 25%; }

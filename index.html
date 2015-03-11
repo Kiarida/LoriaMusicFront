@@ -166,7 +166,7 @@
       <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
         <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
           <vg-video vg-src="playlist[controller.currentVideo].sources"
-            vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
+            vg-tracks="controller.config.tracks" vg-preload="controller.config.preload" vg-youtube>
           </vg-video>
 
           <vg-controls id="controlsBar">
@@ -182,6 +182,8 @@
       <div class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
       </div>  
     </div>
+
+
 
   </div>
   <div ng-if="connected" class="col-lg-5 droit">
@@ -208,6 +210,7 @@
 	<script src="assets/libs/ng-tags-input.min.js"></script>
 	<script src="assets/libs/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="assets/libs/bower_components/videogular/videogular.js"></script>
+  <script src="assets/libs/bower_components/videogular-youtube/youtube.js"></script>
 	<script src="assets/libs/bower_components/videogular-controls/controls.js"></script>
 	<script src="assets/libs/bower_components/videogular-overlay-play/overlay-play.js"></script>
 	<script src="assets/libs/bower_components/videogular-poster/poster.js"></script>
@@ -229,7 +232,7 @@
 	<script src="app/shared/player/controlPlayerDirective.js"></script>
 	<script src="app/shared/player/playlistPlayerDirective.js"></script>
 	<script src="app/components/menu/menuController.js"></script>
-	<script src="app/components/menu/historyController.js"></script>
+	<script src="app/components/history/historyController.js"></script>
 	<script src="app/components/menu/playlistController.js"></script>
 	<script src="app/components/topbar/topbarController.js"></script>
   <script src="app/components/cover/genreCoverController.js"></script>

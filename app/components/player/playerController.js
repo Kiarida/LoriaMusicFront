@@ -24,6 +24,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		autoHideTime: 3000,
 		autoPlay: true,
 		sources: $rootScope.playlist[0].sources,
+		//sources: "https://www.youtube.com/watch?v=gi-wl43o3gc", 
 		theme: {
 			url: "assets/css/videogular.css"
 		},
@@ -37,9 +38,11 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		controller.API = API;
 		controller.API.autoPlay = true;
 
+		//console.log($scope.launchRandomTrack(1));
 		if (controller.API.currentState == 'play' || controller.isCompleted) controller.API.play();
 		controller.isCompleted = false;
-		console.log($scope);
+		
+		
 	};
 
 	this.onCompleteVideo = function() {
@@ -52,6 +55,15 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				}
 				controller.currentVideo = random;
 			}
+			else if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
+
+				console.log("ID RADIO "+$rootScope.idRadio);
+				$scope.launchRandomTrack($rootScope.idRadio);
+			}
+			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
+				console.log("ID RADIO "+$rootScope.idRadio);
+				$scope.launchRandomTrack($rootScope.idRadio);
+			}
 			else{
 				if(controller.currentVideo == $rootScope.playlist.length-1)
 						controller.currentVideo = 0
@@ -60,6 +72,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			}
 			controller.like = false;
 		}
+		
+		
 		controller.config.sources = $rootScope.playlist[controller.currentVideo].sources;
 		controller.API.autoPlay = true;
 		controller.API.play();
@@ -69,6 +83,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	this.setVideo = function(index) {
+
 		if(controller.API.currentState == "play" && controller.currentVideo == index){
 			controller.API.pause();
 		}
@@ -82,7 +97,35 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		
 	};
 
-	
+	 $scope.launchRandomTrack = function(idArtiste){
+
+		var Res = $resource($scope.lienRandomItemByGenre,{},
+		{
+	        'query': {
+	            method: 'GET',
+	            isArray: true,
+	            headers: { 
+	              "Authorization" : 'WSSE profile="UsernameToken"',
+	              "X-wsse" : Auth.getUser().wsse
+	            },
+	            params:{id:"@id"}
+	        }
+        });
+		
+				Res.query(
+					{id:idArtiste},
+					function(mess){ 
+						$rootScope.randomItem = mess;
+
+						$rootScope.randomItem[0].sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp3"}];
+						
+						$rootScope.typeEcoute = 1;
+						$rootScope.launchPlay($rootScope.randomItem);
+						
+					},
+					function(error){ $rootScope.randomItem = error.data; });
+		
+	}
 
 	
 

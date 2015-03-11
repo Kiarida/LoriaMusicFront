@@ -9,6 +9,7 @@ $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByArtiste;
 
 
 $rootScope.randomItem;
+$rootScope.idRadio;
 
 
  $scope.launchRandomTrack = function(idArtiste){
@@ -30,8 +31,8 @@ $rootScope.randomItem;
 					{id:idArtiste},
 					function(mess){ 
 						$rootScope.randomItem = mess;
-
-						$rootScope.randomItem[0].sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp3"}];
+						$rootScope.idRadio=idArtiste;
+						$rootScope.randomItem[0].sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp4"}];
 						
 						$rootScope.typeEcoute = 1;
 						$rootScope.launchPlay($rootScope.randomItem);

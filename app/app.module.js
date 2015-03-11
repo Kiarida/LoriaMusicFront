@@ -12,7 +12,8 @@ var app= angular.module('PlayerApp',
     "com.2fdevs.videogular.plugins.poster",
     "com.2fdevs.videogular.plugins.buffering",
     "ui.bootstrap",
-    'ngTagsInput',
+    'ngTagsInput', 
+    "info.vietnamcode.nampnq.videogular.plugins.youtube"
   ]);
 
 
@@ -96,7 +97,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
 
     $rootScope.launchPlay = function(track){
-      //console.log(track);
+
       if(Array.isArray(track)){
         $rootScope.playing = true;
         $rootScope.playlist = [];
@@ -108,13 +109,17 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       }
       else if($.inArray(track, $rootScope.playlist)==-1){
+        
         $rootScope.playing = true;
         $rootScope.playlist = [];
-        $rootScope.playlist.push(track);
+        newtrack = track;
+        newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
+        $rootScope.playlist.push(newtrack);
 
         //$route.reload();
       }
       $rootScope.small = false;
+
       $rootScope.createEcoute({"idItem" : track.id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
     }
@@ -270,29 +275,29 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 }]);
 
 app.constant("routeRessource", {
-  "CreateToken" : "http://LoriaMusic.local/api/app.php/security/tokens/creates.json",
-  "CreateUser"  : "http://LoriaMusic.local/api/app.php/users",
-  "IsConnected" : "http://LoriaMusic.local/api/app.php/api/connected",
-  "PrefUser" : "http://LoriaMusic.local/api/app.php/api/users/:id",
-  "Genres" : "http://LoriaMusic.local/api/app.php/genres",
-  "ItemGenre" : "http://LoriaMusic.local/api/app.php/items/genre/:id",
-  "Artistes" : "http://LoriaMusic.local/api/app.php/artistes.json",
-  "ItemArtiste" : "http://LoriaMusic.local/api/app.php/items/artiste/:id",
-  "ItemPopular" : "http://LoriaMusic.local/api/app.php/items/get/popular.json",
-  "ItemSearch" : "http://LoriaMusic.local/api/app_dev.php/items/search/:key",
-  "ArtisteSearch" : "http://LoriaMusic.local/api/app_dev.php/artistes/search/:key",
-  "PlaylistDetail" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id",
-  "RandomItemByGenre" : "http://LoriaMusic.local/api/app_dev.php/items/genre/:id",
-  "RandomItemByArtiste" : "http://LoriaMusic.local/api/app_dev.php/items/artiste/:id",
-  "Sessions" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions",
-  "EcoutesBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session",
-  "TagsBySession" : "http://LoriaMusic.local/api/app_dev.php/users/:id/sessions/:id_session/tags/:idtag",
-  "PlaylistTags" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
-  "PlaylistUser" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist",
-  "RateItem" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/note/item/:iditem",
-  "AddItemPlaylist" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem",
-  "AddInteraction" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/interaction",
-  "AddEcoute" : "http://LoriaMusic.local/api/app_dev.php/users/:iduser/ecoute",
+  "CreateToken" : "http://develop.api/api/app.php/security/tokens/creates.json",
+  "CreateUser"  : "http://develop.api/api/app.php/users",
+  "IsConnected" : "http://develop.api/api/app.php/api/connected",
+  "PrefUser" : "http://develop.api/api/app.php/api/users/:id",
+  "Genres" : "http://develop.api/api/app.php/genres",
+  "ItemGenre" : "http://develop.api/api/items/genre/:id",
+  "Artistes" : "http://develop.api/api/artistes.json",
+  "ItemArtiste" : "http://develop.api/api/items/artiste/:id",
+  "ItemPopular" : "http://develop.api/api/items/get/popular.json",
+  "ItemSearch" : "http://develop.api/api/app.php/items/search/:key",
+  "ArtisteSearch" : "http://develop.api/api/app.php/artistes/search/:key",
+  "PlaylistDetail" : "http://develop.api/api/app.php/users/:iduser/playlists/:id",
+  "RandomItemByGenre" : "http://develop.api/api/app.php/items/genre/:id",
+  "RandomItemByArtiste" : "http://develop.api/api/app.php/items/artiste/:id",
+  "Sessions" : "http://develop.api/api/app.php/users/:id/sessions",
+  "EcoutesBySession" : "http://develop.api/api/app.php/users/:id/sessions/:id_session",
+  "TagsBySession" : "http://develop.api/api/app.php/users/:id/sessions/:id_session/tags/:idtag",
+  "PlaylistTags" : "http://develop.api/api/app.php/users/:iduser/playlists/:id/tags/:idtag",
+  "PlaylistUser" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
+  "RateItem" : "http://develop.api/api/app.php/users/:iduser/note/item/:iditem",
+  "AddItemPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist/items/:iditem",
+  "AddInteraction" : "http://develop.api/api/app.php/users/:iduser/interaction",
+  "AddEcoute" : "http://develop.api/api/app.php/users/:iduser/ecoute",
   "nextInteraction" : 1,
   "previousInetraction" : 2,
   "stopInteraction" : 3,
@@ -302,8 +307,8 @@ app.constant("routeRessource", {
   "blockInteraction" : 7,
   "randomInteraction" : 8,
   "likeInteraction" : 9,
-  "LastEcoutes" : "http://LoriaMusic.local/api/app_dev.php/users/:id/ecoute.json",
-  "TagsItem" : "http://LoriaMusic.local/api/app_dev.php/items/:id/tags.json"
+  "LastEcoutes" : "http://develop.api/api/app.php/users/:id/ecoute.json",
+  "TagsItem" : "http://develop.api/api/app.php/items/:id/tags.json"
 });
 
 

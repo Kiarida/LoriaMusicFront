@@ -114,6 +114,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 		}
 
 		var createInteraction = function(id){
+			console.log("Je créé une interaction "+id+" "+Auth.getUser().id);
 			Interactions.save({iduser:Auth.getUser().id},{idInteraction : id})
 		}	
 

@@ -11,6 +11,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
     	scope.playlistUser = "";
     	scope.titleNewPlaylist = "";
 		scope.rate = 2;
+		var sources;
 
 		var RateItem = $resource(routeRessource.RateItem,{},
 	    {
@@ -68,7 +69,6 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	        params : {id:"@id"}
 	      }
 	    });
-
 		for(var i=0;i<scope.content.length;i++){
 
 			var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : scope.content[i].id},
@@ -117,6 +117,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 
 
 		scope.addTrackToPlaylist = function(track,idPlaylist){
+			console.log("HEY");
 			if(idPlaylist=="")
 				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
@@ -130,7 +131,6 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 		}
 
 		scope.removeItem = function(idPlaylist,idItem,index){
-			console.log(scope.$root);
 			AddItemPlaylist.delete({iduser:Auth.getUser().id, idplaylist:idPlaylist, iditem:idItem},
 				function(){ 
 					scope.$root.playlist.splice(index,1);
@@ -152,6 +152,16 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 			RateItem.update({iduser: Auth.getUser().id, iditem : video.id},{note: video.userRate ? video.userRate : video.note});
 			video.userRate = video.userRate ? video.userRate : video.note;
 		}
+
+
+		scope.$watch(scope, function(newValue, oldValue) {
+			//console.log("Yodood");
+			//console.log(scope);
+			//console.log(scope.$root);
+
+        });
+
+
 
 
     },

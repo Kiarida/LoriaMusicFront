@@ -8,16 +8,16 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	controller.random = false;
 	controller.like = false;
 	controller.hover = false;
+	controller.block = false;
 
 	this.videos = $rootScope.playlist;
-
+	
 	this.configPlaylist = {
 		addToPlaylist : true,
 		remove : true,
 		tags : true,
 		more : false,
 	};
-
 	this.config = {
 		preload: "none",
 		autoHide: false,
@@ -33,11 +33,11 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		},
 		small: false
 	};
-
+	
 	this.onPlayerReady = function(API) {
 		controller.API = API;
 		controller.API.autoPlay = true;
-
+		
 		//console.log($scope.launchRandomTrack(1));
 		if (controller.API.currentState == 'play' || controller.isCompleted) controller.API.play();
 		controller.isCompleted = false;
@@ -56,12 +56,9 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				controller.currentVideo = random;
 			}
 			else if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
-
-				console.log("ID RADIO "+$rootScope.idRadio);
 				$scope.launchRandomTrack($rootScope.idRadio);
 			}
 			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
-				console.log("ID RADIO "+$rootScope.idRadio);
 				$scope.launchRandomTrack($rootScope.idRadio);
 			}
 			else{
@@ -75,6 +72,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		
 		
 		controller.config.sources = $rootScope.playlist[controller.currentVideo].sources;
+
 		controller.API.autoPlay = true;
 		controller.API.play();
       	$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
@@ -83,7 +81,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	this.setVideo = function(index) {
-
+		
 		if(controller.API.currentState == "play" && controller.currentVideo == index){
 			controller.API.pause();
 		}
@@ -96,6 +94,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		}
 		
 	};
+
+	
 
 	 $scope.launchRandomTrack = function(idArtiste){
 
@@ -125,7 +125,9 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 					},
 					function(error){ $rootScope.randomItem = error.data; });
 		
-	}
+	};
+
+	
 
 	
 

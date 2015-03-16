@@ -4,6 +4,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
     templateUrl: "app/components/player/playerTemplate.html?t=000",
     link: function(scope, sce){
 
+
     	var Interactions = $resource(routeRessource.AddInteraction,{},
 		{
 			'save': {
@@ -16,6 +17,30 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 			},
 		});
 
+    	var Types=$resource(routeRessource.GetTypes,{},
+    	{
+    		'query':{
+    			method:'GET',
+    			isArray: true,
+    			headers: { 
+			      "Authorization" : 'WSSE profile="UsernameToken"',
+			      "X-wsse" : Auth.getUser().wsse
+			    },
+			    params:{iduser: "@iduser", iditem: "@iditem"}
+    		},
+    	});
+
+		var Actions = $resource(routeRessource.AddAction,{},
+		{
+			'save': {
+			    method: 'POST',
+			    headers: { 
+			      "Authorization" : 'WSSE profile="UsernameToken"',
+			      "X-wsse" : Auth.getUser().wsse
+			    },
+			    params:{iduser: "@iduser"}
+			},
+		});
 		scope.nextTrack = function(){
 			if(scope.controller.random){
 				var random = scope.controller.currentVideo;
@@ -82,8 +107,14 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 		};
 
 		scope.block = function(){
-			createInteraction(routeRessource.blockInteraction);
-			scope.nextTrack();
+			if(scope.controller.block){
+				scope.controller.block = false;
+			}
+			else{
+				createInteraction(routeRessource.blockInteraction);
+				createAction(routeRessource.blockAction, scope.$root.playlist[scope.controller.currentVideo].id);
+				scope.nextTrack();
+			}
 		};
 
 		scope.like = function(){
@@ -93,7 +124,8 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 				createInteraction(routeRessource.likeInteraction);
 				scope.controller.like = true;
 			}
-			//TODO CALL API TO RECORD THE LIKE
+			
+			createAction(routeRessource.likeAction, scope.$root.playlist[scope.controller.currentVideo].id);
 
 		};
 
@@ -113,10 +145,34 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 
 		}
 
+
 		var createInteraction = function(id){
-			console.log("Je créé une interaction "+id+" "+Auth.getUser().id);
 			Interactions.save({iduser:Auth.getUser().id},{idInteraction : id})
 		}	
+
+
+		//Création d'une action (like, block, share)
+		var createAction = function(idAction, idItem){
+			Actions.save({iduser:Auth.getUser().id, idAction:idAction, idItem:idItem})
+		}
+
+
+		//Lorsqu'on va lancer un titre, launchPlay va faire un broadcast de l'événement
+		//On fait un listener qui écoute et si l'événement se produit, on regarde si la chanson est bloquée/aimée/partagée
+		scope.$on('someEvent', function(event, mass){ 
+			scope.controller.like=false;
+			Types.query({iduser:Auth.getUser().id, iditem:mass.id}, function(mess){
+				for(var i in mess){
+					if(mess[i][1] == 1){
+						scope.controller.block=true;
+					}
+					else if(mess[i][1] == 2){
+						scope.controller.like=true;
+					}
+				}
+			});
+			
+		});
 
     },
     

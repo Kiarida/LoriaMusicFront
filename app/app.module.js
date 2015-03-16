@@ -97,7 +97,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
 
     $rootScope.launchPlay = function(track){
-
+      
       if(Array.isArray(track)){
         $rootScope.playing = true;
         $rootScope.playlist = [];
@@ -106,7 +106,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           $rootScope.playlist.push(track[i]);
 
         }
-
+        
+         $rootScope.$broadcast('someEvent', track);
       }
       else if($.inArray(track, $rootScope.playlist)==-1){
         
@@ -115,6 +116,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         newtrack = track;
         newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
         $rootScope.playlist.push(newtrack);
+       
+        $rootScope.$broadcast('someEvent', newtrack);
 
         //$route.reload();
       }
@@ -122,6 +125,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       $rootScope.createEcoute({"idItem" : track.id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
+
     }
 
     $rootScope.playlist = [];
@@ -214,6 +218,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       });
     }
     
+    
+
     $rootScope.getLast5Ecoutes = function(){
 
     var deferred = $q.defer();
@@ -297,9 +303,11 @@ app.constant("routeRessource", {
   "RateItem" : "http://develop.api/api/app.php/users/:iduser/note/item/:iditem",
   "AddItemPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist/items/:iditem",
   "AddInteraction" : "http://develop.api/api/app.php/users/:iduser/interaction",
+  "AddAction" : "http://develop.api/api/app.php/users/:iduser/action",
   "AddEcoute" : "http://develop.api/api/app.php/users/:iduser/ecoute",
+  "GetTypes" : "http://develop.api/api/app.php/users/:iduser/actions/:iditem",
   "nextInteraction" : 1,
-  "previousInetraction" : 2,
+  "previousInteraction" : 2,
   "stopInteraction" : 3,
   "playInteraction" : 4,
   "muteInteraction" : 5,
@@ -307,6 +315,9 @@ app.constant("routeRessource", {
   "blockInteraction" : 7,
   "randomInteraction" : 8,
   "likeInteraction" : 9,
+  "blockAction" : 1,
+  "likeAction" : 2,
+  "shareAction" : 3,
   "LastEcoutes" : "http://develop.api/api/app.php/users/:id/ecoute.json",
   "TagsItem" : "http://develop.api/api/app.php/items/:id/tags.json"
 });

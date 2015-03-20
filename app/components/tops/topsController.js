@@ -26,7 +26,7 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 
 
 	$scope.lien = routeRessource.ItemPopular;
-	console.log(routeRessource.ItemPopular);
+	
 	this.tops = getTops();
 
 	// this.videos = [

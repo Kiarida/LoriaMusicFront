@@ -13,7 +13,6 @@ var app= angular.module('PlayerApp',
     "com.2fdevs.videogular.plugins.buffering",
     "ui.bootstrap",
     'ngTagsInput', 
-    "info.vietnamcode.nampnq.videogular.plugins.youtube"
   ]);
 
 
@@ -95,6 +94,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
 
     });
+
+    
 
     $rootScope.launchPlay = function(track){
       
@@ -219,10 +220,20 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
     
     
+    $rootScope.stockArtist=function(nomArtiste){
+      $rootScope.currentArtist=nomArtiste;
+    }
 
     $rootScope.getLast5Ecoutes = function(){
 
     var deferred = $q.defer();
+
+    $rootScope.toTimestamp = function(date) {
+      var dateSplitted = date.split('-'); // date must be in DD-MM-YYYY format
+      var dateSplitted2 = dateSplitted[2].split("T");
+      var formattedDate = dateSplitted2[0]+'/'+dateSplitted[1]+'/'+dateSplitted[0];
+      return(formattedDate);
+    };
 
     var Res = $resource(routeRessource.LastEcoutes,{},
     {
@@ -300,12 +311,19 @@ app.constant("routeRessource", {
   "TagsBySession" : "http://develop.api/api/app.php/users/:id/sessions/:id_session/tags/:idtag",
   "PlaylistTags" : "http://develop.api/api/app.php/users/:iduser/playlists/:id/tags/:idtag",
   "PlaylistUser" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
+  "Friends" : "http://develop.api/api/app.php/users/:iduser/friends/:idfriend",
+  "Albums" : "http://develop.api/api/app.php/items/albums/:idartiste",
+  "ItemsByAction" : "http://develop.api/api/app.php/users/:iduser/action/:idaction/items",
   "RateItem" : "http://develop.api/api/app.php/users/:iduser/note/item/:iditem",
   "AddItemPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist/items/:iditem",
   "AddInteraction" : "http://develop.api/api/app.php/users/:iduser/interaction",
   "AddAction" : "http://develop.api/api/app.php/users/:iduser/action",
   "AddEcoute" : "http://develop.api/api/app.php/users/:iduser/ecoute",
   "GetTypes" : "http://develop.api/api/app.php/users/:iduser/actions/:iditem",
+  "ArtistScore" : "http://develop.api/api/app.php/users/:iduser/note/artiste/:idartiste",
+  "Artist" : "http://develop.api/api/app.php/artistes/:idartiste",
+  "Playlists" : "http://develop.api/api/app.php/users/:iduser/playlist",
+  "PlaylistTracks" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,

@@ -1,0 +1,26 @@
+<h1>My playlists</h1>
+<div class="round back" click-link="/home"></div>
+<ul id="myhistory">
+    <li ng-repeat="playlist in controller.playlists">
+        <div class="session-date">
+            <i class="icon-calendar3"></i>{{playlist.dateCreation}}   
+        </div>
+        <div class="playlist-name">
+            <i class="icon-stopwatch"></i>{{playlist.nom}}
+        </div>
+        <a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed; getTracks(controller.playlists.indexOf(playlist))" href="" class="pull-right detail-histo"><i class="icon-arrow-down4"></i></a>
+        <div class="track-list" collapse="isCollapsed">
+            <div class="playlist-tags">
+              <div class="well-lg playlist-tag">
+                
+                <tags-input class="tags-playlist" ng-model="session.tags" ng-pattern="tagsPattern" display-property="libelle" 
+                on-tag-added="addTagSession(session)" on-tag-removed="deleteTagSession(session,$tag)"></tags-input>
+              
+
+              </div> 
+            </div>
+            <div ng-if="playlist.tracks" class="playlist-player" playlist-player controller="controller" content="playlist.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+        </div>
+    </li>
+</ul>
+

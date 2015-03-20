@@ -21,7 +21,7 @@
 				<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre.length > 18 ? ecoutes.titre.substring(0,18)+"..." : ecoutes.titre}}</span>
 			</td>
 
-			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom" class="artiste"><i class="icon-microphone"></i><span tooltip="{{artiste}}">{{artiste.length >= 15 ? artiste.substring(0,13)+"..." : artiste}}</span></td>
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{artiste.length >= 15 ? artiste.substring(0,13)+"..." : artiste}}</span></a></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
 				<rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 				<rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>

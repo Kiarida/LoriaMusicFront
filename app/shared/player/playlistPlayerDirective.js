@@ -1,7 +1,19 @@
 app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
   return {
     restrict: 'A',
-    templateUrl: "app/components/player/playlistTemplate.html?t=000",
+    templateUrl: function(tElement, tAttrs){
+    	if (tAttrs.type) {
+            if (tAttrs.type === 'playlist') {
+               return "app/components/player/playlistTemplate.html?t=000";
+            }
+            if (tAttrs.type === 'artist') {
+               return "app/components/artist/artistTemplate.html";
+            }
+        }
+        else{
+        	return "app/components/player/playlistTemplate.html?t=000";
+        }
+    },
     scope : {
     	content:"=",
     	controller:"=",
@@ -117,7 +129,6 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 
 
 		scope.addTrackToPlaylist = function(track,idPlaylist){
-			console.log("HEY");
 			if(idPlaylist=="")
 				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
@@ -152,14 +163,6 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 			RateItem.update({iduser: Auth.getUser().id, iditem : video.id},{note: video.userRate ? video.userRate : video.note});
 			video.userRate = video.userRate ? video.userRate : video.note;
 		}
-
-
-		scope.$watch(scope, function(newValue, oldValue) {
-			//console.log("Yodood");
-			//console.log(scope);
-			//console.log(scope.$root);
-
-        });
 
 
 

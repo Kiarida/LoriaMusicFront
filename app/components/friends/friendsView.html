@@ -1,0 +1,50 @@
+<div id="friends">
+	<h1>FRIENDS</h1>
+	<div class="round back" click-link="/home"></div>
+	
+
+
+	<form class="navbar-form" role="search" ng-submit="send()">
+          <div class="input-group input-search-bar">
+            <input type="text" class="form-control input-search" placeholder="Add a friend" ng-model="user.search">
+            <div class=" btn-search-friend input-group-btn input-search-bar-button " style='width:1%'>
+              <button class="btn btn-default input-search " type="submit"><i class="glyphicon glyphicon-plus"></i></button>
+            </div>      
+          </div>
+          <p ng-show="error" class="alert alert-danger">
+			{{ error }}
+		</p>
+		<p ng-show="success" class="alert alert-success">
+			{{ success }}
+		</p>
+    </form>
+    <ul id="myfriends">
+
+    	<li ng-repeat="friend in controller.friends">
+    		<div class="friends-name">
+                <div class="friend-username">
+                    <div class="friend-user-name">
+            			<i class="glyphicon glyphicon-user padding-i"></i><i>{{friend.username}}</i>
+                        <a href class="ng-scope"><i tooltip="Remove friend" ng-click="remove(friend.id)" class="icon-trash btn-trash icon-tag"></i></a>
+                    </div>
+                </div>
+                <h6>LIKED SONGS</h6>
+    			<ul class="fr-Liked">
+                    <li ng-repeat="track in friend.liked">
+    				<a href ng-click="launchPlay(track)" class="ng-binding" >
+    					<span>{{track.titre}} - </span>
+                    </a>
+                    <a ng-click="$root.stockArtist(track.nom)" href="#/artist/{{track.idArtiste}}" class="ng-binding-artist">
+    					<span>{{track.nom}}</span>
+                    </a>
+                    </li>
+                   
+    				
+    			</ul>
+    		</div>
+    </ul>
+
+
+
+
+</div>

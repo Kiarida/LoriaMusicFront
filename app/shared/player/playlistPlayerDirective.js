@@ -82,6 +82,20 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
 	        },
 	        params : {id:"@id"}
 	      },
+
+	    });
+
+      var NoteTagsItem=$resource(routeRessource.NoteTagsItem,{},
+      {
+        query:{
+          mathod:'GET',
+          isArray:true,
+          headers:{
+            "Authorization" : 'WSSE profile="UsernameToken"',
+	          "X-wsse" : Auth.getUser().wsse
+	        },
+	        params : {iduser:"@iduser",id:"@id"}
+        },
         save:{
           method: 'PUT',
 	        isArray: false,
@@ -89,9 +103,10 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
-	        params : {id:"@id", idtag:"@idtag"}
+	        params : {iduser:"@iduser", id:"@id", idtag:"@idtag"}
         }
-	    });
+
+      });
 
 		for(var i=0;i<scope.content.length;i++){
 			var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : scope.content[i].id},
@@ -130,6 +145,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
 				var tags = TagsItem.query({id:item.id},
 					function(){
 						item.tags = tags;
+            scope.getNoteTags(item);
 					},
 					function(){
 						console.log("errorTagItem");
@@ -137,6 +153,21 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
 				);
 			}
 		}
+
+    scope.getNoteTags = function(item){
+      for(var i=0; i<item.tags.length; i++){
+        item.tags[i].noteUser="";
+        NoteTagsItem.query({iduser:Auth.getUser().id, id:item.id, idtag:item.tags[i].id}, function(mess){
+          if(mess.note){
+            item.tags[i].noteUser=mess.note;
+          }
+        }, function(){
+          console.log("error");
+        });
+      }
+
+
+    }
 
 
 		scope.addTrackToPlaylist = function(track,idPlaylist){
@@ -170,12 +201,13 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
 
     //Note positivement un tag
 		scope.agree = function(iditem, idtag){
-      TagsItem.save({id: iditem, idtag:idtag, param:"add"});
+      NoteTagsItem.save({iduser:Auth.getUser.id, id: iditem, idtag:idtag, param:"add"});
+
 		}
 
     //Note négativement un tag
 		scope.disagree = function(iditem, idtag){
-      TagsItem.save({id: iditem, idtag:idtag, param:"sub"});
+      NoteTagsItem.save({iduser:Auth.getUser.id,id: iditem, idtag:idtag, param:"sub"});
 		}
 
     //Update la note d'un item

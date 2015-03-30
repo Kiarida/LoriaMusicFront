@@ -83,7 +83,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         }
         else{
             $rootScope.connected = true;
-            console.log($location.url() == "");
             if($location.url() == "/" || $location.url() == ""){
               $location.path("/home");
             }
@@ -99,7 +98,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track){
       $location.path('/home');
-      console.log(track);
       if(Array.isArray(track)){
         $rootScope.playing = true;
         $rootScope.playlist = [];
@@ -155,7 +153,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       if($rootScope.wordSearched.search!= null && $rootScope.wordSearched.search.length >= 3){
         var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
           function(){
-            console.log(item.length);
             for(var i=0; i<item.length; i++){
 
               if(item[i].typeitem == 1){
@@ -164,7 +161,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               }
               else{
                 $rootScope.resAlbum[i] = item[i];
-                console.log($rootScope.resAlbum);
               }
             }
 
@@ -359,5 +355,6 @@ app.constant("routeRessource", {
   "likeAction" : 2,
   "shareAction" : 3,
   "LastEcoutes" : "http://develop.api/api/app.php/users/:id/ecoute.json",
-  "TagsItem" : "http://develop.api/api/app.php/items/:id/tags/:idtag"
+  "TagsItem" : "http://develop.api/api/app.php/items/:id/tags/:idtag",
+  "NoteTagsItem" : "http://develop.api/api/app.php/users/:iduser/items/:id/tags/:idtag"
 });

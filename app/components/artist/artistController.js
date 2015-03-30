@@ -1,11 +1,11 @@
 app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$routeParams',
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $routeParams){
-	
+
  	$scope.artist_id=$routeParams.idartiste;
  	var controller = this;
 	controller.currentVideo = -1;
 	controller.hover = false;
-	
+
 	$scope.user = Auth.getUser();
 	$scope.error = "";
 
@@ -25,20 +25,20 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	controller.artist.id=$scope.artist_id;
-	
+
 
 	var Albums = $resource(routeRessource.Albums,{},
 	{
         'query': {
             method: 'GET',
             isArray: true,
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
             params:{idartiste: "@idartiste"}
         },
-        
+
     });
 
     var Score=$resource(routeRessource.ArtistScore,{},
@@ -46,7 +46,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
     	'query': {
             method: 'GET',
             isArray: false,
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
@@ -55,7 +55,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
         update: {
 	        method: 'PUT',
 	        isArray: true,
-	        headers: { 
+	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
@@ -67,13 +67,35 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
     	'query': {
             method: 'GET',
             isArray: true,
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
             params:{iduser:"@iduser", idartiste: "@idartiste"}
         },
-    })
+    });
+
+    var RateItem = $resource(routeRessource.RateItem,{},
+	    {
+	      query: {
+	        method: 'GET',
+	        isArray: false,
+	        headers: {
+	          "Authorization" : 'WSSE profile="UsernameToken"',
+	          "X-wsse" : Auth.getUser().wsse
+	        },
+	        params : {iduser:"@iduser", iditem:"@iditem"}
+	      },
+	      update: {
+	        method: 'PUT',
+	        isArray: true,
+	        headers: {
+	          "Authorization" : 'WSSE profile="UsernameToken"',
+	          "X-wsse" : Auth.getUser().wsse
+	        },
+	        params : {iduser:"@iduser", iditem:"@iditem"}
+	      }
+	    });
 
 
 
@@ -92,29 +114,49 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		Score.query({iduser:Auth.getUser().id, idartiste:$scope.artist_id}, function(mess){
 			if(mess[0]){
 				controller.artist.userScore = mess[0].note;
+        console.log(controller.artist);
 				controller.artist.score=mess.noteMoyenne[0].note;
 			}
-			else{	
+			else{
 				controller.artist.score=mess.noteMoyenne[0].note;
 			}
-			
+
 		},function(error){
 		controller.artist.score = 5;
 	});
 	}
 
+  //Récupère les notes des albums
+  $scope.getAlbumScore=function(){
+    for(var i=0;i<controller.artist.albums.length;i++){
+
+      var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : controller.artist.albums[i].id},
+        function(res){
+          for(var i=0;i<controller.artist.albums.length;i++){
+            if(controller.artist.albums[i].id == res.idItem)
+            controller.artist.albums[i].userRate = res[0].note;
+          }
+        },
+        function(error){
+          console.log("error");
+        }
+      )
+    }
+  }
+
+  //Récupère le nom et la cover de l'artiste courant
 	$scope.getArtist=function(){
 		Artist.query({idartiste:$scope.artist_id}, function(mess){
-			console.log(mess);
 			controller.artist.nom=mess[0].nom;
 			controller.artist.cover=mess[0].urlCover;
 		});
 	}
 
 	$scope.getAlbums= function(){
-		
+
 		Albums.query({idartiste:$scope.artist_id}, function(mess){
 			controller.artist.albums=mess;
+      $scope.getAlbumScore();
 		},
 		function(error){
 			$scope.error= "No album found (yet)"
@@ -126,12 +168,24 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			controller.artist.userScore = controller.artist.userScore ? controller.artist.userScore : controller.artist.note;
 		}
 
+    $scope.editScoreAlbum = function(album){
+      RateItem.update({iduser: Auth.getUser().id, iditem : album.id},{note: album.userRate ? album.userRate : album.note});
+      album.userRate = album.userRate ? album.userRate : album.note;
+    }
+
+
+
+
 	$scope.getArtist();
 	$scope.getAlbums();
 	$scope.getScore();
-	
-	
 
 
-	
+
+
+
+
+
+
+
 }]);

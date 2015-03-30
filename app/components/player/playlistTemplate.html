@@ -18,20 +18,24 @@
 				</a>
 			</td>
 			<td class="title">
-				<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre.length > 18 ? ecoutes.titre.substring(0,18)+"..." : ecoutes.titre}}</span>
+				<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre.length > 17 ? ecoutes.titre.substring(0,17)+"..." : ecoutes.titre}}</span>
 			</td>
 
 			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{artiste.length >= 15 ? artiste.substring(0,13)+"..." : artiste}}</span></a></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
+				<span tooltip="Average rating : {{ecoutes.note}}   Your rating : {{ecoutes.userRate}}">
 				<rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 				<rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+			</span>
 
 			</td>
+
+
 			<td class="action" ng-class="{'hide': $root.small && withPlayer }">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
 					<a href ng-click="isCollapsed = !isCollapsed; successAdd();">
-						<i tooltip="add to a playlist" class="icon-plus"></i>
+						<i tooltip="Add to a playlist" class="icon-plus"></i>
 					</a>
 					<div class="well addtoplaylist" collapse="isCollapsed">
 						<h3>ADD TO A PLAYLIST</h3>
@@ -50,14 +54,15 @@
 						</form>
 					</div>
 				</div>
-				<a ng-if="controller.configPlaylist.remove" ng-click="removeItem($root.playlist.id,ecoutes.id,$index)" href="">
-					<i tooltip="remove from the playlist" class="icon-trash"></i>
+				<a ng-if="controller.configPlaylist.remove" ng-init="id_playlist = playlist ? playlist.id : $root.playlist.id" ng-click="removeItem(id_playlist,ecoutes.id,$index)" href="">
+
+					<i tooltip="Remove from the playlist" class="icon-trash"></i>
 				</a>
 				<a ng-class="{ active: !hideTags }" ng-show="controller.configPlaylist.tags" class="icon-tag-list" href="" ng-click="hideTags = !hideTags; getItemTags(ecoutes)">
-					<i tooltip="show tags" class="icon-tag"></i>
+					<i tooltip="Show tags" class="icon-tag"></i>
 				</a>
 				<a href="">
-					<i tooltip="more" class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
+					<i tooltip="More" class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
 				</a>
 			</td>
 		</tr>
@@ -65,9 +70,9 @@
 			<td align="center" colspan="5">
               <div class="well-sm playlist-tag">
               	<span class="label label-default" ng-repeat="tag in ecoutes.tags">
-              		<a ng-click="disagree()" href=""><i class="icon-minus"></i></a>{{tag.libelle}}<a ng-click="agree()" href=""><i class="icon-plus"></i></a>
+              		<a ng-click="disagree(ecoutes.id, tag.id)" href=""><i class="icon-minus"></i></a>{{tag.libelle}}<a ng-click="agree(ecoutes.id, tag.id)" href=""><i class="icon-plus"></i></a>
               	</span>
-              </div> 
+              </div>
 			</td>
 		</tr>
 	</tbody>

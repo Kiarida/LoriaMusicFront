@@ -1,6 +1,16 @@
 app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies',
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies){
-	
+  /*window.onbeforeunload =function(event){
+     var message = 'If you leave this page you are going to lose all unsaved changes, are you sure you want to leave?';
+      if (typeof event == 'undefined') {
+        event = window.event;
+      }
+      if (event) {
+        event.returnValue = message;
+      }
+      return message;
+
+    };*/
 
  	var controller = this;
 	$scope.user = Auth.getUser();
@@ -8,20 +18,20 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	$scope.error = "";
 	$scope.success ="";
 	controller.friends=[];
-	
+
 	function Friend(id, username){
 		this.id = id;
 		this.username = username;
 		this.liked = [];
 	};
-	
+
 
 	var Friends = $resource(routeRessource.Friends,{},
 	{
         'query': {
             method: 'GET',
             isArray: true,
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
@@ -30,7 +40,7 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
         'save': {
         	method:'POST',
         	isArray : true,
-        	headers: { 
+        	headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
@@ -39,7 +49,7 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
         'delete': {
         	method:'DELETE',
         	isArray : true,
-        	headers: { 
+        	headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
@@ -51,7 +61,7 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
     	'query': {
             method: 'GET',
             isArray: true,
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
@@ -63,7 +73,7 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 		$scope.error = "";
 		$scope.success ="";
         Friends.save({iduser:$scope.user.id, userFriend:$scope.user.search}, function(){
-			
+
 			$scope.success = "You are now friends with "+$scope.user.search;
 			controller.friends=[];
 			$scope.getFriends();
@@ -82,7 +92,7 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 			$scope.getFriends();
 
 		});
-		
+
 	}
 
 	$scope.getFriends=function(){
@@ -90,9 +100,9 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 			for(var i = 0; i< mess.length; i++){
 				var newfriend = new Friend(mess[i].id, mess[i].username);
-				
+
 				controller.friends.push(newfriend);
-			
+
 				var id = mess[i].id;
 				Items.query({iduser:id, idaction:2}, function(messTracks){
 					console.log(messTracks);
@@ -103,19 +113,19 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 						}
 					}
-					
+
 				});
 			}
 		});
-		
+
 	}
 
 
-	
+
 	$scope.getFriends();
-	
-	
-		
+
+
+
 
 
 }]);

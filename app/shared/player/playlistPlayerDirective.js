@@ -1,4 +1,4 @@
-app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
+app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) {
   return {
     restrict: 'A',
     templateUrl: function(tElement, tAttrs){
@@ -17,9 +17,11 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
     scope : {
     	content:"=",
     	controller:"=",
-    	withPlayer:"="
+    	withPlayer:"=",
+    	playlist:"="
     },
-    link: function(scope, sce, rootScope){
+    link: function(scope, sce, rootScope, log){
+    	scope.$log = $log;
     	scope.playlistUser = "";
     	scope.titleNewPlaylist = "";
 		scope.rate = 2;
@@ -30,7 +32,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      query: {
 	        method: 'GET',
 	        isArray: false,
-	        headers: { 
+	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
@@ -39,7 +41,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      update: {
 	        method: 'PUT',
 	        isArray: true,
-	        headers: { 
+	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
@@ -52,7 +54,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      delete: {
 	        method: 'DELETE',
 	        isArray: false,
-	        headers: { 
+	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
@@ -61,7 +63,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      save: {
 	        method: 'POST',
 	        isArray: false,
-	        headers: { 
+	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
@@ -74,25 +76,34 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 	      query: {
 	        method: 'GET',
 	        isArray: true,
-	        headers: { 
+	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
 	          "X-wsse" : Auth.getUser().wsse
 	        },
 	        params : {id:"@id"}
-	      }
+	      },
+        save:{
+          method: 'PUT',
+	        isArray: false,
+	        headers: {
+	          "Authorization" : 'WSSE profile="UsernameToken"',
+	          "X-wsse" : Auth.getUser().wsse
+	        },
+	        params : {id:"@id", idtag:"@idtag"}
+        }
 	    });
-		for(var i=0;i<scope.content.length;i++){
 
+		for(var i=0;i<scope.content.length;i++){
 			var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : scope.content[i].id},
 				function(res){
 					for(var i=0;i<scope.content.length;i++){
 						if(scope.content[i].id == res.idItem)
 							scope.content[i].userRate = res[0].note;
-							
+
 					}
 				},
 				function(error){
-					console.log("error");
+					//console.log("error");
 				}
 			)
 		}
@@ -123,7 +134,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 					function(){
 						console.log("errorTagItem");
 					}
-				);	
+				);
 			}
 		}
 
@@ -132,7 +143,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 			if(idPlaylist=="")
 				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
-				function(){ 
+				function(){
 					$(".addtoplaylist .alert-success.hide").removeClass("hide");
 					if(scope.$root.playlist.id == idPlaylist){
 						scope.$root.playlist.push(track);
@@ -143,31 +154,37 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 
 		scope.removeItem = function(idPlaylist,idItem,index){
 			AddItemPlaylist.delete({iduser:Auth.getUser().id, idplaylist:idPlaylist, iditem:idItem},
-				function(){ 
-					scope.$root.playlist.splice(index,1);
-					if(scope.$root.playlist.length == 0)
-						scope.$root.playing = false;
+				function(){
+					if(scope.playlist){
+						scope.playlist.tracks.splice(index,1);
+					}
+					else{
+						scope.$root.playlist.splice(index,1);
+						if(scope.$root.playlist.length == 0)
+							scope.$root.playing = false;
+						}
 
 				 },
 				function(){});
 		}
 
-		scope.agree = function(){
-			console.log("plussoyer");
-		}
-		scope.disagree = function(){
-			console.log("moinssoyer");
+    //Note positivement un tag
+		scope.agree = function(iditem, idtag){
+      TagsItem.save({id: iditem, idtag:idtag, param:"add"});
 		}
 
+    //Note négativement un tag
+		scope.disagree = function(iditem, idtag){
+      TagsItem.save({id: iditem, idtag:idtag, param:"sub"});
+		}
+
+    //Update la note d'un item
 		scope.editRate = function(video){
 			RateItem.update({iduser: Auth.getUser().id, iditem : video.id},{note: video.userRate ? video.userRate : video.note});
 			video.userRate = video.userRate ? video.userRate : video.note;
 		}
 
-
-
-
     },
-    
+
   }
-}) 
+})

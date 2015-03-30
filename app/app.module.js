@@ -12,7 +12,7 @@ var app= angular.module('PlayerApp',
     "com.2fdevs.videogular.plugins.poster",
     "com.2fdevs.videogular.plugins.buffering",
     "ui.bootstrap",
-    'ngTagsInput', 
+    'ngTagsInput',
   ]);
 
 
@@ -53,13 +53,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
       //if the Auth factory doesn't have a user's instance we redirect the user to the login page
       if(Auth.getUser()){
-        //we create custom GET method including authorization and X-wsse header 
+        //we create custom GET method including authorization and X-wsse header
         var Connected = $resource(routeRessource.IsConnected,{},
         {
           query: {
             method: 'GET',
             isArray: true,
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             }
@@ -95,10 +95,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     });
 
-    
+
 
     $rootScope.launchPlay = function(track){
-      
+      $location.path('/home');
+      console.log(track);
       if(Array.isArray(track)){
         $rootScope.playing = true;
         $rootScope.playlist = [];
@@ -107,17 +108,17 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           $rootScope.playlist.push(track[i]);
 
         }
-        
+
          $rootScope.$broadcast('someEvent', track);
       }
       else if($.inArray(track, $rootScope.playlist)==-1){
-        
+
         $rootScope.playing = true;
         $rootScope.playlist = [];
         newtrack = track;
         newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
         $rootScope.playlist.push(newtrack);
-       
+
         $rootScope.$broadcast('someEvent', newtrack);
 
         //$route.reload();
@@ -136,6 +137,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.wordSearched = {search : null};
     $rootScope.resItem = [];
     $rootScope.resArtiste = [];
+    $rootScope.resAlbum = [];
     $rootScope.typeEcoute = -1;
     $rootScope.historyTracks = [];
 
@@ -148,23 +150,37 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       if($location.url() != "search")
         $location.path('/search');
       $rootScope.initSearch();
+      $rootScope.resItem = [];
+      $rootScope.resAlbum = [];
       if($rootScope.wordSearched.search!= null && $rootScope.wordSearched.search.length >= 3){
         var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
-          function(){ 
-            $rootScope.resItem = item;
+          function(){
+            console.log(item.length);
+            for(var i=0; i<item.length; i++){
+
+              if(item[i].typeitem == 1){
+
+                $rootScope.resItem[i] = item[i];
+              }
+              else{
+                $rootScope.resAlbum[i] = item[i];
+                console.log($rootScope.resAlbum);
+              }
+            }
+
           },
           function(error){
             $rootScope.resItem = error.data;
           }
         );
         var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
-            function(){ 
+            function(){
               $rootScope.resArtiste = artisteItem;
             },
             function(error){
               $rootScope.resArtiste = error.data;
             }
-        );   
+        );
       }
     };
 
@@ -175,7 +191,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           'query': {
               method: 'GET',
               isArray: true,
-              headers: { 
+              headers: {
                 "Authorization" : 'WSSE profile="UsernameToken"',
                 "X-wsse" : Auth.getUser().wsse
               },
@@ -188,7 +204,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           'query': {
               method: 'GET',
               isArray: true,
-              headers: { 
+              headers: {
                 "Authorization" : 'WSSE profile="UsernameToken"',
                 "X-wsse" : Auth.getUser().wsse
               },
@@ -202,7 +218,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       {
         'save': {
             method: 'POST',
-            headers: { 
+            headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
@@ -218,8 +234,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         console.log(error);
       });
     }
-    
-    
+
+    $rootScope.convertTime=function (secondes){
+      var min = Math.floor(secondes / 60);
+      var sec = secondes - min * 60;
+      return min+":"+sec;
+    }
+
     $rootScope.stockArtist=function(nomArtiste){
       $rootScope.currentArtist=nomArtiste;
     }
@@ -240,23 +261,23 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           'query': {
               method: 'GET',
               isArray: true,
-              headers: { 
+              headers: {
                 "Authorization" : 'WSSE profile="UsernameToken"',
                 "X-wsse" : Auth.getUser().wsse
               },
               params:{id:"@id"}
           }
         });
-    
+
         Res.query(
           {id: Auth.getUser().id},
-          function(mess){ 
+          function(mess){
 
                 deferred.resolve(mess);
 
           },
-          function(error){ 
-      
+          function(error){
+
           });
 
                 deferred.promise.then(function(ecoutes) {
@@ -264,22 +285,22 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
                   $rootScope.historyTracks = [];
 
                 for(var k = 0; k < ecoutes.length; k++){
-                  if($rootScope.historyTracks.length < 5){    
-                      
+                  if($rootScope.historyTracks.length < 5){
+
                     ecoutePushed = ecoutes[k].iditem;
                     ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
                     $rootScope.historyTracks.push(ecoutePushed);
                     $rootScope.historyTracks[k]
-                    
+
                   }
                   else
                     break;
                 }
-                  
+
                 }, function(error) {
-                  
+
                 }, function() {
-                
+
                 });
 
   }
@@ -324,6 +345,7 @@ app.constant("routeRessource", {
   "Artist" : "http://develop.api/api/app.php/artistes/:idartiste",
   "Playlists" : "http://develop.api/api/app.php/users/:iduser/playlist",
   "PlaylistTracks" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
+  "TagsByPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,
@@ -337,10 +359,5 @@ app.constant("routeRessource", {
   "likeAction" : 2,
   "shareAction" : 3,
   "LastEcoutes" : "http://develop.api/api/app.php/users/:id/ecoute.json",
-  "TagsItem" : "http://develop.api/api/app.php/items/:id/tags.json"
+  "TagsItem" : "http://develop.api/api/app.php/items/:id/tags/:idtag"
 });
-
-
-
-  
-

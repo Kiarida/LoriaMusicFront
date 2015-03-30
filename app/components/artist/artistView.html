@@ -1,31 +1,42 @@
 <div id="artist">
 	<div class="round back" click-link="/home"></div>
-	
-        <div class="artist-cover"><div class="assets"><img src="{{controller.artist.cover}}" height="150" width="150"/>
+
+        <div class="artist-cover"><div class="assets">
+					<div class="image"><img src="{{controller.artist.cover}}"/></div>
         <h1><span ng-bind="controller.artist.nom"></span></h1>
 
-        <div class="rating artist-rating" ng-click="editScoreArtist()"><span tooltip="Average rating : {{controller.artist.score}}">
-                <rating class="userRating" ng-if="controller.artist.userScore" ng-click="addRate()" ng-model="controller.artist.userScore" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                <rating ng-if="!controller.artist.userScore" ng-click="addRate()" ng-model="controller.artist.score" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating></span>
+        <div class="rating artist-rating" >
+
+					Your rating : <span class="artist-score user-rating" tooltip="{{controller.artist.userScore}}">
+						<rating class="userRating" ng-if="controller.artist.userScore" ng-click="addRate(); editScoreArtist(controller.artist)" ng-model="controller.artist.userScore" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+						<rating ng-if="!controller.artist.userScore" ng-click="addRate(); editScoreArtist(controller.artist)" ng-model="controller.artist.score" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+					</span>
+					<br>
+					Average rating :
+					<span class="artist-score" tooltip="{{controller.artist.score}}">
+					<rating ng-model="controller.artist.score" max="5" readonly="true"></rating></span>
 
             </div>
         </div>
     </div>
-       
+
     <ul id="albums">
 
     	<li ng-repeat="album in controller.artist.albums" class="li-album">
-            <div class="album-cover" style="float:left; "><img src="assets/img/strangers.jpg" height="100" width="100"/></div>
+            <div class="album-cover" style="float:left; "><img src="{{album.urlCover}}" height="100" width="100"/></div>
     		<div class="album-infos">
     			<h4 class="album-title">{{album.titre}}</h4><i class="album-date">{{$root.toTimestamp(album.date)}}</i>
-                
+					<div class="rating album-rating" ng-click="editScoreAlbum(album)"><span tooltip="Average rating : {{album.note}}">
+							<rating class="userRating" ng-if="album.userRate" ng-click="addRate()" ng-model="album.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+							<rating ng-if="!album.userRate" ng-click="addRate()" ng-model="album.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+						</div>
             </div>
-            
-             <div type="artist" class="playlist-player" playlist-player controller="controller" content="album.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
-</div>  
 
-    
-         
+             <div type="artist" class="playlist-player" playlist-player controller="controller" content="album.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+</div>
+
+
+
         </li>
              <p ng-show="error" class="alert">
                 {{ error }}

@@ -5,7 +5,7 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	controller.currentVideo = -1;
 	controller.hover = false;
 
-	this.configPlaylist = { 
+	this.configPlaylist = {
 		addToPlaylist : true,
 		remove : false,
 		tags : true,
@@ -19,9 +19,9 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	$scope.lienTags = routeRessource.TagsBySession;
 	$scope.lien5Ecoutes = routeRessource.LastEcoutes;
 	this.sessions;
-	
+
 	$scope.historyTracks = [];
-	
+
 
 
 	var SessionTags = $resource(routeRessource.TagsBySession,{},
@@ -29,7 +29,7 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
     save: {
       method: 'POST',
       isArray: false,
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -38,7 +38,7 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
     query: {
 	   	method: 'GET',
 	    isArray: true,
-	    headers: { 
+	    headers: {
 	    "Authorization" : 'WSSE profile="UsernameToken"',
 	    "X-wsse" : Auth.getUser().wsse
 	     },
@@ -47,7 +47,7 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
     delete: {
       method: 'DELETE',
       isArray: false,
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -62,11 +62,11 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 		var finalDate = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 		return finalDate;
-		
+
 	}
 
 	function stringDatetoString(dateToConvert){
-		
+
 
 		var t = dateToConvert.split(/[- : T +]/);
 
@@ -84,7 +84,7 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 		var diff = datefin - datedebut;
 
 		var totalSecondes = diff/1000;
-	
+
 
 		var heures = (totalSecondes - totalSecondes%3600)/3600;
 		totalSecondes -= heures*3600;
@@ -114,30 +114,30 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	//         'query': {
 	//             method: 'GET',
 	//             isArray: true,
-	//             headers: { 
+	//             headers: {
 	//               "Authorization" : 'WSSE profile="UsernameToken"',
 	//               "X-wsse" : Auth.getUser().wsse
 	//             },
 	//             params:{id:"@id", id_session:"@id_session"}
 	//         }
  //        });
-		
+
 	// 			Res.query(
 	// 				{id: Auth.getUser().id, id_session : idSession},
-	// 				function(mess){ 
+	// 				function(mess){
 
 	// 					var ecoutes = mess;
-						
+
 	// 					deferred.resolve(ecoutes);
-						
+
 	// 				},
-	// 				function(error){ 
+	// 				function(error){
 	// 					deferred.reject(error);
-						
+
 	// 				});
 
 	// 			return deferred.promise;
-		
+
 	// }
 
 
@@ -150,23 +150,23 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	        'query': {
 	            method: 'GET',
 	            isArray: true,
-	            headers: { 
+	            headers: {
 	              "Authorization" : 'WSSE profile="UsernameToken"',
 	              "X-wsse" : Auth.getUser().wsse
 	            },
 	            params:{id:"@id", id_session:"@id_session"}
 	        }
         });
-		
+
 				Res.query(
 					{id: Auth.getUser().id, id_session : idSession},
-					function(mess){ 
+					function(mess){
 
-						
+
 
 						var ecoutes = mess;
 						for(var i = 0; i < controller.sessions.length; i++){
-							
+
 
 							if(controller.sessions[i].id == idSession){
 								controller.sessions[i].ecoutes = ecoutes;
@@ -177,33 +177,33 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 							}
 						}
 					},
-					function(error){ 
-			
+					function(error){
+
 					});
 
 				return deferred.promise;
 
-		
+
 	}
 
 	$scope.getTagsBySession = function(idSession){
 
-		
+
 				SessionTags.query(
 					{id: Auth.getUser().id, id_session : idSession},
-					function(mess){ 
+					function(mess){
 
 					for(var i = 0; i < controller.sessions.length; i++){
-						
+
 
 							if(controller.sessions[i].id == idSession){
 								controller.sessions[i].tags = mess;
-					
+
 							}
 						}
 					},
-					function(error){ 		
-						
+					function(error){
+
 					});
 	}
 
@@ -215,60 +215,60 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 	        'query': {
 	            method: 'GET',
 	            isArray: true,
-	            headers: { 
+	            headers: {
 	              "Authorization" : 'WSSE profile="UsernameToken"',
 	              "X-wsse" : Auth.getUser().wsse
 	            },
 	            params:{id:"@id"}
 	        }
         });
-		
+
 				Res.query(
 					{id: Auth.getUser().id},
-					function(mess){ 
+					function(mess){
 						controller.sessions = mess;
 
 						for(var i = 0; i < controller.sessions.length; i++){
 
-						
+
 
 							for(var j = 0; j < controller.sessions.length; j++){
-			
+
 								// var deferred = $scope.getEcoutesBySession(controller.sessions[j].id);
 
 								// deferred.then(function(ecoutes) {
 
 								// for(var k = 0; k < ecoutes.length; k++){
-								// 	if($scope.historyTracks.length < 5){ 		
-											
+								// 	if($scope.historyTracks.length < 5){
+
 								// 		ecoutePushed = ecoutes[k];
 								// 		ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
 								// 		$scope.historyTracks.push(ecoutePushed);
 								// 		$scope.historyTracks[k]
-										
 
-										
+
+
 								// 	}
 								// 	else
 								// 		break;
 								// }
-								  
+
 								// }, function(error) {
-								  
+
 								// }, function() {
-								
+
 								// });
 
 							}
 
 
 							var session = controller.sessions[i];
-							var id = session.id;							
-							session.duration = typeof session.datefin == "undefined" ? "en cours" : substractDate(session.datedebut, session.datefin);
+							var id = session.id;
+							session.duration = typeof session.datefin == "undefined" ? "Ongoing" : substractDate(session.datedebut, session.datefin);
 							session.dateDisplay = stringDatetoString(session.datedebut);
 
-							
-							
+
+
 						}
 
 					},
@@ -276,28 +276,35 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 
 
-		
+
 	}
 
 
-	
+
 
 	$scope.addTagSession = function(session){
-		for(var i=0;i<session.tags.length;i++){
+
+
+		var tag = { libelle : session.tags[session.tags.length-1].libelle };
+
+        SessionTags.save({id : Auth.getUser().id, id_session : session.id },tag, function(mess){
+            session.tags[session.tags.length-1].id=mess.id;
+        });
+		/*for(var i=0;i<session.tags.length;i++){
 	      var tag = { libelle : session.tags[i].libelle };
-	      
+
 	      var res = SessionTags.save({id : Auth.getUser().id, id_session : session.id },tag);
-    	}
+    	}*/
 	}
 
 	$scope.deleteTagSession=function(session,tag){
     	SessionTags.delete({id : Auth.getUser().id, id_session : session.id, idtag : tag.id});
-  	} 
+  	}
 
-	
+
 
 	this.sessions = $scope.getSessions();
-	
+
 
 
 }]);

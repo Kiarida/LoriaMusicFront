@@ -82,7 +82,7 @@ button { text-transform: uppercase;}
   width: 100%;
   padding-top: 0px;
 
- 
+
 }
 
 #topbar .icon-arrow-down4{
@@ -139,7 +139,41 @@ button { text-transform: uppercase;}
   color: #374051;
 }
 
+.artist-results .thumbnail{
+  height:160px;
+  width:160px;
+}
 
+.artist-results .overlay{
+  height:160px;
+  width:160px;
+  margin-left:0;
+}
+
+.artist-results .ng-scope{
+  height:160px;
+  width:160px;
+  background-color:transparent;
+  overflow:hidden;
+  margin-left:0px;
+}
+
+.artist-results .column{
+  padding-left:15px;
+}
+
+.artist-results img{
+  width:160px;
+
+}
+
+.artist-columns{
+  width:200px;
+}
+
+.go-page{
+  height:100%;
+}
 
 /* ################################# BOUTONS #############################*/
 #topbar .btn-pseudo{
@@ -172,7 +206,7 @@ button { text-transform: uppercase;}
 }
 
 #topbar .dropdown-menu > li{
-  
+
   padding-bottom: 8px;
 }
 
@@ -212,7 +246,7 @@ button { text-transform: uppercase;}
   padding-left: 10px;
   font-weight: normal;
   font-size: 18px;
-} 
+}
 
 #menu-left .navbar-default .navbar-nav  > li > a .bold-text{
   color : #FFF;
@@ -223,17 +257,21 @@ button { text-transform: uppercase;}
 
 #menu-left .navbar-default .navbar-nav > li:hover{
   background-color : #374051;
- 
-} 
+
+}
 
 #menu-left .navbar-default .navbar-nav > li > a:focus{
   background-color : #374051;
- 
-} 
+
+}
 
 
 #menu-left .icon-menu-left{
   padding-right: 15px;
+}
+
+#menu-left .li-repeat-playlist .icon-menu-left{
+  padding-right : 2px;
 }
 
 #menu-left .ul-menuleft{
@@ -308,7 +346,7 @@ button { text-transform: uppercase;}
 
 #menu-left .playlist-content{
   display: inline-block;
-  
+
 }
 
 
@@ -318,21 +356,19 @@ button { text-transform: uppercase;}
 
 #menu-left .playlist:hover .playlist-icons{
   display: inline-block;
-  
+
 }
 
 #menu-left .playlist-icons{
-  width: 100px;
+  width: 143px;
   float: right;
 }
 
-#menu-left .icon-play-playlist{
-  padding-left: 10px;
-}
+
 
 #menu-left .playlist-hover{
-  
-  display: none;  
+
+  display: none;
 
 }
 
@@ -374,7 +410,7 @@ button { text-transform: uppercase;}
     margin: 2px;
     padding: 0 5px;
     width: 80px;
-   
+
 }
 
 #menu-left span.input{
@@ -435,7 +471,7 @@ padding-bottom: 0px;
 
 
 
-/* make sidebar nav vertical */ 
+/* make sidebar nav vertical */
 @media (min-width: 768px) {
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
@@ -565,7 +601,7 @@ textarea{
 
 #friends ul li a:hover{
   color: #0079a6;
-} 
+}
 
 #friends ul{
   list-style-type:none;
@@ -622,16 +658,37 @@ textarea{
   clear:both;
 }
 
+
 #artist h1{
   float:left;
-  margin-bottom:100px;
+  margin-bottom:0px;
+  padding-bottom:10px;
+  padding-left:0px;
+  margin-top:0;
+  min-width:300px;
+
+}
+
+#artist .artist-score{
+  margin-left:10px;
 }
 
 #artist .artist-rating{
-  padding-left:170px;
-  margin-top:-120px;
-  
   float:left;
+  padding-left:10px;
+
+}
+
+.album-result{
+  width:160px;
+}
+
+.user-rating{
+  padding-left: 24px;
+}
+
+.artist-rating .userRate{
+  color:#0079a6;
 }
 
 .album-infos{
@@ -640,8 +697,10 @@ textarea{
 }
 
 #table-artist{
-  width: 82.9%;
+  width: 97%;
+
 }
+
 
 .album-title{
   margin-bottom:5px;
@@ -660,10 +719,23 @@ textarea{
 
 .artist-cover .assets{
   padding-top:25px;
+
+}
+
+.artist-cover .assets .image{
+  width:160px;
+  height:150px;
+  overflow:hidden;
+  float:left;
+  margin-right:20px;
+
 }
 
 .artist-cover img{
   float:left;
+  min-width:160px;
+  min-height:173px;
+  max-width:200px;
 }
 
 #artist h2{
@@ -673,6 +745,11 @@ textarea{
 }
 
 
+/* PLAYLISTS */
+
+.playlist-date, .playlist-name{
+  display: inline-block;
+}
 
 
 /*  PREFERENCES  */
@@ -696,10 +773,10 @@ textarea{
 .centre h1, .droit h1{ padding: 20px; margin-bottom: 10px; }
 .deckgrid .ng-scope{
     position: relative;
-    margin:10px 5px;
+    margin:0 5px 10px 0px;
 }
 .deckgrid.ng-isolate-scope{ padding: 10px; }
-.deckgrid .ng-scope .caption{ 
+.deckgrid .ng-scope .caption{
 	margin: 0;
     padding: 0;
     position: absolute;
@@ -728,9 +805,10 @@ textarea{
     left: 0;
     opacity: 0.5;
     right: 0;
-    margin:0 5px;
+    margin:0 5px 0 0;
     top: 0;
 }
+
 .deckgrid[deckgrid]::before {
     /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
     content: '3 .column.column-1-4';
@@ -752,7 +830,7 @@ videogular vg-timedisplay{ display: none; }
 .centre videogular vg-play-pause-button .play:before{ content: ""; font-family: "icomoon"; }
 .centre videogular vg-play-pause-button .pause:before{ content: ""; font-family: "icomoon"; }
 .videogular-container videogular .iconButton { font-size: 1.2em;  }
-.button-control { 
+.button-control {
 	cursor: pointer;
     display: table-cell;
     text-align: center;
@@ -787,7 +865,7 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player tr{ height: 55px; }
 .small.playlist-player tr{ height: 35px; }
 .small.playlist-player{ font-size: 73%; background: #fff; }
-.small videogular vg-controls { 
+.small videogular vg-controls {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
     font-size: 3em;
     height: 30px;
@@ -822,10 +900,10 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player td.index a:hover{ color:#0079a6; }
 .playlist-player td.title { width : 25%; }
 .playlist-player td.rating { width : 20%; }
-.playlist-player td.rating .userRating, .artist-rating .userRating{color:#0079a6; }
+.playlist-player td.rating .userRating, .artist-rating .userRating, .album-rating .userRating{color:#0079a6; }
 .playlist-player td a { color:#374051; }
 .playlist-player td a:hover { color:#0079a6; }
-.addplaylist .addtoplaylist{ 
+.addplaylist .addtoplaylist{
     border: 1px solid #000;
     left: -115px;
     position: absolute;
@@ -847,7 +925,7 @@ videogular vg-timedisplay{ display: none; }
 }
 .addplaylist .addtoplaylist:after { border-color: rgba(136, 183, 213, 0); border-bottom-color: #f5f5f5; border-width: 15px; margin-left: -15px; }
 .addplaylist .addtoplaylist:before { border-color: rgba(61, 70, 77, 0); border-bottom-color: #000; border-width: 16px; margin-left: -16px; }
-.playlist-player td.action > i{   
+.playlist-player td.action > i{
     margin: 0;
     text-align: center;
 }
@@ -863,7 +941,7 @@ videogular vg-timedisplay{ display: none; }
 
 
 /****** MY HISTORY ***********/
-#myhistory{ 
+#myhistory{
   list-style: none;
   padding-left: 0;
 }
@@ -890,7 +968,37 @@ videogular vg-timedisplay{ display: none; }
 .playlist-tag .label a:last-child{ margin-left: 4px; }
 .icon-tag-list.active{ color:#0079a6; }
 
+.column .overlay img{
+  width:163px;
+  height:127px;
 
+}
+
+.artists-library .column .ng-scope{
+  width:160px;
+  height:127px;
+  overflow:hidden;
+
+}
+
+.musical-library .column .ng-scope{
+  width:160px;
+  height:127px;
+  overflow:hidden;
+}
+
+h4{
+  font-size:27px;
+}
+.thumbnail img{
+
+  min-height:130px;
+}
+
+.playlist-player td.time{
+  padding-left:30px;
+  width:10%;
+}
 
 
 
@@ -903,5 +1011,3 @@ videogular vg-timedisplay{ display: none; }
         width: 100%;
     }
 }
-
-

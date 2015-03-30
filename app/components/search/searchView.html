@@ -2,7 +2,8 @@
 <h1>Titles matching : {{wordSearched.search}}</h1>
 <div class="playlist-player" playlist-player controller="controller" content="resItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
 <h1>Artists matching : {{wordSearched.search}}</h1>
-<div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/cover/coverView.html?t=000"></div>
+<div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
 <div class="clearfix"></div>
-
-
+<h1>Albums matching : {{wordSearch.search}}</h1>
+<div deckgrid class="deckgrid artist-search" source="resAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+<div class="clearfix"></div>

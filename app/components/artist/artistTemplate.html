@@ -22,10 +22,18 @@
             </td>
 
             <td class="rating" ng-click="editRate(ecoutes)">
+
+              <span ng-if="ecoutes.userRate" tooltip="Average rating : {{ecoutes.note}}    Your rating : {{ecoutes.userRate}}">
                 <rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                 <rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+              </span>
+              <span ng-if="!ecoutes.userRate" tooltip="Average rating : {{ecoutes.note}}">
+                <rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                <rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+              </span>
 
             </td>
+            <td class="action time">{{$root.convertTime(ecoutes.duree)}}</td>
             <td class="action" ng-class="{'hide': $root.small && withPlayer }">
                 <div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
@@ -66,7 +74,7 @@
                 <span class="label label-default" ng-repeat="tag in ecoutes.tags">
                     <a ng-click="disagree()" href=""><i class="icon-minus"></i></a>{{tag.libelle}}<a ng-click="agree()" href=""><i class="icon-plus"></i></a>
                 </span>
-              </div> 
+              </div>
             </td>
         </tr>
     </tbody>

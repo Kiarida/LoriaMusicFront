@@ -331,7 +331,7 @@ button { text-transform: uppercase;}
   overflow: hidden;
 }
 #menu-left .playlist-content .ellipsis{
-  width: 96px;
+  max-width: 65px;
   text-overflow :ellipsis;
   white-space: nowrap;
   display: inline-block;
@@ -683,6 +683,22 @@ textarea{
   width:160px;
 }
 
+.artist-search{
+  height:170px;
+  overflow:hidden;
+}
+
+.artist-search img{
+  max-width:200px;
+}
+
+.artist-search > .column{
+  width:160px;
+}
+.artist-search .ng-scope{
+  width:160px;
+}
+
 .user-rating{
   padding-left: 24px;
 }
@@ -898,7 +914,7 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player td.index { width : 5%; transition: all 0.5s ease 0s; text-align: right; }
 .playlist-player td.index a{ display: inline-block; width:18px; transition: all 0.5s ease 0s; color:#374051; }
 .playlist-player td.index a:hover{ color:#0079a6; }
-.playlist-player td.title { width : 25%; }
+.playlist-player td.title { width : 33%; }
 .playlist-player td.rating { width : 20%; }
 .playlist-player td.rating .userRating, .artist-rating .userRating, .album-rating .userRating{color:#0079a6; }
 .playlist-player td a { color:#374051; }
@@ -975,7 +991,7 @@ videogular vg-timedisplay{ display: none; }
 }
 
 .artists-library .column .ng-scope{
-  width:160px;
+  width:93%;
   height:127px;
   overflow:hidden;
 

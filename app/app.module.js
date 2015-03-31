@@ -148,6 +148,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       if($location.url() != "search")
         $location.path('/search');
       $rootScope.initSearch();
+      $rootScope.resArtiste =[];
       $rootScope.resItem = [];
       $rootScope.resAlbum = [];
       if($rootScope.wordSearched.search!= null && $rootScope.wordSearched.search.length >= 3){

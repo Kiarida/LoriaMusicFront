@@ -30,7 +30,11 @@
 							<rating class="userRating" ng-if="album.userRate" ng-click="addRate()" ng-model="album.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 							<rating ng-if="!album.userRate" ng-click="addRate()" ng-model="album.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 						</div>
+						<div class="album-listen" ng-click="$root.typeEcoute=3;launchAlbum(album)">
+		          <a href=""><i class="icon-play2 icon-menu-left icon-play-playlist"></i>Play all</a>
+		        </div>
             </div>
+
 
              <div type="artist" class="playlist-player" playlist-player controller="controller" content="album.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
 </div>

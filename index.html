@@ -108,7 +108,7 @@
                 </div>
                   <div class="playlist-icons playlist-content playlist-hover">
 
-                    <a href="" ng-click="$root.typeEcoute=0;launchPlaylist(playlist.id)"><i tooltip="Launch playlist"class="icon-play2 icon-menu-left icon-play-playlist"></i></a>
+                    <a href="" ng-click="$root.typeEcoute=4;launchPlaylist(playlist.id)"><i tooltip="Launch playlist"class="icon-play2 icon-menu-left icon-play-playlist"></i></a>
 
                     <a href="" ng-click="changeEditPlaylist(playlist)" ng-edit-playlist="editPlaylist" show-tag="isCollapsed">
                       <i tooltip="Edit playlist name" class="icon-pencil"></i>
@@ -163,7 +163,7 @@
   </div>
 
 
-  <div class="content" ng-class="{'col-lg-5 centre' : connected}">
+  <div class="content" style="height:100%" ng-class="{'col-lg-5 centre' : connected}">
     <div ng-if="!playing || small" class="changing" ng-view>
 
     </div>
@@ -181,7 +181,7 @@
             <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
           </vg-scrubBar>
           <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
-          <vg-poster-image vg-url='playlist[controller.currentVideo].urlPoster'></vg-poster-image>
+          <vg-poster-image vg-url='playlist[controller.currentVideo].urlCover'></vg-poster-image>
         </videogular>
       </div>
       <div class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">

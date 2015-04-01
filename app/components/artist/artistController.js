@@ -1,5 +1,5 @@
-app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$routeParams',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $routeParams){
+app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$routeParams', "$sce",
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $routeParams, $sce){
 
  	$scope.artist_id=$routeParams.idartiste;
  	var controller = this;
@@ -174,7 +174,19 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
     }
 
 
+    $scope.launchAlbum=function(album){
+      var track = album["tracks"];
+      $rootScope.playlist = [];
 
+      for(var i=0;i<track.length;i++){
+        $rootScope.playlist.push(track[i]);
+        track[i].sources = [{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
+      }
+
+      $rootScope.playing = true;
+      $rootScope.small = false;
+      $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+    }
 
 	$scope.getArtist();
 	$scope.getAlbums();

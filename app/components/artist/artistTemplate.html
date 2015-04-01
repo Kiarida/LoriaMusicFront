@@ -23,7 +23,8 @@
 
             <td class="rating" ng-click="editRate(ecoutes)">
 
-              <span ng-if="ecoutes.userRate" tooltip="Average rating : {{ecoutes.note}}    Your rating : {{ecoutes.userRate}}">
+              <span ng-if="ecoutes.userRate" tooltip="Average rating : {{ecoutes.note}}
+              Your rating : {{ecoutes.userRate}}">
                 <rating class="userRating" ng-if="ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                 <rating ng-if="!ecoutes.userRate" ng-click="addRate()" ng-model="ecoutes.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
               </span>

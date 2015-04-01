@@ -3,24 +3,26 @@
 <ul id="myhistory">
     <li ng-repeat="playlist in controller.playlists">
         <div class="playlist-date">
-            <i class="icon-calendar3"></i>{{playlist.dateCreation}}   
+            <i class="icon-calendar3"></i>{{playlist.dateCreation}}
         </div>
         <div class="playlist-name">
             <i class="icon-music"></i>{{playlist.nom}}
         </div>
-        <a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed; getTracks(controller.playlists.indexOf(playlist))" href="" class="pull-right detail-histo"><i class="icon-arrow-down4"></i></a>
+        <div class="playlist-listen" ng-click="$root.typeEcoute=4;launchPlaylist(playlist.id)">
+          <a href=""><i class="icon-play2 icon-menu-left icon-play-playlist"></i>Play all</a>
+        </div>
+        <a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed; getTracks(controller.playlists.indexOf(playlist))" href="" class="pull-right detail-histo">Details<i class="icon-arrow-down4"></i></a>
         <div class="track-list" collapse="isCollapsed">
             <div class="playlist-tags">
               <div class="well-lg playlist-tag">
-                
-                <tags-input class="tags-playlist" ng-model="playlist.tags" ng-pattern="tagsPattern" display-property="libelle" 
-                on-tag-added="addTagPlaylist(playlist)" on-tag-removed="deleteTagPlaylist(playlist,$tag)"></tags-input>
-              
 
-              </div> 
+                <tags-input class="tags-playlist" ng-model="playlist.tags" ng-pattern="tagsPattern" display-property="libelle"
+                on-tag-added="addTagPlaylist(playlist)" on-tag-removed="deleteTagPlaylist(playlist,$tag)"></tags-input>
+
+
+              </div>
             </div>
             <div ng-if="playlist.tracks" class="playlist-player" playlist-player controller="controller" playlist="playlist" content="playlist.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
         </div>
     </li>
 </ul>
-

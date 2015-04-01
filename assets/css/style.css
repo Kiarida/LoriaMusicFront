@@ -6,6 +6,10 @@ body, .form-control {
     font-family: 'Dosis', sans-serif;
 }
 
+html, body{
+  height:100%;
+}
+
 h1{
   text-transform: uppercase;
   margin-bottom: 40px;
@@ -18,8 +22,7 @@ h3{
 button { text-transform: uppercase;}
 .content{ position: relative; padding: 0; }
 .content .container{ position: relative; }
-.changing { height: 81%; overflow: auto;}
-
+.changing { height: 97%; overflow: auto;}
 
 
 /*############################ DEBUT  NAVBAR ####################################*/
@@ -163,7 +166,7 @@ button { text-transform: uppercase;}
 }
 
 .artist-results img{
-  width:160px;
+  width:100%;
 
 }
 
@@ -514,7 +517,7 @@ padding-bottom: 0px;
 /*  TOPBAR SIGNUP  */
 #topBarSignUp.navbar { background: #2a303d; border-radius: 0px; padding: 15px 0; }
 #topBarSignUp button[type=submit]{ position: absolute; margin-left: 10px; }
-#topBarSignUp .form-group{ width:48.7%; margin-right: 10px;}
+#topBarSignUp .form-group{ width:48.4%; margin-right: 10px;}
 #topBarSignUp input{ width:100%; }
 #topBarSignUp .form-group:nth-child(2){ margin-right: 0;}
 #topBarSignUp.navbar{ margin-bottom: 0px; }
@@ -568,7 +571,7 @@ select{
     width: 100%;
     border: none;
     box-shadow: none;
-    background-color: transparent;
+    background-color:#374051;
     background-image: none;
     -webkit-appearance: none;
    	-moz-appearance: meterchunk;
@@ -658,6 +661,14 @@ textarea{
   clear:both;
 }
 
+.album-listen, .album-rating{
+  display:inline-block;
+}
+
+.album-listen{
+  padding-left:20px;
+}
+
 
 #artist h1{
   float:left;
@@ -680,15 +691,15 @@ textarea{
 }
 
 .album-result{
-  width:160px;
+  width:165px;
 }
 
-.artist-search{
-  height:170px;
+.artist-search-result{
+  height:165px;
   overflow:hidden;
 }
 
-.artist-search img{
+.artist-search img, .artist-search-result img{
   max-width:200px;
 }
 
@@ -696,7 +707,7 @@ textarea{
   width:160px;
 }
 .artist-search .ng-scope{
-  width:160px;
+  width:165px;
 }
 
 .user-rating{
@@ -763,10 +774,25 @@ textarea{
 
 /* PLAYLISTS */
 
-.playlist-date, .playlist-name{
+.playlist-date, .playlist-name, .playlist-listen{
   display: inline-block;
 }
 
+.playlist-name{
+  padding-left:10px;
+}
+
+.playlist-listen{
+  padding-left:10px;
+}
+
+.playlist-listen a, .album-listen a{
+  color:#374051;
+}
+
+.playlist-listen a:hover, .album-listen a:hover{
+  color:#0079a6;
+}
 
 /*  PREFERENCES  */
 .round.back{
@@ -774,6 +800,14 @@ textarea{
     position: absolute;
     right: 30px;
     top: 10px;
+}
+
+.title .tooltip{
+  z-index :1000000;
+}
+
+.active .tooltip{
+  z-index :1000000;
 }
 .round.back a{ color: #374051; }
 .round .tooltip{z-index: 1000000;}
@@ -791,7 +825,7 @@ textarea{
     position: relative;
     margin:0 5px 10px 0px;
 }
-.deckgrid.ng-isolate-scope{ padding: 10px; }
+.deckgrid.ng-isolate-scope{ padding: 10px 10px 10px 35px; }
 .deckgrid .ng-scope .caption{
 	margin: 0;
     padding: 0;
@@ -876,7 +910,8 @@ videogular vg-timedisplay{ display: none; }
 .videogular-container videogular vg-mutebutton .mute:before{ font-family: "icomoon"; content:""; }
 .videogular-container videogular vg-overlay-play .play:before { font-family: "icomoon"; content:"" }
 .addplaylist { display: inline-block; position: relative;}
-.small.videogular-container,.small.playlist-player{ padding: 0; height: 159px; overflow: scroll;}
+.small.videogular-container,.small.playlist-player{ padding: 0; height: 160px;}
+.small.playlist-player{overflow:scroll};
 .playlist-player td{ padding:5px 0; }
 .playlist-player tr{ height: 55px; }
 .small.playlist-player tr{ height: 35px; }
@@ -1008,7 +1043,16 @@ h4{
 }
 .thumbnail img{
 
-  min-height:130px;
+  min-height:165px;
+}
+
+.artist-search .thumbnail img{
+  min-width:165px;
+}
+
+.radio-title{
+  background-color:#e1e4e6;
+  padding-left:45%;
 }
 
 .playlist-player td.time{

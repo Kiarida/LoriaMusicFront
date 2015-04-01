@@ -40,10 +40,19 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.$on('$routeChangeStart', function (event) {
 
 
-      if($rootScope.playing == true && $location.url()!='/home')
+      if($rootScope.playing == true && $location.url()!='/home'){
         $rootScope.small = true;
-      else
+        var content = document.getElementsByClassName('content');
+        var wrappedResult = content[0];
+
+        wrappedResult.style.height="80%";
+
+
+      }
+      else{
         $rootScope.small = false;
+
+      }
 
 
 
@@ -96,8 +105,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
 
-    $rootScope.launchPlay = function(track){
+    $rootScope.launchPlay = function(track, radio){
+      if(!radio){
+        console.log("pas radio");
+        $rootScope.lienRandomItemByGenre ="";
+      }
       $location.path('/home');
+
       if(Array.isArray(track)){
         $rootScope.playing = true;
         $rootScope.playlist = [];
@@ -122,8 +136,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         //$route.reload();
       }
       $rootScope.small = false;
-
-      $rootScope.createEcoute({"idItem" : track.id, "typeEcoute" : $rootScope.typeEcoute});
+      $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
 
     }

@@ -1,6 +1,6 @@
 <div class='overlay album-result'></div>
 <div  class='thumbnail album-result'>
-  <div class='artist-search' ng-init="id = card.idartiste ? card.idartiste[0].id : card.id; artiste = card.idartiste ? card.idartiste[0] : card; nom = card.idartiste ? card.titre : card.nom">
+  <div class='artist-search-result' ng-init="id = card.idartiste ? card.idartiste[0].id : card.id; artiste = card.idartiste ? card.idartiste[0] : card; nom = card.idartiste ? card.titre : card.nom">
 	<a href="#/artist/{{id}}" ng-click="$root.stockArtist(artiste)" class='play go-page'>
 		<p>Go to page</p>
 	</a>

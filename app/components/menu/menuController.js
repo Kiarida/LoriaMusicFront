@@ -1,12 +1,12 @@
 app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','Auth','$resource',
   function ($scope, $rootScope,$sce, routeRessource, Auth, $resource) {
-  
+
   var PlaylistUser = $resource(routeRessource.PlaylistUser,{},
   {
     get: {
       method: 'GET',
       isArray: true,
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -15,7 +15,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     query: {
       method: 'GET',
       isArray: true,
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -24,7 +24,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     delete: {
       method: 'DELETE',
       isArray: true,
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -32,7 +32,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     },
     save: {
       method: 'POST',
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -41,7 +41,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
     update: {
       method: 'PUT',
       isArray: false,
-      headers: { 
+      headers: {
         "Authorization" : 'WSSE profile="UsernameToken"',
         "X-wsse" : Auth.getUser().wsse
       },
@@ -53,7 +53,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
 
   $scope.titleNewPlaylist = "";
 
-  $scope.newPlaylist = false;     //when user click on add 
+  $scope.newPlaylist = false;     //when user click on add
 
   $scope.changeNewPlaylist = function(){
     $scope.newPlaylist = !$scope.newPlaylist;
@@ -80,7 +80,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
   $scope.editPlaylistName = function(playlist){
     var userPlaylist = PlaylistUser.update({iduser: Auth.getUser().id, idplaylist : playlist.id},{nomPlaylist : playlist.nom},
       function(){
-       
+
         console.log(userPlaylist);
       },
       function(error){
@@ -88,8 +88,10 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
       });
   }
 
-  $rootScope.launchPlaylist = function(idplaylist){
+  $rootScope.launchPlaylist = function(idplaylist, radio){
 
+      $rootScope.lienRandomItemByGenre ="";
+    
     var playlist = PlaylistUser.get({iduser: Auth.getUser().id, idplaylist: idplaylist},
       function(){
         var track = playlist[0].iditem;
@@ -112,7 +114,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
         $rootScope.small = false;
         $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
 
-        
+
       },
       function(error){
         console.log("error");
@@ -123,7 +125,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
   var userPlaylist = PlaylistUser.query({iduser: Auth.getUser().id},
     function(){
       $rootScope.userPlaylist = userPlaylist;
-      
+
     },
     function(error){
       console.log("error");

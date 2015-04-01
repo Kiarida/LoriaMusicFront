@@ -825,7 +825,7 @@ textarea{
     position: relative;
     margin:0 5px 10px 0px;
 }
-.deckgrid.ng-isolate-scope{ padding: 10px 10px 10px 35px; }
+.deckgrid.ng-isolate-scope{ padding: 10px 10px 10px 10px; }
 .deckgrid .ng-scope .caption{
 	margin: 0;
     padding: 0;
@@ -871,7 +871,8 @@ textarea{
 }
 
 .deckgrid .column-1-4 {
-    width: 33.3%;
+    width: 30.3%;
+    margin-left:3%;
 }
 
 /*  PLAYER  */

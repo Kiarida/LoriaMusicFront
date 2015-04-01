@@ -27,8 +27,10 @@ app.filter('range', function() {
 });
 app.filter('yearRange', function() {
   return function(input, total) {
-    total = 1900 + parseInt(total);
-    for (var i=1900; i<total; i++)
+    var date = new Date().getFullYear();
+    console.log(date);
+    total = date - parseInt(total);
+    for (var i=date; i>total; i--)
       input.push(i);
     return input;
   };

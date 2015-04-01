@@ -63,8 +63,8 @@
 				<div class="col-sm-4">
 					<div class="select-container">
 						<select ng-model="user.birthyear" required name="year">
-							<option ng-init="user.birthyear = 1901" ng-repeat="n in [] | yearRange:200" value="{{n+1}}">
-								{{n+1}}
+							<option ng-init="user.birthyear=2015" ng-repeat="n in [] | yearRange:120" value="{{n}}">
+								{{n}}
 							</option>
 						</select>
 					</div>

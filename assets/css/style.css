@@ -517,7 +517,7 @@ padding-bottom: 0px;
 /*  TOPBAR SIGNUP  */
 #topBarSignUp.navbar { background: #2a303d; border-radius: 0px; padding: 15px 0; }
 #topBarSignUp button[type=submit]{ position: absolute; margin-left: 10px; }
-#topBarSignUp .form-group{ width:48.4%; margin-right: 10px;}
+#topBarSignUp .form-group{ width:41%; margin-right: 10px;}
 #topBarSignUp input{ width:100%; }
 #topBarSignUp .form-group:nth-child(2){ margin-right: 0;}
 #topBarSignUp.navbar{ margin-bottom: 0px; }

@@ -1,5 +1,5 @@
-app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','Auth','$resource',
-  function ($scope, $rootScope,$sce, routeRessource, Auth, $resource) {
+app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','Auth','$resource', "$location",
+  function ($scope, $rootScope,$sce, routeRessource, Auth, $resource, $location) {
 
   var PlaylistUser = $resource(routeRessource.PlaylistUser,{},
   {

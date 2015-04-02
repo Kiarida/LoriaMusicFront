@@ -317,8 +317,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
   }
 
-    $(".contain").height(window.innerHeight-53);
-    $(".centre,.droit,#menu-left").height(window.innerHeight-53);
+    $(".contain").height(window.innerHeight-71);
+    $(".centre,.droit,#menu-left").height(window.innerHeight-71);
 
 
 

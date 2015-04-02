@@ -22,7 +22,7 @@ h3{
 button { text-transform: uppercase;}
 .content{ position: relative; padding: 0; }
 .content .container{ position: relative; }
-.changing { height: 97%; overflow: auto;}
+.changing { height: 100%; overflow: auto;}
 
 
 /*############################ DEBUT  NAVBAR ####################################*/

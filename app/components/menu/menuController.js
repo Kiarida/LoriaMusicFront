@@ -89,9 +89,10 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
   }
 
   $rootScope.launchPlaylist = function(idplaylist, radio){
+    $location.path('/home');
 
       $rootScope.lienRandomItemByGenre ="";
-    
+
     var playlist = PlaylistUser.get({iduser: Auth.getUser().id, idplaylist: idplaylist},
       function(){
         var track = playlist[0].iditem;

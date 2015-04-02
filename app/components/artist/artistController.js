@@ -182,6 +182,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
         $rootScope.playlist.push(track[i]);
         track[i].sources = [{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
       }
+      $location.path('/home');
 
       $rootScope.playing = true;
       $rootScope.small = false;

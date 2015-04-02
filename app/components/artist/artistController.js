@@ -175,6 +175,8 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 
     $scope.launchAlbum=function(album){
+
+      console.log("launchalbum");
       var track = album["tracks"];
       $rootScope.playlist = [];
 

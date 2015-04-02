@@ -44,15 +44,16 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       if($rootScope.playing == true && $location.url()!='/home'){
         $rootScope.small = true;
-        var content = document.getElementsByClassName('content');
-        var wrappedResult = content[0];
 
-        wrappedResult.style.height="80%";
+        $rootScope.$broadcast('changing');
+
+
 
 
       }
       else{
         $rootScope.small = false;
+        $rootScope.$broadcast('changingBig');
 
       }
 
@@ -109,9 +110,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track, radio){
       if(!radio){
-        console.log("pas radio");
         $rootScope.lienRandomItemByGenre ="";
       }
+
       $location.path('/home');
 
       if(Array.isArray(track)){
@@ -137,6 +138,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
         //$route.reload();
       }
+
+      else if($.inArray(track, $rootScope.playlist)==1){
+        console.log("C'est dans la playlist");
+      }
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
@@ -158,6 +163,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     if(typeof $cookieStore.get('user') != 'undefined'){
       Auth.setUser($cookieStore.get('user'));
     }
+
+
 
     $rootScope.search = function(){
       if($location.url() != "search")
@@ -298,7 +305,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
                 for(var k = 0; k < ecoutes.length; k++){
                   if($rootScope.historyTracks.length < 5){
-
                     ecoutePushed = ecoutes[k].iditem;
                     ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
                     $rootScope.historyTracks.push(ecoutePushed);
@@ -317,8 +323,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
   }
 
+
+
     $(".contain").height(window.innerHeight-71);
     $(".centre,.droit,#menu-left").height(window.innerHeight-71);
+
 
 
 

@@ -47,7 +47,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	this.onCompleteVideo = function() {
 		controller.isCompleted = true;
-    console.log($rootScope.lienRandomItemByGenre);
 		if(!controller.loop){
 			if(controller.random){
 				var random = controller.currentVideo;
@@ -95,6 +94,10 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
       		$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
 
 		}
+    controller.currentVideo="";
+    controller.config.sources="";
+    
+
 
 	};
 

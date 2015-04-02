@@ -1071,6 +1071,9 @@ h4{
   margin-left:1.5%;
 }
 
+.col-lg-5{
+  overflow:auto;
+}
 
 
 @media screen and (max-width: 480px){

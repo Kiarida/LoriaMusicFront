@@ -25,7 +25,7 @@
     	<li ng-repeat="album in controller.artist.albums" class="li-album">
             <div class="album-cover" style="float:left; "><img src="{{album.urlCover}}" height="100" width="100"/></div>
     		<div class="album-infos">
-    			<h4 class="album-title">{{album.titre}}</h4><i class="album-date">{{$root.toTimestamp(album.date)}}</i>
+    			<h4 class="album-title">{{album.titre}}</h4><i class="album-date">{{$root.toTimestamp(album.date)}}</i><br>
 					<div class="rating album-rating" ng-click="editScoreAlbum(album)"><span tooltip="Average rating : {{album.note}}">
 							<rating class="userRating" ng-if="album.userRate" ng-click="addRate()" ng-model="album.userRate" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
 							<rating ng-if="!album.userRate" ng-click="addRate()" ng-model="album.note" max="5" readonly="false" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>

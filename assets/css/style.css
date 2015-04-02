@@ -719,8 +719,9 @@ textarea{
 }
 
 .album-infos{
-  margin-left:20%;
-  margin-bottom: 10px
+  margin-left:10px;
+  margin-bottom: 10px;
+  float:left;
 }
 
 #table-artist{
@@ -728,7 +729,10 @@ textarea{
 
 }
 
-
+.album-cover{
+  float:left;
+  margin-top:15px;
+}
 .album-title{
   margin-bottom:5px;
 }

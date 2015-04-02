@@ -871,8 +871,8 @@ textarea{
 }
 
 .deckgrid .column-1-4 {
-    width: 30.3%;
-    margin-left:3%;
+    width: 33.3%;
+
 }
 
 /*  PLAYER  */
@@ -1027,14 +1027,15 @@ videogular vg-timedisplay{ display: none; }
 }
 
 .artists-library .column .ng-scope{
-  width:93%;
+
   height:127px;
   overflow:hidden;
+  border-radius:3px;
 
 }
 
 .musical-library .column .ng-scope{
-  width:160px;
+
   height:127px;
   overflow:hidden;
 }
@@ -1045,6 +1046,7 @@ h4{
 .thumbnail img{
 
   min-height:165px;
+  width:100%;
 }
 
 .artist-search .thumbnail img{

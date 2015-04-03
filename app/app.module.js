@@ -109,6 +109,33 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
     $rootScope.launchPlay = function(track, radio){
+
+      var Stream = $resource(routeRessource.getStreaming, {},{
+        'query': {
+            method: 'GET',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params:{iditem:"@iditem"}
+        }
+      });
+
+      Stream.query({iditem:"2"}, function(mess){
+        console.log("HEHEE");
+        console.log(mess);
+        track.url=mess.url;
+
+
+
+      if($rootScope.$$childTail.$$childHead.API){
+
+        $rootScope.$$childTail.$$childHead.API.currentVideo ="";
+        $rootScope.$$childTail.$$childHead.API.sources ="";
+        $rootScope.$$childTail.$$childHead.API.pause();
+        //console.log($rootScope.$$childTail.$$childHead.API);
+      }
       if(!radio){
         $rootScope.lienRandomItemByGenre ="";
       }
@@ -127,11 +154,16 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
          $rootScope.$broadcast('someEvent', track);
       }
       else if($.inArray(track, $rootScope.playlist)==-1){
+        console.log("track1");
+
 
         $rootScope.playing = true;
         $rootScope.playlist = [];
         newtrack = track;
+        console.log(track.url);
+
         newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
+        console.log(newtrack.sources);
         $rootScope.playlist.push(newtrack);
 
         $rootScope.$broadcast('someEvent', newtrack);
@@ -142,9 +174,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       else if($.inArray(track, $rootScope.playlist)==1){
         console.log("C'est dans la playlist");
       }
+
+      //console.log($rootScope.playlist);
+      console.log($rootScope.$$childTail.$$childHead.API);
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
+    });
 
     }
 
@@ -245,6 +281,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         },
       });
 
+
+
       Ecoute.save({iduser:Auth.getUser().id},params,
       function(mess){
         $rootScope.currentEcoute = mess.id;
@@ -275,6 +313,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       return(formattedDate);
     };
 
+
+
+
     var Res = $resource(routeRessource.LastEcoutes,{},
     {
           'query': {
@@ -291,35 +332,31 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         Res.query(
           {id: Auth.getUser().id},
           function(mess){
-
-                deferred.resolve(mess);
-
+            deferred.resolve(mess);
           },
           function(error){
-
           });
+          deferred.promise.then(function(ecoutes) {
+            $rootScope.historyTracks = [];
+            for(var k = 0; k < ecoutes.length; k++){
+                if($rootScope.historyTracks.length < 5){
+                  ecoutePushed = ecoutes[k].iditem;
 
-                deferred.promise.then(function(ecoutes) {
-
-                  $rootScope.historyTracks = [];
-
-                for(var k = 0; k < ecoutes.length; k++){
-                  if($rootScope.historyTracks.length < 5){
-                    ecoutePushed = ecoutes[k].iditem;
-                    ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
-                    $rootScope.historyTracks.push(ecoutePushed);
-                    $rootScope.historyTracks[k]
-
-                  }
-                  else
+                  ecoutePushed.sources = [{src: $sce.trustAsResourceUrl(ecoutePushed.url), type:"audio/mp3"}];
+                  $rootScope.historyTracks.push(ecoutePushed);
+                  $rootScope.historyTracks[k]
+                }
+                else
                     break;
                 }
 
-                }, function(error) {
+            }, function(error) {
 
-                }, function() {
+            }, function() {
 
-                });
+            });
+
+
 
   }
 
@@ -367,6 +404,7 @@ app.constant("routeRessource", {
   "Playlists" : "http://develop.api/api/app.php/users/:iduser/playlist",
   "PlaylistTracks" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
   "TagsByPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
+  "getStreaming" : "http://develop.api/api/app.php/items/grooveshark/:iditem",
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,

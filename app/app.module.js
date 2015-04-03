@@ -44,12 +44,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       if($rootScope.playing == true && $location.url()!='/home'){
         $rootScope.small = true;
-
         $rootScope.$broadcast('changing');
-
-
-
-
       }
       else{
         $rootScope.small = false;
@@ -122,13 +117,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         }
       });
 
-      Stream.query({iditem:"2"}, function(mess){
-        console.log("HEHEE");
-        console.log(mess);
+      Stream.query({iditem:track.id}, function(mess){
         track.url=mess.url;
-
-
-
       if($rootScope.$$childTail.$$childHead.API){
 
         $rootScope.$$childTail.$$childHead.API.currentVideo ="";
@@ -154,16 +144,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
          $rootScope.$broadcast('someEvent', track);
       }
       else if($.inArray(track, $rootScope.playlist)==-1){
-        console.log("track1");
-
-
         $rootScope.playing = true;
         $rootScope.playlist = [];
         newtrack = track;
-        console.log(track.url);
-
         newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
-        console.log(newtrack.sources);
         $rootScope.playlist.push(newtrack);
 
         $rootScope.$broadcast('someEvent', newtrack);

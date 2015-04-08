@@ -1,4 +1,4 @@
-app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) {
+app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
   return {
     restrict: 'A',
     templateUrl: function(tElement, tAttrs){
@@ -20,8 +20,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
     	withPlayer:"=",
     	playlist:"="
     },
-    link: function(scope, sce, rootScope, log){
-    	scope.$log = $log;
+    link: function(scope, sce, rootScope){
     	scope.playlistUser = "";
     	scope.titleNewPlaylist = "";
 		scope.rate = 2;
@@ -118,7 +117,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $log) 
 					}
 				},
 				function(error){
-					//console.log("error");
+					console.log("error");
 				}
 			)
 		}

@@ -1,4 +1,4 @@
-app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
+app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeout) {
   return {
     restrict: 'E',
     templateUrl: "app/components/player/playerTemplate.html?t=000",
@@ -137,7 +137,6 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 		scope.pause = function(){
 			console.log(scope.controller);
 			if(scope.controller.API.currentState == "play"){
-				console.log(scope.controller.API.currentState=="play");
 				createInteraction(routeRessource.playInteraction);
 			}
 			else
@@ -160,6 +159,8 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 		//Lorsqu'on va lancer un titre, launchPlay va faire un broadcast de l'événement
 		//On fait un listener qui écoute et si l'événement se produit, on regarde si la chanson est bloquée/aimée/partagée
 		scope.$on('someEvent', function(event, mass){ 
+		
+			
 			scope.controller.like=false;
 			Types.query({iduser:Auth.getUser().id, iditem:mass.id}, function(mess){
 				for(var i in mess){
@@ -171,8 +172,11 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource) {
 					}
 				}
 			});
+
 			
 		});
+
+		
 
     },
     

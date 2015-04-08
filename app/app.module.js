@@ -28,7 +28,7 @@ app.filter('range', function() {
 app.filter('yearRange', function() {
   return function(input, total) {
     var date = new Date().getFullYear();
-    console.log(date);
+    
     total = date - parseInt(total);
     for (var i=date; i>total; i--)
       input.push(i);
@@ -37,18 +37,16 @@ app.filter('yearRange', function() {
 });
 
 //check on each redirection if the user is logged if he is not, we redirect him to the login page
-app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q',
- function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q) {
+app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout',
+ function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout) {
     $rootScope.$on('$routeChangeStart', function (event) {
 
 
       if($rootScope.playing == true && $location.url()!='/home'){
         $rootScope.small = true;
-        $rootScope.$broadcast('changing');
       }
       else{
         $rootScope.small = false;
-        $rootScope.$broadcast('changingBig');
 
       }
 
@@ -104,7 +102,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
     $rootScope.launchPlay = function(track, radio){
-
+      console.log("SALUT");
+      console.log(track.id);
       var Stream = $resource(routeRessource.getStreaming, {},{
         'query': {
             method: 'GET',
@@ -117,15 +116,14 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         }
       });
 
+
+     
+   
       Stream.query({iditem:track.id}, function(mess){
         track.url=mess.url;
-      if($rootScope.$$childTail.$$childHead.API){
 
-        $rootScope.$$childTail.$$childHead.API.currentVideo ="";
-        $rootScope.$$childTail.$$childHead.API.sources ="";
-        $rootScope.$$childTail.$$childHead.API.pause();
-        //console.log($rootScope.$$childTail.$$childHead.API);
-      }
+        
+      
       if(!radio){
         $rootScope.lienRandomItemByGenre ="";
       }
@@ -133,14 +131,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $location.path('/home');
 
       if(Array.isArray(track)){
+
         $rootScope.playing = true;
         $rootScope.playlist = [];
         for(var i=0;i<track.length;i++){
-
           $rootScope.playlist.push(track[i]);
-
         }
-
          $rootScope.$broadcast('someEvent', track);
       }
       else if($.inArray(track, $rootScope.playlist)==-1){
@@ -155,12 +151,14 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         //$route.reload();
       }
 
-      else if($.inArray(track, $rootScope.playlist)==1){
-        console.log("C'est dans la playlist");
-      }
+      if($rootScope.$$childTail.$$childHead.API){
 
-      //console.log($rootScope.playlist);
-      console.log($rootScope.$$childTail.$$childHead.API);
+        $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
+        $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
+        $rootScope.$$childTail.$$childHead.API.play();
+
+      }
+     
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
@@ -340,6 +338,27 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
             });
 
+     var Mark = $resource(routeRessource.mark30seconds, {},{
+        'query': {
+            method: 'GET',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+        }
+      });
+
+    $rootScope.$watch("$rootScope.$$childTail.$$childHead.controller.videos", function(){
+      if($rootScope.$$childTail.$$childHead.controller){
+      
+        $timeout(function(){Mark.query(null, function(){
+        })}, 30000);
+      }
+    
+       
+  });
+
 
 
   }
@@ -389,6 +408,8 @@ app.constant("routeRessource", {
   "PlaylistTracks" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
   "TagsByPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
   "getStreaming" : "http://develop.api/api/app.php/items/grooveshark/:iditem",
+  "mark30seconds" : "http://develop.api/api/app.php/items/grooveshark/mark30secondes",
+  "markComplete" : "http://develop.api/api/app.php/items/grooveshark/markComplete",
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,

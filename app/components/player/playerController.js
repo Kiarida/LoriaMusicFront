@@ -37,7 +37,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	this.onPlayerReady = function(API) {
 		controller.API = API;
 		controller.API.autoPlay = true;
-    console.log($rootScope);
 		//console.log($scope.launchRandomTrack(1));
 		if (controller.API.currentState == 'play' || controller.isCompleted) controller.API.play();
 		controller.isCompleted = false;
@@ -45,7 +44,22 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	};
 
+
+
 	this.onCompleteVideo = function() {
+		var Mark = $resource(routeRessource.markComplete, {},{
+        'query': {
+            method: 'GET',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+        }
+      });
+
+		Mark.query(null,function(){});
+
 		controller.isCompleted = true;
 		if(!controller.loop){
 			if(controller.random){
@@ -95,6 +109,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 		}
 
+
 	};
 
 
@@ -127,6 +142,11 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 					function(error){ $rootScope.randomItem = error.data; });
 
 	};
+
+	
+
+
+	
 
 
 

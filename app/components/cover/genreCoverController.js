@@ -33,7 +33,7 @@ $rootScope.idRadio;
 						$rootScope.randomItem = mess;
 						$rootScope.idRadio=idGenre;
 
-						$rootScope.randomItem[0].sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp3"}];
+						$rootScope.randomItem.sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem.url), type:"audio/mp3"}];
 
 						$rootScope.typeEcoute = 1;
 						$rootScope.launchPlay($rootScope.randomItem, 1);

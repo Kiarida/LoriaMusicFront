@@ -99,7 +99,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
         if(track.length==0)
           return;
         $rootScope.playlist = [];
-        if(Array.isArray(track)){
+        /*if(Array.isArray(track)){
           for(var i=0;i<track.length;i++){
             $rootScope.playlist.push(track[i]);
             track[i].sources = [{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
@@ -108,12 +108,13 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
         else if($.inArray(track, $rootScope.playlist)==-1){
           $rootScope.playlist.push(track);
           track.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
-        }
+        }*/
         $rootScope.playlist.id = playlist[0].id;
         $rootScope.playlist.nom = playlist[0].nom;
-        $rootScope.playing = true;
-        $rootScope.small = false;
-        $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+        $rootScope.launchPlay(track);
+        //$rootScope.playing = true;
+        //$rootScope.small = false;
+        //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
 
 
       },

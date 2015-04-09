@@ -179,8 +179,9 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
       console.log("launchalbum");
       var track = album["tracks"];
       $rootScope.playlist = [];
+      $rootScope.launchPlay(track);
 
-      for(var i=0;i<track.length;i++){
+    /*  for(var i=0;i<track.length;i++){
         $rootScope.playlist.push(track[i]);
         track[i].sources = [{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
       }
@@ -189,6 +190,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
       $rootScope.playing = true;
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+      */
     }
 
 	$scope.getArtist();

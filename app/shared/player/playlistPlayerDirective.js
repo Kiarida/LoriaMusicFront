@@ -117,7 +117,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 					}
 				},
 				function(error){
-					console.log("error");
+					//console.log("error");
 				}
 			)
 		}

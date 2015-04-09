@@ -102,28 +102,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
     $rootScope.launchPlay = function(track, radio){
-      console.log("SALUT");
-      console.log(track.id);
-      var Stream = $resource(routeRessource.getStreaming, {},{
-        'query': {
-            method: 'GET',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-            params:{iditem:"@iditem"}
-        }
-      });
 
-
-     
-   
-      Stream.query({iditem:track.id}, function(mess){
-        track.url=mess.url;
-
-        
-      
       if(!radio){
         $rootScope.lienRandomItemByGenre ="";
       }
@@ -131,7 +110,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $location.path('/home');
 
       if(Array.isArray(track)){
-
+        console.log("IT'S AN ARRAY");
         $rootScope.playing = true;
         $rootScope.playlist = [];
         for(var i=0;i<track.length;i++){
@@ -162,7 +141,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
-    });
+  
 
     }
 
@@ -338,27 +317,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
             });
 
-     var Mark = $resource(routeRessource.mark30seconds, {},{
-        'query': {
-            method: 'GET',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-        }
-      });
-
-    $rootScope.$watch("$rootScope.$$childTail.$$childHead.controller.videos", function(){
-      if($rootScope.$$childTail.$$childHead.controller){
-      
-        $timeout(function(){Mark.query(null, function(){
-        })}, 30000);
-      }
     
-       
-  });
-
 
 
   }

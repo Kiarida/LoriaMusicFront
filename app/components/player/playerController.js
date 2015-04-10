@@ -1,5 +1,5 @@
-app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce){
+app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$timeout',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $timeout){
 	var controller = this;
 	controller.state = null;
 	controller.API = null;

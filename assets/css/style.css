@@ -822,7 +822,7 @@ textarea{
 
 /*  ACCUEIL  */
 .droit{ background: #9a929f; color: #374051; }
-.centre { box-shadow: 7px 6px 26px -2px rgba(0, 0, 0, 0.7); z-index: 10; padding: 0;}
+.centre { box-shadow: 7px 6px 26px -2px rgba(0, 0, 0, 0.7); padding: 0;}
 .droit, .centre { height: 100%;}
 .centre h1, .droit h1{ padding: 20px; margin-bottom: 10px; }
 .deckgrid .ng-scope{
@@ -888,8 +888,8 @@ textarea{
 /*  PLAYER  */
 videogular vg-poster-image{ display: block !important; }
 videogular vg-timedisplay{ display: none; }
-.centre videogular vg-play-pause-button .play:before{ content: ""; font-family: "icomoon"; }
-.centre videogular vg-play-pause-button .pause:before{ content: ""; font-family: "icomoon"; }
+videogular vg-play-pause-button .play:before{ content: ""; font-family: "icomoon"; }
+videogular vg-play-pause-button .pause:before{ content: ""; font-family: "icomoon"; }
 .videogular-container videogular .iconButton { font-size: 1.2em;  }
 .button-control {
 	cursor: pointer;
@@ -898,7 +898,7 @@ videogular vg-timedisplay{ display: none; }
     vertical-align: middle;
     width: 50px;
 }
-.centre videogular vg-scrubbar, .centre videogular vg-scrubBarCurrentTime {
+videogular vg-scrubbar, videogular vg-scrubBarCurrentTime {
 	display: block;
     height: 10px;
     position: absolute;
@@ -906,7 +906,10 @@ videogular vg-timedisplay{ display: none; }
     width: 100%;
     z-index: 3;
 }
-.centre .small videogular vg-scrubbar, .centre .small videogular vg-scrubBarCurrentTime { top: calc(100% - 5px); height: 5px; }
+
+#contain-video{height: 20%; top:80%; position:absolute; width: 100%; }
+.videogular-container{height:100%; display: inline-block; width: 30%;}
+.small videogular vg-scrubbar, .small videogular vg-scrubBarCurrentTime { top: calc(100% - 5px); height: 5px; }
 .videogular-container videogular vg-scrubBarCurrentTime{ background-color: #0079a6; }
 #controlsBar #controls-container { background: none;}
 .maincontrol { width : 139px; margin: 0 auto;}
@@ -940,7 +943,7 @@ videogular vg-timedisplay{ display: none; }
 }
 
 
-
+.player-list{width: 65%; display: inline-block;}
 .playlist-player tr.active,
 .playlist-player tr:nth-child(2n).active,
 .playlist-player tr:nth-child(3n).active,

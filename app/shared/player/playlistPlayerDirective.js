@@ -9,6 +9,9 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
             if (tAttrs.type === 'artist') {
                return "app/components/artist/artistTemplate.html";
             }
+            if(tAttrs.type === 'metadata'){
+            	return "app/components/player/metadataTemplate.html";
+            }
         }
         else{
         	return "app/components/player/playlistTemplate.html?t=000";
@@ -25,7 +28,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
     	scope.titleNewPlaylist = "";
 		scope.rate = 2;
 		var sources;
-
+		scope.currentTrack=scope.content;
 		var RateItem = $resource(routeRessource.RateItem,{},
 	    {
 	      query: {
@@ -215,7 +218,10 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 			video.userRate = video.userRate ? video.userRate : video.note;
 		}
 
+		console.log(currentTrack);
+
     },
+
 
   }
 })

@@ -102,7 +102,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
     $rootScope.launchPlay = function(track, radio){
-
+      
       if(!radio){
         $rootScope.lienRandomItemByGenre ="";
       }
@@ -110,7 +110,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $location.path('/home');
 
       if(Array.isArray(track)){
-        console.log("IT'S AN ARRAY");
         $rootScope.playing = true;
         $rootScope.playlist = [];
         for(var i=0;i<track.length;i++){
@@ -137,7 +136,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.$$childTail.$$childHead.API.play();
 
       }
-     
+      console.log("Hey");
+      console.log($rootScope.playlist);
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();

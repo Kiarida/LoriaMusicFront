@@ -170,6 +170,12 @@
     <div ng-controller="PlayerCtrl as controller" ng-if="connected && playing" ng-class="{reduced : small}" class="player-reduced">
       <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
         <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
+              <div ng-if="small" class="metadata">
+        <div class="playlist-player" playlist-player controller="controller" type="metadata" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+        </div>
+        <div class="metadata-artist">
+        </div>
+      </div>
           <vg-video vg-src="playlist[controller.currentVideo].sources"
             vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
           </vg-video>
@@ -183,7 +189,10 @@
           <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
           <vg-poster-image vg-url='playlist[controller.currentVideo].urlCover'></vg-poster-image>
         </videogular>
+  
       </div>
+
+      
       <div class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
       </div>
     </div>

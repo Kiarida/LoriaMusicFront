@@ -910,6 +910,10 @@ videogular vg-timedisplay{ display: none; }
     width: 100%;
     z-index: 3;
 }
+
+.small video{
+  display: none;
+}
 .centre .small videogular vg-scrubbar, .centre .small videogular vg-scrubBarCurrentTime { top: calc(100% - 5px); height: 5px; }
 .videogular-container videogular vg-scrubBarCurrentTime{ background-color: #0079a6; }
 #controlsBar #controls-container { background: none;}
@@ -955,9 +959,14 @@ videogular vg-timedisplay{ display: none; }
   background: #b4abba;
 }
 
+.metadata .playlist-player{
+  background-color: #b4abba;
+  float:left;
+}
 .small videogular vg-poster-image{
-  width: 30%;
-  height: 30%;
+  width: 80px;
+  height: 80px;
+  margin:5px 0 0 5px;
 
 }
 

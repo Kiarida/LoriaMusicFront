@@ -22,7 +22,7 @@ h3{
 button { text-transform: uppercase;}
 .content{ position: relative; padding: 0; overflow:none;}
 .content .container{ position: relative; }
-.changing { height: 81%; overflow: auto;}
+.changing { height: 79.1%; overflow: auto;}
 
 
 /*############################ DEBUT  NAVBAR ####################################*/
@@ -584,6 +584,28 @@ textarea{
 	font-size: 15px;
 }
 
+
+
+
+#menu-left .tooltip {
+  position: fixed;
+  margin-top:3%;
+ }
+
+ .metadata .tooltip{
+  position: fixed;
+  margin-top:47%;
+  margin-left:5%;
+ }
+
+ .metadata .playlist-player tbody:first-child{
+  background-color: #b4abba;
+
+ }
+
+
+
+
 /* FORM */
 .form-horizontal .form-group {
 	margin-left: 0;
@@ -911,13 +933,17 @@ videogular vg-timedisplay{ display: none; }
     z-index: 3;
 }
 
+.glyphicon-headphones{margin-right:3px;}
 .small video{
   display: none;
 }
-.centre .small videogular vg-scrubbar, .centre .small videogular vg-scrubBarCurrentTime { top: calc(100% - 5px); height: 5px; }
+.centre .small videogular vg-scrubBarCurrentTime{top: calc(100% - 5px);height: 5px; display: inline-block; margin-top: 7px}
+.centre .small videogular vg-scrubbar{ top: calc(100% - 58px); height: 5px; }
+.centre .small videogular vg-time-display{display: inline-block;}
+
 .videogular-container videogular vg-scrubBarCurrentTime{ background-color: #0079a6; }
 #controlsBar #controls-container { background: none;}
-.small #controls-container .col-lg-6{width: 100%; height: 100%;}
+.small #controls-container .col-lg-6{ height: 100%;}
 .maincontrol { width : 139px; margin: 0 auto;}
 #controlsBar { background-color: rgba(0,0,0,0.7); }
 .videogular-container .iconButton { transition: all 0.5s ease 0s;}
@@ -934,16 +960,17 @@ videogular vg-timedisplay{ display: none; }
 .small.videogular-container{width: 30%; background-color: #b4abba; }
 .small.videogular-container,.small.playlist-player{ padding: 0; height: 160px;}
 .small.playlist-player{overflow:scroll};
+
 .playlist-player td{ padding:5px 0; }
 .playlist-player tr{ height: 55px; }
 .small.playlist-player tr{ height: 35px; }
-.small.playlist-player{ font-size: 73%; background: #fff; width: 70%; }
+.small.playlist-player{ font-size: 100%; background: #fff; width: 70%; }
 .small videogular vg-controls {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
     font-size: 1.2em;
     height: 35px;
     
-    top: 70%;
+    top: 77%;
 }
 .player-reduced.reduced {
     width: 240%;
@@ -960,15 +987,38 @@ videogular vg-timedisplay{ display: none; }
 }
 
 .metadata .playlist-player{
+  margin-left: 95px;
   background-color: #b4abba;
   float:left;
+  width: 78%;
 }
 .small videogular vg-poster-image{
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   margin:5px 0 0 5px;
 
 }
+
+.well.addtoplaylist.smallplay{position:fixed;top:58%;left:20%;
+
+}
+
+.metadata .playlist-player vg-scrubBar{
+  margin-top:-30px;
+}
+
+.metadata .playlist-player td.title { width : 60%; }
+.metadata .playlist-player td.title a{font-size: 21px;}
+.metadata .playlist-player td {height: 30px}
+.metadata .playlist-player td.rating { width : 20%; }
+.metadata .playlist-player td.action { width : 20%; }
+.small .button-control{width: 40px}
+.small videogular vg-mutebutton{width: 40px;}
+.small {
+  line-height: 1.3em;
+}
+.currentTime{margin: 0 5px;}
+.totalTime{float:right;margin: 0 5px;}
 
 .playlist-player tr.active,
 .playlist-player tr:nth-child(2n).active,
@@ -982,7 +1032,7 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player li{ list-style: none; }
 .playlist-player table { width : 100%; }
 .playlist-player td { width : 25%; }
-.playlist-player td.index,.playlist-player td.title{ padding-left: 5px; }
+.playlist-player td.index,.playlist-player td.title, .playlist-player td.album{ padding-left: 5px; }
 .playlist-player td.rating, .playlist-player td.action{ text-align: center }
 .playlist-player td.action .tags{ display: inline-block; }
 .playlist-player td.artiste{ padding-left: 10px; }

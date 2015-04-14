@@ -37,6 +37,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	this.onPlayerReady = function(API) {
 		controller.API = API;
 		controller.API.autoPlay = true;
+		console.log("LALALA");
+		console.log(controller);
 		//console.log($scope.launchRandomTrack(1));
 		if (controller.API.currentState == 'play' || controller.isCompleted) controller.API.play();
 		controller.isCompleted = false;

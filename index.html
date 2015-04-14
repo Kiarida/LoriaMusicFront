@@ -141,7 +141,7 @@
             <div ng-controller="HistoryCtrl as controllerHistory">
             <ul class="ul-menuleft">
 
-              <li><p class="titre-menuleft"><h4>MY HISTORY</h4></p></li>
+              <li class="titre-menuleft"><h3>MY HISTORY</h3></li>
               <li class="track li-repeat-track" ng-repeat="track in $root.historyTracks">
 
                 <div class="one-track">
@@ -184,7 +184,9 @@
             <control-player></control-player>
           </vg-controls>
           <vg-scrubBar>
+          <vg-time-display ng-class="{'hide' : !small}" class="currentTime">{{ controller.API.currentTime | date:'mm:ss' }}</vg-time-display>
             <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+            <vg-time-display ng-class="{'hide' : !small}" class="totalTime">{{ controller.API.totalTime | date:'mm:ss' }}</vg-time-display>
           </vg-scrubBar>
           <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
           <vg-poster-image vg-url='playlist[controller.currentVideo].urlCover'></vg-poster-image>

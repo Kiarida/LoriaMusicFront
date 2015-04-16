@@ -38,7 +38,7 @@
             <td class="action" ng-class="{'hide': $root.small && withPlayer }">
                 <div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
-                    <a href ng-click="isCollapsed = !isCollapsed; successAdd();">
+                    <a href ng-click="isCollapsed = !isCollapsed; addSuccess()">
                         <i tooltip="add to a playlist" class="icon-plus"></i>
                     </a>
                     <div class="well addtoplaylist" collapse="isCollapsed">

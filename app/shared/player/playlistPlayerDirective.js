@@ -1,4 +1,4 @@
-app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
+app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeout) {
   return {
     restrict: 'A',
     templateUrl: function(tElement, tAttrs){
@@ -21,7 +21,8 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
     	content:"=",
     	controller:"=",
     	withPlayer:"=",
-    	playlist:"="
+    	playlist:"=",
+    	
     },
     link: function(scope, sce, rootScope){
     	scope.playlistUser = "";
@@ -138,7 +139,10 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
     	scope.isCollapsed = true;
     	scope.hideTags = true;
 		scope.hover = false;
+		scope.hideForm=true;
+
 		scope.successAdd = function(){
+			//scope.hideForm=false;
 			$(".addtoplaylist .alert").addClass("hide");
 		};
 
@@ -218,6 +222,26 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource) {
 			video.userRate = video.userRate ? video.userRate : video.note;
 		}
 
+		/*$(document).on('click', function(event) {
+
+		  if (!$(event.target).closest('.addtoplaylist').length) {
+		  	console.log($(".addtoplaylist").is(":visible"));
+		  	
+
+
+		  	//if($(".addtoplaylist").attr("class")=="well addtoplaylist collapse in"){
+		  		scope.isCollapsed=true;
+		  		//$(".addtoplaylist").hide();
+			  	//$(".addtoplaylist").attr("class", "well addtoplaylist collapse");
+
+			  	
+			  
+		    // Hide the menus.
+		  }
+		});*/
+	
+
+	
 
     },
 

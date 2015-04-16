@@ -5,7 +5,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
  	var controller = this;
 	controller.currentVideo = -1;
 	controller.hover = false;
-
+	controller.isCollapsed = true;
 	$scope.user = Auth.getUser();
 	$scope.error = "";
 

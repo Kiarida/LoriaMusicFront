@@ -941,9 +941,11 @@ videogular vg-timedisplay{ display: none; }
 .centre .small videogular vg-scrubbar{ top: calc(100% - 58px); height: 5px; }
 .centre .small videogular vg-time-display{display: inline-block;}
 
+
+.small videogular .iconButton{color:#374051;}
 .videogular-container videogular vg-scrubBarCurrentTime{ background-color: #0079a6; }
 #controlsBar #controls-container { background: none;}
-.small #controls-container .col-lg-6{ height: 100%;}
+.small #controls-container .col-lg-6{ height: 100%; color:#374051}
 .maincontrol { width : 139px; margin: 0 auto;}
 #controlsBar { background-color: rgba(0,0,0,0.7); }
 .videogular-container .iconButton { transition: all 0.5s ease 0s;}
@@ -965,6 +967,9 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player tr{ height: 55px; }
 .small.playlist-player tr{ height: 35px; }
 .small.playlist-player{ font-size: 100%; background: #fff; width: 70%; }
+.small vg-scrubbar > div{
+  background: #d9dcde;
+}
 .small videogular vg-controls {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
     font-size: 1.2em;
@@ -979,7 +984,9 @@ videogular vg-timedisplay{ display: none; }
 }
 
 .small videogular vg-controls #controls-container{
+  background: #d9dcde;
   height: 100%;
+  opacity: 1;
 }
 
 .player-reduced.reduced .videogular{
@@ -1004,6 +1011,7 @@ videogular vg-timedisplay{ display: none; }
 }
 
 .metadata .playlist-player vg-scrubBar{
+  z-index:0;
   margin-top:-30px;
 }
 

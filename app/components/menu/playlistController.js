@@ -37,7 +37,6 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
   });
   
   $scope.addTagPlaylist= function(playlist){
-    console.log(playlist.tags);
     for(var i=0;i<playlist.tags.length;i++){
       var tag = { libelle : playlist.tags[i].libelle }
       var res = PlaylistTags.save({iduser : Auth.getUser().id, id : playlist.id },tag);
@@ -106,6 +105,7 @@ app.controller('playlistController',['$scope','$resource', 'routeRessource','Aut
   $scope.styleIconTag = {
     color : 'white'
   };
+
 
 
 

@@ -4,6 +4,7 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 	var controller = this;
 	controller.currentVideo = -1;
 	controller.hover = false;
+	controller.isCollapsed = true;
 
 	// var Popular = $resource(routeRessource.Popular,{},
  //    {

@@ -1,0 +1,29 @@
+<div ng-init=" getTracks($root.activePlaylist)">
+<h1>{{controller.playlist.nom}}</h1>
+<div class="round back" click-link="/home"></div>
+<ul id="myhistory">
+    <li >
+        <div class="playlist-date">
+            <i class="icon-calendar3"></i>{{toTimestamp(controller.playlist.datecreation)}}
+        </div>
+        <div class="playlist-name">
+            <i class="icon-music"></i>{{controller.playlist.nom}}
+        </div>
+        <div class="playlist-listen" ng-click="$root.typeEcoute=4;launchPlaylist(controller.playlist.id)">
+          <a href=""><i class="icon-play2 icon-menu-left icon-play-playlist"></i>Play all</a>
+        </div>
+        <div class="track-list" collapse="isCollapsed">
+            <div class="playlist-tags">
+              <div class="well-lg playlist-tag">
+
+                <tags-input class="tags-playlist" ng-model="controller.playlist.tags" ng-pattern="tagsPattern" display-property="libelle"
+                on-tag-added="addTagPlaylist(controller.playlist)" on-tag-removed="deleteTagPlaylist(controller.playlist,$tag)"></tags-input>
+
+
+              </div>
+            </div>
+            <div ng-if="controller.playlist.tracks" class="playlist-player" playlist-player controller="controller" content="controller.playlist.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+        </div>
+    </li>
+</ul>
+</div>

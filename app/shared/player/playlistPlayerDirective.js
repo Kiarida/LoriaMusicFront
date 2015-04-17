@@ -6,6 +6,9 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
             if (tAttrs.type === 'playlist') {
                return "app/components/player/playlistTemplate.html?t=000";
             }
+            if(tAttrs.type === 'smallPlaylist'){
+            	return "app/components/player/smallPlaylistTemplate.html";
+            }
             if (tAttrs.type === 'artist') {
                return "app/components/artist/artistTemplate.html";
             }

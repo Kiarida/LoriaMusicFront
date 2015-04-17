@@ -59,6 +59,16 @@
             </div>
           </div>
         </form>
+        <!--<div class="result-searching">
+          <h1>Titles matching : {{wordSearched.search}}</h1>
+          <div class="playlist-player" playlist-player controller="controller" content="resItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
+          <h1>Artists matching : {{wordSearched.search}}</h1>
+          <div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+          <div class="clearfix"></div>
+          <h1>Albums matching : {{wordSearch.search}}</h1>
+          <div deckgrid class="deckgrid artist-search" source="resAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+          <div class="clearfix"></div>
+        </div>-->
       </div>
 
 
@@ -68,6 +78,7 @@
 <div class="contain">
   	<!-- Left Menu -->
   <div ng-if="connected" id="menu-left" class="col-lg-2 menu-left">
+    <div class="left-menu" ng-class="{reducedChanging : small}">
       <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
           <div class="navbar-header">
@@ -98,7 +109,7 @@
   		               <!--  <a ng-click="$root.typeEcoute=0;launchPlaylist(playlist.id)" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
   		                  {{playlist.nom}}
   		                </a> -->
-                      <a href="#/playlists" ng-click="" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
+                      <a href="#/playlist/{{playlist.id}}" ng-click="$root.activePlaylist=playlist.id;" ng-if="!getEditPlaylist()" class="playlistFocus" href="">
                         {{playlist.nom}}
                       </a>
   	                </div>
@@ -148,7 +159,7 @@
                   <a href="" ng-click="$root.typeEcoute = 0;launchPlay(track);" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
                     <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
                     <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
-                    <span tooltip="{{track.titre}}">{{track.titre.length > 18 ? track.titre.substring(0,18)+"..." : track.titre}}</span>
+                    <span tooltip="{{track.titre}}"><p>{{track.titre}}</p></span>
 
                   </a>
                 </div>
@@ -161,10 +172,11 @@
       </div>
     </div>
   </div>
+  </div>
 
 
   <div class="content" style="height:100%" ng-class="{'col-lg-5 centre' : connected}">
-    <div ng-if="!playing || small" class="changing" ng-view>
+    <div ng-if="!playing || small" class="changing" ng-class="{reducedChanging : small}" ng-view>
 
     </div>
     <div ng-controller="PlayerCtrl as controller" ng-if="connected && playing" ng-class="{reduced : small}" class="player-reduced">
@@ -195,14 +207,18 @@
       </div>
 
       
-      <div class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      <div ng-if="!small" class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      </div>
+      <div ng-if="small" class="playlist-player playlist-small" playlist-player controller="controller" type="smallPlaylist" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
       </div>
     </div>
 
 
 
   </div>
-  <div ng-if="connected" class="col-lg-5 droit">
+  <div ng-if="connected" class="col-lg-5 droit" ng-class="{reducedChanging : small}">
+    <div class="right-menu" ng-class="{reducedChanging : small}">
+
     <div ng-if="!playing" ng-controller="ArtisteCoverCtrl">
         <h1>ARTIST LIBRARY</h1>
         <div deckgrid class="deckgrid artists-library" source="itemartistes" cardTemplate="app/components/library/libraryView.html?t=0000"></div>
@@ -211,6 +227,7 @@
         <h1>Suggestions</h1>
         <div ng-if="controller.tops" class="playlist-player" playlist-player controller="controller" content="controller.tops" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
     </div>
+  </div>
   </div>
 </div>
 <!--   ############## LIB JS ################# -->

@@ -14,6 +14,7 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
 	};
 
 	controller.playlists=[];
+  controller.playlist=[];
 
 	function Playlist(id, nom, dateCreation){
 		this.id = id;
@@ -91,7 +92,20 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
 	}
 
     $scope.getTracks=function(indexPlay){
-        console.log("index "+indexPlay);
+        controller.playlist=[];
+        PlaylistTracks.query({iduser:$scope.user.id, idplaylist:indexPlay}, function(mess){
+            controller.playlist=mess[0];
+            controller.playlist.tracks=mess[0].iditem;
+            $scope.getTagsByPlaylist(controller.playlist.id);
+            
+            
+            
+
+        });
+
+    }
+
+     $scope.getTracksPlaylists=function(indexPlay){
         PlaylistTracks.query({iduser:$scope.user.id, idplaylist:controller.playlists[indexPlay].id}, function(mess){
             //console.log(mess);
             controller.playlists[indexPlay].tracks=mess[0].iditem;

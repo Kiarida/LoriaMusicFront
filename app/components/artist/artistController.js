@@ -178,7 +178,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
       var track = album["tracks"];
       $rootScope.playlist = [];
-      $rootScope.launchPlay(track);
+      $rootScope.launchPlay(track, "album");
 
     /*  for(var i=0;i<track.length;i++){
         $rootScope.playlist.push(track[i]);

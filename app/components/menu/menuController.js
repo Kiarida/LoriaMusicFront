@@ -87,7 +87,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
 
       });
   }
-
+  
   $rootScope.launchPlaylist = function(idplaylist, radio){
     $location.path('/home');
 
@@ -111,7 +111,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
         }*/
         $rootScope.playlist.id = playlist[0].id;
         $rootScope.playlist.nom = playlist[0].nom;
-        $rootScope.launchPlay(track);
+        $rootScope.launchPlay(track, "playlist");
         //$rootScope.playing = true;
         //$rootScope.small = false;
         //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});

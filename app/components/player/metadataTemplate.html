@@ -4,7 +4,7 @@
 		<tr>
 			<td class="title">
 				<i class="icon-volume-medium"></i>
-				<a tooltip="{{ecoutes.titre}}">{{ecoutes.titre.length > 20 ? ecoutes.titre.substring(0,20)+"..." : ecoutes.titre}}</a>
+				<a tooltip="{{ecoutes.titre}}"><span><p>{{ecoutes.titre}}</p></span></a>
 			</td>
 
 			<td class="rating" ng-click="editRate(ecoutes)">
@@ -19,20 +19,12 @@
 
 			
 		</tr>
-		<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" class="title-tags" collapse="hideTags">
-			<td align="center" colspan="5">
-              <div class="well-sm playlist-tag">
-              	<span class="label label-default" ng-repeat="tag in ecoutes.tags">
-              		<a ng-click="disagree(ecoutes.id, tag.id)" href=""><i class="icon-minus"></i></a><span tooltip="Average rating : {{tag.note}}">{{tag.libelle}}</span><a ng-click="agree(ecoutes.id, tag.id)" href=""><i class="icon-plus"></i></a>
-              	</span>
-              </div>
-			</td>
-		</tr>
-		<tr><td class="album"><i class="glyphicon glyphicon-headphones"></i>{{ecoutes.idalbum[0].titre}}</td><td class="action" ng-class="">
+		
+		<tr><td class="album"><i class="glyphicon glyphicon-headphones"></i><p>{{ecoutes.idalbum[0].titre}}</p></td><td class="action" ng-class="">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
-					<a href ng-click="isCollapsed = !isCollapsed; successAdd();">
-						<i tooltip="Add to a playlist" class="icon-plus"></i>
+					<a  tooltip="Add to a playlist"href ng-click="isCollapsed = !isCollapsed; successAdd();">
+						<i class="icon-plus"></i>
 					</a>
 					<div class="well addtoplaylist smallplay" collapse="isCollapsed">
 						<h3>ADD TO A PLAYLIST</h3>
@@ -62,8 +54,22 @@
 					<i tooltip="More" class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
 				</a>
 			</td></tr>
-		<tr>
-			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="album" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{artiste}}</span></a></td>
+			<tr ng-class="{active : (controller.API.currentState == 'stop' && controller.API.currentState == 'pause') || controller.currentVideo ==$index }" class="title-tags" collapse="hideTags">
+			<td align="center" colspan="5">
+              <div class="well-sm playlist-tag">
+              	<span class="label label-default" ng-repeat="tag in ecoutes.tags">
+              		<a ng-click="disagree(ecoutes.id, tag.id)" href=""><i class="icon-minus"></i></a><span tooltip="Average rating : {{tag.note}}">{{tag.libelle}}</span><a ng-click="agree(ecoutes.id, tag.id)" href=""><i class="icon-plus"></i></a>
+              	</span>
+              </div>
+			</td>
+		</tr>
+		<tr ng-class="{hide : !hideTags}">
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" >
+				<i class="icon-microphone"></i>
+				<a tooltip="{{artiste}}" ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}" >
+					<span ><p>{{artiste}}</p></span>
+				</a>
+			</td>
 			
 		</tr>
 

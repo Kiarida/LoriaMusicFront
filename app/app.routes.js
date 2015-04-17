@@ -11,7 +11,8 @@ app.config(function ($routeProvider){
 		.when('/search',{templateUrl: 'app/components/search/searchView.html', controller:"SearchCtrl as controller"})	
 		.when('/friends',{templateUrl: 'app/components/friends/friendsView.html', controller:"FriendsCtrl as controller"})	
 		.when('/playlists',{templateUrl: 'app/components/playlists/playlistsView.html', controller:"PlaylistsCtrl as controller"})		
-		.when('/artist/:idartiste',{templateUrl: 'app/components/artist/artistView.html', controller:"ArtistCtrl as controller"})		
+		.when('/artist/:idartiste',{templateUrl: 'app/components/artist/artistView.html', controller:"ArtistCtrl as controller"})	
+		.when('/playlist/:idplaylist',{templateUrl:'app/components/playlists/soloPlaylistView.html', controller:"PlaylistsCtrl as controller"})	
 		.otherwise({redirectTo: '/home'});		
 
 

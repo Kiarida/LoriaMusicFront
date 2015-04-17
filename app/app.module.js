@@ -100,10 +100,30 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
 
 
+    function getColor(track, param){
+      track.color={
+       }
 
-    $rootScope.launchPlay = function(track, radio){
-      console.log(track);
-      if(!radio){
+      track.color.name=param;
+      switch(param){
+        case "radio":
+        track.color.code="#319570"
+        break;
+        case "playlist":
+        track.color.code="#3A353C"
+        break;
+        case "album":
+        track.color.code="#5F342F"
+        break;
+        default:
+        track.color.name="other"
+        track.color.code="#4C433A"
+        break;
+      }
+    }
+
+    $rootScope.launchPlay = function(track, param){
+      if(param != "radio"){
         $rootScope.lienRandomItemByGenre ="";
       }
 
@@ -113,6 +133,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.playing = true;
         $rootScope.playlist = [];
         for(var i=0;i<track.length;i++){
+          getColor(track[i], param);
+          track[i].sources=[{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
           $rootScope.playlist.push(track[i]);
         }
          $rootScope.$broadcast('someEvent', track);
@@ -120,6 +142,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       else if($.inArray(track, $rootScope.playlist)==-1){
         $rootScope.playing = true;
         $rootScope.playlist = [];
+        getColor(track, param);
         newtrack = track;
         newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
         $rootScope.playlist.push(newtrack);
@@ -130,12 +153,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
 
       if($rootScope.$$childTail.$$childHead.API){
-
         $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
         $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
         $rootScope.$$childTail.$$childHead.API.play();
 
       }
+      console.log($rootScope.playlist);
       $rootScope.small = false;
       $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
       $rootScope.getLast5Ecoutes();
@@ -324,6 +347,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $(".contain").height(window.innerHeight-71);
     $(".centre,.droit,#menu-left").height(window.innerHeight-71);
+    
 
 
 

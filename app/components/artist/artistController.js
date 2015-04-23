@@ -3,7 +3,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
  	$scope.artist_id=$routeParams.idartiste;
  	var controller = this;
-	controller.currentVideo = -1;
+	
 	controller.hover = false;
 	controller.isCollapsed = true;
 	$scope.user = Auth.getUser();
@@ -114,7 +114,6 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		Score.query({iduser:Auth.getUser().id, idartiste:$scope.artist_id}, function(mess){
 			if(mess[0]){
 				controller.artist.userScore = mess[0].note;
-        console.log(controller.artist);
 				controller.artist.score=mess.noteMoyenne[0].note;
 			}
 			else{
@@ -175,7 +174,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 
     $scope.launchAlbum=function(album){
-
+    $location.path('/home');
       var track = album["tracks"];
       $rootScope.playlist = [];
       $rootScope.launchPlay(track, "album");
@@ -184,7 +183,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
         $rootScope.playlist.push(track[i]);
         track[i].sources = [{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
       }
-      $location.path('/home');
+      
 
       $rootScope.playing = true;
       $rootScope.small = false;
@@ -195,6 +194,8 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	$scope.getArtist();
 	$scope.getAlbums();
 	$scope.getScore();
+	console.log("Root scope artiste ");
+	console.log($rootScope);
 
 
 

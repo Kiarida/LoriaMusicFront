@@ -80,8 +80,6 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
   $scope.editPlaylistName = function(playlist){
     var userPlaylist = PlaylistUser.update({iduser: Auth.getUser().id, idplaylist : playlist.id},{nomPlaylist : playlist.nom},
       function(){
-
-        console.log(userPlaylist);
       },
       function(error){
 

@@ -7,7 +7,6 @@ app.directive('compareTo', function() {
         link: function(scope, element, attributes, ngModel) {
 
             ngModel.$validators.compareTo = function(modelValue) {
-              console.log(ngModel.$isEmpty(modelValue));
                 if(ngModel.$isEmpty(modelValue))
                   return true;
                 return modelValue == scope.otherModelValue;

@@ -19,11 +19,11 @@
 			</td>
 			<td class="title">
 				<a class="wrap">
-					<span tooltip="{{ecoutes.titre}}"><p >{{ecoutes.titre}}</p></span>
+					<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
 				</a>
 			</td>
 
-			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}"><p>{{artiste}}</p></span></a></td>
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{artiste}}</span></a></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
 				<span tooltip="Average rating : {{ecoutes.note}}
 				Your rating : {{ecoutes.userRate}}">

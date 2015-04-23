@@ -128,8 +128,6 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
 
 
     $scope.getTagsByPlaylist = function(idPlaylist){
-        console.log(idPlaylist);
-        console.log($scope.user.id);
                 PlaylistTags.query({iduser: $scope.user.id, idplaylist:idPlaylist},function(mess){ 
                     for(var i = 0; i < controller.playlists.length; i++){
                         

@@ -11,7 +11,6 @@ $rootScope.randomItem;
 $rootScope.idRadio;
 
  $scope.launchRandomTrack = function(idGenre){
-   console.log("randomGenre");
    $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByGenre;
 
 		var Res = $resource($scope.lienRandomItemByGenre,{},

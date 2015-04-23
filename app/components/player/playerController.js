@@ -102,10 +102,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		}
 		else {
 			controller.currentVideo = index;
-			
-			console.log("SET VIDEO");
-			console.log($scope);
-			
 			controller.config.sources = $rootScope.playlist[index].sources;
 			controller.API.play();
       		$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
@@ -173,11 +169,12 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 
 	$scope.$watchGroup(['controller.videos', 'controller.currentVideo'], function(){
+		console.log("glop glop");
 		Stream.query({iditem:$rootScope.playlist[controller.currentVideo].id}, function(mess){ 
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl(mess.url), type:"audio/mp3"}];
     	});
     	$timeout(function(){Mark.query(null, function(){
-        })}, 30000);
+        }); console.log("Yop")}, 30000);
         
 	});
 

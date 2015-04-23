@@ -89,7 +89,7 @@
             <ul class="nav navbar-nav">
               <li><a href="#/tops"><i class="icon-menu-left icon-trophy"></i>Top list</a></li>
               <li><a href="#/radios"><i class="icon-menu-left icon-feed"></i>Radio</a></li>
-              <li><a href="#/history"><i class="icon-menu-left icon-clock"></i>My Listening</a></li>
+              <li><a href="#/history"><i class="icon-menu-left icon-clock"></i>My History</a></li>
             </ul>
 
             <div ng-controller="menuController">
@@ -152,14 +152,14 @@
             <div ng-controller="HistoryCtrl as controllerHistory">
             <ul class="ul-menuleft">
 
-              <li class="titre-menuleft"><h3>MY HISTORY</h3></li>
+              <li class="titre-menuleft"><h3>LAST TRACKS</h3></li>
               <li class="track li-repeat-track" ng-repeat="track in $root.historyTracks">
 
                 <div class="one-track">
                   <a href="" ng-click="$root.typeEcoute = 0;launchPlay(track);" ng-mouseenter="hoverHistory=true" ng-mouseleave="hoverHistory=false">
                     <i ng-if="!hoverHistory" class="icon-music icon-menu-left"></i>
                     <i ng-if="hoverHistory" class="icon-play2 icon-menu-left"></i>
-                    <span tooltip="{{track.titre}}"><p>{{track.titre}}</p></span>
+                    <span tooltip="{{track.titre}}">{{track.titre}}</span>
 
                   </a>
                 </div>
@@ -195,13 +195,18 @@
           <vg-controls id="controlsBar">
             <control-player></control-player>
           </vg-controls>
-          <vg-scrubBar>
+          <div ng-class="{'scrubs': small}">
           <vg-time-display ng-class="{'hide' : !small}" class="currentTime">{{ controller.API.currentTime | date:'mm:ss' }}</vg-time-display>
+          <vg-scrubBar>
+          
             <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
-            <vg-time-display ng-class="{'hide' : !small}" class="totalTime">{{ controller.API.totalTime | date:'mm:ss' }}</vg-time-display>
+            
           </vg-scrubBar>
+          <vg-time-display ng-class="{'hide' : !small}" class="totalTime">{{ controller.API.totalTime | date:'mm:ss' }}</vg-time-display>
+        </div>
           <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
           <vg-poster-image vg-url='playlist[controller.currentVideo].urlCover'></vg-poster-image>
+          <vg-buffering></vg-buffering>
         </videogular>
   
       </div>

@@ -105,7 +105,6 @@ app.controller('FriendsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 
 				var id = mess[i].id;
 				Items.query({iduser:id, idaction:2}, function(messTracks){
-					console.log(messTracks);
 					for(var j = 0; j < controller.friends.length; j++){
 						if(controller.friends[j].id == messTracks[0].idUtilisateur){
 

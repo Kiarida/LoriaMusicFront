@@ -36,6 +36,16 @@ app.filter('yearRange', function() {
   };
 });
 
+
+app.filter('ecouteRange', function() {
+  return function(input, total) {
+    total = parseInt(total);
+    for (var i=0; i<total; i++)
+      input.push(i);
+    return input;
+  };
+});
+
 //check on each redirection if the user is logged if he is not, we redirect him to the login page
 app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout',
  function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout) {
@@ -123,46 +133,96 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
-      if(param != "radio"){
-        $rootScope.lienRandomItemByGenre ="";
-      }
+      console.log("ROOT SCOPE EMPTY ?");
+      console.log($rootScope);
+      if(track.gs){
+       var deferred = $q.defer();
+        var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
+        {
+          'save': {
+              method: 'POST',
+              isArray: true,
+              headers: {
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{}
+            }
+        });
+        var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom}, function(mess){
+          deferred.resolve(mess);
+        } );
+        deferred.promise.then(function(mess){
+          if(mess[0].id){
+            track=mess[0];
 
-      $location.path('/home');
+          }
+          $rootScope.playing = true;
+          $rootScope.playlist = [];
+          getColor(track, param);
+          newtrack = track;
+          newtrack.sources = [{src: $sce.trustAsResourceUrl(String(track.url)), type:"audio/mp3"}];
+          $rootScope.playlist.push(newtrack);
 
-      if(Array.isArray(track)){
-        $rootScope.playing = true;
-        $rootScope.playlist = [];
-        for(var i=0;i<track.length;i++){
-          getColor(track[i], param);
-          track[i].sources=[{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
-          $rootScope.playlist.push(track[i]);
+          $rootScope.$broadcast('someEvent', newtrack);
+
+          if($rootScope.$$childTail.$$childHead.API){
+          $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
+          $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
+          $rootScope.$$childTail.$$childHead.API.play();
+
         }
-         $rootScope.$broadcast('someEvent', track);
+        $rootScope.small = false;
+        $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+        $rootScope.getLast5Ecoutes();
+
+          })
       }
-      else if($.inArray(track, $rootScope.playlist)==-1){
-        $rootScope.playing = true;
-        $rootScope.playlist = [];
-        getColor(track, param);
-        newtrack = track;
-        newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
-        $rootScope.playlist.push(newtrack);
+      else{
+        if(param != "radio"){
+          $rootScope.lienRandomItemByGenre ="";
+        }
+        $location.path('/home');
 
-        $rootScope.$broadcast('someEvent', newtrack);
+        if(Array.isArray(track)){
+          $rootScope.playing = true;
+          $rootScope.playlist = [];
+          for(var i=0;i<track.length;i++){
+            getColor(track[i], param);
+            track[i].sources=[{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
+            $rootScope.playlist.push(track[i]);
+          }
+           $rootScope.$broadcast('someEvent', track);
+        }
+        else if($.inArray(track, $rootScope.playlist)==-1){
+          $rootScope.playing = true;
+          $rootScope.playlist = [];
+          getColor(track, param);
+          newtrack = track;
+          newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
+       
 
-        //$route.reload();
+          $rootScope.playlist.push(newtrack);
+          console.log("root launch ");
+          console.log($rootScope);
+
+          $rootScope.$broadcast('someEvent', newtrack);
+
+          //$route.reload();
+        }
+
+        if($rootScope.$$childTail.$$childHead.API){
+          console.log("childHead");
+          $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
+          $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
+          $rootScope.$$childTail.$$childHead.API.play();
+
+        }
+        $rootScope.small = false;
+        $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+        $rootScope.getLast5Ecoutes();
       }
-
-      if($rootScope.$$childTail.$$childHead.API){
-        $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
-        $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
-        $rootScope.$$childTail.$$childHead.API.play();
-
-      }
-      console.log($rootScope.playlist);
-      $rootScope.small = false;
-      $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
-      $rootScope.getLast5Ecoutes();
-  
+    
 
     }
 
@@ -192,19 +252,22 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $rootScope.resItem = [];
       $rootScope.resAlbum = [];
       if($rootScope.wordSearched.search!= null && $rootScope.wordSearched.search.length >= 3){
+       $rootScope.resArtiste =[];
+        $rootScope.resItem = [];
+        $rootScope.resAlbum = [];
         var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
           function(){
             for(var i=0; i<item.length; i++){
 
               if(item[i].typeitem == 1){
-
-                $rootScope.resItem[i] = item[i];
+                
+                $rootScope.resItem.push(item[i]);
               }
               else{
-                $rootScope.resAlbum[i] = item[i];
+                $rootScope.resAlbum.push(item[i]);
               }
             }
-
+           
           },
           function(error){
             $rootScope.resItem = error.data;
@@ -220,6 +283,51 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         );
       }
     };
+
+
+    $rootScope.searchGrooveshark=function(){
+      $rootScope.resArtiste=[];
+      $rootScope.resAlbum=[];
+      $rootScope.resItem=[];
+      var SearchGrooveshark = $resource(routeRessource.searchItemGrooveshark, {},
+        {
+          'query': {
+              method: 'GET',
+              isArray: true,
+              headers: {
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{key: "@key"}
+            }
+        });
+      SearchGrooveshark.query({key:$rootScope.wordSearched.search}, function(mess){
+        
+     
+        for(var i=0; i<mess.length; i++){
+
+          if(mess[i].SongName.indexOf($rootScope.wordSearched.search) != -1){
+             track = {
+              "titre" : mess[i].SongName,
+              "url" : mess[i].SongID,
+              "nom" : mess[i].ArtistName,
+              "nomAlbum" : mess[i].AlbumName,
+              "idArtiste" : mess[i].ArtistID,
+              "gs" : true
+              //""
+            }
+            $rootScope.resItem.push(track);
+               
+          }
+          else if(mess[i].ArtistName.indexOf($rootScope.wordSearched.search) != -1){
+            $rootScope.resArtiste.push(mess[i]);
+          }
+          else if(mess[i].AlbumName.indexOf($rootScope.wordSearched.search) != -1){
+            $rootScope.resAlbum.push(mess[i]);
+          }
+        }
+      });
+    }
 
     $rootScope.initSearch = function(){
       if(Auth.getUser() && $rootScope.Search == null){
@@ -391,6 +499,8 @@ app.constant("routeRessource", {
   "getStreaming" : "http://develop.api/api/app.php/items/grooveshark/:iditem",
   "mark30seconds" : "http://develop.api/api/app.php/items/grooveshark/mark30secondes",
   "markComplete" : "http://develop.api/api/app.php/items/grooveshark/markComplete",
+  "getSearchGrooveshark" : "http://develop.api/api/app.php/items/",
+  "searchItemGrooveshark" : "http://develop.api/api/app.php/items/grooveshark/search/:key",
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,

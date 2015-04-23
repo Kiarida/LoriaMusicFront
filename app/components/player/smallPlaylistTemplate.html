@@ -1,29 +1,29 @@
 
-<div class="smallPlaylist">
-	<div ng-repeat="ecoutes in content" class="ecoute text-center">
-		<div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div>
-		<div ng-click="controller.setVideo($index)" class="index">
+<div class="smallPlaylist"><div ng-repeat="ecoutes in content" class="ecoute text-center"><div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div><div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 				<a href="">
 					<i class="icon-play2 text-center" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 					<i class="icon-volume-medium text-center" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
 					<i class="icon-play2 text-center" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
 					<span ng-class="{hide: hover || controller.currentVideo==$index}">{{ $index+1 }}.</span>
-				</a>
-				<div class="title">
-				<span tooltip="{{ecoutes.titre}}"><p title="">{{ecoutes.titre}}</p></span>
-			</div>
+				
+				
+				<span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
+			</a>
 			</div>
 			
 			<div ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste text-center" >
-				<i class="icon-microphone"></i>
+				
 				<a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}">
-					<span tooltip="{{artiste}}" class="text-center"><p>{{artiste}}</p>
+					<i class="icon-microphone"></i>
+					<span tooltip="{{artiste}}" class="text-center">{{artiste}}
 					</span>
 				</a>
 			</div>
 			<div class="playlist-cover text-center">
 				<img src="{{ecoutes.urlCover}}"/>
 			</div>
+	</div><div ng-if="content.length < 5" ng-repeat="n in [] | ecouteRange: (5-content.length)" class="ecoute placeholder text-center">
+	<p>Add more tracks to your playlist !</p>
 	</div>
 </div>
 

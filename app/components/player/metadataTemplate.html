@@ -4,7 +4,7 @@
 		<tr>
 			<td class="title">
 				<i class="icon-volume-medium"></i>
-				<a tooltip="{{ecoutes.titre}}"><span><p>{{ecoutes.titre}}</p></span></a>
+				<a tooltip="{{ecoutes.titre}}"><span>{{ecoutes.titre}}</span></a>
 			</td>
 
 			<td class="rating" ng-click="editRate(ecoutes)">
@@ -20,7 +20,7 @@
 			
 		</tr>
 		
-		<tr><td class="album"><i class="glyphicon glyphicon-headphones"></i><p>{{ecoutes.idalbum[0].titre}}</p></td><td class="action" ng-class="">
+		<tr><td class="album" ng-init="album = ecoutes.idalbum ? ecoutes.idalbum[0].titre : ecoutes.albumTitre"><i class="glyphicon glyphicon-headphones"></i>{{album}}</td><td class="action" ng-class="">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
 					<a  tooltip="Add to a playlist"href ng-click="isCollapsed = !isCollapsed; successAdd();">
@@ -67,7 +67,7 @@
 			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" >
 				<i class="icon-microphone"></i>
 				<a tooltip="{{artiste}}" ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}" >
-					<span ><p>{{artiste}}</p></span>
+					<span >{{artiste}}</span>
 				</a>
 			</td>
 			

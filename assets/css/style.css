@@ -1069,7 +1069,7 @@ videogular vg-timedisplay{ display: none; }
   margin-left: 95px;
   background-color: #b4abba;
   float:left;
-  width: 78%;
+  width: calc(100% - 95px);
   overflow: visible;
 }
 
@@ -1173,8 +1173,8 @@ videogular vg-timedisplay{ display: none; }
   height: 50%
 }
 .playlist-cover img{
-  width: 90px;
-  height: 80px;
+  max-width: 50%;
+  max-height: 100%;
 }
 
 .smallPlaylist{

@@ -59,7 +59,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 			scope.controller.like = false;
 			scope.controller.API.play();
 			createInteraction(routeRessource.nextInteraction);
-      		scope.$root.createEcoute({"idItem" : scope.$root.playlist[scope.controller.currentVideo].id, "typeEcoute" : 0});
+      		//scope.$root.createEcoute({"idItem" : scope.$root.playlist[scope.controller.currentVideo].id, "typeEcoute" : 0});
 
 
 		};
@@ -83,7 +83,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 			scope.controller.like = false;
 			scope.controller.API.play();
 			createInteraction(routeRessource.previousInteraction);
-      		scope.$root.createEcoute({"idItem" : scope.$root.playlist[scope.controller.currentVideo].id, "typeEcoute" : 0});
+      		//scope.$root.createEcoute({"idItem" : scope.$root.playlist[scope.controller.currentVideo].id, "typeEcoute" : 0});
 
 
 		}; 

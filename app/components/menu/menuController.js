@@ -72,10 +72,6 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
 
   }
 
-  $scope.deletePlaylist = function(playlist){
-    var userPlaylist = PlaylistUser.delete({iduser: Auth.getUser().id, idplaylist: playlist.id});
-    $rootScope.userPlaylist.splice($rootScope.userPlaylist.indexOf(playlist),1);
-  }
 
   $scope.editPlaylistName = function(playlist){
     var userPlaylist = PlaylistUser.update({iduser: Auth.getUser().id, idplaylist : playlist.id},{nomPlaylist : playlist.nom},

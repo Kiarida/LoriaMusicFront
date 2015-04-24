@@ -1,6 +1,9 @@
-app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$timeout',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $timeout){
+app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$interval',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $interval){
 	var controller = this;
+	var promise;
+	var created = false;
+	var marked=false;
 	controller.state = null;
 	controller.API = null;
 	controller.currentVideo = 0;
@@ -90,7 +93,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 		controller.API.autoPlay = true;
 		controller.API.play();
-      	$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
+      	//$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
 
 
 	};
@@ -104,7 +107,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			controller.currentVideo = index;
 			controller.config.sources = $rootScope.playlist[index].sources;
 			controller.API.play();
-      		$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
+      		//$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
 
 		}
 
@@ -166,17 +169,53 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
         }
       });
 
+   $scope.start=function(){
+   	$scope.stop();
+   	promise=$interval(function(){minuteur(stop);},1000);
+   }
 
+   $scope.stop=function(){
+   	$interval.cancel(promise);
+   }
+
+   	function minuteur(stop){
+		var time = $scope.API.currentTime;
+		var seconds = time.getSeconds();
+		if(seconds==10 && created == false){
+			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+			created=true;
+			
+		}
+	    if(seconds==30 && marked==false){
+	    	Mark.query(null, function(){}); 
+	    	marked=false;
+	    	$scope.stop();
+	   	}
+
+	}
 
 	$scope.$watchGroup(['controller.videos', 'controller.currentVideo'], function(){
-		console.log("glop glop");
 		Stream.query({iditem:$rootScope.playlist[controller.currentVideo].id}, function(mess){ 
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl(mess.url), type:"audio/mp3"}];
     	});
-    	$timeout(function(){Mark.query(null, function(){
-        }); console.log("Yop")}, 30000);
+    	marked=false;
+    	created=false;
+    	$scope.start();
+		
+    	
+    	
         
 	});
+
+	$scope.$on('someEvent', function(event, mass){ 
+		controller.videos=$rootScope.playlist;
+        controller.currentVideo=0;
+        controller.API.play();
+
+			
+		});
+
+	
 
 	
 

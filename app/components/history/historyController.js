@@ -265,6 +265,9 @@ app.controller('HistoryCtrl', ['$scope', '$resource', '$rootScope', 'Auth','rout
 							var session = controller.sessions[i];
 							var id = session.id;
 							session.duration = typeof session.datefin == "undefined" ? "Ongoing" : substractDate(session.datedebut, session.datefin);
+							if(session.duration=="Ongoing"){
+								$scope.getEcoutesBySession(session.id);
+							}
 							session.dateDisplay = stringDatetoString(session.datedebut);
 
 

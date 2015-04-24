@@ -173,7 +173,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
         }
         $rootScope.small = false;
-        $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+        //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
         $rootScope.getLast5Ecoutes();
 
           })
@@ -200,26 +200,20 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           getColor(track, param);
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
-       
-
           $rootScope.playlist.push(newtrack);
-          console.log("root launch ");
-          console.log($rootScope);
-
           $rootScope.$broadcast('someEvent', newtrack);
 
           //$route.reload();
         }
 
         if($rootScope.$$childTail.$$childHead.API){
-          console.log("childHead");
           $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
           $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
           $rootScope.$$childTail.$$childHead.API.play();
 
         }
         $rootScope.small = false;
-        $rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+        //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
         $rootScope.getLast5Ecoutes();
       }
     
@@ -359,6 +353,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     };
     $rootScope.createEcoute = function(params){
+      console.log("CreateEcoute");
       var Ecoute = $resource(routeRessource.AddEcoute,{},
       {
         'save': {
@@ -385,6 +380,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.convertTime=function (secondes){
       var min = Math.floor(secondes / 60);
       var sec = secondes - min * 60;
+      if(sec < 10){
+        sec = "0"+sec;
+      }
       return min+":"+sec;
     }
 

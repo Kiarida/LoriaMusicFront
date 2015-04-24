@@ -11,7 +11,7 @@
         <div class="playlist-listen" ng-click="$root.typeEcoute=4;launchPlaylist(playlist.id)">
           <a href=""><i class="icon-play2 icon-menu-left icon-play-playlist"></i>Play all</a>
         </div>
-        <a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed; getTracks(controller.playlists.indexOf(playlist))" href="" class="pull-right detail-histo">Details<i class="icon-arrow-down4"></i></a>
+        <a ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed; getTracksPlaylists(controller.playlists.indexOf(playlist))" href="" class="pull-right detail-histo">Details<i class="icon-arrow-down4"></i></a>
         <div class="track-list" collapse="isCollapsed">
             <div class="playlist-tags">
               <div class="well-lg playlist-tag">

@@ -42,6 +42,16 @@ button { text-transform: uppercase;}
   white-space: normal;
 }
 
+
+
+/*****************MODAL**********/
+.modal-dialog.modal-sm{
+  color:black;
+  margin-top: 20%;
+}
+
+.modal-backdrop{width: 100%; height:100%;}
+
 /*############################ DEBUT  NAVBAR ####################################*/
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -305,11 +315,17 @@ button { text-transform: uppercase;}
 }
 
 #menu-left .titre-menuleft{
-
+  margin-left: 10px;
   font-size: 20px;
   color : #FFF;
-  padding-left: 10px;
   padding-bottom: 0px;
+}
+
+
+
+#menu-left .titre-menuleft a{
+
+  color : #FFF;
 }
 
 
@@ -348,10 +364,15 @@ button { text-transform: uppercase;}
 #menu-left .playlist-content .ellipsis > a, #menu-left .playlist-content > a{
   font-size: 18px;
   color : #FFF;
-  padding-left: 10px;
+  
   padding-bottom: 0px;
 
 }
+
+#menu-left .playlist-content .ellipsis > a{
+  padding-left: 10px;
+}
+
 
 #menu-left .playlist-content .ellipsis.active{
   overflow: hidden;
@@ -386,7 +407,7 @@ button { text-transform: uppercase;}
 }
 
 #menu-left .playlist-icons{
-  width: 143px;
+  width: 42%;
   float: right;
 }
 
@@ -463,7 +484,7 @@ padding-bottom: 0px;
   color: #fff;
   font-size: 16px;
   line-height: 1.467;
-  margin-left: 7px;
+  margin-left: 4px;
   width: 120px;
 
 }
@@ -527,6 +548,8 @@ padding-bottom: 0px;
 
 
 /*  BUTTONS */
+
+.btn-warning.primary{color: #fff; background-color: #1abc9c;}
 .btn-primary, .btn-default { background: #5a6985; line-height: 0; font-weight: bold; padding: 11px 12px 14px; border-radius: 3px; }
 .btn-primary:hover, .btn-default:hover { background: #6f81a3; }
 .btn-search-friend{ width: 1%}
@@ -570,7 +593,7 @@ body{
 	border: 1px solid #fff;
 	height: 40px;
 	background: none;
-	margin-right: 10px;
+	margin-right: 4px;
 	color:#fff;
 }
 .form-group.focus .form-control,
@@ -831,6 +854,7 @@ textarea{
 
 .playlist-date, .playlist-name, .playlist-listen{
   display: inline-block;
+  min-width: 20%;
 }
 
 .playlist-name{
@@ -1291,11 +1315,16 @@ span{
 .ul-menuleft .playlist-tag tags-input .tags .tag-item .remove-button{ color :#374051;}
 .one-track span{
   display: inline-block;
-  width: 79%;
+  width: 77%;
 }
 
 .one-track i{
   display: inline-block;
+}
+
+
+.tooltip-arrow{
+  color:#34495e;
 }
 
 /******** TAG *********/

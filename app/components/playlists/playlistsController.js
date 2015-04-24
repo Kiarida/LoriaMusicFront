@@ -106,8 +106,8 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
     }
 
      $scope.getTracksPlaylists=function(indexPlay){
+      console.log(controller.playlists[indexPlay].id);
         PlaylistTracks.query({iduser:$scope.user.id, idplaylist:controller.playlists[indexPlay].id}, function(mess){
-            //console.log(mess);
             controller.playlists[indexPlay].tracks=mess[0].iditem;
             for(var i=0; i<controller.playlists.length;i++){
 
@@ -164,6 +164,7 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
 
 
 	$scope.getPlaylists();
+
     
 			
 

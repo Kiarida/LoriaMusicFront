@@ -133,8 +133,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
-      console.log("ROOT SCOPE EMPTY ?");
-      console.log($rootScope);
       if(track.gs){
        var deferred = $q.defer();
         var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
@@ -195,12 +193,14 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
            $rootScope.$broadcast('someEvent', track);
         }
         else if($.inArray(track, $rootScope.playlist)==-1){
+
           $rootScope.playing = true;
           $rootScope.playlist = [];
           getColor(track, param);
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
           $rootScope.playlist.push(newtrack);
+          console.log("hey");
           $rootScope.$broadcast('someEvent', newtrack);
 
           //$route.reload();
@@ -255,10 +255,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             for(var i=0; i<item.length; i++){
               
               if(item[i].typeitem == 1){
-                if($.inArray(item[i], $rootScope.resItem)==-1){
-
                     $rootScope.resItem.push(item[i]);
-                }
               }
               else{
                 $rootScope.resAlbum.push(item[i]);

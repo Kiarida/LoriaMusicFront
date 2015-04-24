@@ -23,7 +23,7 @@ button { text-transform: uppercase;}
 .content{ position: relative; padding: 0; overflow:none;}
 .content .container{ position: relative; }
 .changing, .left-menu, .right-menu { height: 90%; overflow: auto;}
-.changing.reducedChanging{height: 79%; }
+.changing.reducedChanging{height: 81%; }
 .left-menu.reducedChanging, .right-menu.reducedChanging{height: 79%};
 
 #menu-left{
@@ -1255,7 +1255,7 @@ span{
   white-space:nowrap; 
   text-overflow:ellipsis; 
   margin-bottom: 0px;
-  line-height: 1.5em;
+  line-height: 1em;
 }
 
 .playlist-player .title a, .playlist-player .artiste a{
@@ -1264,7 +1264,7 @@ span{
   white-space:nowrap; 
   text-overflow:ellipsis; 
   margin-bottom: 0px;
-  line-height: 1.5em;
+  vertical-align: bottom;
 }
 
 .playlist-player .title a{
@@ -1322,7 +1322,7 @@ span{
 .ul-menuleft .playlist-tag tags-input .tags .tag-item .remove-button{ color :#374051;}
 .one-track span{
   display: inline-block;
-  width: 77%;
+  width: 75%;
 }
 
 .one-track i{

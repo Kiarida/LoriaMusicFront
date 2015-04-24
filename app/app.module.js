@@ -251,16 +251,20 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.resAlbum = [];
         var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
           function(){
+            $rootScope.resItem = [];
             for(var i=0; i<item.length; i++){
-
+              
               if(item[i].typeitem == 1){
-                
-                $rootScope.resItem.push(item[i]);
+                if($.inArray(item[i], $rootScope.resItem)==-1){
+
+                    $rootScope.resItem.push(item[i]);
+                }
               }
               else{
                 $rootScope.resAlbum.push(item[i]);
               }
             }
+            
            
           },
           function(error){
@@ -300,7 +304,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
      
         for(var i=0; i<mess.length; i++){
 
-          if(mess[i].SongName.indexOf($rootScope.wordSearched.search) != -1){
+          if(mess[i].SongName.indexOf($rootScope.wordSearched.search) != -1 || mess[i].ArtistName.indexOf($rootScope.wordSearched.search) != -1){
              track = {
               "titre" : mess[i].SongName,
               "url" : mess[i].SongID,
@@ -313,12 +317,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $rootScope.resItem.push(track);
                
           }
-          else if(mess[i].ArtistName.indexOf($rootScope.wordSearched.search) != -1){
+          /*else if(mess[i].ArtistName.indexOf($rootScope.wordSearched.search) != -1){
             $rootScope.resArtiste.push(mess[i]);
           }
           else if(mess[i].AlbumName.indexOf($rootScope.wordSearched.search) != -1){
             $rootScope.resAlbum.push(mess[i]);
-          }
+          }*/
         }
       });
     }

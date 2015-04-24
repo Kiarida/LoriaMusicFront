@@ -102,6 +102,13 @@ button { text-transform: uppercase;}
   border-radius: 0px;
 }
 
+
+.more{
+  margin:5px 10px;
+  float:left;
+}
+
+
 /* ########################## PSEUDO DE LA NAVBAR ##############################*/
 
 

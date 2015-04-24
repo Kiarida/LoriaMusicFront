@@ -2,12 +2,12 @@
 <h1>Titles matching : {{wordSearched.search}}</h1>
 <div class="playlist-player" playlist-player controller="controller" content="resItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
 <br>
-<a href="" ng-click="searchGrooveshark(wordSearch.search)"><p>More results from Grooveshark</p></a>
+<a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Grooveshark</p></a>
 <h1>Artists matching : {{wordSearched.search}}</h1>
 <div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
-<a href="" ng-click="searchGrooveshark(wordSearch.search)"><p>More results from Grooveshark</p></a>
+<br><a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Grooveshark</p></a>
 <br>
 <h1>Albums matching : {{wordSearch.search}}</h1>
 <div deckgrid class="deckgrid artist-search" source="resAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
-<a href="" ng-click="searchGrooveshark()"><p>More results from Grooveshark</p></a>
+<br><a href="" ng-click="searchGrooveshark()"><p class="more">More results from Grooveshark</p></a>
 <div class="clearfix"></div>

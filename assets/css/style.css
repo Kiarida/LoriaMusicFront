@@ -414,7 +414,7 @@ button { text-transform: uppercase;}
 }
 
 #menu-left .playlist-icons{
-  width: 42%;
+  width: 48%;
   float: right;
 }
 
@@ -492,7 +492,7 @@ padding-bottom: 0px;
   font-size: 16px;
   line-height: 1.467;
   margin-left: 4px;
-  width: 120px;
+
 
 }
 
@@ -866,6 +866,7 @@ textarea{
 
 .playlist-name{
   padding-left:10px;
+  width: 45%;
 }
 
 .playlist-listen{
@@ -1053,6 +1054,7 @@ videogular vg-timedisplay{ display: none; }
     width: 240%;
     left:-40%;
     position: absolute;
+    top:calc(100% - 160px);
 }
 
 .small videogular vg-controls #controls-container{

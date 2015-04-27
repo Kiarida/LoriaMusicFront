@@ -153,6 +153,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         deferred.promise.then(function(mess){
           if(mess[0].id){
             track=mess[0];
+            console.log(track);
+            if(!track.urlCover){
+              track.urlCover="assets/img/placeholder.png";
+            }
 
           }
           $rootScope.playing = true;

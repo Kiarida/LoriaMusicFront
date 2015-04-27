@@ -28,7 +28,13 @@ function getGenres(){
 	        }
         });
 
-				Res.query(null,function(mess){ $scope.itemgenres = mess; },function(error){ $scope.itemgenres = error.data; });
+				Res.query(null,function(mess){ 
+					for(var i=0;i<mess.length;i++){
+						if(!mess[i].urlCover){
+							mess[i].urlCover="assets/img/placeholder.png";
+						}
+					} 
+					$scope.itemgenres = mess; },function(error){ $scope.itemgenres = error.data; });
 
 	}
 
@@ -46,7 +52,13 @@ function getGenres(){
 	        }
         });
 
-				Res.query(null,function(mess){ $rootScope.itemartistes = mess; },function(error){ $rootScope.itemartistes = error.data; });
+				Res.query(null,function(mess){ 
+					for(var i=0;i<mess.length;i++){
+						if(!mess[i].urlCover){
+							mess[i].urlCover="assets/img/placeholder.png";
+						}
+					} 
+					$rootScope.itemartistes = mess; },function(error){ $rootScope.itemartistes = error.data; });
 
 	}
 

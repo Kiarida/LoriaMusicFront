@@ -94,6 +94,11 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 	$scope.items = [];
 	$scope.genres = Genres.query({},
 		function(mess){
+			for(var i =0; i<mess.length;i++){
+				if(!mess[i].urlCover){
+					mess[i].urlCover="assets/img/placeholder.png";
+				}
+			}
 			// for(var i=0;i<genres.length;i++){
 			// 	ItemGenres.query({id: genres[i].id},function(mess){$scope.items.push(mess); },function(error){ console.log(error.data); });
 			// }
@@ -102,6 +107,11 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 	);
 	$scope.artistes = Artistes.query({},
 		function(mess){ 
+			for(var i =0; i<mess.length;i++){
+				if(!mess[i].urlCover){
+					mess[i].urlCover="assets/img/placeholder.png";
+				}
+			}
 			// for(var j=0;j<artistes.length;j++){
 			// 	ItemArtiste.query({id: artistes[j].id},function(mess){$scope.items.push(mess); },function(error){ console.log(error.data); });
 			// }

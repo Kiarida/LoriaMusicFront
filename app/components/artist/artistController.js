@@ -147,7 +147,12 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	$scope.getArtist=function(){
 		Artist.query({idartiste:$scope.artist_id}, function(mess){
 			controller.artist.nom=mess[0].nom;
-			controller.artist.cover=mess[0].urlCover;
+			if(mess[0].urlCover){
+				controller.artist.cover=mess[0].urlCover;
+			}
+			else{
+				controller.artist.cover="assets/img/placeholder.png";
+			}
 		});
 	}
 
@@ -155,6 +160,9 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 		Albums.query({idartiste:$scope.artist_id}, function(mess){
 			controller.artist.albums=mess;
+			if(!controller.artist.albums.urlCover){
+				controller.artist.albums.urlCover="assets/img/placeholder.png";
+			}
       $scope.getAlbumScore();
 		},
 		function(error){
@@ -194,15 +202,6 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	$scope.getArtist();
 	$scope.getAlbums();
 	$scope.getScore();
-	console.log("Root scope artiste ");
-	console.log($rootScope);
-
-
-
-
-
-
-
 
 
 }]);

@@ -1,4 +1,4 @@
-app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeout) {
+app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeout, $rootScope) {
   return {
     restrict: 'A',
     templateUrl: function(tElement, tAttrs){
@@ -179,30 +179,26 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
     }
 
 
-		scope.addTrackToPlaylist = function(track,idPlaylist){
-			if(idPlaylist=="")
-				return;
-			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
-				function(){
-					$(".addtoplaylist .alert-success.hide").removeClass("hide");
-					if(scope.$root.playlist.id == idPlaylist){
-						scope.$root.playlist.push(track);
-					}
-				 },
-				function(){ $(".addtoplaylist .alert-info.hide").removeClass("hide"); });
-		}
+		
 
 		scope.removeItem = function(idPlaylist,idItem,index){
+			if(!idPlaylist){
+				idPlaylist=scope.$root.activePlaylist;
+			}
 			AddItemPlaylist.delete({iduser:Auth.getUser().id, idplaylist:idPlaylist, iditem:idItem},
 				function(){
 					if(scope.playlist){
 						scope.playlist.tracks.splice(index,1);
 					}
 					else{
-						scope.$root.playlist.splice(index,1);
-						if(scope.$root.playlist.length == 0)
-							scope.$root.playing = false;
-						}
+						$rootScope.playlist.splice(index, 1);
+						if($rootScope.playlist.length==0)
+							$rootScope.playing=false;
+					}
+						//scope.$root.playlist.splice(index,1);
+						//if(scope.$root.playlist.length == 0)
+						//	scope.$root.playing = false;
+						//}
 
 				 },
 				function(){});

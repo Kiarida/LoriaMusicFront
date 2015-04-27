@@ -52,6 +52,17 @@ button { text-transform: uppercase;}
 
 .modal-backdrop{width: 100%; height:100%;}
 
+.modal-playlist .select-container{
+  margin-bottom: 10px;
+}
+
+.modal-playlist select, .modal-playlist input { background: #d9dcde; color:#374051;  }
+.modal-playlist input { border: 1px solid #374051; margin-bottom: 10px; }
+.modal-playlist .select-container.select-large, .modal-playlist .select-container{ background : url("../img/arrowdown-dark.gif") no-repeat scroll 97% 50% #d9dcde; border-color: #374051; }
+.modal-playlist select,{
+  margin-left:10px;
+}
+
 /*############################ DEBUT  NAVBAR ####################################*/
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

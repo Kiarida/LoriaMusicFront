@@ -163,6 +163,7 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			if(!controller.artist.albums.urlCover){
 				controller.artist.albums.urlCover="assets/img/placeholder.png";
 			}
+			console.log(controller.artist.albums);
       $scope.getAlbumScore();
 		},
 		function(error){

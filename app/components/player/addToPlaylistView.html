@@ -1,0 +1,28 @@
+ 
+<div class="modal-playlist">
+ <div class="modal-header">
+ 	<h3 class="modal-title">ADD TO A PLAYLIST</h3>
+ </div>
+ <div class="modal-body addtoplaylist">
+ 	
+						<form ng-submit="addTrackToPlaylist(playlistUser)" method="POST">
+							<div class="hide alert alert-success">The track {{ecoutes.titre}} has been succefuly added to the playlist</div>
+							<div class="hide alert alert-info">The track {{ecoutes.titre}} has been already succefuly added to the playlist</div>
+							Choose a playlist : 
+							<div class="select-container">
+								<select ng-model="playlistUser" data-toggle="select" name="playlist">
+									<option ng-repeat="playlist in $root.userPlaylist" value="{{playlist.id}}">{{playlist.nom}}</option>
+								</select>
+							</div>
+
+							or create a new one : 
+							<input ng-model="titleNewPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist />
+							<button type="submit" class="btn btn-primary" ng-click="ok()"><i class="icon-checkmark"></i>Confirm</button>
+						</form>
+ </div>
+</div>
+
+
+						
+
+				

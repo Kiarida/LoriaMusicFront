@@ -23,25 +23,10 @@
 		<tr><td class="album" ng-init="album = ecoutes.idalbum ? ecoutes.idalbum[0].titre : ecoutes.albumTitre"><i class="glyphicon glyphicon-headphones"></i>{{album}}</td><td class="action" ng-class="">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
-					<a  tooltip="Add to a playlist"href ng-click="isCollapsed = !isCollapsed; successAdd();">
-						<i class="icon-plus"></i>
+					<a href ng-controller="ModalFormCtrl" class="modal-form-playlist" ng-click="open('sm', ecoutes)">
+						<i tooltip="Add to a playlist" class="icon-plus"></i>
 					</a>
-					<div class="well addtoplaylist smallplay" collapse="isCollapsed">
-						<h3>ADD TO A PLAYLIST</h3>
-
-						<form ng-submit="addTrackToPlaylist(ecoutes,playlistUser)" method="POST">
-							<div class="hide alert alert-success">The track {{ecoutes.titre}} has been successfully added to the playlist</div>
-							<div class="hide alert alert-info">The track {{ecoutes.titre}} has been already successfully added to the playlist</div>
-
-							<div class="select-container">
-								<select ng-model="playlistUser" data-toggle="select" name="playlist">
-									<option ng-repeat="playlist in $root.userPlaylist" value="{{playlist.id}}">{{playlist.nom}}</option>
-								</select>
-							</div>
-							<input ng-model="titleNewPlaylist" type="text" class="form-control input-new-playlist" placeholder="New Playlist" aria-describedby="basic-addon1" ng-new-playlist />
-							<button type="submit" class="btn btn-primary"><i class="icon-checkmark"></i> Validate</button>
-						</form>
-					</div>
+					
 				</div>
 				<a ng-if="controller.configPlaylist.remove" ng-init="id_playlist = playlist ? playlist.id : $root.playlist.id" ng-click="removeItem(id_playlist,ecoutes.id,$index)" href="">
 

@@ -106,7 +106,6 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
     }
 
      $scope.getTracksPlaylists=function(indexPlay){
-      console.log(controller.playlists[indexPlay].id);
         PlaylistTracks.query({iduser:$scope.user.id, idplaylist:controller.playlists[indexPlay].id}, function(mess){
             controller.playlists[indexPlay].tracks=mess[0].iditem;
             for(var i=0; i<controller.playlists.length;i++){
@@ -120,10 +119,12 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
     }
 
     $scope.toTimestamp = function(date) {
-      var dateSplitted = date.split('-'); // date must be in DD-MM-YYYY format
-      var dateSplitted2 = dateSplitted[2].split("T");
-      var formattedDate = dateSplitted2[0]+'/'+dateSplitted[1]+'/'+dateSplitted[0];
-      return(formattedDate);
+      if(date){
+        var dateSplitted = date.split('-'); // date must be in DD-MM-YYYY format
+        var dateSplitted2 = dateSplitted[2].split("T");
+        var formattedDate = dateSplitted2[0]+'/'+dateSplitted[1]+'/'+dateSplitted[0];
+        return(formattedDate);
+      }
     };
 
 

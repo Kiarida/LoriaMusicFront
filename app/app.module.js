@@ -134,6 +134,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track, param){
       if(track.gs){
+        $location.path('/home');
        var deferred = $q.defer();
         var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
         {
@@ -288,6 +289,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $rootScope.resArtiste=[];
       $rootScope.resAlbum=[];
       $rootScope.resItem=[];
+      console.log("recherche");
       var SearchGrooveshark = $resource(routeRessource.searchItemGrooveshark, {},
         {
           'query': {
@@ -300,12 +302,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               params:{key: "@key"}
             }
         });
+      console.log("flag1");
       SearchGrooveshark.query({key:$rootScope.wordSearched.search}, function(mess){
-        
-     
-        for(var i=0; i<mess.length; i++){
+        console.log(mess);
 
-          if(mess[i].SongName.indexOf($rootScope.wordSearched.search) != -1 || mess[i].ArtistName.indexOf($rootScope.wordSearched.search) != -1){
+        for(var i=0; i<mess.length; i++){
+          if(mess[i].SongName.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1 || mess[i].ArtistName.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1){
              track = {
               "titre" : mess[i].SongName,
               "url" : mess[i].SongID,
@@ -384,11 +386,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.convertTime=function (secondes){
       var min = Math.floor(secondes / 60);
+
       var sec = secondes - min * 60;
+      sec=parseInt(sec);
       if(sec < 10){
         sec = "0"+sec;
       }
-      return min+":"+sec;
+      return parseInt(min)+":"+sec;
     }
 
     $rootScope.stockArtist=function(nomArtiste){

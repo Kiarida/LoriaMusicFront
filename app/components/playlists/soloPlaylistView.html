@@ -22,7 +22,7 @@
 
               </div>
             </div>
-            <div ng-if="controller.playlist.tracks" class="playlist-player" playlist-player controller="controller" content="controller.playlist.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+            <div ng-if="controller.playlist.tracks" class="playlist-player" playlist-player controller="controller" playlist="controller.playlist" content="controller.playlist.tracks" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
         </div>
     </li>
 </ul>

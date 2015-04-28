@@ -24,6 +24,8 @@ app.controller('ModalFormCtrl', function ($rootScope, $scope, $modal, $log, $res
 
 app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance, $resource, routeRessource,Auth, track) {
 
+	console.log($scope);
+
 	var AddItemPlaylist = $resource(routeRessource.AddItemPlaylist,{},
 	    {
 	      save: {
@@ -43,7 +45,7 @@ app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance
 		console.log(track);
 			if(idPlaylist=="")
 				return;
-			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
+			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id, index:$rootScope.$$childHead.$$childHead.controller.playlist.iditem.length - 1},
 				function(){
 					/*$(".addtoplaylist .alert-success.hide").removeClass("hide");
 					if($scope.$root.playlist.id == idPlaylist){

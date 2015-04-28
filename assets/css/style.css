@@ -63,6 +63,20 @@ button { text-transform: uppercase;}
   margin-left:10px;
 }
 
+.modal-header h3, .modal-header a{
+  display: inline-block;
+}
+
+.modal-header a{
+  color:#374051;
+  float:right;
+}
+
+
+.modal-body.addtoplaylist button{
+  margin-left: 62%;
+}
+
 /*############################ DEBUT  NAVBAR ####################################*/
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -71,10 +85,64 @@ button { text-transform: uppercase;}
 }
 
 .result-searching{
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  color:#374051;
   width: 100%;
-  height: 30%;
+  height: 500px;
+  overflow: scroll;
+  top:63px;
+  -moz-box-shadow: 10px 10px 5px #656565;
+-webkit-box-shadow: 10px 10px 5px #656565;
+-o-box-shadow: 10px 10px 5px #656565;
+box-shadow: 10px 10px 5px #656565;
 }
 
+.fading-search{
+  width: 100%;
+  height: calc(100% - 71px);
+  top:71px;
+  background-color: black;
+  opacity: 0.3;
+  z-index: 99;
+  position:absolute;
+}
+
+.result-searching-contain{
+  padding:10px;
+}
+
+.result-searching-contain{
+  padding:10px;
+}
+
+.result-searching-contain .playlist-player tbody{
+  background-color: white; 
+}
+
+.result-searching-contain h1{
+  font-size: 20px;
+  margin:5px 0;
+}
+
+.result-searching-contain .playlist-player tbody:first-child, .result-searching-contain .playlist-player tbody:nth-child(2),
+.result-searching-contain .playlist-player tbody:nth-child(3){
+  background-color: white; 
+}
+
+.more-results{
+  float:right;
+  margin-top:20px;
+}
+
+.search-title{
+  border-bottom: 1px solid #e1e4e6;
+}
+
+.search-title h4{
+  display: inline-block;
+}
 
 .navbar-default .navbar-nav > li > a.pseudo-navbar{
   color : #FFFFFF;
@@ -1025,7 +1093,8 @@ videogular vg-timedisplay{ display: none; }
 .small videogular .iconButton.active{color:#0079a6;}
 .videogular-container videogular vg-scrubBarCurrentTime{ background-color: #0079a6; }
 #controlsBar #controls-container { background: none;}
-.small #controls-container .col-lg-6{ height: 100%; color:#374051}
+.small #controls-container .col-lg-6{ height: 100%; color:#374051; width: 40%; padding: 0 5px;}
+.small #controls-container .col-lg-3:first-child{ width: 35%;}
 .maincontrol { width : 139px; margin: 0 auto;}
 #controlsBar { background-color: rgba(0,0,0,0.7); }
 .videogular-container .iconButton { transition: all 0.5s ease 0s;}

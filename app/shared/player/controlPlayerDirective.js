@@ -135,7 +135,6 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 		}
 
 		scope.pause = function(){
-			console.log(scope.controller);
 			if(scope.controller.API.currentState == "play"){
 				createInteraction(routeRessource.playInteraction);
 			}

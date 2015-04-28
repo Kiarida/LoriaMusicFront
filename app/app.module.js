@@ -110,6 +110,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
 
 
+
     function getColor(track, param){
       track.color={
        }
@@ -133,6 +134,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
+
       if(track.gs){
         $location.path('/home');
        var deferred = $q.defer();
@@ -154,7 +156,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         deferred.promise.then(function(mess){
           if(mess[0].id){
             track=mess[0];
-            console.log(track);
             if(!track.urlCover){
               track.urlCover="assets/img/placeholder.png";
             }
@@ -205,7 +206,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
           $rootScope.playlist.push(newtrack);
-          console.log("hey");
           $rootScope.$broadcast('someEvent', newtrack);
 
           //$route.reload();
@@ -233,8 +233,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.resItem = [];
     $rootScope.resArtiste = [];
     $rootScope.resAlbum = [];
+    $rootScope.smallResItem = [];
+    $rootScope.smallResArtiste = [];
+    $rootScope.smallResAlbum = [];
     $rootScope.typeEcoute = -1;
     $rootScope.historyTracks = [];
+    $rootScope.smallSearch=false;
 
     //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
     if(typeof $cookieStore.get('user') != 'undefined'){
@@ -244,8 +248,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
     $rootScope.search = function(){
-      if($location.url() != "search")
-        $location.path('/search');
+      if($location.url() != "/search"){
+        $rootScope.smallSearch=true;
+      }
+      else{
+        $rootScope.smallSearch=false;
+      }
+      //  $location.path('/search');
       $rootScope.initSearch();
       $rootScope.resArtiste =[];
       $rootScope.resItem = [];
@@ -266,6 +275,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
                 $rootScope.resAlbum.push(item[i]);
               }
             }
+            if($rootScope.smallSearch==true){
+              $rootScope.smallResItem=$rootScope.resItem.slice(0,9);
+              $rootScope.smallResAlbum=$rootScope.resAlbum.slice(0,9);
+            }
             
            
           },
@@ -276,6 +289,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
             function(){
               $rootScope.resArtiste = artisteItem;
+              if($rootScope.smallSearch==true){
+                $rootScope.smallResArtiste=$rootScope.resArtiste.slice(0,9);
+              }
             },
             function(error){
               $rootScope.resArtiste = error.data;
@@ -284,12 +300,14 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     };
 
+    $rootScope.dismiss=function(){
+      $rootScope.smallSearch=false;
+    }
 
     $rootScope.searchGrooveshark=function(){
       $rootScope.resArtiste=[];
       $rootScope.resAlbum=[];
       $rootScope.resItem=[];
-      console.log("recherche");
       var SearchGrooveshark = $resource(routeRessource.searchItemGrooveshark, {},
         {
           'query': {
@@ -302,9 +320,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               params:{key: "@key"}
             }
         });
-      console.log("flag1");
       SearchGrooveshark.query({key:$rootScope.wordSearched.search}, function(mess){
-        console.log(mess);
 
         for(var i=0; i<mess.length; i++){
           if(mess[i].SongName.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1 || mess[i].ArtistName.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1){
@@ -360,7 +376,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     };
     $rootScope.createEcoute = function(params){
-      console.log("CreateEcoute");
       var Ecoute = $resource(routeRessource.AddEcoute,{},
       {
         'save': {
@@ -462,7 +477,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $(".contain").height(window.innerHeight-71);
     $(".centre,.droit,#menu-left").height(window.innerHeight-71);
-    
+    $(".fading-search").on("click", function(event){
+      $rootScope.smallSearch=false;
+      $rootScope.$apply();
+    })
+
 
 
 
@@ -517,6 +536,7 @@ app.constant("routeRessource", {
   "blockInteraction" : 7,
   "randomInteraction" : 8,
   "likeInteraction" : 9,
+  "launchInteraction" : 10,
   "blockAction" : 1,
   "likeAction" : 2,
   "shareAction" : 3,

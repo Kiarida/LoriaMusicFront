@@ -5,9 +5,11 @@
 <a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Grooveshark</p></a>
 <h1>Artists matching : {{wordSearched.search}}</h1>
 <div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+<div class="clearfix"></div>
 <br><a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Grooveshark</p></a>
 <br>
-<h1>Albums matching : {{wordSearch.search}}</h1>
+<h1>Albums matching : {{wordSearched.search}}</h1>
 <div deckgrid class="deckgrid artist-search" source="resAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+<div class="clearfix"></div>
 <br><a href="" ng-click="searchGrooveshark()"><p class="more">More results from Grooveshark</p></a>
 <div class="clearfix"></div>

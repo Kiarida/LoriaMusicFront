@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/ng-tags-input.min.css">
 </head>
 <body ng-app="PlayerApp">
+  <div ng-class="{'hide' : !smallSearch }" class="fading-search"></div>
 
 <!-- NavBar -->
 
@@ -59,16 +60,27 @@
             </div>
           </div>
         </form>
-        <!--<div class="result-searching">
-          <h1>Titles matching : {{wordSearched.search}}</h1>
-          <div class="playlist-player" playlist-player controller="controller" content="resItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
-          <h1>Artists matching : {{wordSearched.search}}</h1>
-          <div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
-          <div class="clearfix"></div>
-          <h1>Albums matching : {{wordSearch.search}}</h1>
-          <div deckgrid class="deckgrid artist-search" source="resAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
-          <div class="clearfix"></div>
-        </div>-->
+        <div class="result-searching" ng-class="{'hide' : !smallSearch}">
+          <div class="result-searching-contain">
+            <div class="search-title">
+              <h4>Results</h4>
+              <div class="more-results">
+                <a href="#/search" ng-click="dismiss()">More results</a> or <a href="#/search" ng-click="dismiss(); searchGrooveshark()"> Search on Grooveshark</a> 
+             </div>
+            </div>
+            <div class="results-searching">
+              <h1>Titles matching : {{wordSearched.search}}</h1>
+              <div class="playlist-player" playlist-player ng-controller="SearchCtrl as controller" controller="controller" content="smallResItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
+              <h1>Artists matching : {{wordSearched.search}}</h1>
+              <div deckgrid class="deckgrid" source="smallResArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+              <div class="clearfix"></div>
+              <h1>Albums matching : {{wordSearched.search}}</h1>
+              <div deckgrid class="deckgrid artist-search" source="smallResAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+              <div class="clearfix"></div>
+              
+            </div>
+          </div>
+        </div>
       </div>
 
 

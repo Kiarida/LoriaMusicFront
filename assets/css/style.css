@@ -851,7 +851,7 @@ textarea{
 }
 
 .album-result{
-  width:165px;
+  width:100%;
 }
 
 .artist-search-result{
@@ -859,6 +859,10 @@ textarea{
   overflow:hidden;
 }
 
+.deckgrid.artist-search .column-1-4{
+  width: 33.3%;
+  padding-right: 10px;
+}
 .artist-search img, .artist-search-result img{
   max-width:200px;
 }
@@ -867,7 +871,7 @@ textarea{
   width:160px;
 }
 .artist-search .ng-scope{
-  width:165px;
+  width:100%;
 }
 
 .user-rating{
@@ -1453,7 +1457,7 @@ h4{
 }
 
 .artist-search .thumbnail img{
-  min-width:165px;
+  min-width:100%;
 }
 
 .radio-title{

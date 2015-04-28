@@ -72,7 +72,7 @@
               <h1>Titles matching : {{wordSearched.search}}</h1>
               <div class="playlist-player" playlist-player ng-controller="SearchCtrl as controller" controller="controller" content="smallResItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
               <h1>Artists matching : {{wordSearched.search}}</h1>
-              <div deckgrid class="deckgrid" source="smallResArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
+              <div deckgrid class="deckgrid artist-search" source="smallResArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
               <div class="clearfix"></div>
               <h1>Albums matching : {{wordSearched.search}}</h1>
               <div deckgrid class="deckgrid artist-search" source="smallResAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>

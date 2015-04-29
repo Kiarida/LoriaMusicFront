@@ -99,7 +99,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	this.setVideo = function(index) {
-
+		console.log("hey");
 		if(controller.API.currentState == "play" && controller.currentVideo == index){
 			controller.API.pause();
 		}
@@ -194,7 +194,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	}
 
-	$scope.$watchGroup(['controller.videos', 'controller.currentVideo'], function(){
+	$scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
 		Stream.query({iditem:$rootScope.playlist[controller.currentVideo].id}, function(mess){ 
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl(mess.url), type:"audio/mp3"}];
     	});
@@ -208,9 +208,11 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	});
 
 	$scope.$on('someEvent', function(event, mass){ 
+		console.log($rootScope.playlist);
 		controller.videos=$rootScope.playlist;
         controller.currentVideo=0;
         controller.API.play();
+
 
 			
 		});

@@ -1,10 +1,11 @@
 
-<div class="smallPlaylist"><div ng-repeat="ecoutes in content" class="ecoute text-center"><div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div><div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+<div class="smallPlaylist"><div ng-drop="draggable" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" class="ecoute text-center" ng-drag="draggable" ng-drag-data="ecoutes" ><div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div><div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 				<a href="">
 					<i class="icon-play2 text-center" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 					<i class="icon-volume-medium text-center" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
 					<i class="icon-play2 text-center" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
 					<span ng-class="{hide: hover || controller.currentVideo==$index}">{{ $index+1 }}.</span>
+
 				
 				
 				<span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>

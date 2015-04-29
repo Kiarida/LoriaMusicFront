@@ -164,6 +164,9 @@ app.controller('PlaylistsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','ro
     } 
 
 
+
+   
+
 	$scope.getPlaylists();
 
     

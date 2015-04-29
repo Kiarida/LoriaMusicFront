@@ -13,6 +13,7 @@ var app= angular.module('PlayerApp',
     "com.2fdevs.videogular.plugins.buffering",
     "ui.bootstrap",
     'ngTagsInput',
+    'ngDraggable',
   ]);
 
 
@@ -134,7 +135,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
-
+      $rootScope.smallSearch=false;
       if(track.gs){
         $location.path('/home');
        var deferred = $q.defer();
@@ -191,8 +192,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         if(Array.isArray(track)){
           $rootScope.playing = true;
           $rootScope.playlist = [];
+
           for(var i=0;i<track.length;i++){
             getColor(track[i], param);
+            if(!track.urlCover){
+              track.urlCover="assets/img/placeholder.png";
+            }
             track[i].sources=[{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
             $rootScope.playlist.push(track[i]);
           }
@@ -203,6 +208,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           $rootScope.playing = true;
           $rootScope.playlist = [];
           getColor(track, param);
+          if(!track.urlCover){
+              track.urlCover="assets/img/placeholder.png";
+            }
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
           $rootScope.playlist.push(newtrack);

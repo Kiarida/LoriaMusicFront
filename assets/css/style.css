@@ -1269,6 +1269,11 @@ videogular vg-timedisplay{ display: none; }
   overflow-x: scroll;
 }
 
+.smallPlaylist .glyphicon.glyphicon-move{
+  float:right;
+  font-size: 12px;
+}
+
 
 .ecoute:nth-child(2n){ background: #e1e4e6;}
 .ecoute:nth-child(2n) p{ color: white;}

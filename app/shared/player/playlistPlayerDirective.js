@@ -25,6 +25,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
     	controller:"=",
     	withPlayer:"=",
     	playlist:"=",
+    	draggable:"=",
     	
     },
     link: function(scope, sce, rootScope){
@@ -32,6 +33,8 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
     	scope.titleNewPlaylist = "";
 		scope.rate = 2;
 		var sources;
+
+
 	
 		var RateItem = $resource(routeRessource.RateItem,{},
 	    {
@@ -68,6 +71,15 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 	      },
 	      save: {
 	        method: 'POST',
+	        isArray: false,
+	        headers: {
+	          "Authorization" : 'WSSE profile="UsernameToken"',
+	          "X-wsse" : Auth.getUser().wsse
+	        },
+	        params : {iduser:"@iduser", idplaylist:"@idplaylist"}
+	      },
+	      update: {
+	      	method: 'PUT',
 	        isArray: false,
 	        headers: {
 	          "Authorization" : 'WSSE profile="UsernameToken"',
@@ -179,6 +191,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
     }
 
 
+
 		
 
 		scope.removeItem = function(idPlaylist,idItem,index){
@@ -204,15 +217,47 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 				function(){});
 		}
 
+	scope.onDropComplete1=function(data, event, oldItem){
+      //console.log(data);
+      //console.log(event);
+      //console.log(oldItem);
+	var currentIndex;
+	var oldIndex;
+	var idplaylist;
+      if(scope.playlist){
+	      currentIndex=$.inArray(data, scope.playlist.tracks);
+	      oldIndex = $.inArray(oldItem, scope.playlist.tracks);
+	      scope.playlist.tracks[currentIndex]=oldItem;
+	      scope.playlist.tracks[oldIndex]=data;
+	      idplaylist=scope.playlist.id;
+	  }
+	  else{
+	  	currentIndex=$.inArray(data, $rootScope.playlist);
+	    oldIndex = $.inArray(oldItem, $rootScope.playlist);
+	    $rootScope.playlist[currentIndex]=oldItem;
+	    $rootScope.playlist[oldIndex]=data;
+	    idplaylist=$rootScope.activePlaylist;
+	    $rootScope.$broadcast('someEvent', oldIndex);
+	  }
+	  console.log(Auth.getUser().id, data.id, currentIndex, oldItem.id, oldIndex);
+	  AddItemPlaylist.update({iduser:Auth.getUser().id, idplaylist:idplaylist}, {iditemGrab:data.id, indexGrab:currentIndex, iditemMov:oldItem.id, indexMov:oldIndex}, function(){
+
+	  });
+
+
+      //scope.playlist[];
+    }
+
     //Note positivement un tag
 		scope.agree = function(iditem, idtag){
-      NoteTagsItem.save({iduser:Auth.getUser.id, id: iditem, idtag:idtag, param:"add"});
+			console.log(Auth.getUser().id);
+      NoteTagsItem.save({iduser:Auth.getUser().id, id: iditem, idtag:idtag, param:"add"});
 
 		}
 
     //Note négativement un tag
 		scope.disagree = function(iditem, idtag){
-      NoteTagsItem.save({iduser:Auth.getUser.id,id: iditem, idtag:idtag, param:"sub"});
+      NoteTagsItem.save({iduser:Auth.getUser().id,id: iditem, idtag:idtag, param:"sub"});
 		}
 
     //Update la note d'un item
@@ -238,8 +283,6 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 		    // Hide the menus.
 		  }
 		});*/
-	
-
 	
 
     },

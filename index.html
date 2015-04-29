@@ -225,9 +225,9 @@
       </div>
 
       
-      <div ng-if="!small" class="playlist-player" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      <div ng-if="!small" class="playlist-player" draggable="true" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
       </div>
-      <div ng-if="small" class="playlist-player playlist-small" playlist-player controller="controller" type="smallPlaylist" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      <div ng-if="small" class="playlist-player playlist-small" draggable="true" playlist-player controller="controller" type="smallPlaylist" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
       </div>
     </div>
 
@@ -262,6 +262,7 @@
 	<script src="assets/libs/ng-tags-input.min.js"></script>
 	<script src="assets/libs/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="assets/libs/bower_components/videogular/videogular.js"></script>
+  <script src="assets/libs/bower_components/ngDraggable/ngDraggable.js"></script>
   <script src="assets/libs/bower_components/videogular-youtube/youtube.js"></script>
 	<script src="assets/libs/bower_components/videogular-controls/controls.js"></script>
 	<script src="assets/libs/bower_components/videogular-overlay-play/overlay-play.js"></script>
@@ -302,7 +303,7 @@
   <script src="app/components/friends/friendsController.js"></script>
   <script src="app/components/artist/artistController.js"></script>
   <script src="app/components/playlists/playlistsController.js"></script>
-  <script src="components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+
 
 
 

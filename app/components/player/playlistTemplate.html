@@ -1,5 +1,5 @@
 <table>
-	<tbody ng-init="hideTags=true" ng-repeat="ecoutes in content">
+	<tbody ng-drop="draggable" ng-init="hideTags=true" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" ng-drag="draggable" ng-drag-data="ecoutes" >
 		<tr ng-class="{active : controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 			<td ng-if="!withPlayer" ng-click="$root.typeEcoute = 0;$root.launchPlay(ecoutes);" class="index">
 				<a href="">
@@ -49,6 +49,7 @@
 				<a ng-class="{ active: !hideTags }" ng-show="controller.configPlaylist.tags" class="icon-tag-list" href="" ng-click="hideTags = !hideTags; getItemTags(ecoutes)">
 					<i tooltip="Show tags" class="icon-tag"></i>
 				</a>
+				<a href=""><i class="glyphicon glyphicon-move" ng-class="{'hide' : !draggable}"></i></a>
 				<a href="">
 					<i tooltip="More" class="icon-arrow-down4" ng-if="controller.configPlaylist.more"></i>
 				</a>

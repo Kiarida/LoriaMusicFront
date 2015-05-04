@@ -6,8 +6,6 @@
 					<i class="icon-play2 text-center" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
 					<span ng-class="{hide: hover || controller.currentVideo==$index}">{{ $index+1 }}.</span>
 
-				
-				
 				<span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
 			</a>
 			</div>
@@ -25,7 +23,7 @@
 			</div>
 	</div><div ng-if="content.length < 5" ng-repeat="n in [] | ecouteRange: (5-content.length)" class="ecoute placeholder text-center">
 	<p>Add tracks to your playlist !</p>
-	</div>
+	</div><div style="clear:both"></div>
 </div>
 
 

@@ -483,8 +483,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
 
-    $(".contain").height(window.innerHeight-71);
-    $(".centre,.droit,#menu-left").height(window.innerHeight-71);
+    //$(".contain").height(window.innerHeight-71);
+    //$(".centre,.droit,#menu-left").height(window.innerHeight-71);
     $(".fading-search").on("click", function(event){
       $rootScope.smallSearch=false;
       $rootScope.$apply();

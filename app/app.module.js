@@ -51,7 +51,11 @@ app.filter('ecouteRange', function() {
 app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout',
  function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout) {
     $rootScope.$on('$routeChangeStart', function (event) {
-
+      Rhapsody.init({
+          consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
+           version: 'v1',
+           catalog: 'EN'
+         });
 
       if($rootScope.playing == true && $location.url()!='/home'){
         $rootScope.small = true;
@@ -135,6 +139,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
+
+
+      Rhapsody.player.play('Tra.5156528');
       $rootScope.smallSearch=false;
       if(track.gs){
         $location.path('/home');

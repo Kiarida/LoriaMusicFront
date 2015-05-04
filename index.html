@@ -194,6 +194,8 @@
     </div>
 
   <div ng-controller="PlayerCtrl as controller" ng-if="connected && playing && !small" ng-class="{reduced : small}" class="player-reduced">
+    <iframe id="player-frame"></iframe>
+
       <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
         <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
               <div ng-if="small" class="metadata">
@@ -343,6 +345,7 @@
   <script src="app/components/friends/friendsController.js"></script>
   <script src="app/components/artist/artistController.js"></script>
   <script src="app/components/playlists/playlistsController.js"></script>
+  <script src="assets/libs/rhapsody.js"></script>
 
 
 

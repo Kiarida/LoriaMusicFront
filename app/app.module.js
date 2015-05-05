@@ -54,7 +54,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       Rhapsody.init({
           consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
            version: 'v1',
-           catalog: 'EN'
+           catalog: 'FR'
          });
 
       if($rootScope.playing == true && $location.url()!='/home'){
@@ -140,8 +140,16 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track, param){
 
-
-      Rhapsody.player.play('Tra.5156528');
+      Rhapsody.member.set({
+        accessToken:"Yjk1NTQ2N2ItNDNiZi00MzcyLWJjNmUtN2M2NWNiOGUxN2Jl",
+        refreshToken:"d4a3c9aa-8142-4ae2-9fab-b9b13a45d247"
+      });
+      console.log(Rhapsody);
+      Rhapsody.api.get(false, '/tracks/top', function(tracks) {
+        console.log(tracks);
+        Rhapsody.player.play(tracks[0].id);
+    });
+      //Rhapsody.player.play('Tra.5156528');
       $rootScope.smallSearch=false;
       if(track.gs){
         $location.path('/home');

@@ -23,7 +23,7 @@ button { text-transform: uppercase;}
 .content{ position: relative; padding: 0; overflow:none;}
 .content .container{ position: relative; }
 .changing, .left-menu, .right-menu { height: 90%; overflow: auto;}
-.changing.reducedChanging{height: 81%; }
+.changing.reducedChanging{height: 80%; }
 .left-menu.reducedChanging, .right-menu.reducedChanging{height: 79%};
 
 #menu-left{
@@ -1260,7 +1260,8 @@ videogular vg-timedisplay{ display: none; }
 .playlist-player tr:nth-child(3n).active,
 .playlist-player tr:first-child.active{ background: #fff; }
 .playlist-player tbody:nth-child(2n){ background: #d9dcde; }
-.playlist-player tbody:nth-child(3n),.playlist-player tbody:first-child{ background: #e1e4e6; }
+.playlist-player tbody{background: #e1e4e6; }
+
 .droit .playlist-player tbody:nth-child(3n),.droit .playlist-player tbody:first-child{ background: #b4abba; border-bottom: 2px solid #9a929f; }
 .droit .playlist-player tbody:nth-child(2n){ background: #b4abba; border-bottom: 2px solid #9a929f; }
 .droit .playlist-player tbody{ background: #b4abba; border-bottom: 2px solid #9a929f; }
@@ -1469,6 +1470,16 @@ span{
   text-transform: uppercase;
   color: white;
   font-weight: bold;
+  border-right:1px solid white;
+}
+
+.smallPlaylist .colorDelete{
+  float:right;
+  margin-top: -22px;
+}
+
+.smallPlaylist .colorDelete a i{
+  color:white;
 }
 
 .smallPlaylist .ecoute{

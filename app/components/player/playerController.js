@@ -1,5 +1,6 @@
-app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$interval',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $interval){
+app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$interval', '$cookieStore',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $interval, $cookieStore){
+ 	
 	var controller = this;
 	var promise;
 	var created = false;
@@ -37,6 +38,64 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	this.onPlayerReady = function(API) {
+		 
+		var GetToken = $resource(routeRessource.RhapsodyToken, {},
+        {
+          'query': {
+              method: 'GET',
+              isArray: false,
+              headers: {
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{iduser:"@iduser"}
+            }
+        });
+        var RefreshToken = $resource(routeRessource.RhapsodyRefreshToken, {},
+        {
+          'update': {
+              method: 'PUT',
+              isArray: false,
+              headers: {
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{iduser:"@iduser"}
+            }
+        });
+      
+		if(typeof $cookieStore.get('rhapsody') === "undefined"){
+			//Creation cookie
+			GetToken.query({iduser:Auth.getUser().id}, function(mess){
+				$cookieStore.put('rhapsody', mess);
+
+				 Rhapsody.member.set({
+				        accessToken:$cookieStore.get("rhapsody").access_token,
+				        refreshToken:$cookieStore.get("rhapsody").refresh_token
+				      });
+			});
+
+
+        	
+      	}
+      	else{
+      		
+      		//$cookieStore.remove("rhapsody");
+
+      		//console.log($cookieStore.get('rhapsody').refresh_token);
+ 			//Rafraîchissement cookie
+      		var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
+      			//console.log(mess);
+      			$cookieStore.put("rhapsody",mess);
+      			Rhapsody.member.set({
+				    accessToken:$cookieStore.get("rhapsody").access_token,
+				    refreshToken:$cookieStore.get("rhapsody").refresh_token
+				});
+      		});
+      		
+      		//console.log($cookieStore.get("rhapsody"));
+      		
+      	}
 		controller.API = API;
 		controller.API.autoPlay = true;
 		//console.log($scope.launchRandomTrack(1));
@@ -49,19 +108,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 
 	this.onCompleteVideo = function() {
-		var Mark = $resource(routeRessource.markComplete, {},{
-        'query': {
-            method: 'GET',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-        }
-      });
-
-		Mark.query(null,function(){});
-
 		controller.isCompleted = true;
 		if(!controller.loop){
 			if(controller.random){
@@ -98,8 +144,59 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	};
 
+	Rhapsody.player.on("playtimer", function(e){
+		$scope.$apply(function(){
+		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
+		//console.log($rootScope.currentTime);
+		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
+		$rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
+		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
+		console.log($rootScope.percent);
+		});
+
+		//console.log($rootScope.totalTime);
+
+	})
+
+
+	Rhapsody.player.on('playevent', function(e) {
+  		if(e.code == "PlayComplete"){
+  			controller.isCompleted = true;
+		if(!controller.loop){
+			if(controller.random){
+				var random = controller.currentVideo;
+				while(random == controller.currentVideo){
+					random = Math.floor(Math.random()*($rootScope.playlist.length));
+				}
+				controller.currentVideo = random;
+			}
+      else if($rootScope.lienRandomItemByGenre){
+  			if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
+  				$scope.launchRandomTrack($rootScope.idRadio);
+  			}
+  			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
+  				$scope.launchRandomTrack($rootScope.idRadio);
+  			}
+      }
+			else{
+				if(controller.currentVideo == $rootScope.playlist.length-1)
+						controller.currentVideo = 0
+				else
+					controller.currentVideo++;
+			}
+			controller.like = false;
+		}
+
+
+		controller.config.sources = $rootScope.playlist[controller.currentVideo].sources;
+
+		controller.API.autoPlay = true;
+		controller.API.play();
+  		}
+	});
+
+
 	this.setVideo = function(index) {
-		console.log("hey");
 		if(controller.API.currentState == "play" && controller.currentVideo == index){
 			controller.API.pause();
 		}
@@ -146,31 +243,12 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 
-  var Mark = $resource(routeRessource.mark30seconds, {},{
-        'query': {
-            method: 'GET',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-        }
-      });
 
-   var Stream = $resource(routeRessource.getStreaming, {},{
-        'query': {
-            method: 'GET',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-            params:{iditem:"@iditem"}
-        }
-      });
 
+ 
    $scope.start=function(){
    	$scope.stop();
+
    	promise=$interval(function(){minuteur(stop);},1000);
    }
 
@@ -186,21 +264,19 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			created=true;
 			
 		}
-	    if(seconds==30 && marked==false){
-	    	Mark.query(null, function(){}); 
-	    	marked=false;
-	    	$scope.stop();
-	   	}
 
 	}
 
 	$scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
-		Stream.query({iditem:$rootScope.playlist[controller.currentVideo].id}, function(mess){ 
-        $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl(mess.url), type:"audio/mp3"}];
-    	});
+        
+        $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl("url"), type:"audio/mp3"}];
+    	Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
+    	Rhapsody.player.on("playevent", function(e){
+    		console.log(e.data);
+    	})
     	marked=false;
     	created=false;
-    	$scope.start();
+    	//$scope.start();
 		
     	
     	
@@ -208,7 +284,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	});
 
 	$scope.$on('someEvent', function(event, mass){ 
-		console.log($rootScope.playlist);
 		controller.videos=$rootScope.playlist;
         controller.currentVideo=0;
         controller.API.play();

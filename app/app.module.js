@@ -48,29 +48,24 @@ app.filter('ecouteRange', function() {
 });
 
 //check on each redirection if the user is logged if he is not, we redirect him to the login page
-app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout',
- function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout) {
+app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout', '$window',
+ function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout, $window) {
+  Rhapsody.init({
+       consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
+       version: 'v1',
+       catalog: 'FR'
+    });
     $rootScope.$on('$routeChangeStart', function (event) {
-      Rhapsody.init({
-          consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
-           version: 'v1',
-           catalog: 'FR'
-         });
 
-      if($rootScope.playing == true && $location.url()!='/home'){
-        $rootScope.small = true;
-      }
-      else{
-        $rootScope.small = false;
-
-      }
-
-
+     /* $window.onbeforeunload=function(event){
+        return "wanna leave ?";
+      }*/
 
       //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
       if(typeof $cookieStore.get('user') != 'undefined'){
         Auth.setUser($cookieStore.get('user'));
       }
+
       //if the Auth factory doesn't have a user's instance we redirect the user to the login page
       if(Auth.getUser()){
         //we create custom GET method including authorization and X-wsse header
@@ -139,21 +134,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
-
-      Rhapsody.member.set({
-        accessToken:"Yjk1NTQ2N2ItNDNiZi00MzcyLWJjNmUtN2M2NWNiOGUxN2Jl",
-        refreshToken:"d4a3c9aa-8142-4ae2-9fab-b9b13a45d247"
-      });
-      console.log(Rhapsody);
-      Rhapsody.api.get(false, '/tracks/top', function(tracks) {
-        console.log(tracks);
-        Rhapsody.player.play(tracks[0].id);
-    });
-      //Rhapsody.player.play('Tra.5156528');
       $rootScope.smallSearch=false;
       if(track.gs){
+        if(!track.urlCover){
+              track.urlCover="assets/img/placeholder.png";
+            }
         $location.path('/home');
-       var deferred = $q.defer();
+        Rhapsody.player.play(track.url);
         var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
         {
           'save': {
@@ -167,16 +154,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             }
         });
         var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom}, function(mess){
-          deferred.resolve(mess);
         } );
-        deferred.promise.then(function(mess){
-          if(mess[0].id){
-            track=mess[0];
-            if(!track.urlCover){
-              track.urlCover="assets/img/placeholder.png";
-            }
-
-          }
           $rootScope.playing = true;
           $rootScope.playlist = [];
           getColor(track, param);
@@ -187,16 +165,15 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           $rootScope.$broadcast('someEvent', newtrack);
 
           if($rootScope.$$childTail.$$childHead.API){
-          $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
-          $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
-          $rootScope.$$childTail.$$childHead.API.play();
+            $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
+            $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
+            $rootScope.$$childTail.$$childHead.API.play();
 
-        }
-        $rootScope.small = false;
+          }
+        $rootScope.small = true;
         //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
         $rootScope.getLast5Ecoutes();
 
-          })
       }
       else{
         if(param != "radio"){
@@ -219,7 +196,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
            $rootScope.$broadcast('someEvent', track);
         }
         else if($.inArray(track, $rootScope.playlist)==-1){
-
+          console.log("Je passe ici");
           $rootScope.playing = true;
           $rootScope.playlist = [];
           getColor(track, param);
@@ -240,7 +217,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           $rootScope.$$childTail.$$childHead.API.play();
 
         }
-        $rootScope.small = false;
+        $rootScope.small = true;
         //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
         $rootScope.getLast5Ecoutes();
       }
@@ -251,7 +228,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.playlist = [];
     $rootScope.playing = false;
     $rootScope.location = $location.url();
-    $rootScope.small = false;
+    $rootScope.small = true;
     $rootScope.wordSearched = {search : null};
     $rootScope.resItem = [];
     $rootScope.resArtiste = [];
@@ -346,13 +323,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       SearchGrooveshark.query({key:$rootScope.wordSearched.search}, function(mess){
 
         for(var i=0; i<mess.length; i++){
-          if(mess[i].SongName.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1 || mess[i].ArtistName.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1){
+          if(mess[i].name.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1 || mess[i].artist.name.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1){
              track = {
-              "titre" : mess[i].SongName,
-              "url" : mess[i].SongID,
-              "nom" : mess[i].ArtistName,
-              "nomAlbum" : mess[i].AlbumName,
-              "idArtiste" : mess[i].ArtistID,
+              "titre" : mess[i].name,
+              "url" : mess[i].id,
+              "nom" : mess[i].artist.name,
+              "nomAlbum" : mess[i].album.name,
+              "idArtiste" : mess[i].artist.id,
               "gs" : true
               //""
             }
@@ -565,5 +542,7 @@ app.constant("routeRessource", {
   "shareAction" : 3,
   "LastEcoutes" : "http://develop.api/api/app.php/users/:id/ecoute.json",
   "TagsItem" : "http://develop.api/api/app.php/items/:id/tags/:idtag",
-  "NoteTagsItem" : "http://develop.api/api/app.php/users/:iduser/items/:id/tags/:idtag"
+  "NoteTagsItem" : "http://develop.api/api/app.php/users/:iduser/items/:id/tags/:idtag",
+  "RhapsodyToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/new",
+  "RhapsodyRefreshToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/refresh",
 });

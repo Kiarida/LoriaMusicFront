@@ -2,7 +2,7 @@ app.controller('ModalDemoCtrl', function ($rootScope, $scope, $modal, $log, $res
   $scope.open = function (size, playlist) {
 
     var modalInstance = $modal.open({
-      template: '<div class="modal-header"><h3 class="modal-title">Confirmation</h3></div><div class="modal-body">Are you sure you want to delete this playlist ?<br>The deletion will be permanent.</div><div class="modal-footer"><button class="btn btn-warning primary" ng-click="ok()">Delete</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>',
+      template: '<div class="modal-header"><h3 class="modal-title">Confirmation</h3></div><div class="modal-body">Are you sure you want to delete this playlist ?<br>The deletion will be permanent.</div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()"><i class="icon-checkmark"></i>Delete</button><button class="btn btn-primary" ng-click="cancel()">Cancel</button></div>',
       controller: 'ModalInstCtrl',
       size: size,
       resolve: {

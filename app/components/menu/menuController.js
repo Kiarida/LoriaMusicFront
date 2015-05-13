@@ -121,6 +121,7 @@ app.controller('menuController',['$scope','$rootScope',"$sce",'routeRessource','
   var userPlaylist = PlaylistUser.query({iduser: Auth.getUser().id},
     function(){
       $rootScope.userPlaylist = userPlaylist;
+      $rootScope.list_playlist=$rootScope.userPlaylist[0];
 
     },
     function(error){

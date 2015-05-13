@@ -5,13 +5,13 @@
  </div>
  <div class="modal-body addtoplaylist">
  	
-						<form ng-submit="addTrackToPlaylist(playlistUser)" method="POST">
+						<form ng-submit="addTrackToPlaylist(modelPlaylist)" method="POST">
 							<div class="hide alert alert-success">The track {{ecoutes.titre}} has been succefuly added to the playlist</div>
 							<div class="hide alert alert-info">The track {{ecoutes.titre}} has been already succefuly added to the playlist</div>
 							Choose a playlist : 
 							<div class="select-container">
-								<select ng-model="playlistUser" data-toggle="select" name="playlist">
-									<option ng-repeat="playlist in $root.userPlaylist" value="{{playlist.id}}">{{playlist.nom}}</option>
+								<select ng-model="modelPlaylist" ng-options="playlist.id as playlist.nom for playlist in $root.userPlaylist"  name="playlist">
+									<option value="" selected>--New Playlist--</option>
 								</select>
 							</div>
 

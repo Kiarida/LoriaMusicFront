@@ -1,5 +1,8 @@
 
-<div class="smallPlaylist"><div ng-drop="draggable" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" class="ecoute text-center" ng-drag="draggable" ng-drag-data="ecoutes" ><div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div><div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+<div class="smallPlaylist"><div ng-drop="draggable" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" class="ecoute text-center" ng-drag="draggable" ng-drag-data="ecoutes" ><div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div><div class = "colorDelete"><a ng-if="controller.configPlaylist.remove" ng-init="id_playlist = playlist ? playlist.id : $root.playlist[0].id" ng-click="removeItem(id_playlist,ecoutes.id,$index)" href="">
+
+					<i tooltip="Remove from the playlist" class="icon-trash"></i>
+				</a></div><div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 				<a href="">
 					<i class="icon-play2 text-center" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 					<i class="icon-volume-medium text-center" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>

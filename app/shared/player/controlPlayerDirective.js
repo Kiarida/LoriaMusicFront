@@ -135,13 +135,14 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 		}
 
 		scope.pause = function(){
-			if(Rhapsody.player.play()){
+			if(Rhapsody.player.paused ==false{
 				Rhapsody.player.pause();
 				createInteraction(routeRessource.playInteraction);
 			}
-			else
+			else{
 				Rhapsody.player.play();
 				createInteraction(routeRessource.stopInteraction);
+			}
 
 		}
 

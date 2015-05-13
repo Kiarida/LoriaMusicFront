@@ -37,9 +37,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		small: false
 	};
 
-	this.onPlayerReady = function(API) {
-		 
-		var GetToken = $resource(routeRessource.RhapsodyToken, {},
+
+	var GetToken = $resource(routeRessource.RhapsodyToken, {},
         {
           'query': {
               method: 'GET',
@@ -63,7 +62,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
               params:{iduser:"@iduser"}
             }
         });
-      
+
+	this.onPlayerReady = function(API) {
 		if(typeof $cookieStore.get('rhapsody') === "undefined"){
 			//Creation cookie
 			GetToken.query({iduser:Auth.getUser().id}, function(mess){
@@ -151,7 +151,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
 		$rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
 		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
-		console.log($rootScope.percent);
 		});
 
 		//console.log($rootScope.totalTime);

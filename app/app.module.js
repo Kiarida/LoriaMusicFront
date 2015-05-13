@@ -135,6 +135,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track, param){
       $rootScope.smallSearch=false;
+      
       if(track.gs){
         if(!track.urlCover){
               track.urlCover="assets/img/placeholder.png";
@@ -196,7 +197,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
            $rootScope.$broadcast('someEvent', track);
         }
         else if($.inArray(track, $rootScope.playlist)==-1){
-          console.log("Je passe ici");
           $rootScope.playing = true;
           $rootScope.playlist = [];
           getColor(track, param);

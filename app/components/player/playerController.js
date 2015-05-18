@@ -147,7 +147,10 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	Rhapsody.player.on("playtimer", function(e){
 		$scope.$apply(function(){
 		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
-		//console.log($rootScope.currentTime);
+		if($rootScope.currentTime.split(":")[1] == 10 && created == false){
+			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+			created=true;
+		}
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
 		$rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
 		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
@@ -269,12 +272,28 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	$scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
         
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl("url"), type:"audio/mp3"}];
-    	Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
-    	Rhapsody.player.on("playevent", function(e){
-    		console.log(e.data);
-    	})
-    	marked=false;
-    	created=false;
+    	
+    	var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
+      			if(mess.code){
+      				var cookieCreate=GetToken.query({iduser:Auth.getUser().id}, function(mess2){
+      					$cookieStore.put("rhapsody",mess2);
+      				});
+      			}
+      			else{
+					$cookieStore.put("rhapsody",mess);
+      			}
+      			Rhapsody.member.set({
+				    accessToken:$cookieStore.get("rhapsody").access_token,
+				    refreshToken:$cookieStore.get("rhapsody").refresh_token
+				});
+				Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
+				marked=false;
+    			created=false;
+		    	Rhapsody.player.on("playevent", function(e){
+		    		console.log(e.data);
+		    	})
+      		});
+    	
     	//$scope.start();
 		
     	

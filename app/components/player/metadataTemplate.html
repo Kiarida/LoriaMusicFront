@@ -20,7 +20,7 @@
 			
 		</tr>
 		
-		<tr><td class="album" ng-init="album = $root.playlist[controller.currentVideo].idalbum ? $root.playlist[controller.currentVideo].idalbum[0].titre : $root.playlist[controller.currentVideo].nomAlbum"><i class="glyphicon glyphicon-headphones"></i>{{album}}</td><td class="action" ng-class="">
+		<tr><td class="album" ><i class="glyphicon glyphicon-headphones"></i>{{$root.playlist[controller.currentVideo].idalbum[0].titre}}</td><td class="action" ng-class="">
 				<div ng-if="controller.configPlaylist.addToPlaylist" class="addplaylist">
 
 					<a href ng-controller="ModalFormCtrl" class="modal-form-playlist" ng-click="open('sm', $root.playlist[controller.currentVideo])">
@@ -49,10 +49,10 @@
 			</td>
 		</tr>
 		<tr ng-class="{hide : !hideTags}">
-			<td ng-init="artiste = $root.playlist[controller.currentVideo].idartiste[0] ? $root.playlist[controller.currentVideo].idartiste[0].nom : $root.playlist[controller.currentVideo].nom ; id_artiste = $root.playlist[controller.currentVideo].idartiste[0] ? $root.playlist[controller.currentVideo].idartiste[0].id : $root.playlist[controller.currentVideo].idArtiste" class="artiste" >
+			<td ng-init="id_artiste = $root.playlist[controller.currentVideo].idartiste[0] ? $root.playlist[controller.currentVideo].idartiste[0].id : $root.playlist[controller.currentVideo].idArtiste" class="artiste" >
 				<i class="icon-microphone"></i>
 				<a tooltip="{{artiste}}" ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}" >
-					<span >{{artiste}}</span>
+					<span >{{$root.playlist[controller.currentVideo].idartiste[0].nom}}</span>
 				</a>
 			</td>
 			

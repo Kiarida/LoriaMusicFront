@@ -2,7 +2,7 @@ app.controller('ModalFormCtrl', function ($rootScope, $scope, $modal, $log, $res
   $scope.open = function (size, track) {
 
     var modalInstance = $modal.open({
-      templateUrl: 'app/components/player/addToPLaylistView.html',
+      templateUrl: 'app/components/player/addToPlaylistView.html',
       controller: 'ModalInstanceCtrl',
       size: size,
       resolve: {
@@ -68,8 +68,7 @@ app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance
 
 
 	$scope.addTrackToPlaylist = function(idPlaylist){
-		console.log(idPlaylist);
-		if(idPlaylist.length <1 && $scope.titleNewPlaylist.length>0){
+		if(!idPlaylist && $scope.titleNewPlaylist.length>0){
 			PlaylistUser.save({iduser: Auth.getUser().id},{nomPlaylist : $scope.titleNewPlaylist},
 		    function(mess){
 		       	$rootScope.userPlaylist.push({id : mess.id, nom : $scope.titleNewPlaylist});
@@ -79,14 +78,14 @@ app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance
 
 		      });
 		}
-		else if(idPlaylist.length>0){
+		else{
 				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
 				function(){
 					//$(".addtoplaylist .alert-success.hide").removeClass("hide");
-					if($scope.$root.playlist.id == idPlaylist){
-						$scope.$root.playlist.push(track);
-					}
+					//if($scope.$root.playlist.id == idPlaylist){
+					//	$scope.$root.playlist.push(track);
+					//}
 				 },
 				function(){ 
 					//$(".addtoplaylist .alert-info.hide").removeClass("hide");

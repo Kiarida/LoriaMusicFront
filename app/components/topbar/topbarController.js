@@ -1,14 +1,28 @@
-app.controller('topbarController', ['$scope','$cookieStore', 'Auth', '$location','$rootScope',"$window",
-  function ($scope, $cookieStore, Auth, $location,$rootScope,$window) {   
+app.controller('topbarController', ['$scope','$resource', 'routeRessource', '$cookieStore', 'Auth', '$location','$rootScope',"$window",
+  function ($scope,$resource, routeRessource, $cookieStore, Auth, $location,$rootScope,$window) {   
 
    $scope.status = {
     isopen: false
   };
 
   $scope.logout = function(){
-    Auth.setUser(null);
+    var EndSession = $resource(routeRessource.EndSession,{},
+        {
+          update: {
+            method: 'PUT',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params: {iduser:"@iduser"},
+          }
+        });
+    EndSession.update({iduser:Auth.getUser().id});
+         Auth.setUser(null);
     $cookieStore.remove("user");
     $window.location.reload();
+   
   }
 
   $scope.toggled = function(open) {

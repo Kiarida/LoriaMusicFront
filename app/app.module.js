@@ -57,9 +57,23 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
     $rootScope.$on('$routeChangeStart', function (event) {
 
-     /* $window.onbeforeunload=function(event){
-        return "wanna leave ?";
-      }*/
+      
+
+      $window.onbeforeunload=function(event){
+        var EndSession = $resource(routeRessource.EndSession,{},
+        {
+          update: {
+            method: 'PUT',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params: {iduser:"@iduser"},
+          }
+        });
+        EndSession.update({iduser:Auth.getUser().id});
+      }
 
       //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
       if(typeof $cookieStore.get('user') != 'undefined'){
@@ -494,10 +508,10 @@ app.constant("routeRessource", {
   "IsConnected" : "http://develop.api/api/app.php/api/connected",
   "PrefUser" : "http://develop.api/api/app.php/api/users/:id",
   "Genres" : "http://develop.api/api/app.php/genres",
-  "ItemGenre" : "http://develop.api/api/items/genre/:id",
-  "Artistes" : "http://develop.api/api/artistes.json",
-  "ItemArtiste" : "http://develop.api/api/items/artiste/:id",
-  "ItemPopular" : "http://develop.api/api/items/get/popular.json",
+  "ItemGenre" : "http://develop.api/api/app.php/items/genre/:id",
+  "Artistes" : "http://develop.api/api/app.php/artistes.json",
+  "ItemArtiste" : "http://develop.api/api/app.php/items/artiste/:id",
+  "ItemPopular" : "http://develop.api/api/app.php/items/get/popular.json",
   "ItemSearch" : "http://develop.api/api/app.php/items/search/:key",
   "ArtisteSearch" : "http://develop.api/api/app.php/artistes/search/:key",
   "PlaylistDetail" : "http://develop.api/api/app.php/users/:iduser/playlists/:id",
@@ -545,4 +559,5 @@ app.constant("routeRessource", {
   "NoteTagsItem" : "http://develop.api/api/app.php/users/:iduser/items/:id/tags/:idtag",
   "RhapsodyToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/new",
   "RhapsodyRefreshToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/refresh",
+  "EndSession":"http://develop.api/api/app.php/users/:iduser/session/end",
 });

@@ -149,7 +149,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track, param){
       $rootScope.smallSearch=false;
-      
       if(track.gs){
         if(!track.urlCover){
               track.urlCover="assets/img/placeholder.png";
@@ -168,7 +167,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               params:{}
             }
         });
-        var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom}, function(mess){
+        var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom, duration:track.duration}, function(mess){
         } );
           $rootScope.playing = true;
           $rootScope.playlist = [];
@@ -344,9 +343,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               "nom" : mess[i].artist.name,
               "nomAlbum" : mess[i].album.name,
               "idArtiste" : mess[i].artist.id,
-              "gs" : true
-              //""
+              "gs" : true,
+              "duration" : mess[i].duration,
             }
+            track["idalbum"]=new Array({"titre":mess[i].album.name});
+            track["idartiste"]=new Array({"nom":mess[i].artist.name});
             $rootScope.resItem.push(track);
                
           }

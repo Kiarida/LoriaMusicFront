@@ -168,6 +168,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             }
         });
         var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom, duration:track.duration}, function(mess){
+        track.id=mess[0].id;
         } );
           $rootScope.playing = true;
           $rootScope.playlist = [];
@@ -175,7 +176,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(String(track.url)), type:"audio/mp3"}];
           $rootScope.playlist.push(newtrack);
-
+          console.log($rootScope.playlist);
           $rootScope.$broadcast('someEvent', newtrack);
 
           if($rootScope.$$childTail.$$childHead.API){

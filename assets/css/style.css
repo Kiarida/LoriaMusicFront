@@ -103,6 +103,10 @@ button { text-transform: uppercase;}
 box-shadow: 10px 10px 5px #656565;
 }
 
+.info-alert{
+  padding-left: 20px;
+}
+
 .fading-search{
   width: 100%;
   height: calc(100% - 71px);

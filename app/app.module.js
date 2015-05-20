@@ -333,8 +333,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               params:{key: "@key"}
             }
         });
-
+      $rootScope.query=true;
       SearchGrooveshark.query({key:$rootScope.wordSearched.search}, function(mess){
+        
         for(var i=0; i<mess.length; i++){
           //if(mess[i].name.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1 || mess[i].artist.name.toLowerCase().indexOf($rootScope.wordSearched.search.toLowerCase()) != -1){
              
@@ -350,6 +351,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             track["idalbum"]=new Array({"titre":mess[i].album.name});
             track["idartiste"]=new Array({"nom":mess[i].artist.name});
             $rootScope.resItem.push(track);
+
                
           //}
           /*else if(mess[i].ArtistName.indexOf($rootScope.wordSearched.search) != -1){
@@ -359,6 +361,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $rootScope.resAlbum.push(mess[i]);
           }*/
         }
+        $rootScope.query=false;
+      }, function(error){
+        $rootScope.query=false;
       });
     }
 

@@ -1,5 +1,6 @@
 <div class="round back" click-link="/home"></div>
 <h1>Titles matching : {{wordSearched.search}}</h1>
+<div class="info-alert" ng-show="query">Please wait...</div>
 <div class="playlist-player" playlist-player controller="controller" content="resItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
 <br>
 <a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Napster</p></a>

@@ -272,8 +272,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	$scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
         
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl("url"), type:"audio/mp3"}];
-    	
-    	var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
+    	if($cookieStore.get("rhapsody")){
+    		var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
       			if(mess.code){
       				var cookieCreate=GetToken.query({iduser:Auth.getUser().id}, function(mess2){
       					$cookieStore.put("rhapsody",mess2);
@@ -289,10 +289,22 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
 				marked=false;
     			created=false;
-		    	Rhapsody.player.on("playevent", function(e){
-		    		console.log(e.data);
-		    	})
       		});
+    	}
+    	else{
+    		var cookieCreate=GetToken.query({iduser:Auth.getUser().id}, function(mess2){
+      					$cookieStore.put("rhapsody",mess2);
+      					Rhapsody.member.set({
+						    accessToken:$cookieStore.get("rhapsody").access_token,
+						    refreshToken:$cookieStore.get("rhapsody").refresh_token
+						});
+						Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
+						marked=false;
+		    			created=false;
+      				});
+
+    	}
+    	
     	
     	//$scope.start();
 		

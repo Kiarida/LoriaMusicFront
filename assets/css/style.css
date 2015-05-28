@@ -160,6 +160,15 @@ box-shadow: 10px 10px 5px #656565;
 }
 
 
+
+#swf embed{
+  volume:0;
+}
+
+#RhapsodyPlayerApp{
+  volume:0;
+}
+
 #topbar .navbar{
   margin-bottom: 0px;
 }
@@ -1152,6 +1161,8 @@ videogular vg-timedisplay{ display: none; }
 
 .small videogular .iconButton{color:#374051;}
 .small videogular .iconButton.active{color:#0079a6;}
+button.iconButton.active i{color:#0079a6;}
+#controls-container control-player .button-control .iconButton.active{color:#0079a6;}
 .videogular-container videogular vg-scrubBarCurrentTime{ background-color: #0079a6; }
 #controlsBar #controls-container { background: none;}
 #controls-container .col-lg-6, #controls-container .col-lg-3{float:left;}

@@ -161,6 +161,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 		//Lorsqu'on va lancer un titre, launchPlay va faire un broadcast de l'événement
 		//On fait un listener qui écoute et si l'événement se produit, on regarde si la chanson est bloquée/aimée/partagée
 		scope.$on('someEvent', function(event, mass){ 
+			console.log("hey hey");
 			scope.controller.like=false;
 			Types.query({iduser:Auth.getUser().id, iditem:mass.id}, function(mess){
 				for(var i in mess){

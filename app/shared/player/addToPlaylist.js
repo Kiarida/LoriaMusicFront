@@ -53,7 +53,7 @@ app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance
   });
 
 	 $rootScope.addPlaylist = function(playlistName){
-
+	 	console.log("ALLEZ PLAYLISE");
     var playlist = {id : 0, nom : playlistName }
     var userPlaylist = PlaylistUser.save({iduser: Auth.getUser().id},{nomPlaylist : playlistName},
       function(){
@@ -79,7 +79,6 @@ app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance
 		      });
 		}
 		else{
-				return;
 			AddItemPlaylist.save({iduser:Auth.getUser().id, idplaylist:idPlaylist},{iditem:track.id},
 				function(){
 					//$(".addtoplaylist .alert-success.hide").removeClass("hide");

@@ -89,7 +89,7 @@
 </nav>
 <div class="contain">
   	<!-- Left Menu -->
-  <div ng-if="connected" id="menu-left" class="col-lg-2 menu-left">
+  <div ng-if="connected && !root.isAdmin" id="menu-left" class="col-lg-2 menu-left">
     <div class="left-menu" ng-class="{reducedChanging : small && playing}">
       <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
@@ -195,7 +195,7 @@
 
 
   </div>
-  <div ng-if="connected" class="col-lg-5 droit" ng-class="{reducedChanging : small && playing}">
+  <div ng-if="connected && !root.isAdmin" class="col-lg-5 droit" ng-class="{reducedChanging : small && playing}">
     <div class="right-menu" ng-class="{reducedChanging : small && playing}">
 
     <div ng-if="!playing" ng-controller="ArtisteCoverCtrl">
@@ -310,6 +310,7 @@
   <script src="app/components/artist/artistController.js"></script>
   <script src="app/components/playlists/playlistsController.js"></script>
   <script src="assets/libs/rhapsody.js"></script>
+  <script src="app/components/admin/adminController.js"></script>
 
 
 

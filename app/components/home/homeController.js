@@ -49,7 +49,20 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 			user.username= post.username;
 			user.id = post.id;
 			Auth.setUser(user);
-			$location.path("/home");
+			if(post.role[0]== "ROLE_SUPER_ADMIN"){
+				user.role="admin_user";
+				$rootScope.isAdmin=true;
+				//$window.location.href="app/components/admin/adminView.html";
+				$location.path("/admin");
+			}
+			else{
+				user.role="simple_user"
+				$rootScope.isAdmin=false;
+				$location.path("/home");
+			}
+			console.log("HEOIDQNQD");
+			console.log(user.role);
+
 		},
 		function(error){
 			$scope.errorSignIn = error.data.message;

@@ -568,4 +568,7 @@ app.constant("routeRessource", {
   "RhapsodyToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/new",
   "RhapsodyRefreshToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/refresh",
   "EndSession":"http://develop.api/api/app.php/users/:iduser/session/end",
+  "Algos" : "http://develop.api/api/app.php/algorithms",
+  "AlgoUser" : "http://develop.api/api/app.php/users/:iduser/algorithms",
+  "Recommandations" : "http://develop.api/api/app.php/algorithms/{algorithm}",
 });

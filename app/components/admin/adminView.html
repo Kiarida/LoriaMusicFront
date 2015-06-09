@@ -1,19 +1,40 @@
 <div id="admin">
 
-<div ng-repeat="algosselected in selectedAlgo track by $index">
- <div class="btn-group" dropdown is-open="status[$index].isopen">
-      <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-        {{algosselected.nom}} <span class="caret"></span>
-      </button>
+<div class="algorithms">
+	<div ng-repeat="algosselected in selectedAlgo track by $index">
+		<div class="algo-name">
+			 Algorithm : <select type="button" ng-model="algosselected" ng-options="algos.id as algos.nom for algos in listAlgos" ng-change="update(algosselected, $index)">
 
-      <ul class="dropdown-menu" role="menu">
-        <li ng-repeat="algos in listAlgos">{{algos.nom}}</li>
-      </ul>
-    </div>
-</div>
+
+			     <!--  <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+			        {{algosselected.nom}} <span class="caret"></span>
+			      </button> -->
+
+			      <!-- <ul class="dropdown-menu" role="menu">-->
+			      	<option value="" selected>{{algosselected.nom}}</option>
+			      <!-- </ul> -->
+			    </select>
+		</div>
+	    <br>
+	    <div id="algo-label">
+		    Label :  
+		    <input class="value-limit" ng-model="algosselected.label" type="text" class="form-control input-new-playlist" placeholder="New label" aria-describedby="basic-addon1" ng-new-playlist />
+		</div>
+	    <div class="limits" ng-repeat="limit in algosselected.idlimit track by $index">
+		    Limit : <select class="select-limit" type="button" ng-model="limit.symbole" ng-options="o as o for o in symbols"><option value="" selected>{{limit.symbole}}</option></select>
+
+		    <input class="value-limit" ng-model="limit.valeur" type="text" class="form-control input-new-playlist" placeholder="New limit" aria-describedby="basic-addon1" ng-new-playlist />
+		</div>
+	    <a ng-click = "addLimit($index)">Add a limit</a>
+
+	</div>
+
+	<a ng-click="addAlgo()">Add an algorithm</a>
+
+	<button type="button" class="btn btn-primary" ng-click="saveAlgo()">Save</button>
     <br>
 
-
+</div>
 
 </div>
 

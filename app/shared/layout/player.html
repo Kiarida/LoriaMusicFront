@@ -1,0 +1,39 @@
+<div ng-controller="PlayerCtrl as controller" ng-if="connected && playing && small" ng-class="{reduced : small}" class="player-reduced">
+      <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
+        <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
+              <div ng-if="small" class="metadata">
+        <div class="playlist-player" playlist-player controller="controller" type="metadata" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+        </div>
+        <div class="metadata-artist">
+        </div>
+      </div>
+          <vg-video vg-src="playlist[controller.currentVideo].sources"
+            vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
+          </vg-video>
+
+          <vg-controls id="controlsBar">
+            <control-player></control-player>
+          </vg-controls>
+          <div ng-class="{'scrubs': small}">
+          <!--<vg-time-display ng-class="{'hide' : !small}" class="currentTime">{{ controller.API.currentTime | date:'mm:ss' }}</vg-time-display>
+          <vg-scrubBar>
+          
+            <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+            
+          </vg-scrubBar>
+          <vg-time-display ng-class="{'hide' : !small}" class="totalTime">{{ controller.API.totalTime | date:'mm:ss' }}</vg-time-display>-->
+          <vg-time-display class="currentTime"><span ng-bind="$root.currentTime"></span></vg-time-display>
+          <vg-scrubBar>
+          
+            <vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+            
+          </vg-scrubBar>
+          <vg-time-display class="totalTime"><span ng-bind="$root.totalTime"></span></vg-time-display>
+        </div>
+          <vg-overlay-play ng-class="{'hide': small}"></vg-overlay-play>
+          <vg-poster-image vg-url='playlist[controller.currentVideo].urlCover'></vg-poster-image>
+        </videogular>
+      </div><div ng-if="!small" class="playlist-player" draggable="true" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      </div><div ng-if="small" class="playlist-player playlist-small" draggable="true" playlist-player controller="controller" type="smallPlaylist" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      </div>
+    </div> 

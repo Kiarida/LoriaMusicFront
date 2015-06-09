@@ -60,8 +60,6 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 				$rootScope.isAdmin=false;
 				$location.path("/home");
 			}
-			console.log("HEOIDQNQD");
-			console.log(user.role);
 
 		},
 		function(error){

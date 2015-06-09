@@ -1,0 +1,15 @@
+<div ng-if="connected && !root.isAdmin" class="col-lg-5 droit" ng-class="{reducedChanging : small && playing}">
+    <div class="right-menu" ng-class="{reducedChanging : small && playing}">
+
+    <div ng-if="!playing" ng-controller="ArtisteCoverCtrl">
+        <h1>ARTIST LIBRARY</h1>
+        <div deckgrid class="deckgrid artists-library" source="itemartistes" cardTemplate="app/components/library/libraryView.html?t=0000"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div ng-if="playing" ng-controller="TopsCtrl as controller">
+        <h1>Suggestions</h1>
+        <div ng-if="controller.tops" class="playlist-player" playlist-player controller="controller" content="controller.tops" withPlayer="false" ng-class="{'col-sm-6 small':controller.config.small}">
+          <div style="clear:both"></div>
+    </div>
+    <div style="clear:both"></div>
+  </div>

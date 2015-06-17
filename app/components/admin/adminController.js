@@ -2,11 +2,33 @@ app.controller('AdminCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $routeParams, $sce){
 
 $scope.listAlgos=[];
-$scope.selectedAlgo=[];
-$scope.symbols=[">", "<", "="];
+$scope.currentTest=null;
+$scope.nbGroups=null;
+$scope.complete=true;
+$scope.genGroups=true;
+$scope.newTest={
+  "label": null,
+  "mode": null,
+  "groups":[],
+};
+$rootScope.isAdmin=true;
+
+
+
+$scope.algorithms={
+  "id" : null,
+  "label" : null,
+};
+
+console.log($rootScope);
+
+
 //$rootScope.isAdmin = true;
 $scope.isAdmin = true;
-
+$scope.modes=[
+{"Label": "A/B Testing", 
+"Mode" : "A_B"},
+{"Label" : "Same for all", "Mode" : "Same"}];
 
  //Liste des algos disponibles
  var Algos = $resource(routeRessource.Algos,{},
@@ -19,21 +41,25 @@ $scope.isAdmin = true;
               "X-wsse" : Auth.getUser().wsse
             },
         },
-        'save':{
-        	ethod: 'POST',
-            isArray: true,
+
+    });
+
+ var Groups = $resource(routeRessource.Groups,{},
+  {
+        'query': {
+            method: 'GET',
+            isArray: false,
             headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
-            params:{}
-        }
+        },
 
     });
 
-  var AlgosUser = $resource(routeRessource.AlgosUser,{},
+  var Tests = $resource(routeRessource.Tests, {},
   {
-        'query': {
+    'query': {
             method: 'GET',
             isArray: true,
             headers: {
@@ -41,17 +67,40 @@ $scope.isAdmin = true;
               "X-wsse" : Auth.getUser().wsse
             },
         },
-        'save':{
-          ethod: 'POST',
+     'save':{
+            method: 'POST',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+     }
+  });
+
+  var EndTest = $resource(routeRessource.EndTest, {},
+  {
+    'query': {
+            method: 'GET',
+            isArray: false,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params:{idtest:"@idtest"},
+        },
+  });
+
+   var CurrentTest = $resource(routeRessource.CurrentTest, {},
+  {
+    'query': {
+            method: 'GET',
             isArray: true,
             headers: {
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
-            params:{iduser:"@iduser"}
-        }
-
-    });
+        },
+  });
 
    var Recommandations = $resource(routeRessource.Recommandations,{},
   {
@@ -82,55 +131,103 @@ $scope.isAdmin = true;
  	$scope.getAlgorithms=function(){
     Algos.query({}, function(mess){
       for(var i = 0; i < mess.length; i++){
-        console.log(mess);
-        if(mess[i].used == true){
-          
-          $scope.selectedAlgo.push(mess[i]);
-
-        }
-        else{
           $scope.listAlgos.push(mess[i]);
         }
-      }
+      
     })
- 	}
+ 	};
 
-  $scope.addAlgo=function(){
-    var algo={id:"new", nom:$scope.listAlgos[0].nom};
-    $scope.selectedAlgo.push(algo);
+  $scope.getCurrentTest=function(){
+    CurrentTest.query({}, function(mess){
+
+      $scope.currentTest=mess[0];
+      console.log($scope.currentTest);
+    }) 
+  };
+
+  $scope.changeMode=function(mode){
+    console.log(mode);
   }
 
-  $scope.addLimit=function(index){
-    console.log("limite "+index);
-    var limit={id:"new", symbole:$scope.symbols[0], valeur:0}
-    $scope.selectedAlgo[index].idlimit.push(limit);
-
-  }
-
-  $scope.update=function(before_algo, index){
-    for(var i = 0; i < $scope.listAlgos.length; i++){
-      if($scope.listAlgos[i].id == before_algo){
-        var algo_a=$scope.listAlgos[i];
-        var index_a=i;
+  $scope.testGroups=function(nbGroups){
+    Groups.query({nbgroups : nbGroups}, function(){
+      console.log("true");
+        $scope.genGroups=true;
+        $scope.generateGroups(nbGroups);
+      }, function(){
+        console.log("false");
+        $scope.genGroups=false;
       }
+
+    );
+  }
+
+
+  $scope.generateGroups=function(nbGroups){
+    $scope.newTest.groups=[];
+    $scope.nbGroups=nbGroups;
+  for(var i = 0; i < nbGroups; i++){
+     var newgroup={
+    "numero" : i+1,
+    "algos" :[],
+    };
+      $scope.newTest.groups.push(newgroup);
     }
     
-    var algo_b = $scope.selectedAlgo[index];
-    //var algo_a=$scope.listAlgos[];
-    $scope.selectedAlgo.splice(index);
-
-
-    $scope.selectedAlgo.push(algo_a);
-
-    $scope.listAlgos.splice(index_a);
-    $scope.listAlgos.push(algo_b);
-
   }
 
-  $scope.saveAlgo=function(){
-
+  $scope.changeAlgo=function(id, algo, index){
+    algo.id=id;
+    //$scope.newTest.groups[index].algos
   }
- 
+
+  $scope.addAlgo=function(index){
+    var newalgo={
+      "id" : null,
+    };
+    $scope.newTest.groups[index].algos.push(newalgo);
+  }
+
+  $scope.saveTest=function(){
+    var arrayalgo=new Object();
+    for(var i in $scope.newTest.groups){
+      arrayalgo[$scope.newTest.groups[i].numero] = [];
+      for(var j in $scope.newTest.groups[i].algos){
+        arrayalgo[$scope.newTest.groups[i].numero].push($scope.newTest.groups[i].algos[j].id);
+        
+      }
+    }
+    if($scope.newTest.mode != null && $scope.nbGroups != null){
+      $scope.complete=true;
+      Tests.save({}, {mode: $scope.newTest.mode, label:$scope.newTest.label, groups:$scope.nbGroups, idAlgo:arrayalgo}, function(){
+        $scope.getCurrentTest();
+        $scope.currentTest=true;
+      });
+    }
+    else{
+      $scope.complete=false;
+    }
+    
+  }
+
+  $scope.removeAlgo=function(algo, parent, index){
+    $scope.newTest.groups[parent].algos.splice(index, 1);
+  }
+
+
+  $scope.endTest=function(idtest){
+    EndTest.query({idtest:idtest}, function(){
+      $scope.currentTest=null;
+      $scope.newTest={
+        "label": null,
+        "mode": null,
+        "groups":[],
+      };
+    });
+  }
+
   $scope.getAlgorithms();
+  $scope.getCurrentTest();
+
 
 }]);

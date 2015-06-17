@@ -176,7 +176,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(String(track.url)), type:"audio/mp3"}];
           $rootScope.playlist.push(newtrack);
-          console.log($rootScope.playlist);
+
           $rootScope.$broadcast('someEvent', newtrack);
 
           if($rootScope.$$childTail.$$childHead.API){
@@ -569,6 +569,8 @@ app.constant("routeRessource", {
   "RhapsodyRefreshToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/refresh",
   "EndSession":"http://develop.api/api/app.php/users/:iduser/session/end",
   "Algos" : "http://develop.api/api/app.php/algorithms",
-  "AlgoUser" : "http://develop.api/api/app.php/users/:iduser/algorithms",
-  "Recommandations" : "http://develop.api/api/app.php/algorithms/{algorithm}",
+  "Tests" : "http://develop.api/api/app.php/tests",
+  "CurrentTest" : "http://develop.api/api/app.php/tests/current",
+  "EndTest" : "http://develop.api/api/app.php/tests/:idtest/end",
+  "Groups" : "http://develop.api/api/app.php/groups/verify"
 });

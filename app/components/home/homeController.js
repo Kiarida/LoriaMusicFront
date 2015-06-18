@@ -59,6 +59,23 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 				user.role="simple_user"
 				$rootScope.isAdmin=false;
 				$location.path("/home");
+				 var CurrentTest = $resource(routeRessource.CurrentTest, {},
+					  {
+					    'query': {
+					            method: 'GET',
+					            isArray: true,
+					            headers: {
+					              "Authorization" : 'WSSE profile="UsernameToken"',
+					              "X-wsse" : Auth.getUser().wsse
+					            },
+					            params:{iduser:"@iduser"},
+					        },
+					  });
+				CurrentTest.query({iduser:Auth.getUser().id}, function(mess){
+					$rootScope.currentUserTest=mess;
+					console.log($rootScope);
+				});
+
 			}
 
 		},

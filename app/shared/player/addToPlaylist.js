@@ -53,7 +53,6 @@ app.controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance
   });
 
 	 $rootScope.addPlaylist = function(playlistName){
-	 	console.log("ALLEZ PLAYLISE");
     var playlist = {id : 0, nom : playlistName }
     var userPlaylist = PlaylistUser.save({iduser: Auth.getUser().id},{nomPlaylist : playlistName},
       function(){

@@ -99,6 +99,7 @@ $scope.modes=[
               "Authorization" : 'WSSE profile="UsernameToken"',
               "X-wsse" : Auth.getUser().wsse
             },
+            params:{iduser:"@iduser"},
         },
   });
 
@@ -138,7 +139,7 @@ $scope.modes=[
  	};
 
   $scope.getCurrentTest=function(){
-    CurrentTest.query({}, function(mess){
+    CurrentTest.query({iduser:false}, function(mess){
 
       $scope.currentTest=mess[0];
       console.log($scope.currentTest);
@@ -151,11 +152,9 @@ $scope.modes=[
 
   $scope.testGroups=function(nbGroups){
     Groups.query({nbgroups : nbGroups}, function(){
-      console.log("true");
         $scope.genGroups=true;
         $scope.generateGroups(nbGroups);
       }, function(){
-        console.log("false");
         $scope.genGroups=false;
       }
 

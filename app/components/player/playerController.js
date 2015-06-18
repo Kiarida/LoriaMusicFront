@@ -5,6 +5,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	var promise;
 	var created = false;
 	var marked=false;
+	var ended=false;
 	controller.state = null;
 	controller.API = null;
 	controller.currentVideo = 0;
@@ -119,10 +120,15 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			}
       else if($rootScope.lienRandomItemByGenre){
   			if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
-  				$scope.launchRandomTrack($rootScope.idRadio);
+  				$scope.getRecommandation();
+  				//console.log($scope);
+  				//$scope.launchRandomTrack($rootScope.idRadio);
   			}
   			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
-  				$scope.launchRandomTrack($rootScope.idRadio);
+  				$scope.getRecommandation();
+  				//$rootScope.getRecommandation();
+  				//console.log($scope);
+  				//$scope.launchRandomTrack($rootScope.idRadio);
   			}
       }
 			else{
@@ -154,6 +160,13 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
 		$rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
 		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
+
+		//Tweak pour déclencher l'event onCompleteVideo
+		if($rootScope.currentTime.split(':')[1]==1 && ended ==false){
+			$scope.controller.onCompleteVideo();
+			ended=true;
+		}
+
 		});
 
 		//console.log($rootScope.totalTime);
@@ -163,7 +176,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	Rhapsody.player.on('playevent', function(e) {
   		if(e.code == "PlayComplete"){
-  			controller.isCompleted = true;
+  			//controller.isCompleted = true;
+  			this.onCompleteVideo();
 		if(!controller.loop){
 			if(controller.random){
 				var random = controller.currentVideo;

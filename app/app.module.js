@@ -123,8 +123,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     });
 
-
-
     function getColor(track, param){
       track.color={
        }
@@ -253,6 +251,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.typeEcoute = -1;
     $rootScope.historyTracks = [];
     $rootScope.smallSearch=false;
+
 
     //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
     if(typeof $cookieStore.get('user') != 'undefined'){
@@ -570,7 +569,8 @@ app.constant("routeRessource", {
   "EndSession":"http://develop.api/api/app.php/users/:iduser/session/end",
   "Algos" : "http://develop.api/api/app.php/algorithms",
   "Tests" : "http://develop.api/api/app.php/tests",
-  "CurrentTest" : "http://develop.api/api/app.php/tests/current",
+  "CurrentTest" : "http://develop.api/api/app.php/tests/current/:iduser",
   "EndTest" : "http://develop.api/api/app.php/tests/:idtest/end",
-  "Groups" : "http://develop.api/api/app.php/groups/verify"
+  "Groups" : "http://develop.api/api/app.php/groups/verify",
+  "Recommandations" : "http://develop.api/api/app.php/users/:iduser/recommandations",
 });

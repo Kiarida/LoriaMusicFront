@@ -1,30 +1,31 @@
-app.controller('AdminCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$routeParams', "$sce",
+app.controller('NewTestCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$routeParams', "$sce",
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $routeParams, $sce){
 
 $scope.listAlgos=[];
-$scope.currentTest=null;
 $scope.nbGroups=null;
 $scope.complete=true;
+$scope.currentTest=false;
 $scope.genGroups=true;
 $scope.newTest={
   "label": null,
   "mode": null,
   "groups":[],
 };
-$rootScope.isAdmin=true;
+
+if(Auth.getUser().role == "admin_user"){
+  $rootScope.isAdmin=true;
+}
+
 
 
 
 $scope.algorithms={
   "id" : null,
-  "label" : null,
 };
 
-console.log($rootScope);
 
 
 //$rootScope.isAdmin = true;
-$scope.isAdmin = true;
 $scope.modes=[
 {"Label": "A/B Testing", 
 "Mode" : "A_B"},
@@ -77,57 +78,8 @@ $scope.modes=[
      }
   });
 
-  var EndTest = $resource(routeRessource.EndTest, {},
-  {
-    'query': {
-            method: 'GET',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-            params:{idtest:"@idtest"},
-        },
-  });
 
-   var CurrentTest = $resource(routeRessource.CurrentTest, {},
-  {
-    'query': {
-            method: 'GET',
-            isArray: true,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-            params:{iduser:"@iduser"},
-        },
-  });
 
-   var Recommandations = $resource(routeRessource.Recommandations,{},
-  {
-        'query': {
-            method: 'GET',
-            isArray: true,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-        },
-        'save':{
-          ethod: 'POST',
-            isArray: true,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-            params:{iduser:"@iduser"}
-        }
-
-    });
-
-	 $scope.availableAlgorithms=function(){
-
-	 }
 	 	
  	$scope.getAlgorithms=function(){
     Algos.query({}, function(mess){
@@ -142,12 +94,11 @@ $scope.modes=[
     CurrentTest.query({iduser:false}, function(mess){
 
       $scope.currentTest=mess[0];
-      console.log($scope.currentTest);
     }) 
   };
 
   $scope.changeMode=function(mode){
-    console.log(mode);
+
   }
 
   $scope.testGroups=function(nbGroups){
@@ -198,9 +149,8 @@ $scope.modes=[
     }
     if($scope.newTest.mode != null && $scope.nbGroups != null){
       $scope.complete=true;
+      $scope.currentTest=true;
       Tests.save({}, {mode: $scope.newTest.mode, label:$scope.newTest.label, groups:$scope.nbGroups, idAlgo:arrayalgo}, function(){
-        $scope.getCurrentTest();
-        $scope.currentTest=true;
       });
     }
     else{
@@ -214,19 +164,8 @@ $scope.modes=[
   }
 
 
-  $scope.endTest=function(idtest){
-    EndTest.query({idtest:idtest}, function(){
-      $scope.currentTest=null;
-      $scope.newTest={
-        "label": null,
-        "mode": null,
-        "groups":[],
-      };
-    });
-  }
-
   $scope.getAlgorithms();
-  $scope.getCurrentTest();
+
 
 
 }]);

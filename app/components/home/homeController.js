@@ -1,7 +1,6 @@
 app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', '$location', 'Auth', '$cookies', 'routeRessource',
  function ($scope, PaysFactory, $resource, $rootScope, $location, Auth, $cookies, routeRessource){
 
-
 	$rootScope.connected = false;
 
 	//use for the select containing the countries

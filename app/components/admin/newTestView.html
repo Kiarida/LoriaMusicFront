@@ -1,0 +1,50 @@
+<div ng-if="$root.isAdmin" class="admin">
+
+
+<div class="newTest algorithms">
+	<h3>New Test</h3>
+	<div class="test-name">
+		Label :  
+		    <input class="value-limit" ng-model="newTest.label" type="text" class="form-control input-new-playlist" placeholder="New label" aria-describedby="basic-addon1" ng-new-playlist />
+
+	</div>
+	<div class="test-mode">
+
+
+		Mode : <select ng-model="newTest.mode" ng-options="mo.Mode as mo.Label for mo in modes" ng-change="changeMode(modes)">
+			<option value="" selected>Select a mode</option>
+			     
+		</select>
+
+		
+	</div>
+
+	<div class="test-groups">
+		Number of groups : 
+		<input class="nb-groups" ng-model="nbGroups" type="text" class="form-control input-new-playlist" placeholder="Groups" aria-describedby="basic-addon1"></input>
+		<button ng-click="testGroups(nbGroups)">Generate groups</button>
+		<div class="alert-test" ng-show="!genGroups">
+			  <p class="alert alert-danger" >There will be too few users per group</p>
+		</div>
+
+		<div ng-repeat="(groupIndex, group) in newTest.groups">Group number : {{group.numero}}
+			<li ng-repeat="(algoIndex, algo) in group.algos">
+				Algorithm : 
+				<select ng-model="al" ng-options="al.id as al.nom for al in listAlgos" ng-change="changeAlgo(al, algo, $index)">
+					<option value="" selected>Select an algorithm</option>
+				</select>
+				<a ng-click="removeAlgo(algo, groupIndex, algoIndex)">Remove algorithm</a>
+			</li>
+			<a ng-click="addAlgo($index)">Add an algorithm</a>
+		</div>
+	</div>
+	<button ng-click="saveTest()">Create test</button>
+	<div class="alert-test"  ng-show="!complete">
+			  <p class="alert alert-danger">Some infos are missing</p>
+		</div>
+		<div class="alert-test"  ng-show="complete && currentTest">
+			  <p class="alert alert-success">The test has been successfully created. You can now consult it in the <a href="/#/admin/current">Current Test</a> section</p>
+		</div>
+
+</div>
+</div>

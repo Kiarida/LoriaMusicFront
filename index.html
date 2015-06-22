@@ -13,17 +13,21 @@
 <body ng-app="PlayerApp">
   <div ng-class="{'hide' : !smallSearch }" class="fading-search"></div>
 
-<!-- NavBar -->
-
-<!-- <nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation"> -->
-<span ng-include src="'app/shared/layout/topbar.html'"></span>
-<div class="contain">
-  	<!-- Left Menu -->
-  <span ng-if="!isAdmin" ng-include src="'app/shared/layout/leftmenu.html'"></span>
   
 
 
-  <div class="content" ng-class="{'col-lg-5 centre' : connected, 'admincontent' : isAdmin}">
+<!-- NavBar -->
+
+<!-- <nav ng-show="connected" id="topbar" class="navbar navbar-default" role="navigation"> -->
+<span ng-if="!isAdmin" ng-include src="'app/shared/layout/topbar.html'"></span>
+<span ng-if="isAdmin" ng-include src="'app/shared/layout/admTopbar.html'"></span>
+<div class="contain">
+  	<!-- Left Menu -->
+  <span ng-if="!isAdmin" ng-include src="'app/shared/layout/leftmenu.html'"></span>
+  <span ng-if="isAdmin" ng-include src="'app/shared/layout/admLeftmenu.html'"></span>
+
+
+  <div class="content" ng-class="{'col-lg-5 centre' : (connected && !isAdmin), 'admincontent' : isAdmin, 'col-lg-10 centre' : isAdmin}">
     <div ng-if="!playing || small" class="changing" ng-class="{reducedChanging : small && playing}" ng-view>
       <div style="clear:both"></div>
     </div>
@@ -41,7 +45,6 @@
   <!-- <script src="assets/libs/bower_components/angular/angular.js"></script> -->
 	<script src="assets/libs/angular-route.min.js"></script>
 	<script src="assets/libs/angular-resource.min.js"></script>
-  <script src="//connect.soundcloud.com/sdk.js"></script>
 
 	<script src="assets/libs/angular-cookies.min.js"></script>
 	<script src="assets/libs/angular-deckgrid.js"></script>
@@ -94,6 +97,8 @@
   <script src="assets/libs/rhapsody.js"></script>
   <script src="app/components/admin/adminController.js"></script>
   <script src="app/shared/recommandations/recoDirective.js"></script>
+  <script src="app/components/admin/currentTestController.js"></script>
+  <script src="app/components/admin/newTestController.js"></script>
 
 
 

@@ -13,7 +13,9 @@ app.config(function ($routeProvider){
 		.when('/playlists',{templateUrl: 'app/components/playlists/playlistsView.html', controller:"PlaylistsCtrl as controller"})		
 		.when('/artist/:idartiste',{templateUrl: 'app/components/artist/artistView.html', controller:"ArtistCtrl as controller"})	
 		.when('/playlist/:idplaylist',{templateUrl:'app/components/playlists/soloPlaylistView.html', controller:"PlaylistsCtrl as controller"})	
-		.when('/admin',{templateUrl:'app/components/admin/adminView.html', controller:"AdminCtrl as controller"})	
+		.when('/admin',{templateUrl:'app/components/admin/currentTestView.html', controller:"CurrentTestCtrl as controller"})	
+		.when('/admin/current',{templateUrl:'app/components/admin/currentTestView.html', controller:"CurrentTestCtrl as controller"})	
+		.when('/admin/new',{templateUrl:'app/components/admin/newTestView.html', controller:"NewTestCtrl as controller"})	
 		.otherwise({redirectTo: '/home'});		
 
 

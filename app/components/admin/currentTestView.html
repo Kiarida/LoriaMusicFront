@@ -1,0 +1,39 @@
+<div ng-if="$root.isAdmin" class="admin">
+
+<div ng-if="currentTest" class="algorithms">
+	
+	<div>
+		<h3>Current Test</h3>
+		<div class="test-name">
+			<b>Label: </b> {{currentTest.label}}
+			<br>
+			<b>Date : </b> {{currentTest.datedebut}}
+			<br>
+			<b>Mode : </b> {{currentTest.mode}}
+			<br>
+			<b>Number of groups : </b> {{currentTest.groups}}
+			<br>
+			<div ng-repeat="group in currentTest.idgroup">
+				Group {{group.numero}} algorithms :
+
+					<li ng-repeat="algo in group.idalgorithm">
+						{{algo.nom}}
+					</li>
+				</ul>
+			</div>
+		</div>
+		<button ng-click="endTest(currentTest.id)">End test</button>
+	</div>
+
+
+</div>
+<div ng-if="!currentTest" class="algorithms">
+	No test currently running.
+</div>
+
+
+</div>
+
+
+
+

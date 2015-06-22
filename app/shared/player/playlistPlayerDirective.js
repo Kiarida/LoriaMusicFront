@@ -15,6 +15,9 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
             if(tAttrs.type === 'metadata'){
             	return "app/components/player/metadataTemplate.html";
             }
+            if(tAttrs.type === 'radio'){
+            	return "app/components/radios/searchTemplate.html";
+            }
         }
         else{
         	return "app/components/player/playlistTemplate.html?t=000";
@@ -33,9 +36,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
     	scope.titleNewPlaylist = "";
 		scope.rate = 2;
 		var sources;
-
-
-	
+		
 		var RateItem = $resource(routeRessource.RateItem,{},
 	    {
 	      query: {
@@ -189,10 +190,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 
 
     }
-
-
-
-		
+	
 
 		scope.removeItem = function(idPlaylist,idItem,index){
 			if(!idPlaylist){

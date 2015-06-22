@@ -5,6 +5,8 @@ app.controller('topbarController', ['$scope','$resource', 'routeRessource', '$co
     isopen: false
   };
 
+
+
   $scope.logout = function(){
     var EndSession = $resource(routeRessource.EndSession,{},
         {

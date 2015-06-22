@@ -5,10 +5,45 @@ app.controller('ArtisteCoverCtrl', ['$scope', '$resource', '$rootScope', 'Auth',
 
 var controller = this;
 
+$scope.resultsartist =[];
+$scope.artistSearched="";
+$rootScope.searchingA=false;
 
 $rootScope.randomItem;
 $rootScope.idRadio;
 
+
+
+$scope.search=function(){
+	if($scope.artistSearched!= null && $scope.artistSearched.length >= 3){
+		$scope.initSearch();
+		$rootScope.searchingA=true;
+		//$rootScope.$apply();
+		$scope.ResultsArtist.query({key : $scope.artistSearched}, function(mess){
+			$scope.resultsartist=mess;
+		});
+		
+	}
+}
+
+
+$scope.initSearch = function(){
+      if(Auth.getUser() && $scope.ResultsArtist == null){
+
+        $scope.ResultsArtist = $resource(routeRessource.SearchArtists,{},
+		{
+	        'query': {
+	            method: 'GET',
+	            isArray: true,
+	            headers: {
+	              "Authorization" : 'WSSE profile="UsernameToken"',
+	              "X-wsse" : Auth.getUser().wsse
+	            },
+	            params:{key:"@key"}
+	        }
+        });
+    }
+   };
 
  $scope.launchRandomTrack = function(idArtiste){
 

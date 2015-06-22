@@ -50,29 +50,32 @@ app.filter('ecouteRange', function() {
 //check on each redirection if the user is logged if he is not, we redirect him to the login page
 app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout', '$window',
  function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout, $window) {
+
   Rhapsody.init({
        consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
        version: 'v1',
        catalog: 'FR'
     });
     $rootScope.$on('$routeChangeStart', function (event) {
+      $rootScope.searchingG=false;
+      $rootScope.searchingA=false;
 
-      
 
       $window.onbeforeunload=function(event){
-        var EndSession = $resource(routeRessource.EndSession,{},
-        {
-          update: {
-            method: 'PUT',
-            isArray: false,
-            headers: {
-              "Authorization" : 'WSSE profile="UsernameToken"',
-              "X-wsse" : Auth.getUser().wsse
-            },
-            params: {iduser:"@iduser"},
-          }
-        });
-        EndSession.update({iduser:Auth.getUser().id});
+          var EndSession = $resource(routeRessource.EndSession,{},
+          {
+            update: {
+              method: 'PUT',
+              isArray: false,
+              headers: {
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params: {iduser:"@iduser"},
+            }
+          });
+          EndSession.update({iduser:Auth.getUser().id});
+        
       }
 
       //check if the user has the cookie user, in this case we load the user in the cookie in the Auth factory
@@ -98,7 +101,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         if(!Auth.getUser().checked){
           var post = Connected.query(null, function(){
             var user = Auth.getUser();
-            $cookieStore.put('user',user);
+            if(user.role!="admin_user"){
+               $cookieStore.put('user',user);
+            }
+           
             Auth.getUser().checked = true;
             $rootScope.connected = true;
             if($location.url() == "/" || $location.url() == ""){
@@ -250,6 +256,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.smallResAlbum = [];
     $rootScope.typeEcoute = -1;
     $rootScope.historyTracks = [];
+    $rootScope.searchingG=false;
+    $rootScope.searchingA=false;
     $rootScope.smallSearch=false;
 
 
@@ -502,6 +510,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       $rootScope.smallSearch=false;
       $rootScope.$apply();
     })
+    $(".genre-fading-search").on("click", function(event){
+      $rootScope.searching=false;
+      $rootScope.$apply();
+    })
 
 
 
@@ -517,6 +529,7 @@ app.constant("routeRessource", {
   "Genres" : "http://develop.api/api/app.php/genres",
   "ItemGenre" : "http://develop.api/api/app.php/items/genre/:id",
   "Artistes" : "http://develop.api/api/app.php/artistes.json",
+  "SearchArtists" : "http://develop.api/api/app.php/artistes/search/:key",
   "ItemArtiste" : "http://develop.api/api/app.php/items/artiste/:id",
   "ItemPopular" : "http://develop.api/api/app.php/items/get/popular.json",
   "ItemSearch" : "http://develop.api/api/app.php/items/search/:key",
@@ -573,4 +586,6 @@ app.constant("routeRessource", {
   "EndTest" : "http://develop.api/api/app.php/tests/:idtest/end",
   "Groups" : "http://develop.api/api/app.php/groups/verify",
   "Recommandations" : "http://develop.api/api/app.php/users/:iduser/recommandations",
+  "SearchGenres" : "http://develop.api/api/app.php/genres/:key",
+
 });

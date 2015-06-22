@@ -4,11 +4,46 @@ app.controller('GenreCoverCtrl', ['$scope', '$resource', '$rootScope', 'Auth','r
 
 
 var controller = this;
-
+$scope.resultsgenre =[];
+$scope.genreSearched="";
 
 
 $rootScope.randomItem;
 $rootScope.idRadio;
+
+
+
+$scope.search=function(){
+	if($scope.genreSearched!= null && $scope.genreSearched.length >= 3){
+		$scope.initSearch();
+		$rootScope.searchingG=true;
+
+		//$rootScope.$apply();
+		$scope.ResultsGenre.query({key : $scope.genreSearched}, function(mess){
+			$scope.resultsgenre=mess;
+		});
+		
+	}
+}
+
+
+$scope.initSearch = function(){
+      if(Auth.getUser() && $scope.ResultsGenre == null){
+
+        $scope.ResultsGenre = $resource(routeRessource.SearchGenres,{},
+		{
+	        'query': {
+	            method: 'GET',
+	            isArray: true,
+	            headers: {
+	              "Authorization" : 'WSSE profile="UsernameToken"',
+	              "X-wsse" : Auth.getUser().wsse
+	            },
+	            params:{key:"@key"}
+	        }
+        });
+    }
+   };
 
  $scope.launchRandomTrack = function(idGenre){
    $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByGenre;

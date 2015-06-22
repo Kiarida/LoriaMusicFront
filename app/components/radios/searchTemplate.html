@@ -1,0 +1,12 @@
+<table>
+	<tbody ng-model="content">
+
+		<tr ng-repeat="genre in content">
+			<td class="title" ng-init="libelle = genre.libelle ? genre.libelle : genre.nom" >
+				<a ng-click="$parent.$parent.launchRandomTrack(genre.id)"><span>{{libelle}}</span></a>
+			</td>
+
+		</tr>
+
+	</tbody>
+</table>

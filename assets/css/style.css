@@ -74,7 +74,13 @@ button { text-transform: uppercase;}
   margin:10px;
 }
 
-.alert-test{
+.list-algo{
+  padding: 20px;
+}
+
+.algos-group{
+  padding-left:20px;
+  padding-top:10px;
 }
 
 /*****************MODAL**********/
@@ -1137,6 +1143,18 @@ textarea{
 
 }
 
+.radiocontent .deckgrid[deckgrid]::before{
+  /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '4 .column.column-1-5';
+    font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
+    visibility: hidden;
+}
+
+.radiocontent .deckgrid .column-1-5{
+  width: 16.6%;
+  padding : 0 10px;
+}
+
 /*  PLAYER  */
 videogular vg-poster-image{ display: block !important; }
 videogular vg-timedisplay{ display: none; }
@@ -1419,8 +1437,7 @@ button.iconButton.active i{color:#0079a6;}
 .ecoute.placeholder p{margin-top: 25%}
 
 
-.content.admincontent{
- 
+.content.admincontent, .content.radiocontent{
   height: 100%;
 }
 
@@ -1574,6 +1591,11 @@ span{
   line-height: 1.3em;
 }
 
+.playlist-tag tags-input .tags .tag-item{
+  display: inline;
+  margin: 0 5px;
+  list-style: none;
+}
 .one-track i{
   display: inline-block;
 }
@@ -1615,7 +1637,7 @@ h4{
 }
 .thumbnail img{
 
-  min-height:165px;
+  height: 180px;
   width:100%;
 }
 

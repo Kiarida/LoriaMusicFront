@@ -118,19 +118,20 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				}
 				controller.currentVideo = random;
 			}
-      else if($rootScope.lienRandomItemByGenre){
+      /*else if($rootScope.lienRandomItemByGenre){
   			if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
-  				$scope.getRecommandation();
+  				//$scope.getRecommandation();
   				//console.log($scope);
   				//$scope.launchRandomTrack($rootScope.idRadio);
   			}
   			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
-  				$scope.getRecommandation();
+  				//console.log("reco");
+  				//$scope.getRecommandation();
   				//$rootScope.getRecommandation();
   				//console.log($scope);
   				//$scope.launchRandomTrack($rootScope.idRadio);
   			}
-      }
+      }*/
 			else{
 				if(controller.currentVideo == $rootScope.playlist.length-1)
 						controller.currentVideo = 0
@@ -154,7 +155,10 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		$scope.$apply(function(){
 		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
 		if($rootScope.currentTime.split(":")[1] == 10 && created == false){
-			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
+			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(){
+				
+			});
+			$scope.getRecommandation();
 			created=true;
 		}
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
@@ -162,7 +166,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
 
 		//Tweak pour déclencher l'event onCompleteVideo
-		if($rootScope.currentTime.split(':')[1]==1 && ended ==false){
+		if($rootScope.currentTime.split(':')[1]==29 && ended ==false){
 			$scope.controller.onCompleteVideo();
 			ended=true;
 		}
@@ -189,9 +193,11 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
       else if($rootScope.lienRandomItemByGenre){
   			if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
   				$scope.launchRandomTrack($rootScope.idRadio);
+  				controller.currentVideo++;
   			}
   			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
   				$scope.launchRandomTrack($rootScope.idRadio);
+  				controller.currentVideo++;
   			}
       }
 			else{

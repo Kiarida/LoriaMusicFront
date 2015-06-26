@@ -16,6 +16,7 @@ app.config(function ($routeProvider){
 		.when('/admin',{templateUrl:'app/components/admin/currentTestView.html', controller:"CurrentTestCtrl as controller"})	
 		.when('/admin/current',{templateUrl:'app/components/admin/currentTestView.html', controller:"CurrentTestCtrl as controller"})	
 		.when('/admin/new',{templateUrl:'app/components/admin/newTestView.html', controller:"NewTestCtrl as controller"})	
+		.when('/admin/algorithms',{templateUrl:'app/components/admin/algorithmsView.html', controller:"AlgoCtrl as controller"})	
 		.otherwise({redirectTo: '/home'});		
 
 

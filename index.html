@@ -8,6 +8,7 @@
     <link href="assets/css/flat-ui.min.css" rel="stylesheet">
     <link href="assets/css/icon-moon.css" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/libs/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"
   <link rel="stylesheet" href="assets/css/ng-tags-input.min.css">
 </head>
 <body ng-app="PlayerApp">
@@ -27,12 +28,12 @@
   <span ng-if="isAdmin" ng-include src="'app/shared/layout/admLeftmenu.html'"></span>
 
 
-  <div class="content" ng-class="{'col-lg-5 centre' : (connected && !isAdmin), 'admincontent' : isAdmin, 'col-lg-10 centre' : isAdmin}">
+  <div class="content" ng-class="{'col-lg-5 centre' : (connected && !isAdmin && !radioMode), 'admincontent' : isAdmin, 'radiocontent' : radioMode, 'col-lg-10 centre' : isAdmin || radioMode}">
     <div ng-if="!playing || small" class="changing" ng-class="{reducedChanging : small && playing}" ng-view>
       <div style="clear:both"></div>
     </div>
   </div>
-  <span ng-if="!isAdmin" ng-include src="'app/shared/layout/rightsection.html'"></span>
+  <span ng-if="!isAdmin && !radioMode" ng-include src="'app/shared/layout/rightsection.html'"></span>
   </div>
 
 
@@ -41,8 +42,8 @@
 <span ng-include src="'app/shared/layout/player.html'"></span>
     </div> 
 <!--   ############## LIB JS ################# -->
-	<script src="assets/libs/angular.min.js"></script>
-  <!-- <script src="assets/libs/bower_components/angular/angular.js"></script> -->
+	<script src="assets/libs/angular.min.js"></script> 
+ <!--<script src="assets/libs/bower_components/angular/angular.js"></script>-->
 	<script src="assets/libs/angular-route.min.js"></script>
 	<script src="assets/libs/angular-resource.min.js"></script>
 
@@ -58,6 +59,8 @@
 	<script src="assets/libs/bower_components/videogular-controls/controls.js"></script>
 	<script src="assets/libs/bower_components/videogular-overlay-play/overlay-play.js"></script>
 	<script src="assets/libs/bower_components/videogular-poster/poster.js"></script>
+	<script src="assets/libs/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+
 	<script src="assets/libs/bower_components/videogular-buffering/buffering.js"></script>
 	<script src="app/app.module.js"></script>
 	<script src="app/app.routes.js"></script>
@@ -99,6 +102,7 @@
   <script src="app/shared/recommandations/recoDirective.js"></script>
   <script src="app/components/admin/currentTestController.js"></script>
   <script src="app/components/admin/newTestController.js"></script>
+  <script src="app/components/admin/algorithmsController.js"></script>
 
 
 

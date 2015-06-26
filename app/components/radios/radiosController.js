@@ -3,6 +3,7 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 
  	$scope.artistsL=false;
  	$scope.genresL=false;
+ 	$rootScope.radioMode=true;
 
 	// var ItemGenres = $resource(routeRessource.ItemGenre,{},
 	// 	{

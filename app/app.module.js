@@ -13,7 +13,9 @@ var app= angular.module('PlayerApp',
     "com.2fdevs.videogular.plugins.buffering",
     "ui.bootstrap",
     'ngTagsInput',
+    'colorpicker.module',
     'ngDraggable',
+    
   ]);
 
 
@@ -48,8 +50,22 @@ app.filter('ecouteRange', function() {
 });
 
 //check on each redirection if the user is logged if he is not, we redirect him to the login page
-app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout', '$window',
- function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout, $window) {
+app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout', '$window', '$http',
+ function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout, $window, $http) {
+  var params = $location.$$path.split("&");
+
+  var access_token = params[0].split("/access_token=")[1];
+  console.log(access_token);
+  $http.post("http://develop.api/api/items/xbox/streaming", {code:access_token}).success(function(data, status, headers, config) {
+    // this callback will be called asynchronously
+    // when the response is available
+    console.log(data);
+  }).
+  error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
+
 
   Rhapsody.init({
        consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
@@ -59,6 +75,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.$on('$routeChangeStart', function (event) {
       $rootScope.searchingG=false;
       $rootScope.searchingA=false;
+      $rootScope.radioMode=false;
 
 
       $window.onbeforeunload=function(event){
@@ -130,24 +147,26 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
 
     function getColor(track, param){
-      track.color={
-       }
+      if(param){
+        track.color={
+         }
 
-      track.color.name=param;
-      switch(param){
-        case "radio":
-        track.color.code="#319570"
-        break;
-        case "playlist":
-        track.color.code="#3A353C"
-        break;
-        case "album":
-        track.color.code="#5F342F"
-        break;
-        default:
-        track.color.name="other"
-        track.color.code="#4C433A"
-        break;
+        track.color.name=param;
+        switch(param){
+          case "radio":
+          track.color.code="#319570"
+          break;
+          case "playlist":
+          track.color.code="#3A353C"
+          break;
+          case "album":
+          track.color.code="#5F342F"
+          break;
+          default:
+          track.color.name="other"
+          track.color.code="#4C433A"
+          break;
+        }
       }
     }
 

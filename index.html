@@ -10,9 +10,12 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="assets/libs/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"
   <link rel="stylesheet" href="assets/css/ng-tags-input.min.css">
+
 </head>
 <body ng-app="PlayerApp">
+
   <div ng-class="{'hide' : !smallSearch }" class="fading-search"></div>
+
 
   
 
@@ -33,7 +36,7 @@
       <div style="clear:both"></div>
     </div>
   </div>
-  <span ng-if="!isAdmin && !radioMode" ng-include src="'app/shared/layout/rightsection.html'"></span>
+  <span ng-if="!isAdmin" ng-show="!$root.radioMode" ng-include src="'app/shared/layout/rightsection.html'"></span>
   </div>
 
 
@@ -42,8 +45,8 @@
 <span ng-include src="'app/shared/layout/player.html'"></span>
     </div> 
 <!--   ############## LIB JS ################# -->
-	<script src="assets/libs/angular.min.js"></script> 
- <!--<script src="assets/libs/bower_components/angular/angular.js"></script>-->
+	<!--<script src="assets/libs/angular.min.js"></script> -->
+ <script src="assets/libs/bower_components/angular/angular.js"></script>
 	<script src="assets/libs/angular-route.min.js"></script>
 	<script src="assets/libs/angular-resource.min.js"></script>
 
@@ -62,6 +65,7 @@
 	<script src="assets/libs/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
 
 	<script src="assets/libs/bower_components/videogular-buffering/buffering.js"></script>
+	<script src="assets/libs/bower_components/videogular-flash/flash.js"></script>
 	<script src="app/app.module.js"></script>
 	<script src="app/app.routes.js"></script>
 	<script src="assets/libs/jquery-1.11.1.min.js"></script>
@@ -103,6 +107,8 @@
   <script src="app/components/admin/currentTestController.js"></script>
   <script src="app/components/admin/newTestController.js"></script>
   <script src="app/components/admin/algorithmsController.js"></script>
+   <script src="app/components/recommandations/recomController.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
 
 

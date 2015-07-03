@@ -15,6 +15,7 @@ var app= angular.module('PlayerApp',
     'ngTagsInput',
     'colorpicker.module',
     'ngDraggable',
+    'info.vietnamcode.nampnq.videogular.plugins.flash'
     
   ]);
 
@@ -53,13 +54,17 @@ app.filter('ecouteRange', function() {
 app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cookieStore', '$routeParams', '$route','$sce','$q', '$timeout', '$window', '$http',
  function ($rootScope, $location, Auth, $resource, routeRessource, $cookieStore,$routeParams,$route,$sce,$q, $timeout, $window, $http) {
   var params = $location.$$path.split("&");
-
+  var codeUrl = $location.$$absUrl.split("/");
+  console.log(codeUrl);
+  var code = codeUrl[3].split("?code=")[1];
   var access_token = params[0].split("/access_token=")[1];
-  console.log(access_token);
-  $http.post("http://develop.api/api/items/xbox/streaming", {code:access_token}).success(function(data, status, headers, config) {
+  console.log(code);
+  $http.post("http://develop.api/api/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
     // this callback will be called asynchronously
     // when the response is available
     console.log(data);
+    $rootScope.uhs = data[0];
+    $rootScope.xtoken=data[1];
   }).
   error(function(data, status, headers, config) {
     // called asynchronously if an error occurs
@@ -171,13 +176,33 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
+
+      var Stream = $resource(routeRessource.GetStreaming, {},{
+        'query': {
+            method: 'GET',
+            isArray: true,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params:{iditem:"@iditem"}
+        }
+      });
+
+      
+
+
+
       $rootScope.smallSearch=false;
       if(track.gs){
         if(!track.urlCover){
               track.urlCover="assets/img/placeholder.png";
             }
-        $location.path('/home');
+        //$location.path('/home');
         Rhapsody.player.play(track.url);
+
+
+
         var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
         {
           'save': {
@@ -217,7 +242,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         if(param != "radio"){
           $rootScope.lienRandomItemByGenre ="";
         }
-        $location.path('/home');
+        //$location.path('/home');
+
+        //Stream.query({iditem:track.id, uhs:$rootScope.uhs, xtoken:$rootScope.xtoken}, function(mess){
+          //console.log(mess);
+        //track.url=mess[0];
 
         if(Array.isArray(track)){
           $rootScope.playing = true;
@@ -229,6 +258,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
               track.urlCover="assets/img/placeholder.png";
             }
             track[i].sources=[{src: $sce.trustAsResourceUrl(track[i].url), type:"audio/mp3"}];
+            //track[i].sources=[{src: $sce.trustAsResourceUrl(track[i].url), type:"application/x-mpegurl"}];
+            //track[i].sources=[{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4"}];
+            console.log(track[i].sources);
             $rootScope.playlist.push(track[i]);
           }
            $rootScope.$broadcast('someEvent', track);
@@ -242,18 +274,21 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             }
           newtrack = track;
           newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"audio/mp3"}];
+          
+          //newtrack.sources = [{src: $sce.trustAsResourceUrl(track.url), type:"application/x-mpegurl"}];
+          //newtrack.sources=[{src: $sce.trustAsResourceUrl("http://www.videogular.com/assets/videos/videogular.mp4"), type: "video/mp4"}]
           $rootScope.playlist.push(newtrack);
           $rootScope.$broadcast('someEvent', newtrack);
 
           //$route.reload();
         }
 
-        if($rootScope.$$childTail.$$childHead.API){
+        /*if($rootScope.$$childTail.$$childHead.API){
           $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
           $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
           $rootScope.$$childTail.$$childHead.API.play();
-
-        }
+        }*/
+        //});
         $rootScope.small = true;
         //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
         $rootScope.getLast5Ecoutes();
@@ -575,7 +610,7 @@ app.constant("routeRessource", {
   "Playlists" : "http://develop.api/api/app.php/users/:iduser/playlist",
   "PlaylistTracks" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
   "TagsByPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
-  "getStreaming" : "http://develop.api/api/app.php/items/grooveshark/:iditem",
+  //"getStreaming" : "http://develop.api/api/app.php/items/grooveshark/:iditem",
   "mark30seconds" : "http://develop.api/api/app.php/items/grooveshark/mark30secondes",
   "markComplete" : "http://develop.api/api/app.php/items/grooveshark/markComplete",
   "getSearchGrooveshark" : "http://develop.api/api/app.php/items/",
@@ -606,5 +641,6 @@ app.constant("routeRessource", {
   "Groups" : "http://develop.api/api/app.php/groups/verify",
   "Recommandations" : "http://develop.api/api/app.php/users/:iduser/recommandations",
   "SearchGenres" : "http://develop.api/api/app.php/genres/:key",
+  "GetStreaming" : "http://develop.api/api/app.php/items/xbox/streaming/:iditem",
 
 });

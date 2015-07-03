@@ -12,7 +12,6 @@ $rootScope.randomItem;
 $rootScope.idRadio;
 
 
-
 $scope.search=function(){
 	if($scope.genreSearched!= null && $scope.genreSearched.length >= 3){
 		$scope.initSearch();
@@ -46,6 +45,8 @@ $scope.initSearch = function(){
    };
 
  $scope.launchRandomTrack = function(idGenre){
+ 	console.log("Launchrandom");
+
    $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByGenre;
 
 		var Res = $resource($scope.lienRandomItemByGenre,{},
@@ -70,7 +71,11 @@ $scope.initSearch = function(){
 						$rootScope.randomItem.sources = [{src: $sce.trustAsResourceUrl($rootScope.randomItem[0].url), type:"audio/mp3"}];
 
 						$rootScope.typeEcoute = 1;
+						if($rootScope.radioMode){
+							$location.path("/radios/recommandations");
+						}
 						$rootScope.launchPlay($rootScope.randomItem[0], "radio");
+						
 
 					},
 					function(error){ $rootScope.randomItem = error.data; });

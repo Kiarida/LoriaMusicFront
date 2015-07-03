@@ -26,7 +26,7 @@
 	</div>
 </div>
 <div ng-controller="GenreCoverCtrl">
-	<div deckgrid class="deckgrid2" source="genresLight" cardTemplate="app/components/cover/coverView.html?t=000"></div>
+	<div deckgrid class="genresdeck deckgrid" source="genresLight" cardTemplate="app/components/cover/coverView.html?t=000"></div>
 </div>
 <a ng-show="!genresL" ng-click="moreResults(genre)">More radios from genres</a>
 <div class="clearfix"></div>
@@ -54,7 +54,7 @@
 	</div>
 </div>
 <div ng-controller="ArtisteCoverCtrl">
-    <div deckgrid class="deckgrid" source="artistsLight" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+    <div deckgrid class="genresdeck artistes deckgrid" source="artistsLight" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
 </div>
 <a ng-show="!artistsL" ng-click="moreResults(artist)">More radios from artists</a>
 <div class="clearfix"></div>

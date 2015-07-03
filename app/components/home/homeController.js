@@ -72,6 +72,7 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 					  });
 				CurrentTest.query({iduser:Auth.getUser().id}, function(mess){
 					$rootScope.currentUserTest=mess;
+					console.log("on récupère le test courant");
 					console.log($rootScope);
 				});
 

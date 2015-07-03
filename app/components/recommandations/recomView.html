@@ -1,0 +1,72 @@
+<div class="recommandations">
+	
+<div class="current-song">
+    <div ng-model="currentSong">
+        <div class="smallPlaylist">
+
+            <div class="color text-center" style="background-color: {{currentSong.color.code}}">{{algo.track.color.name}} derps
+            </div>
+            <div class="index">
+                <a href="">
+                    <span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{currentSong.titre}}">{{currentSong.titre}}</span>
+                </a>
+            </div>
+                    
+            <div ng-init="artiste = currentSong.idartiste[0].nom ; id_artiste =  currentSong.idartiste[0].id" class="artiste text-center" >
+                <a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}">
+                    <i class="icon-microphone"></i>
+                    <span tooltip="{{artiste}}" class="text-center">{{artiste}}</span>
+                </a>
+            </div>
+            <div class="playlist-cover text-center">
+                <img src="{{currentSong.urlCover}}"/>
+            </div>
+                
+                <div style="clear:both"></div>
+        </div>
+    </div>
+</div>
+
+<div class="reco-songs">
+    <div ng-repeat="algo in listAlgos">
+        {{algo.nom}};
+        <div class="reco-song">
+        
+
+
+
+<div class="smallPlaylist">
+
+    <div class="color text-center" style="background-color: {{algo.track.color.code}}">{{algo.track.color.name}}
+    </div>
+    <div class="index">
+        <a href="">
+            <span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{algo.track.titre}}">{{algo.track.titre}}</span>
+        </a>
+    </div>
+            
+    <div ng-init="artiste = algo.track.idartiste[0].nom ; id_artiste =  algo.track.idartiste[0].id" class="artiste text-center" >
+        <a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}">
+            <i class="icon-microphone"></i>
+            <span tooltip="{{artiste}}" class="text-center">{{artiste}}</span>
+        </a>
+    </div>
+    <div class="playlist-cover text-center">
+        <img src="{{algo.track.urlCover}}"/>
+    </div>
+        
+        <div style="clear:both"></div>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+</div>

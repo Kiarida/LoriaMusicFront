@@ -83,6 +83,14 @@ button { text-transform: uppercase;}
   padding-top:10px;
 }
 
+
+/*****************RECOMMANDATIONS****************/
+
+.current-song, .reco-song{
+  width: 20%;
+}
+
+
 /*****************MODAL**********/
 .modal-dialog.modal-sm{
   color:black;
@@ -1134,7 +1142,7 @@ textarea{
     visibility: hidden;
 }
 
-.deckgrid .column {
+.deckgrid .column, .deckgrid2 .column {
     float: left;
 }
 
@@ -1143,16 +1151,15 @@ textarea{
 
 }
 
-.radiocontent .deckgrid[deckgrid]::before{
-  /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
-    content: '4 .column.column-1-5';
+.genresdeck.deckgrid[deckgrid]::before {
+    /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '5 .column.column-1-5';
     font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
     visibility: hidden;
 }
 
-.radiocontent .deckgrid .column-1-5{
-  width: 16.6%;
-  padding : 0 10px;
+.genresdeck.deckgrid .column-1-5{
+  width: 18%;
 }
 
 /*  PLAYER  */
@@ -1654,9 +1661,6 @@ h4{
   background-color: #e1e4e6;
 }
 
-.search-radio{
-  padding-top: 6%;
-}
 
 .label-radio h4, .label-radio .col-sm-5{
   display: inline-block;

@@ -1,4 +1,4 @@
-<div ng-controller="PlayerCtrl as controller" ng-if="connected && playing && small" ng-class="{reduced : small}" class="player-reduced" recommandations>
+<div ng-controller="PlayerCtrl as controller" ng-if="connected && playing && small" ng-class="{reduced : small}" class="player-reduced">
       <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
         <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
               <div ng-if="small" class="metadata">
@@ -8,9 +8,8 @@
         </div>
       </div>
           <vg-video vg-src="playlist[controller.currentVideo].sources"
-            vg-tracks="controller.config.tracks" vg-preload="controller.config.preload">
+            vg-tracks="controller.config.tracks" vg-preload="controller.config.preload" >
           </vg-video>
-
           <vg-controls id="controlsBar">
             <control-player></control-player>
           </vg-controls>

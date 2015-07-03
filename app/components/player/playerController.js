@@ -154,11 +154,12 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	Rhapsody.player.on("playtimer", function(e){
 		$scope.$apply(function(){
 		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
-		if($rootScope.currentTime.split(":")[1] == 10 && created == false){
+		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
 			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(){
 				
 			});
-			$scope.getRecommandation();
+			$rootScope.$broadcast('creationEcoute');
+			console.log("broadcast");
 			created=true;
 		}
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
@@ -179,6 +180,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 
 	Rhapsody.player.on('playevent', function(e) {
+		console.log("rhapsod");
   		if(e.code == "PlayComplete"){
   			//controller.isCompleted = true;
   			this.onCompleteVideo();
@@ -289,8 +291,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	}
 
-	$scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
-        
+$scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
+        console.log("blabla");
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl("url"), type:"audio/mp3"}];
     	if($cookieStore.get("rhapsody")){
     		var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
@@ -332,6 +334,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
     	
         
 	});
+
 
 	$scope.$on('someEvent', function(event, mass){ 
 		controller.videos=$rootScope.playlist;

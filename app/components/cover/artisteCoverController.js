@@ -71,6 +71,9 @@ $scope.initSearch = function(){
 
 						$rootScope.typeEcoute = 1;
 						$rootScope.launchPlay($rootScope.randomItem[0], "radio");
+						if($rootScope.radioMode){
+							$location.path("/radios/recommandations");
+						}
 
 					},
 					function(error){ $rootScope.randomItem = error.data; });

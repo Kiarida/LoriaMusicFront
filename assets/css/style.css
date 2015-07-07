@@ -86,8 +86,184 @@ button { text-transform: uppercase;}
 
 /*****************RECOMMANDATIONS****************/
 
-.current-song, .reco-song{
-  width: 20%;
+.contain-current, .reco-songs{
+ 
+  float:left;
+}
+
+.contain-current > p{
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  position: absolute;
+  left: 8.2%;
+  margin-top: 155px;
+  color:white;
+}
+
+.reco-songs > p{
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  position: absolute;
+  left: 52.2%;
+  margin-top: 355px;
+  color:white;
+  letter-spacing: 10px;
+}
+
+.current-song{
+  width: 45%;
+}
+
+.contain-current{
+   margin-top:155px;
+  height: 220px;
+  width: 50%;
+  
+
+}
+
+.title-reco h4, .title-reco p{
+  position: absolute;
+  margin : 0;
+
+}
+
+.title-reco h4{
+
+font-size: 50px; 
+font-weight: normal; 
+line-height: 60px; 
+margin: 0 10px; 
+text-transform: uppercase; 
+/* text-shadow:1px 1px 0 white; */
+text-align: center
+}
+
+.title-reco p{
+  text-align: center; 
+bottom: 0;
+margin-left: 60px;
+text-shadow:1px 1px 0 white;
+line-height: 0.3;
+font-style: italic;
+}
+
+.title-reco{
+  position: relative;
+  height: 60px;
+}
+
+
+
+.current-song{
+  margin-left: 20%;
+  background: white;
+  border-radius: 25px;
+}
+
+.reco-song{
+  background: white;
+  margin: 50px 0 0 0 ;
+  border-radius: 25px;
+  position: relative;
+}
+
+.reco-songs{
+  margin-left: 5%;
+  margin-top: 30px;
+  width: 30%;
+}
+
+.contain-current img.arrow-right{
+  margin-top:-24%;
+  float: right;
+ 
+}
+
+
+
+.title-reco{
+  background: white;
+}
+
+.reco-song:hover > .overlay{
+  opacity:0.7;
+}
+
+.reco-song:hover > .choose-caption{
+  opacity: 1;
+}
+
+.reco-song .smallPlaylist .index .title-span, .current-song .smallPlaylist .index .title-span{
+  width: 100%;
+}
+.reco-song .smallPlaylist, .current-song .smallPlaylist{
+
+  border-radius: 25px;
+}
+.reco-song > .overlay{
+  background: none repeat scroll black;
+  transition: all 0.5s ease 0s;
+  z-index: 20;
+  position:absolute;
+  overflow: hidden;
+  height: 90px;
+  width: 100%;
+  opacity : 0;
+  border-radius: 25px;
+}
+
+.reco-song.selected .smallPlaylist{
+  -moz-box-shadow: 10px 10px 5px #656565;
+  -webkit-box-shadow: 10px 10px 5px #656565;
+  -o-box-shadow: 10px 10px 5px #656565;
+  box-shadow: 10px 10px 5px #656565;
+  border-radius: 25px 0 25px 25px;
+}
+
+.recommandations .smallPlaylist .color{
+  border:none;
+}
+
+.next-song{
+  height: 35px;
+  width: 70px;
+  position: absolute;
+  right: 0px;
+  top: -25px;
+}
+
+.next-song p{
+  text-shadow: 1px 1px black;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  color:white;
+  }
+
+ a.choose-caption{
+    display:block;
+    width:220px;
+    height: 90px;
+    margin:10% auto;
+    color:white;
+    text-align: center;
+    font-size: 25px;
 }
 
 

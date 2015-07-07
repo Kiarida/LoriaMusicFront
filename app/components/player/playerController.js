@@ -152,6 +152,13 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	Rhapsody.player.on("playtimer", function(e){
+
+		//tweak
+		if(created == false){
+			$rootScope.$broadcast('creationEcoute');
+			created=true;
+		}
+
 		$scope.$apply(function(){
 		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
 		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
@@ -159,7 +166,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				
 			});
 			$rootScope.$broadcast('creationEcoute');
-			console.log("broadcast");
 			created=true;
 		}
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
@@ -292,7 +298,6 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	}
 
 $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
-        console.log("blabla");
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl("url"), type:"audio/mp3"}];
     	if($cookieStore.get("rhapsody")){
     		var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){

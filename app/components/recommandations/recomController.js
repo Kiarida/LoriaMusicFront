@@ -1,34 +1,17 @@
 app.controller('RecomCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies',
  function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies){
-  /*window.onbeforeunload =function(event){
-     var message = 'If you leave this page you are going to lose all unsaved changes, are you sure you want to leave?';
-      if (typeof event == 'undefined') {
-        event = window.event;
-      }
-      if (event) {
-        event.returnValue = message;
-      }
-      return message;
-
-    };*/
 
 
 var controller = this;
-  console.log(controller);
-    controller.accessor = {};
-    controller.callDirective = function(){
-        if (controller.accessor.getData) {
-            var data = controller.accessor.getData();
-            alert('Data from directive:' + JSON.stringify(data));
-        }
-    };
+
   $scope.radioMode=true;
 	$scope.user = Auth.getUser();
 	$scope.search ="";
 	$scope.error = "";
 	$scope.success ="";
-  $scope.listAlgos=$rootScope.currentUserTest[0].idgroup[0].idalgorithm;
+  $scope.listAlgos=null;
   $rootScope.radioMode=true;
+  $scope.currentAlgorithm=null;
 
   $scope.currentSong = $rootScope.playlist[0];
 
@@ -48,20 +31,25 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
 
   $scope.getRecommandation=function(){
     var algostrack=[];
+    $scope.listAlgos=$rootScope.currentUserTest[0].idgroup[0].idalgorithm;
+
     if($rootScope.radioMode){
+      var j=0;
       for(var i in $scope.listAlgos){
+        console.log(i);
         var algos = $scope.listAlgos[i].nom;
        // algostrack.push(algos);
      
         $scope.listAlgos[i].track=[];
-        Recommandations.query({iduser:Auth.getUser().id, algorithm : algos},function(mess){
         
+        Recommandations.query({iduser:Auth.getUser().id, algorithm : algos},function(mess){
         mess[0][0].color={};
-        mess[0][0].color.code=$scope.listAlgos[i].color;
-        mess[0][0].color.name=$scope.listAlgos[i].label;
-        $scope.listAlgos[i].track=mess[0][0];  
-        console.log($scope.listAlgos);
+        mess[0][0].color.code=$scope.listAlgos[j].color;
+        mess[0][0].color.name=$scope.listAlgos[j].label;
 
+        $scope.listAlgos[j].track=mess[0][0];  
+        j++;
+      
         
     });
       }
@@ -75,17 +63,29 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
         mess[0][0].color={};
         mess[0][0].color.code=$rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].color;
         mess[0][0].color.name=$rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].label;
-        //$rootScope.playlist.push(mess[0][0]);
-        console.log("Recommandations");
       });
     }
   }
 
+
+  $scope.sortAlgorithms=function(algo){
+    for(var i in $scope.listAlgos){
+      $scope.listAlgos[i].selected = false;
+      if($scope.listAlgos[i].nom == algo){
+        $scope.listAlgos[i].selected = true;
+        //var index = $scope.listAlgos[i];
+        //$scope.currentAlgorithm=index;
+        //var milieu = $scope.listAlgos[$scope.listAlgos.length % 2];
+        //$scope.listAlgos[$scope.listAlgos.length % 2]=index;
+        //$scope.listAlgos[i]=milieu;
+      }
+    }
+
+    console.log($scope.listAlgos);
+  }
+
   $scope.$on('creationEcoute', function(event){ 
           $scope.getRecommandation();
-          
-
-
        });
   
 	

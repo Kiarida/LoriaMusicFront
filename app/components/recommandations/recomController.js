@@ -73,11 +73,7 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
       $scope.listAlgos[i].selected = false;
       if($scope.listAlgos[i].nom == algo){
         $scope.listAlgos[i].selected = true;
-        //var index = $scope.listAlgos[i];
-        //$scope.currentAlgorithm=index;
-        //var milieu = $scope.listAlgos[$scope.listAlgos.length % 2];
-        //$scope.listAlgos[$scope.listAlgos.length % 2]=index;
-        //$scope.listAlgos[i]=milieu;
+        $rootScope.playlist[$rootScope.playlist.length]=$scope.listAlgos[i].track;
       }
     }
 

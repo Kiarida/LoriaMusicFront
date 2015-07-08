@@ -103,9 +103,9 @@ button { text-transform: uppercase;}
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
   position: absolute;
-  left: 8.2%;
-  margin-top: 155px;
-  color:white;
+  left: 7.2%;
+  margin-top: 185px;
+  letter-spacing: 5px;
 }
 
 .reco-songs > p{
@@ -122,12 +122,16 @@ button { text-transform: uppercase;}
   position: absolute;
   left: 52.2%;
   margin-top: 355px;
-  color:white;
   letter-spacing: 10px;
 }
 
 .current-song{
   width: 45%;
+  height: 100%;
+}
+
+.current-song-model{
+  height: 100%;
 }
 
 .contain-current{
@@ -214,7 +218,7 @@ font-style: italic;
   width: 100%;
 }
 .reco-song .smallPlaylist, .current-song .smallPlaylist{
-
+   border: 2px solid grey;
   border-radius: 25px;
 }
 .reco-song > .overlay{
@@ -223,10 +227,12 @@ font-style: italic;
   z-index: 20;
   position:absolute;
   overflow: hidden;
-  height: 90px;
+  height: 100%;
   width: 100%;
   opacity : 0;
   border-radius: 25px;
+  border: 2px solid grey;
+  
 }
 
 .reco-song.selected .smallPlaylist{
@@ -234,7 +240,12 @@ font-style: italic;
   -webkit-box-shadow: 10px 10px 5px #656565;
   -o-box-shadow: 10px 10px 5px #656565;
   box-shadow: 10px 10px 5px #656565;
-  border-radius: 25px 0 25px 25px;
+  border-radius: 25px 0 0 25px;
+
+}
+
+.reco-song.selected{
+  border-radius: 25px 0 0 25px;
 }
 
 .recommandations .smallPlaylist .color{
@@ -242,18 +253,25 @@ font-style: italic;
 }
 
 .next-song{
-  height: 35px;
+  height: 94px;
   width: 70px;
   position: absolute;
-  right: 0px;
-  top: -25px;
+  right: -68px;
+  top: 0px;
+  border-radius: 0px 10px 10px 0;
+  border: 2px solid grey;
+ 
+  text-align: center;
+
 }
 
 .next-song p{
   text-shadow: 1px 1px black;
-  border-radius: 10px 10px 0 0;
-  text-align: center;
+   text-align: center;
+   vertical-align: middle;
   color:white;
+  line-height: 94px;
+  height: 100%;
   }
 
  a.choose-caption{

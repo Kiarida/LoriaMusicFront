@@ -131,12 +131,36 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
   				//console.log($scope);
   				//$scope.launchRandomTrack($rootScope.idRadio);
   			}
-      }*/
+      }*/	else if($rootScope.radioMode || $rootScope.recomMode){
+ 				
+ 				$( ".current-song-model" ).animate({
+ 					width: ["toggle", "swing"]
+				    height: "toggle"
+				  }, 2000, function() {
+				    // Animation complete.
+				  });
+ 				$( ".reco-song.selected" ).animate({
+
+				    height: "toggle"
+				  }, 2000, function() {
+				  	
+				    // Animation complete.
+				  });
+      			$rootScope.recomPlaylist=[];
+      			var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
+            	var playtemp = $rootScope.playlist.slice(index+1);
+
+      			$rootScope.recomPlaylist[0]=playtemp[0];
+      			console.log($rootScope.recomPlaylist);
+      			console.log($rootScope.playlist);
+      			controller.currentVideo++;
+      		}
 			else{
 				if(controller.currentVideo == $rootScope.playlist.length-1)
 						controller.currentVideo = 0
-				else
+				else{
 					controller.currentVideo++;
+				}
 			}
 			controller.like = false;
 		}
@@ -152,28 +176,35 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	};
 
 	Rhapsody.player.on("playtimer", function(e){
-
+		//console.log("created "+created);
 		//tweak
-		if(created == false){
-			$rootScope.$broadcast('creationEcoute');
-			created=true;
-		}
+		
 
 		$scope.$apply(function(){
 		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
 		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
-			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(){
-				
-			});
-			$rootScope.$broadcast('creationEcoute');
 			created=true;
+			if($rootScope.radioMode){
+				$rootScope.$broadcast('creationEcoute');
+			}
+			
+			else if($rootScope.recomMode){
+			      	$scope.getRecommandation();
+			      }
+			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(){
+					
+			});
+			//$rootScope.$broadcast('creationEcoute');
+			//created=true;
 		}
 		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
 		$rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
 		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
 
 		//Tweak pour déclencher l'event onCompleteVideo
-		if($rootScope.currentTime.split(':')[1]==29 && ended ==false){
+		
+		//if($rootScope.currentTime.split(':')[1]==29 && ended ==false){
+		if(e.data.currentTime > 29.80 && ended ==false){
 			$scope.controller.onCompleteVideo();
 			ended=true;
 		}
@@ -186,8 +217,9 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 
 	Rhapsody.player.on('playevent', function(e) {
-		console.log("rhapsod");
+
   		if(e.code == "PlayComplete"){
+  			
   			//controller.isCompleted = true;
   			this.onCompleteVideo();
 		if(!controller.loop){
@@ -234,7 +266,9 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			controller.currentVideo = index;
 			controller.config.sources = $rootScope.playlist[index].sources;
 			controller.API.play();
+			//$rootScope.currentVideo = controller.currentVideo;
       		//$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : 0});
+      		$rootScope.currentVideo=$rootScope.playlist[controller.currentVideo];
 
 		}
 
@@ -325,13 +359,17 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
 						    accessToken:$cookieStore.get("rhapsody").access_token,
 						    refreshToken:$cookieStore.get("rhapsody").refresh_token
 						});
+
 						Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
 						marked=false;
 		    			created=false;
       				});
 
     	}
-    	
+    	$rootScope.currentVideo=$rootScope.playlist[controller.currentVideo];
+    	created = false;
+		marked=false;
+		ended=false;
     	
     	//$scope.start();
 		

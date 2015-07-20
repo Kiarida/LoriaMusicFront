@@ -3,46 +3,12 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 
  	$scope.artistsL=false;
  	$scope.genresL=false;
- 	$rootScope.radioMode=true;
-
-	// var ItemGenres = $resource(routeRessource.ItemGenre,{},
-	// 	{
-	//         'query': {
-	//             method: 'GET',
-	//             isArray: true,
-	//             headers: { 
-	//               "Authorization" : 'WSSE profile="UsernameToken"',
-	//               "X-wsse" : Auth.getUser().wsse
-	//             },
-	//             params:{id: "@id"}, 
-	//         },
- //        });
-
-	// var Artistes = $resource(routeRessource.Artistes,{},
-	// 	{
-	//         'query': {
-	//             method: 'GET',
-	//             isArray: true,
-	//             headers: { 
-	//               "Authorization" : 'WSSE profile="UsernameToken"',
-	//               "X-wsse" : Auth.getUser().wsse
-	//             }
-	//         },
- //        });
-
-	// var ItemArtiste = $resource(routeRessource.ItemArtiste,{},
-	// 	{
-	//         'query': {
-	//             method: 'GET',
-	//             isArray: true,
-	//             headers: { 
-	//               "Authorization" : 'WSSE profile="UsernameToken"',
-	//               "X-wsse" : Auth.getUser().wsse
-	//             },
-	//             params:{id: "@id"},
-	//         },
- //        });
-	
+ 	if($rootScope.currentUserTest[0].mode=="Same"){
+		$rootScope.radioMode=true;	
+	}
+	else if($rootScope.currentUserTest[0].mode=="A_B"){
+		$rootScope.recomMode=true;
+	}
 
 	var Genres = $resource(routeRessource.Genres,{},
 	{
@@ -129,10 +95,11 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 	
 	$scope.moreResults=function(type){
 		if(type=="artist"){
+			console.log("heyhey");
 			$scope.artistsL=true;
 			$scope.artistsLight=$scope.artistes;
 		}
-		if(type="genres"){
+		if(type=="genre"){
 			$scope.genresL=true;
 			$scope.genresLight=$scope.genres;
 		}

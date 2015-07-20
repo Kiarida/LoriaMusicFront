@@ -3,9 +3,15 @@
 	<div ng-drop="draggable" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" class="ecoute text-center" ng-drag="draggable" ng-drag-data="ecoutes" >
 		<div class="color text-center" style="background-color: {{ecoutes.color.code}}">{{ecoutes.color.name}}</div>
 		<div class = "colorDelete">
-			<a ng-if="controller.configPlaylist.remove" ng-init="id_playlist = playlist ? playlist.id : $root.playlist[0].id" ng-click="removeItem(id_playlist,ecoutes.id,$index)" href="">
-				<i tooltip="Remove from the playlist" class="icon-trash"></i>
-			</a>
+
+			<a ng-if="controller.configPlaylist.remove && !$root.radioMode && !$root.recomMode" ng-init="id_playlist = playlist ? playlist.id : $root.playlist[0].id" ng-click="removeItem(id_playlist,ecoutes.id,$index)" href="">
+
+					<i tooltip="Remove from the playlist" class="icon-trash"></i>
+				</a>
+	
+					<a ng-if="$root.radioMode || $root.recomMode" class="iconButton" type="button" aria-label="Never listen this song again" ng-click="$root.block(ecoutes.id)"><i class="icon-blocked" tooltip="Never this song again"></i>
+				</a>
+				
 		</div>
 		<div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 			<a href="">
@@ -30,7 +36,8 @@
 				<img src="{{ecoutes.urlCover}}"/>
 			</div>
 	</div><div ng-if="content.length < 5" ng-repeat="n in [] | ecouteRange: (5-content.length)" class="ecoute placeholder text-center">
-	<p>Add tracks to your playlist !</p>
+	<p ng-if="!$root.radioMode && !$root.recomMode">Add tracks to your playlist !</p>
+	<p ng-if="$root.radioMode || $root.recomMode">Watch your last tracks here !</p>
 	</div><div style="clear:both"></div>
 </div>
 

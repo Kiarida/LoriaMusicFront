@@ -1,9 +1,12 @@
-<div ng-controller="PlayerCtrl as controller" ng-if="connected && playing && small" ng-class="{reduced : small}" class="player-reduced">
+<div ng-controller="PlayerCtrl as controller" ng-if="connected && playing && small" ng-class="{reduced : small}" class="player-reduced" recommandations>
       <div class="videogular-container" ng-class="{'col-sm-6 small': small}">
         <videogular vg-player-ready="controller.onPlayerReady" vg-complete="controller.onCompleteVideo" vg-theme="controller.config.theme.url">
               <div ng-if="small" class="metadata">
         <div class="playlist-player" playlist-player controller="controller" type="metadata" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
         </div>
+
+      
+
         <div class="metadata-artist">
         </div>
       </div>
@@ -33,6 +36,12 @@
           <vg-poster-image vg-url='playlist[controller.currentVideo].urlCover'></vg-poster-image>
         </videogular>
       </div><div ng-if="!small" class="playlist-player" draggable="true" playlist-player controller="controller" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
-      </div><div ng-if="small" class="playlist-player playlist-small" draggable="true" playlist-player controller="controller" type="smallPlaylist" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
       </div>
+      <div ng-if="small && !radioMode && !recomMode" class="playlist-player playlist-small" draggable="true" playlist-player controller="controller" type="smallPlaylist" content="playlist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      </div>
+
+      <div ng-if="radioMode || recomMode" class="playlist-player playlist-small" draggable="true" playlist-player controller="controller" type="smallPlaylist" content="recomPlaylist" with-player="true" ng-class="{'col-sm-6 small':small}">
+      </div>
+
+
     </div> 

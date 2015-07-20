@@ -2,13 +2,14 @@
 
 
 	<div class="ListAlgorithms algorithms">
-		<h3>Algorithms</h3>
+		<h4>Algorithms</h4>
 		<li class="list-algo" ng-repeat="algo in listAlgos">
 			<b>Name</b> : {{algo.nom}}
 			<br>
 			<b>Label</b> :  
 			    <input class="value-limit" ng-model="algo.label" type="text" class="form-control input-new-playlist" placeholder="New label" aria-describedby="basic-addon1" ng-new-playlist />
-			<b>Color</b> : 
+			    <br>
+			<b>Pick a color</b> : 
 				<input colorpicker colorpicker-with-input="true" type="text" ng-model="algo.color"  />
 	    	
 	    </li>

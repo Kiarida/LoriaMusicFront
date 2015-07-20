@@ -28,7 +28,7 @@
 					</a>
 					
 				</div>
-				<a ng-if="controller.configPlaylist.remove" ng-init="id_playlist = playlist ? playlist.id : $root.playlist.id" ng-click="removeItem(id_playlist,$root.playlist[controller.currentVideo].id,$index)" href="">
+				<a ng-if="controller.configPlaylist.remove" ng-init="id_playlist = playlist ? playlist.id : $root.playlist[0].id" ng-click="removeItem(id_playlist,ecoutes.id,$index)" href="">
 
 					<i tooltip="Remove from the playlist" class="icon-trash"></i>
 				</a>

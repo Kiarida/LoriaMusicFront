@@ -49,11 +49,11 @@ button { text-transform: uppercase;}
 
 /*****************ALGORITHMS******/
 .algorithms{
-  padding:50px;
+  padding:30px;
 }
 
 .algorithms select, .algorithms input{
-  width: 15%;
+  width: 40%;
 
 
 }
@@ -71,7 +71,7 @@ button { text-transform: uppercase;}
 }
 
 .newTest.algorithms div{
-  margin:10px;
+  margin:20px;
 }
 
 .list-algo{
@@ -83,6 +83,54 @@ button { text-transform: uppercase;}
   padding-top:10px;
 }
 
+label{
+  display: block;
+    width: 30%;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.newTest .test-groups .list-algorithms{
+  margin-left: 30px;
+  border:1px solid black;
+}
+
+.list-algorithms > li{
+  margin : 10px 0;
+  list-style: none;
+  padding: 20px;
+}
+
+.li-algo{
+  margin-left: 10px;
+}
+
+.newTest.algorithms .left-new{
+  float: left;
+  width: 50%;
+   margin-left: 0;
+  margin-right: 0;
+}
+.newTest.algorithms .right-new{
+  float: right;
+  width: 50%;
+  margin-left: 0;
+  margin-right: 0;
+  border-left: 1px solid grey;
+}
+
+.newTest.algorithms .right-new .algo-limit{
+  width: 20%;
+}
+
+.newTest.algorithms .right-new label{
+  width: 40%;
+}
+
+.test-current{
+  padding: 50px 60px;
+}
 
 /*****************RECOMMANDATIONS****************/
 
@@ -194,11 +242,6 @@ font-style: italic;
   width: 30%;
 }
 
-.contain-current img.arrow-right{
-  margin-top:-24%;
-  float: right;
- 
-}
 
 
 
@@ -244,7 +287,7 @@ font-style: italic;
 
 }
 
-.reco-song.selected{
+.reco-song.selected, .reco-song.selected > .overlay{
   border-radius: 25px 0 0 25px;
 }
 
@@ -283,6 +326,15 @@ font-style: italic;
     text-align: center;
     font-size: 25px;
 }
+
+
+.arrows{
+  height: 100%;
+  float: right;
+  width: 200px;
+  margin-top: -50%;
+}
+
 
 
 /*****************MODAL**********/

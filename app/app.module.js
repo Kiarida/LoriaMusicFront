@@ -78,10 +78,18 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
        catalog: 'FR'
     });
     $rootScope.$on('$routeChangeStart', function (event) {
+      console.log("change route");
       $rootScope.searchingG=false;
       $rootScope.searchingA=false;
-      $rootScope.radioMode=false;
 
+      $rootScope.radioMode=false;
+      $rootScope.recomMode=false;
+      if($rootScope.recomPlaylist && $rootScope.recomPlaylist.length > 1 && !$rootScope.radioMode && !$rootScope.recomMode){
+        console.log($rootScope.recomPlaylist.length);
+        $rootScope.playlist=[];
+      }
+      console.log($rootScope.radioMode);
+      console.log($rootScope.recomMode);
 
       $window.onbeforeunload=function(event){
           var EndSession = $resource(routeRessource.EndSession,{},
@@ -198,7 +206,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         if(!track.urlCover){
               track.urlCover="assets/img/placeholder.png";
             }
+
+
         //$location.path('/home');
+
         Rhapsody.player.play(track.url);
 
 
@@ -283,11 +294,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           //$route.reload();
         }
 
-        /*if($rootScope.$$childTail.$$childHead.API){
+        if($rootScope.$$childTail.$$childHead.API){
           $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
           $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
           $rootScope.$$childTail.$$childHead.API.play();
-        }*/
+        }
         //});
         $rootScope.small = true;
         //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
@@ -312,6 +323,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     $rootScope.historyTracks = [];
     $rootScope.searchingG=false;
     $rootScope.searchingA=false;
+    //$rootScope.recomPlaylist=[];
     $rootScope.smallSearch=false;
 
 
@@ -555,6 +567,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
   }
+
 
 
 

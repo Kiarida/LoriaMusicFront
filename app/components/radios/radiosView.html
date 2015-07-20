@@ -26,9 +26,10 @@
 	</div>
 </div>
 <div ng-controller="GenreCoverCtrl">
-	<div deckgrid class="genresdeck deckgrid" source="genresLight" cardTemplate="app/components/cover/coverView.html?t=000"></div>
+	<div ng-if="$root.radioMode" deckgrid class="genresdeck deckgrid " source="genresLight" cardTemplate="app/components/cover/coverView.html?t=000"></div>
+	<div ng-if="!$root.radioMode" deckgrid class="deckgrid" source="genresLight" cardTemplate="app/components/cover/coverView.html?t=000"></div>
 </div>
-<a ng-show="!genresL" ng-click="moreResults(genre)">More radios from genres</a>
+<a ng-show="!genresL" ng-click="moreResults('genre')">More radios from genres</a>
 <div class="clearfix"></div>
 <div class="label-radio">
 <h4 class="radio-title">Artists</h4>
@@ -54,7 +55,8 @@
 	</div>
 </div>
 <div ng-controller="ArtisteCoverCtrl">
-    <div deckgrid class="genresdeck artistes deckgrid" source="artistsLight" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+    <div ng-if="$root.radioMode" deckgrid class="artistes genresdeck deckgrid" source="artistsLight" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
+    <div ng-if="!$root.radioMode" deckgrid class="artistes deckgrid"  source="artistsLight" cardTemplate="app/components/cover/coverView.html?t=0000"></div>
 </div>
-<a ng-show="!artistsL" ng-click="moreResults(artist)">More radios from artists</a>
+<a ng-show="!artistsL" ng-click="moreResults('artist')">More radios from artists</a>
 <div class="clearfix"></div>

@@ -27,9 +27,9 @@ $scope.algorithms={
 
 //$rootScope.isAdmin = true;
 $scope.modes=[
-{"Label": "A/B Testing", 
+{"Label": "One recommandation", 
 "Mode" : "A_B"},
-{"Label" : "Same for all", "Mode" : "Same"}];
+{"Label" : "Multiple recommendations", "Mode" : "Same"}];
 
  //Liste des algos disponibles
  var Algos = $resource(routeRessource.Algos,{},
@@ -116,13 +116,28 @@ $scope.modes=[
   $scope.generateGroups=function(nbGroups){
     $scope.newTest.groups=[];
     $scope.nbGroups=nbGroups;
-  for(var i = 0; i < nbGroups; i++){
-     var newgroup={
-    "numero" : i+1,
-    "algos" :[],
-    };
-      $scope.newTest.groups.push(newgroup);
+    for(var i = 0; i < nbGroups; i++){
+         var newgroup={
+        "numero" : i+1,
+        "nbalgos": 0,
+        "algos" :[],
+        };
+          $scope.newTest.groups.push(newgroup);
+          if($scope.newTest.mode=="Same"){
+            console.log("hey");
+            $scope.newTest.groups[i].nbalgos=3;
+          }
+          else if($scope.newTest.mode=="A_B"){
+            $scope.newTest.groups[i].nbalgos=1;
+          }
+          for(var j = 1; j<= $scope.newTest.groups[i].nbalgos; j++){
+            var newalgo={
+            "id" : null,
+              };
+              $scope.newTest.groups[i].algos.push(newalgo);
     }
+      }
+
     
   }
 
@@ -136,6 +151,17 @@ $scope.modes=[
       "id" : null,
     };
     $scope.newTest.groups[index].algos.push(newalgo);
+  }
+
+  $scope.generateAlgos=function(index){
+    $scope.newTest.groups[index].algos =[];
+    for(var i = 1; i<= $scope.newTest.groups[index].nbalgos; i++){
+      var newalgo={
+      "id" : null,
+        };
+        $scope.newTest.groups[index].algos.push(newalgo);
+    }
+    
   }
 
   $scope.saveTest=function(){

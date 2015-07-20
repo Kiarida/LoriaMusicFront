@@ -3,15 +3,15 @@
 <div ng-if="currentTest" class="algorithms">
 	
 	<div>
-		<h3>Current Test</h3>
-		<div class="test-name">
-			<b>Label: </b> {{currentTest.label}}
+		<h4>Current Test</h4>
+		<div class="test-current">
+			<div class="test-groups"><b>Label: </b> {{currentTest.label}}</div>
 			<br>
-			<b>Date : </b> {{currentTest.datedebut}}
+			<div class="test-groups"><b>Date : </b> {{currentTest.datedebut}}</div>
 			<br>
-			<b>Mode : </b> {{currentTest.mode}}
+			<div class="test-groups"><b>Mode : </b> {{currentTest.mode}}</div>
 			<br>
-			<b>Number of groups : </b> {{currentTest.groups}}
+			<div class="test-groups"><b>Number of groups : </b> {{currentTest.groups}}</div>
 			<br>
 			<div ng-repeat="group in currentTest.idgroup" class="algos-group">
 				Group {{group.numero}} algorithms :
@@ -20,6 +20,7 @@
 						{{algo.nom}}
 					</li>
 				</ul>
+			</div>
 			</div>
 		</div>
 		<button ng-click="endTest(currentTest.id)">End test</button>

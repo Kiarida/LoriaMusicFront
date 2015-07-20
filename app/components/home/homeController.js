@@ -57,6 +57,7 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 			else{
 				user.role="simple_user"
 				$rootScope.isAdmin=false;
+				console.log("connect");
 				$location.path("/home");
 				 var CurrentTest = $resource(routeRessource.CurrentTest, {},
 					  {
@@ -70,10 +71,13 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 					            params:{iduser:"@iduser"},
 					        },
 					  });
+				 console.log("HEY ?");
 				CurrentTest.query({iduser:Auth.getUser().id}, function(mess){
+					console.log("MESS");
+					console.log(mess);
 					$rootScope.currentUserTest=mess;
-					console.log("on récupère le test courant");
-					console.log($rootScope);
+
+					
 				});
 
 			}

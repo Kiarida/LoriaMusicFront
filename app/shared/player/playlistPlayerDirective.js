@@ -147,6 +147,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 			{stateOn: 'icon-star3', stateOff: 'icon-star'}
 		];
 
+		
 		scope.hoveringOver = function(value) {
 			scope.overStar = value;
 			scope.percent = 100 * (value / scope.max);
@@ -237,7 +238,6 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 	    idplaylist=$rootScope.activePlaylist;
 	    $rootScope.$broadcast('someEvent', oldIndex);
 	  }
-	  console.log(Auth.getUser().id, data.id, currentIndex, oldItem.id, oldIndex);
 	  AddItemPlaylist.update({iduser:Auth.getUser().id, idplaylist:idplaylist}, {iditemGrab:data.id, indexGrab:currentIndex, iditemMov:oldItem.id, indexMov:oldIndex}, function(){
 
 	  });

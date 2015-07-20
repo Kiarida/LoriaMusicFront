@@ -8,21 +8,21 @@
     <p>CURRENT SONG</p>
     <div class="current-song">
         
-        <div ng-model="currentSong" class="current-song-model">
+        <div ng-model="$root.currentVideo" class="current-song-model">
             <div class="smallPlaylist">
 
-                <div class="color text-center" style="background-color: {{currentSong.color.code}}">{{currentSong.color.name}}
+                <div class="color text-center" style="background-color: {{$root.currentVideo.color.code}}">{{$root.currentVideo.color.name}}
                 </div>
                 <div class="index">
                     <a href="">
-                        <span class="title-span text-center" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{currentSong.titre}}">{{currentSong.titre}}</span>
+                        <span class="title-span text-center" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{$root.currentVideo.titre}}">{{$root.currentVideo.titre}}</span>
                     </a>
                 </div>
                         
-                <div ng-init="artiste = currentSong.idartiste[0].nom ; id_artiste =  currentSong.idartiste[0].id" class="artiste text-center" >
+                <div ng-init="artiste = $root.currentVideo.idartiste[0].nom ; id_artiste =  $root.currentVideo.idartiste[0].id" class="artiste text-center" >
                     <a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}">
                         <i class="icon-microphone"></i>
-                        <span tooltip="{{artiste}}" class="text-center">{{artiste}}</span>
+                        <span tooltip="{{$root.currentVideo.idartiste[0].nom}}" class="text-center">{{$root.currentVideo.idartiste[0].nom}}</span>
                     </a>
                 </div>
                 <div class="playlist-cover text-center">
@@ -34,18 +34,20 @@
         </div>
 
     </div>
-    <img class="arrow-right" src="assets/img/ArrowRec.png"></img>
+    <div class="arrows">
+        <img ng-repeat="algo in listAlgos" class="arrow-right" src="assets/img/ArrowRec.png" style="-webkit-transform:rotate({{algo.angle}}deg);"></img>
+    </div>
 </div>
 
 
 <div class="reco-songs">
-    <p>RECOMMANDATIONS</p>
+    <p>RECOMMENDATIONS</p>
     <div ng-repeat="algo in listAlgos">
         
         <div class="reco-song" ng-class="{selected : algo.selected}" >
             <div class="next-song" style="background-color: {{algo.track.color.code}}" ng-show="algo.selected"><p >NEXT</p></div>
-            <div class="overlay">
-            <a class="choose-caption" ng-click="sortAlgorithms(algo.nom)">PLAY THIS SONG NEXT</a></div>
+            <div class="overlay" ng-click="sortAlgorithms(algo.nom)">
+            <a class="choose-caption" >PLAY THIS SONG NEXT</a></div>
             <div class="smallPlaylist">
 
                 <div class="color text-center" style="background-color: {{algo.track.color.code}}">{{algo.track.color.name}}

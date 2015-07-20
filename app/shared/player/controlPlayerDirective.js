@@ -1,4 +1,4 @@
-app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeout) {
+app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeout, $rootScope) {
   return {
     restrict: 'E',
     templateUrl: "app/components/player/playerTemplate.html?t=000",
@@ -106,14 +106,23 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 			}
 		};
 
-		scope.block = function(){
+		$rootScope.block = function(id){
 			if(scope.controller.block){
 				scope.controller.block = false;
 			}
 			else{
-				createInteraction(routeRessource.blockInteraction);
-				createAction(routeRessource.blockAction, scope.$root.playlist[scope.controller.currentVideo].id);
-				scope.nextTrack();
+					createInteraction(routeRessource.blockInteraction);
+				if(id){
+					createAction(routeRessource.blockAction, id);
+					//console.log(scope);
+					//scope.$parent.$parent.getRecommandation();
+					//scope.nextTrack();
+				}
+				else{
+					createAction(routeRessource.blockAction, scope.$root.playlist[scope.controller.currentVideo].id);
+					scope.nextTrack();
+				}
+				
 			}
 		};
 

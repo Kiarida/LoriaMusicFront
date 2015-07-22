@@ -234,6 +234,7 @@ font-style: italic;
   margin: 50px 0 0 0 ;
   border-radius: 25px;
   position: relative;
+  height: 94px;
 }
 
 .reco-songs{
@@ -1310,6 +1311,31 @@ textarea{
 }
 
 /*  PREFERENCES  */
+
+.tab-content{
+  background: white;
+  min-height: 500px;
+}
+
+.tab-content .centre-input{
+  background: white;
+}
+
+.tab-pane form, .tab-pane .blocked{
+  padding: 10px;
+}
+
+.blocked button{
+  background: transparent;
+  border:none;
+  float:right;
+}
+
+.blocked div{
+  border-bottom: 1px solid grey;
+  height: 35px;
+}
+
 .round.back{
     font-size: 1.9em;
     position: absolute;
@@ -1471,6 +1497,7 @@ videogular vg-timedisplay{ display: none; }
 
 
 .small videogular .iconButton{color:#374051;}
+.small videogular .iconButton.grey i{color:grey;}
 .small videogular .iconButton.active{color:#0079a6;}
 button.iconButton.active i{color:#0079a6;}
 #controls-container control-player .button-control .iconButton.active{color:#0079a6;}
@@ -1488,7 +1515,7 @@ button.iconButton.active i{color:#0079a6;}
 .maincontrol { width : 139px; margin: 0 auto;}
 #controlsBar { background-color: rgba(0,0,0,0.7); }
 .videogular-container .iconButton { transition: all 0.5s ease 0s;}
-.videogular-container .iconButton:hover { color: #0079a6; }
+.videogular-container .iconButton:hover, .videogular-container .iconButton i:hover  { color: #0079a6; }
 .videogular-container .active{ color: #0079a6; }
 .videogular-container videogular vg-mutebutton .level3:before{ font-family: "icomoon"; content:""; }
 .videogular-container videogular vg-mutebutton .level1:before{ font-family: "icomoon"; content:""; }

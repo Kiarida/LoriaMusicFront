@@ -185,7 +185,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     $rootScope.launchPlay = function(track, param){
 
-      var Stream = $resource(routeRessource.GetStreaming, {},{
+      /*var Stream = $resource(routeRessource.GetStreaming, {},{
         'query': {
             method: 'GET',
             isArray: true,
@@ -196,7 +196,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             params:{iditem:"@iditem"}
         }
       });
-
+*/
       
 
 

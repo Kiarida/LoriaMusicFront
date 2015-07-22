@@ -9,11 +9,11 @@
 					<i tooltip="Remove from the playlist" class="icon-trash"></i>
 				</a>
 	
-					<a ng-if="$root.radioMode || $root.recomMode" class="iconButton" type="button" aria-label="Never listen this song again" ng-click="$root.block(ecoutes.id)"><i class="icon-blocked" tooltip="Never this song again"></i>
+					<a ng-if="$root.radioMode || $root.recomMode" class="iconButton" type="button" aria-label="Never listen this song again" ng-click="$root.block(ecoutes)"><i class="icon-blocked" tooltip="Never this song again"></i>
 				</a>
 				
 		</div>
-		<div ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+		<div ng-if="!$root.radioMode && !$root.recomMode" ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
 			<a href="">
 				<i class="icon-play2 text-center" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 				<i class="icon-volume-medium text-center" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
@@ -23,8 +23,13 @@
 				<span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
 			</a>
 		</div>
+		<div ng-if="$root.radioMode || $root.recomMode" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+			<a href="">
+				<span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
+			</a>
+		</div>
 			
-		<div ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste text-center" >
+		<div ng-if="!$root.radioMode && !$root.recomMode" ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste text-center" >
 				
 				<a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}">
 					<i class="icon-microphone"></i>
@@ -32,12 +37,24 @@
 					</span>
 				</a>
 			</div>
+
+			<div ng-if="$root.radioMode || $root.recomMode" ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste text-center" >
+				
+				<a>
+					<i class="icon-microphone"></i>
+					<span tooltip="{{artiste}}" class="text-center">{{artiste}}
+					</span>
+				</a>
+			</div>
+
+
 			<div class="playlist-cover text-center">
 				<img src="{{ecoutes.urlCover}}"/>
 			</div>
-	</div><div ng-if="content.length < 5" ng-repeat="n in [] | ecouteRange: (5-content.length)" class="ecoute placeholder text-center">
+		</div>
+	<div ng-if="content.length < 5" ng-repeat="n in [] | ecouteRange: (5-content.length)" class="ecoute placeholder text-center">
 	<p ng-if="!$root.radioMode && !$root.recomMode">Add tracks to your playlist !</p>
-	<p ng-if="$root.radioMode || $root.recomMode">Watch your last tracks here !</p>
+	
 	</div><div style="clear:both"></div>
 </div>
 

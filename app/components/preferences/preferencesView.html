@@ -1,5 +1,6 @@
 <div id="preferences">
-	<h1>PREFERENCES</h1>
+	<tabset>
+	<tab heading ="PREFERENCES">
 	<div class="round back" click-link="/home"></div>
 	<form role="form" ng-submit="send()">
 		<div class="form-group">
@@ -29,4 +30,11 @@
 		<button class="btn btn-default" href="#/home"><i class="icon-close"></i>Cancel</button>
 
 	</form>
+	</tab>
+	<tab heading ="BLOCKED SONGS">
+		<div class="round back" click-link="/home"></div>
+		<div class="blocked">
+			<div ng-repeat="item in blockedItems track by $index">{{item.titre}} - <i> {{item.nom}}</i> <button tooltip="Unblock this song" class="iconButton" type="button" aria-label="Unblock this song" ng-click="$root.block(); unblock($index)"><i class="icon-blocked"></i></button></div>
+		</div>
+	</tab>
 </div>

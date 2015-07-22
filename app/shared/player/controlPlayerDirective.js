@@ -107,6 +107,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 		};
 
 		$rootScope.block = function(id){
+
 			if(scope.controller.block){
 				scope.controller.block = false;
 			}
@@ -114,9 +115,52 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 					createInteraction(routeRessource.blockInteraction);
 				if(id){
 					createAction(routeRessource.blockAction, id);
-					//console.log(scope);
+
+					//if($rootScope.recomPlaylist.length == 1){
+						if($rootScope.radioMode){
+							console.log($rootScope.recomPlaylist);
+							console.log(scope.controller.currentVideo);
+
+							//Si on bloque la chanson actuelle, on va passer à la suivante (on décale dans recomPlaylist)
+							if($rootScope.recomPlaylist.indexOf(id)==0){
+								console.log("blabla");
+								var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
+								$rootScope.recomPlaylist=[];
+					            var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
+					            for(var j in playtemp){
+					              $rootScope.recomPlaylist.push(playtemp[j]);
+
+					            }
+								//scope.nextTrack();
+							}
+							//Sinon, on va récup une nouvelle recommandation
+							else{
+								$rootScope.$broadcast('creationEcoute');
+
+							}
+						}
+						else if($rootScope.recomMode){
+							if($rootScope.recomPlaylist.indexOf(id)==0){
+								var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
+								$rootScope.recomPlaylist=[];
+					            var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
+					            for(var j in playtemp){
+					              $rootScope.recomPlaylist.push(playtemp[j]);
+
+					            }
+								//scope.nextTrack();
+							}
+							else{
+								scope.$parent.$parent.getRecommandation();
+							}
+						}
+						//scope.$parent.$parent.getRecommandation();
+						var index = $rootScope.recomPlaylist.indexOf(id);
+						$rootScope.recomPlaylist.splice(index);
+					//}
+					console.log(scope);
 					//scope.$parent.$parent.getRecommandation();
-					//scope.nextTrack();
+					scope.nextTrack();
 				}
 				else{
 					createAction(routeRessource.blockAction, scope.$root.playlist[scope.controller.currentVideo].id);

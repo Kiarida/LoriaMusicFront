@@ -12,6 +12,7 @@ app.controller('PreferencesCtrl', ['$scope', '$resource', '$rootScope', 'Auth','
 	$scope.error = "";
 	$scope.success ="";
 
+
 	var Pref = $resource(routeRessource.PrefUser,{},
 	{
         'query': {
@@ -33,6 +34,18 @@ app.controller('PreferencesCtrl', ['$scope', '$resource', '$rootScope', 'Auth','
         },
     });
 
+      var Items = $resource(routeRessource.ItemsByAction, {}, {
+    	'query': {
+            method: 'GET',
+            isArray: true,
+            headers: {
+              "Authorization" : 'WSSE profile="UsernameToken"',
+              "X-wsse" : Auth.getUser().wsse
+            },
+            params:{iduser: "@iduser", idaction: "@idaction"}
+        },
+    });
+
 	$scope.send = function(){
         Pref.update({id:$scope.user.id},$scope.user, function(){
 			Auth.setUser($scope.user);
@@ -43,5 +56,16 @@ app.controller('PreferencesCtrl', ['$scope', '$resource', '$rootScope', 'Auth','
 			$scope.error = "Wrong password";
 		});
 	}
+
+	$scope.blockedItems = Items.query({iduser:Auth.getUser().id, idaction:1}, function(messTracks){
+		console.log(messTracks);
+		return messTracks;
+	});
+
+	$scope.unblock = function(index){
+		$scope.blockedItems.splice(index);
+		console.log("hii");
+	}
+ 
 
 }]);

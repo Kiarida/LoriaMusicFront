@@ -22,7 +22,7 @@ app.directive('recommandations', function(Auth, routeRessource, $resource, $time
 		        }
 	        });
 
-	scope.getRecommandation=function(){
+	scope.getRecommandations=function(){
 	
 			var algo = $rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].nom
 
@@ -39,9 +39,38 @@ app.directive('recommandations', function(Auth, routeRessource, $resource, $time
 				}
 				$rootScope.playlist.push(mess[key][i]);
 				}
+
+
+				 if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
+            var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
+            var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
+            for(var j in playtemp){
+              $rootScope.recomPlaylist.push(playtemp[j]);
+
+            }
+          }
+          $(".reco-song .index, .reco-song .artiste").animate({
+              opacity: "1"
+            //height: "110%"
+          }, "slow", function() {
+          
+          });
 			});
 		
 	}
+
+	scope.blockReco=function(id){
+
+  		if($rootScope.recomPlaylist.length == 1){
+  			 scope.getRecommandation();
+  			var index = $rootScope.recomPlaylist.indexOf(id);
+
+		   }
+		    $rootScope.recomPlaylist.splice(index);
+		  	
+
+		  	//$rootScope.block(id);
+}
 
 
 

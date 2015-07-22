@@ -27,6 +27,7 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
           });
 
   $scope.getRecommandation=function(){
+    
     var algostrack=[];
     $scope.listAlgos=$rootScope.currentUserTest[0].idgroup[0].idalgorithm;
     $scope.listAlgos[0].angle=-30;
@@ -75,9 +76,6 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
             }
           }
           if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
-            console.log("SERIEUX ");
-            console.log($rootScope.playlist);
-            console.log($rootScope.recomPlaylist);
             var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
             var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
             for(var j in playtemp){
@@ -85,6 +83,12 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
 
             }
           }
+          $(".reco-song .index, .reco-song .artiste").animate({
+              opacity: "1"
+            //height: "110%"
+          }, "slow", function() {
+          
+          });
           
       });
         
@@ -117,7 +121,22 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
 
   }
 
+$scope.blockReco=function(id){
+ console.log("lalalaa");
+      if($rootScope.recomPlaylist.length == 1){
+        $scope.getRecommandation();
+      }
+        var index = $rootScope.recomPlaylist.indexOf(id);
+
+        
+        $rootScope.recomPlaylist.splice(index);
+        
+
+        $rootScope.block(id);
+}
+
   $scope.$on('creationEcoute', function(event){ 
+    console.log("Hefdfdfdfdfdy ?");
           $scope.getRecommandation();
        });
   

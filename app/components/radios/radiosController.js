@@ -3,11 +3,9 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 
  	$scope.artistsL=false;
  	$scope.genresL=false;
+ 	console.log("Mode radio");
  	if($rootScope.currentUserTest[0].mode=="Same"){
-		$rootScope.radioMode=true;	
-	}
-	else if($rootScope.currentUserTest[0].mode=="A_B"){
-		$rootScope.recomMode=true;
+		$rootScope.wideRadio=true;	
 	}
 
 	var Genres = $resource(routeRessource.Genres,{},
@@ -95,7 +93,6 @@ app.controller('RadioCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeR
 	
 	$scope.moreResults=function(type){
 		if(type=="artist"){
-			console.log("heyhey");
 			$scope.artistsL=true;
 			$scope.artistsLight=$scope.artistes;
 		}

@@ -9,7 +9,7 @@ var controller = this;
 	$scope.success ="";
   $scope.listAlgos=null;
   $rootScope.radioMode=true;
-  $scope.currentAlgorithm=null;
+  //$scope.currentAlgorithm=;
   $scope.currentSong = $rootScope.playlist[0];
   //$rootScope.recomPlaylist = $rootScope.playlist;
 
@@ -27,7 +27,6 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
           });
 
   $scope.getRecommandation=function(){
-    
     var algostrack=[];
     $scope.listAlgos=$rootScope.currentUserTest[0].idgroup[0].idalgorithm;
     $scope.listAlgos[0].angle=-30;
@@ -44,7 +43,6 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
         var algos = $scope.listAlgos[i].nom;
         $scope.listAlgos[i].track=[];
         $scope.listAlgos[i].track=mess[algos][0];
-        console.log(i);
         $scope.listAlgos[i].track.color={};
           $scope.listAlgos[i].track.color.code=$scope.listAlgos[i].color;
           $scope.listAlgos[i].track.color.name=$scope.listAlgos[i].label;
@@ -61,10 +59,10 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
       //Si on vient d'arriver dans le mode radio, on n'a pas encore de "route" choisie
       if(!$scope.currentAlgorithm){
 
-
             $scope.currentAlgorithm=$scope.listAlgos[1];
             $scope.listAlgos[1].selected=true;
             $rootScope.playlist[$rootScope.playlist.length]=$scope.listAlgos[1].track;
+            //$rootScope.recomPlaylist[0]=$rootScope.playlist[0];
 
           }
       else{
@@ -75,14 +73,14 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
               }
             }
           }
-          if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
+          /*if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
             var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
             var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
             for(var j in playtemp){
               $rootScope.recomPlaylist.push(playtemp[j]);
 
             }
-          }
+          }*/
           $(".reco-song .index, .reco-song .artiste").animate({
               opacity: "1"
             //height: "110%"
@@ -95,15 +93,7 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
     }
         //return algostrack;
     
-    else{
-      var algo = $rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].nom
-
-      Recommandations.query({iduser:Auth.getUser().id, item : $rootScope.currentVideo.id},function(mess){
-        mess[0][0].color={};
-        mess[0][0].color.code=$rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].color;
-        mess[0][0].color.name=$rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].label;
-      });
-    }
+    
   }
 
 
@@ -122,7 +112,6 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
   }
 
 $scope.blockReco=function(id){
- console.log("lalalaa");
       if($rootScope.recomPlaylist.length == 1){
         $scope.getRecommandation();
       }
@@ -136,7 +125,6 @@ $scope.blockReco=function(id){
 }
 
   $scope.$on('creationEcoute', function(event){ 
-    console.log("Hefdfdfdfdfdy ?");
           $scope.getRecommandation();
        });
   

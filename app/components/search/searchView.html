@@ -3,14 +3,5 @@
 <div class="info-alert" ng-show="query">Please wait...</div>
 <div class="playlist-player" playlist-player controller="controller" content="resItem" ng-class="{'col-sm-6 small':controller.config.small}"></div>
 <br>
-<a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Napster</p></a>
-<h1>Artists matching : {{wordSearched.search}}</h1>
-<div deckgrid class="deckgrid" source="resArtiste" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
-<div class="clearfix"></div>
-<br><a href="" ng-click="searchGrooveshark(wordSearch.search)"><p class="more">More results from Napster</p></a>
-<br>
-<h1>Albums matching : {{wordSearched.search}}</h1>
-<div deckgrid class="deckgrid artist-search" source="resAlbum" cardTemplate="app/components/search/searchArtistView.html?t=000"></div>
-<div class="clearfix"></div>
-<br><a href="" ng-click="searchGrooveshark()"><p class="more">More results from Napster</p></a>
-<div class="clearfix"></div>
+
+

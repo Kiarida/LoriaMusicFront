@@ -1701,6 +1701,9 @@ button.iconButton.active i{color:#0079a6;}
 .smallPlaylist, .playlist-small{
   height: 100%;
 }
+.list-ecoutes{
+  height: 100%;
+}
 
 .ecoute.placeholder{
   white-space: normal;

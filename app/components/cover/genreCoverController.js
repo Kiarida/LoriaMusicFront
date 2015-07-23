@@ -45,7 +45,12 @@ $scope.initSearch = function(){
    };
 
  $scope.launchRandomTrack = function(idGenre){
- 	console.log("Launchrandom");
+ 	if($rootScope.currentUserTest[0].mode=="Same"){
+		$rootScope.radioMode=true;	
+	}
+	else if($rootScope.currentUserTest[0].mode=="A_B"){
+		$rootScope.recomMode=true;
+	}
 
    $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByGenre;
 
@@ -75,6 +80,8 @@ $scope.initSearch = function(){
 							$location.path("/radios/recommandations");
 						}
 						$rootScope.launchPlay($rootScope.randomItem[0], "radio");
+						$rootScope.recomPlaylist=[];
+						$rootScope.recomPlaylist[0]=$rootScope.playlist[0];
 						
 
 					},

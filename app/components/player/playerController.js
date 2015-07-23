@@ -1,5 +1,5 @@
-app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$interval', '$cookieStore',
- function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $interval, $cookieStore){
+app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRessource', '$location', '$cookies', '$sce', '$interval', '$cookieStore', '$q',
+ function ($scope, $resource, $rootScope, Auth, routeRessource, $location, $cookies, $sce, $interval, $cookieStore, $q){
  	
 	var controller = this;
 	var promise;
@@ -152,53 +152,7 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 				    
 				  });
 				  });
-      			/*$(".reco-song:not(.selected) .artiste").animate({
- 					opacity: "0"
-				    //height: "110%"
-				  }, "slow", function() {
-				    // Animation complete.
-				  });
-
-
- 				$( ".current-song-model .index" ).animate({
- 					opacity: "0"
-				    //height: "110%"
-				  }, "slow", function() {
-				    // Animation complete.
-				  });
-
- 				$( ".current-song-model .artiste" ).animate({
- 					opacity: "0"
-				    //height: "110%"
-				  }, "slow", function() {
-				    // Animation complete.
-				  });
-
- 				$( ".current-song-model .playlist-cover" ).animate({
- 					opacity: "0"
-				    //height: "110%"
-				  }, "slow", function() {
-				    // Animation complete.
-				  });
-				*/
-
-
- 				/*$( ".reco-song.selected .index" ).animate({
-
-				    left: "-200px"
-				  }, "slow", function() {
-				  	//$( ".reco-song.selected .index" ).css("left", "0");
-				    // Animation complete.
-				  });
-
-
- 				$( ".reco-song.selected .artiste" ).animate({
-
-				    left: "200px"
-				  }, "slow", function() {
-				  	//$( ".reco-song.selected .artiste" ).css("left", "0");
-				    // Animation complete.
-				  });*/
+      			
 
  				
 
@@ -234,12 +188,16 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	Rhapsody.player.on("playtimer", function(e){
 		//console.log("created "+created);
 		//tweak
+		var deferred = $q.defer();
 		
 
 		$scope.$apply(function(){
-			if(recommended == false){
-				console.log("on recommande");
-				if($rootScope.radioMode){
+			
+		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
+		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
+			created=true;
+			//if(recommended == false){
+			if($rootScope.radioMode){
 				$rootScope.$broadcast('creationEcoute');
 			}
 			
@@ -247,13 +205,9 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			      	$scope.getRecommandation();
 			      }
 			      recommended=true;
-			}
-		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
-		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
-			created=true;
-			
-			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(){
-					
+			//}
+			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(mess){
+
 			});
 			//$rootScope.$broadcast('creationEcoute');
 			//created=true;
@@ -409,6 +363,7 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
 				    refreshToken:$cookieStore.get("rhapsody").refresh_token
 				});
 				Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
+				
 				marked=false;
     			created=false;
       		});
@@ -422,6 +377,8 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
 						});
 
 						Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
+						
+				
 						marked=false;
 		    			created=false;
       				});
@@ -439,7 +396,7 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
         
 	});
 
-
+	
 	$scope.$on('someEvent', function(event, mass){ 
 		controller.videos=$rootScope.playlist;
         controller.currentVideo=0;

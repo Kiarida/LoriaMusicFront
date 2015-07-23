@@ -31,12 +31,12 @@
   <span ng-if="isAdmin" ng-include src="'app/shared/layout/admLeftmenu.html'"></span>
 
 
-  <div class="content" ng-class="{'col-lg-5 centre' : (connected && !isAdmin && !radioMode), 'admincontent' : isAdmin, 'radiocontent' : radioMode, 'col-lg-10 centre' : isAdmin || radioMode}">
+  <div class="content" ng-class="{'col-lg-5 centre' : (connected && !isAdmin && !wideRadio), 'admincontent' : isAdmin, 'radiocontent' : wideRadio, 'col-lg-10 centre' : isAdmin || wideRadio}">
     <div ng-if="!playing || small" class="changing" ng-class="{reducedChanging : small && playing}" ng-view>
       <div style="clear:both"></div>
     </div>
   </div>
-  <span ng-if="!isAdmin" ng-show="!$root.radioMode" ng-include src="'app/shared/layout/rightsection.html'"></span>
+  <span ng-if="!isAdmin" ng-show="!$root.wideRadio" ng-include src="'app/shared/layout/rightsection.html'"></span>
   </div>
 
 

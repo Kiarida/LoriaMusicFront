@@ -46,7 +46,12 @@ $scope.initSearch = function(){
    };
 
  $scope.launchRandomTrack = function(idArtiste){
-
+ 	if($rootScope.currentUserTest[0].mode=="Same"){
+		$rootScope.radioMode=true;	
+	}
+	else if($rootScope.currentUserTest[0].mode=="A_B"){
+		$rootScope.recomMode=true;
+	}
    $rootScope.lienRandomItemByGenre = routeRessource.RandomItemByArtiste;
 
 		var Res = $resource($scope.lienRandomItemByGenre,{},
@@ -71,6 +76,9 @@ $scope.initSearch = function(){
 
 						$rootScope.typeEcoute = 1;
 						$rootScope.launchPlay($rootScope.randomItem[0], "radio");
+						$rootScope.recomPlaylist=[];
+						$rootScope.recomPlaylist[0]=$rootScope.playlist[0];
+
 						if($rootScope.radioMode){
 							$location.path("/radios/recommandations");
 						}

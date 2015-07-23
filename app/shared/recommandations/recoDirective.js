@@ -41,14 +41,14 @@ app.directive('recommandations', function(Auth, routeRessource, $resource, $time
 				}
 
 
-				 if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
+				/* if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
             var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
             var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
             for(var j in playtemp){
               $rootScope.recomPlaylist.push(playtemp[j]);
 
             }
-          }
+          }*/
           $(".reco-song .index, .reco-song .artiste").animate({
               opacity: "1"
             //height: "110%"

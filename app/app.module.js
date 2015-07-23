@@ -62,7 +62,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   $http.post("http://develop.api/api/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
     // this callback will be called asynchronously
     // when the response is available
-    console.log(data);
+    //console.log(data);
     $rootScope.uhs = data[0];
     $rootScope.xtoken=data[1];
   }).
@@ -78,19 +78,14 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
        catalog: 'FR'
     });
     $rootScope.$on('$routeChangeStart', function (event) {
-      console.log("change route");
       $rootScope.searchingG=false;
       $rootScope.searchingA=false;
 
       $rootScope.radioMode=false;
       $rootScope.recomMode=false;
       if($rootScope.recomPlaylist && $rootScope.recomPlaylist.length > 1 && !$rootScope.radioMode && !$rootScope.recomMode){
-        console.log($rootScope.recomPlaylist.length);
         $rootScope.playlist=[];
       }
-      console.log($rootScope.radioMode);
-      console.log($rootScope.recomMode);
-
       $window.onbeforeunload=function(event){
           var EndSession = $resource(routeRessource.EndSession,{},
           {
@@ -160,6 +155,9 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     });
 
     function getColor(track, param){
+      if(!param && !$rootScope.radioMode && !$rootScope.recomMode){
+        param="other";
+      }
       if(param){
         track.color={
          }
@@ -175,6 +173,10 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           case "album":
           track.color.code="#5F342F"
           break;
+          case "other":
+          track.color.name="other"
+          track.color.code="#4C433A"
+          break;
           default:
           track.color.name="other"
           track.color.code="#4C433A"
@@ -184,7 +186,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
     }
 
     $rootScope.launchPlay = function(track, param){
-
+      if(!$rootScope.radioMode && $rootScope.wideRadio){
+         $rootScope.radioMode=false;
+        $rootScope.recomMode=false;
+        $rootScope.wideRadio=false;
+      }
+     
       /*var Stream = $resource(routeRessource.GetStreaming, {},{
         'query': {
             method: 'GET',
@@ -488,6 +495,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       Ecoute.save({iduser:Auth.getUser().id},params,
       function(mess){
         $rootScope.currentEcoute = mess.id;
+        $rootScope.getLast5Ecoutes();
       },
       function(error){
         console.log(error);
@@ -536,8 +544,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           }
         });
 
-        Res.query(
-          {id: Auth.getUser().id},
+        Res.query({id: Auth.getUser().id},
           function(mess){
             deferred.resolve(mess);
           },

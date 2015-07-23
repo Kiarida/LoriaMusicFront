@@ -217,9 +217,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 		}
 
 	scope.onDropComplete1=function(data, event, oldItem){
-      //console.log(data);
-      //console.log(event);
-      //console.log(oldItem);
+
 	var currentIndex;
 	var oldIndex;
 	var idplaylist;
@@ -264,6 +262,35 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 			video.userRate = video.userRate ? video.userRate : video.note;
 		}
 
+		$rootScope.$watchGroup(["playlist.length"], function(){
+			if($rootScope.radioMode || $rootScope.recomMode){
+				var index = $rootScope.playlist.indexOf($rootScope.currentVideo);
+				if(index != -1){
+					if($rootScope.playlist.length != $rootScope.recomPlaylist.length){
+						var playtemp = $rootScope.playlist.slice(index, $rootScope.playlist.length);
+						$rootScope.recomPlaylist=[];
+						for(var j = 0; j < playtemp.length; j++){
+							$rootScope.recomPlaylist.push(playtemp[j]);
+						}
+						
+						/*for(var j=0; j <$rootScope.playlist.length; j++){
+							for(var i = index; i<$rootScope.playlist.length; i++){
+					    	
+					    		$rootScope.recomPlaylist[j]=$rootScope.playlist[i];
+					    	}
+				    	
+				    	}*/
+				    }
+				}
+			    //var playtemp = $rootScope.playlist.slice(index+1, $rootScope.playlist.length);
+			    /*var playtemp=$rootScope.playlist[index];
+			    console.log($rootScope.playlist);
+			    */
+			    
+			}
+
+		});
+
 		/*$(document).on('click', function(event) {
 
 		  if (!$(event.target).closest('.addtoplaylist').length) {
@@ -284,6 +311,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 	
 
     },
+
 
 
   }

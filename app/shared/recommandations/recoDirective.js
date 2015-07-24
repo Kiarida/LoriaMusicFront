@@ -22,7 +22,7 @@ app.directive('recommandations', function(Auth, routeRessource, $resource, $time
 		        }
 	        });
 
-	scope.getRecommandations=function(){
+	scope.getRecommandation=function(){
 	
 			var algo = $rootScope.currentUserTest[0].idgroup[0].idalgorithm[0].nom
 

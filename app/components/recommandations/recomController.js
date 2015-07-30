@@ -37,7 +37,7 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
 
 
       Recommandations.query({iduser:Auth.getUser().id, item : $rootScope.currentVideo.id},function(mess){
-    
+
       for(var i in $scope.listAlgos){
 
         var algos = $scope.listAlgos[i].nom;

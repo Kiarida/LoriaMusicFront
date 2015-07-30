@@ -264,6 +264,7 @@ font-style: italic;
 .reco-song .smallPlaylist, .current-song .smallPlaylist{
    border: 2px solid grey;
   border-radius: 25px;
+  overflow: hidden;
 }
 .reco-song > .overlay{
   background: none repeat scroll black;
@@ -333,7 +334,7 @@ font-style: italic;
   height: 100%;
   float: right;
   width: 200px;
-  margin-top: -50%;
+  margin-top: -58%;
 }
 
 
@@ -416,6 +417,9 @@ box-shadow: 10px 10px 5px #656565;
   position:absolute;
 }
 
+i.icon-minus, i.icon-plus{
+  color:white;
+}
 
 .result-searching-contain{
   padding:10px;

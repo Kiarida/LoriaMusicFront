@@ -193,20 +193,25 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 		$scope.$apply(function(){
 			
+			if(recommended==false){
+				if($rootScope.radioMode){
+				$rootScope.$broadcast('creationEcoute');
+				}
+			
+				else if($rootScope.recomMode){
+			      	$scope.getRecommandation();
+			      }
+			      recommended=true;
+			}
 		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
 		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
 			created=true;
 			//if(recommended == false){
-			if($rootScope.radioMode){
-				$rootScope.$broadcast('creationEcoute');
-			}
 			
-			else if($rootScope.recomMode){
-			      	$scope.getRecommandation();
-			      }
-			      recommended=true;
 			//}
-			$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute}, function(mess){
+			console.log($rootScope.playlist);
+			
+			$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : $rootScope.typeEcoute}, function(mess){
 
 			});
 			//$rootScope.$broadcast('creationEcoute');
@@ -381,6 +386,7 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
 				
 						marked=false;
 		    			created=false;
+		    			recommended=false;
       				});
 
     	}
@@ -388,6 +394,7 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
     	created = false;
 		marked=false;
 		ended=false;
+		recommended=false;
     	
     	//$scope.start();
 		

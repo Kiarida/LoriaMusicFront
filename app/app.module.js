@@ -59,7 +59,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   var code = codeUrl[3].split("?code=")[1];
   var access_token = params[0].split("/access_token=")[1];
   console.log(code);
-  $http.post("http://develop.api/api/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
+  $http.post("http://papaye/api/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
     // this callback will be called asynchronously
     // when the response is available
     //console.log(data);
@@ -83,6 +83,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       $rootScope.radioMode=false;
       $rootScope.recomMode=false;
+      if($location.url() != "/radios/recommandations"){
+      	$rootScope.wideRadio=false;
+      }
+      
+     
       if($rootScope.recomPlaylist && $rootScope.recomPlaylist.length > 1 && !$rootScope.radioMode && !$rootScope.recomMode){
         $rootScope.playlist=[];
       }
@@ -596,45 +601,45 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 }]);
 
 app.constant("routeRessource", {
-  "CreateToken" : "http://develop.api/api/app.php/security/tokens/creates.json",
-  "CreateUser"  : "http://develop.api/api/app.php/users",
-  "IsConnected" : "http://develop.api/api/app.php/api/connected",
-  "PrefUser" : "http://develop.api/api/app.php/api/users/:id",
-  "Genres" : "http://develop.api/api/app.php/genres",
-  "ItemGenre" : "http://develop.api/api/app.php/items/genre/:id",
-  "Artistes" : "http://develop.api/api/app.php/artistes.json",
-  "SearchArtists" : "http://develop.api/api/app.php/artistes/search/:key",
-  "ItemArtiste" : "http://develop.api/api/app.php/items/artiste/:id",
-  "ItemPopular" : "http://develop.api/api/app.php/items/get/popular.json",
-  "ItemSearch" : "http://develop.api/api/app.php/items/search/:key",
-  "ArtisteSearch" : "http://develop.api/api/app.php/artistes/search/:key",
-  "PlaylistDetail" : "http://develop.api/api/app.php/users/:iduser/playlists/:id",
-  "RandomItemByGenre" : "http://develop.api/api/app.php/items/genre/:id",
-  "RandomItemByArtiste" : "http://develop.api/api/app.php/items/artiste/:id",
-  "Sessions" : "http://develop.api/api/app.php/users/:id/sessions",
-  "EcoutesBySession" : "http://develop.api/api/app.php/users/:id/sessions/:id_session",
-  "TagsBySession" : "http://develop.api/api/app.php/users/:id/sessions/:id_session/tags/:idtag",
-  "PlaylistTags" : "http://develop.api/api/app.php/users/:iduser/playlists/:id/tags/:idtag",
-  "PlaylistUser" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
-  "Friends" : "http://develop.api/api/app.php/users/:iduser/friends/:idfriend",
-  "Albums" : "http://develop.api/api/app.php/items/albums/:idartiste",
-  "ItemsByAction" : "http://develop.api/api/app.php/users/:iduser/action/:idaction/items",
-  "RateItem" : "http://develop.api/api/app.php/users/:iduser/note/item/:iditem",
-  "AddItemPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist/items/:iditem",
-  "AddInteraction" : "http://develop.api/api/app.php/users/:iduser/interaction",
-  "AddAction" : "http://develop.api/api/app.php/users/:iduser/action",
-  "AddEcoute" : "http://develop.api/api/app.php/users/:iduser/ecoute",
-  "GetTypes" : "http://develop.api/api/app.php/users/:iduser/actions/:iditem",
-  "ArtistScore" : "http://develop.api/api/app.php/users/:iduser/note/artiste/:idartiste",
-  "Artist" : "http://develop.api/api/app.php/artistes/:idartiste",
-  "Playlists" : "http://develop.api/api/app.php/users/:iduser/playlist",
-  "PlaylistTracks" : "http://develop.api/api/app.php/users/:iduser/playlist/:idplaylist",
-  "TagsByPlaylist" : "http://develop.api/api/app.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
-  //"getStreaming" : "http://develop.api/api/app.php/items/grooveshark/:iditem",
-  "mark30seconds" : "http://develop.api/api/app.php/items/grooveshark/mark30secondes",
-  "markComplete" : "http://develop.api/api/app.php/items/grooveshark/markComplete",
-  "getSearchGrooveshark" : "http://develop.api/api/app.php/items/",
-  "searchItemGrooveshark" : "http://develop.api/api/app.php/items/grooveshark/search/:key",
+  "CreateToken" : "http://papaye/api/app.php/security/tokens/creates.json",
+  "CreateUser"  : "http://papaye/api/app.php/users",
+  "IsConnected" : "http://papaye/api/app.php/api/connected",
+  "PrefUser" : "http://papaye/api/app.php/api/users/:id",
+  "Genres" : "http://papaye/api/app.php/genres",
+  "ItemGenre" : "http://papaye/api/app.php/items/genre/:id",
+  "Artistes" : "http://papaye/api/app.php/artistes.json",
+  "SearchArtists" : "http://papaye/api/app.php/artistes/search/:key",
+  "ItemArtiste" : "http://papaye/api/app.php/items/artiste/:id",
+  "ItemPopular" : "http://papaye/api/app.php/items/get/popular.json",
+  "ItemSearch" : "http://papaye/api/app.php/items/search/:key",
+  "ArtisteSearch" : "http://papaye/api/app.php/artistes/search/:key",
+  "PlaylistDetail" : "http://papaye/api/app.php/users/:iduser/playlists/:id",
+  "RandomItemByGenre" : "http://papaye/api/app.php/items/genre/:id",
+  "RandomItemByArtiste" : "http://papaye/api/app.php/items/artiste/:id",
+  "Sessions" : "http://papaye/api/app.php/users/:id/sessions",
+  "EcoutesBySession" : "http://papaye/api/app.php/users/:id/sessions/:id_session",
+  "TagsBySession" : "http://papaye/api/app.php/users/:id/sessions/:id_session/tags/:idtag",
+  "PlaylistTags" : "http://papaye/api/app.php/users/:iduser/playlists/:id/tags/:idtag",
+  "PlaylistUser" : "http://papaye/api/app.php/users/:iduser/playlist/:idplaylist",
+  "Friends" : "http://papaye/api/app.php/users/:iduser/friends/:idfriend",
+  "Albums" : "http://papaye/api/app.php/items/albums/:idartiste",
+  "ItemsByAction" : "http://papaye/api/app.php/users/:iduser/action/:idaction/items",
+  "RateItem" : "http://papaye/api/app.php/users/:iduser/note/item/:iditem",
+  "AddItemPlaylist" : "http://papaye/api/app.php/users/:iduser/playlist/:idplaylist/items/:iditem",
+  "AddInteraction" : "http://papaye/api/app.php/users/:iduser/interaction",
+  "AddAction" : "http://papaye/api/app.php/users/:iduser/action",
+  "AddEcoute" : "http://papaye/api/app.php/users/:iduser/ecoute",
+  "GetTypes" : "http://papaye/api/app.php/users/:iduser/actions/:iditem",
+  "ArtistScore" : "http://papaye/api/app.php/users/:iduser/note/artiste/:idartiste",
+  "Artist" : "http://papaye/api/app.php/artistes/:idartiste",
+  "Playlists" : "http://papaye/api/app.php/users/:iduser/playlist",
+  "PlaylistTracks" : "http://papaye/api/app.php/users/:iduser/playlist/:idplaylist",
+  "TagsByPlaylist" : "http://papaye/api/app.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
+  //"getStreaming" : "http://papaye/api/app.php/items/grooveshark/:iditem",
+  "mark30seconds" : "http://papaye/api/app.php/items/grooveshark/mark30secondes",
+  "markComplete" : "http://papaye/api/app.php/items/grooveshark/markComplete",
+  "getSearchGrooveshark" : "http://papaye/api/app.php/items/",
+  "searchItemGrooveshark" : "http://papaye/api/app.php/items/grooveshark/search/:key",
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,
@@ -648,19 +653,19 @@ app.constant("routeRessource", {
   "blockAction" : 1,
   "likeAction" : 2,
   "shareAction" : 3,
-  "LastEcoutes" : "http://develop.api/api/app.php/users/:id/ecoute.json",
-  "TagsItem" : "http://develop.api/api/app.php/items/:id/tags/:idtag",
-  "NoteTagsItem" : "http://develop.api/api/app.php/users/:iduser/items/:id/tags/:idtag",
-  "RhapsodyToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/new",
-  "RhapsodyRefreshToken": "http://develop.api/api/app.php/users/:iduser/rhapsody/refresh",
-  "EndSession":"http://develop.api/api/app.php/users/:iduser/session/end",
-  "Algos" : "http://develop.api/api/app.php/algorithms",
-  "Tests" : "http://develop.api/api/app.php/tests",
-  "CurrentTest" : "http://develop.api/api/app.php/tests/current/:iduser",
-  "EndTest" : "http://develop.api/api/app.php/tests/:idtest/end",
-  "Groups" : "http://develop.api/api/app.php/groups/verify",
-  "Recommandations" : "http://develop.api/api/app.php/users/:iduser/recommandations",
-  "SearchGenres" : "http://develop.api/api/app.php/genres/:key",
-  "GetStreaming" : "http://develop.api/api/app.php/items/xbox/streaming/:iditem",
+  "LastEcoutes" : "http://papaye/api/app.php/users/:id/ecoute.json",
+  "TagsItem" : "http://papaye/api/app.php/items/:id/tags/:idtag",
+  "NoteTagsItem" : "http://papaye/api/app.php/users/:iduser/items/:id/tags/:idtag",
+  "RhapsodyToken": "http://papaye/api/app.php/users/:iduser/rhapsody/new",
+  "RhapsodyRefreshToken": "http://papaye/api/app.php/users/:iduser/rhapsody/refresh",
+  "EndSession":"http://papaye/api/app.php/users/:iduser/session/end",
+  "Algos" : "http://papaye/api/app.php/algorithms",
+  "Tests" : "http://papaye/api/app.php/tests",
+  "CurrentTest" : "http://papaye/api/app.php/tests/current/:iduser",
+  "EndTest" : "http://papaye/api/app.php/tests/:idtest/end",
+  "Groups" : "http://papaye/api/app.php/groups/verify",
+  "Recommandations" : "http://papaye/api/app.php/users/:iduser/recommandations",
+  "SearchGenres" : "http://papaye/api/app.php/genres/:key",
+  "GetStreaming" : "http://papaye/api/app.php/items/xbox/streaming/:iditem",
 
 });

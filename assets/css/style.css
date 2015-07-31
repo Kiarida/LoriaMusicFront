@@ -417,7 +417,7 @@ box-shadow: 10px 10px 5px #656565;
   position:absolute;
 }
 
-i.icon-minus, i.icon-plus{
+.label .icon-minus, .label .icon-plus{
   color:white;
 }
 
@@ -1480,7 +1480,7 @@ videogular vg-timedisplay{ display: none; }
 }
 
 .player-reduced.reduced i{
-  color:#374051;
+  
 }
 
 .scrubs{
@@ -1539,7 +1539,7 @@ button.iconButton.active i{color:#0079a6;}
 
 .playlist-player td{ padding:5px 0; }
 .playlist-player tr{ height: 55px; }
-.small.playlist-player tr{ height: 35px; }
+.small.playlist-player tr{ height: 32px; }
 .small.playlist-player{ font-size: 100%; background: #fff; width: 70%; overflow: visible; }
 .small vg-scrubbar > div{
   background: #d9dcde;
@@ -1893,7 +1893,7 @@ span{
 }
 
 /******** TAG *********/
-.playlist-tag .label{ float: left; margin: 0 4px; background: #374051; padding: 6px; }
+.playlist-tag .label{ float: left; margin: 1px 4px; background: #374051;  }
 .playlist-tag .label a{ color: #fff; font-size: 0.7em; }
 .playlist-tag .label a:first-child{ margin-right: 4px; }
 .playlist-tag .label a:last-child{ margin-left: 4px; }

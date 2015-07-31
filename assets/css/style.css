@@ -186,6 +186,7 @@ label{
    margin-top:155px;
   height: 220px;
   width: 50%;
+  position: relative;
   
 
 }
@@ -224,6 +225,7 @@ font-style: italic;
 
 
 .current-song{
+  float:left;
   margin-left: 20%;
   background: white;
   border-radius: 25px;
@@ -334,7 +336,10 @@ font-style: italic;
   height: 100%;
   float: right;
   width: 200px;
-  margin-top: -58%;
+}
+
+.arrows img{
+  margin : 20px;
 }
 
 
@@ -1329,11 +1334,7 @@ textarea{
   padding: 10px;
 }
 
-.blocked button{
-  background: transparent;
-  border:none;
-  float:right;
-}
+
 
 .blocked div{
   border-bottom: 1px solid grey;

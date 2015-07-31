@@ -347,12 +347,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 
     $rootScope.search = function(){
-      if($location.url() != "/search"){
-        $rootScope.smallSearch=true;
-      }
-      else{
-        $rootScope.smallSearch=false;
-      }
+      $rootScope.smallSearch=true;
       //  $location.path('/search');
       $rootScope.initSearch();
       $rootScope.resArtiste =[];

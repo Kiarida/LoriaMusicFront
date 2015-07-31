@@ -34,7 +34,7 @@
 	<tab heading ="BLOCKED SONGS">
 		<div class="round back" click-link="/home"></div>
 		<div class="blocked">
-			<div ng-repeat="item in blockedItems track by $index">{{item.titre}} - <i> {{item.nom}}</i> <button tooltip="Unblock this song" class="iconButton" type="button" aria-label="Unblock this song" ng-click="$root.block(); unblock($index)"><i class="icon-blocked"></i></button></div>
+			<div ng-repeat="item in blockedItems track by $index">{{item.titre}} - <i> {{item.nom}}</i> <a class="iconButton" aria-label="Unblock this song" ng-click="$root.block(); unblock($index)"><span ><i tooltip="Unblock this song" class="icon-blocked"></i></span></a></div>
 		</div>
 	</tab>
 </div>

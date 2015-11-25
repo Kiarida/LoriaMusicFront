@@ -45,7 +45,7 @@
 
 
 			<div class="playlist-cover text-center">
-				<img src="{{ecoutes.urlCover}}"/>
+				<img ng-src="{{ecoutes.urlCover}}"/>
 			</div>
 		</div><div ng-if="content.length < 5" ng-repeat="n in [] | ecouteRange: (5-content.length)" class="ecoute placeholder text-center"><p ng-if="!$root.radioMode && !$root.recomMode">Add tracks to your playlist !</p>
 	

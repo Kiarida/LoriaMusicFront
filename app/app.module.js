@@ -59,7 +59,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   var code = codeUrl[3].split("?code=")[1];
   var access_token = params[0].split("/access_token=")[1];
   console.log(code);
-  $http.post("http://develop.api/api/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
+  $http.post("http://develop.api/api/app.php/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
     // this callback will be called asynchronously
     // when the response is available
     //console.log(data);

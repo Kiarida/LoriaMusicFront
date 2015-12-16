@@ -47,8 +47,11 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 			user.country = post.country;
 			user.username= post.username;
 			user.id = post.id;
+
+			console.log(user);
+
 			Auth.setUser(user);
-			if(post.role[0]== "ROLE_SUPER_ADMIN"){
+			if(post.role == "ROLE_SUPER_ADMIN"){
 				user.role="admin_user";
 				$rootScope.isAdmin=true;
 				//$window.location.href="app/components/admin/adminView.html";

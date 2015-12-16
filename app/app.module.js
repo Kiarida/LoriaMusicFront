@@ -1,4 +1,3 @@
-
 var app= angular.module('PlayerApp',
   [
     'ngRoute',
@@ -59,7 +58,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   var code = codeUrl[3].split("?code=")[1];
   var access_token = params[0].split("/access_token=")[1];
   console.log(code);
-  $http.post("http://develop.api/api/app_dev.php/items/xbox/streaming", {code:code}).success(function(data, status, headers, config) {
+  $http.post(getUrl("/items/xbox/streaming"), {code:code}).success(function(data, status, headers, config) {
     // this callback will be called asynchronously
     // when the response is available
     //console.log(data);
@@ -381,17 +380,30 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $rootScope.resItem = error.data;
           }
         );
-        var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
-            function(){
-              $rootScope.resArtiste = artisteItem;
-              if($rootScope.smallSearch==true){
-                $rootScope.smallResArtiste=$rootScope.resArtiste.slice(0,9);
-              }
-            },
-            function(error){
-              $rootScope.resArtiste = error.data;
-            }
-        );
+        // var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
+        //     function(){
+        //       $rootScope.resArtiste = artisteItem;
+        //       if($rootScope.smallSearch==true){
+        //         //$rootScope.smallResArtiste=$rootScope.resArtiste.slice(0,9);
+        //         $rootScope.smallResArtiste=$rootScope.resArtiste;
+        //       }
+        //     },
+        //     function(error){
+        //       $rootScope.resArtiste = error.data;
+        //     }
+        // );
+
+        var artisteItem = $resource(routeRessource.LastFM_Artiste, 
+        { 
+          artist: "@artistName",
+          format: 'json'
+        });
+
+        artisteItem.get({artist: $rootScope.wordSearched.search}).$promise.then(function(data) {
+          $rootScope.smallResArtiste = data.results.artistmatches.artist;
+
+          console.info("Résultats pour Artiste", $rootScope.smallResArtiste);
+        });
       }
     };
 
@@ -596,46 +608,59 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
 }]);
 
+var config = {
+  baseURL: "http://develop.api/api/",
+  development: true
+};
+
+function getUrl(url) {
+  var baseURL = config.baseURL;
+  baseURL += (config.development) ? "app_dev.php" : "app.php";
+  baseURL += url;
+
+  return baseURL;
+}
+
 app.constant("routeRessource", {
-  "CreateToken" : "http://develop.api/api/app_dev.php/security/tokens/creates.json",
-  "CreateUser"  : "http://develop.api/api/app_dev.php/users",
-  "IsConnected" : "http://develop.api/api/app_dev.php/api/connected",
-  "PrefUser" : "http://develop.api/api/app_dev.php/api/users/:id",
-  "Genres" : "http://develop.api/api/app_dev.php/genres",
-  "ItemGenre" : "http://develop.api/api/app_dev.php/items/genre/:id",
-  "Artistes" : "http://develop.api/api/app_dev.php/artistes.json",
-  "SearchArtists" : "http://develop.api/api/app_dev.php/artistes/search/:key",
-  "ItemArtiste" : "http://develop.api/api/app_dev.php/items/artiste/:id",
-  "ItemPopular" : "http://develop.api/api/app_dev.php/items/get/popular.json",
-  "ItemSearch" : "http://develop.api/api/app_dev.php/items/search/:key",
-  "ArtisteSearch" : "http://develop.api/api/app_dev.php/artistes/search/:key",
-  "PlaylistDetail" : "http://develop.api/api/app_dev.php/users/:iduser/playlists/:id",
-  "RandomItemByGenre" : "http://develop.api/api/app_dev.php/items/genre/:id",
-  "RandomItemByArtiste" : "http://develop.api/api/app_dev.php/items/artiste/:id",
-  "Sessions" : "http://develop.api/api/app_dev.php/users/:id/sessions",
-  "EcoutesBySession" : "http://develop.api/api/app_dev.php/users/:id/sessions/:id_session",
-  "TagsBySession" : "http://develop.api/api/app_dev.php/users/:id/sessions/:id_session/tags/:idtag",
-  "PlaylistTags" : "http://develop.api/api/app_dev.php/users/:iduser/playlists/:id/tags/:idtag",
-  "PlaylistUser" : "http://develop.api/api/app_dev.php/users/:iduser/playlist/:idplaylist",
-  "Friends" : "http://develop.api/api/app_dev.php/users/:iduser/friends/:idfriend",
-  "Albums" : "http://develop.api/api/app_dev.php/items/albums/:idartiste",
-  "ItemsByAction" : "http://develop.api/api/app_dev.php/users/:iduser/action/:idaction/items",
-  "RateItem" : "http://develop.api/api/app_dev.php/users/:iduser/note/item/:iditem",
-  "AddItemPlaylist" : "http://develop.api/api/app_dev.php/users/:iduser/playlist/:idplaylist/items/:iditem",
-  "AddInteraction" : "http://develop.api/api/app_dev.php/users/:iduser/interaction",
-  "AddAction" : "http://develop.api/api/app_dev.php/users/:iduser/action",
-  "AddEcoute" : "http://develop.api/api/app_dev.php/users/:iduser/ecoute",
-  "GetTypes" : "http://develop.api/api/app_dev.php/users/:iduser/actions/:iditem",
-  "ArtistScore" : "http://develop.api/api/app_dev.php/users/:iduser/note/artiste/:idartiste",
-  "Artist" : "http://develop.api/api/app_dev.php/artistes/:idartiste",
-  "Playlists" : "http://develop.api/api/app_dev.php/users/:iduser/playlist",
-  "PlaylistTracks" : "http://develop.api/api/app_dev.php/users/:iduser/playlist/:idplaylist",
-  "TagsByPlaylist" : "http://develop.api/api/app_dev.php/users/:iduser/playlists/:idplaylist/tags/:idtag",
-  //"getStreaming" : "http://develop.api/api/app_dev.php/items/grooveshark/:iditem",
-  "mark30seconds" : "http://develop.api/api/app_dev.php/items/grooveshark/mark30secondes",
-  "markComplete" : "http://develop.api/api/app_dev.php/items/grooveshark/markComplete",
-  "getSearchGrooveshark" : "http://develop.api/api/app_dev.php/items/",
-  "searchItemGrooveshark" : "http://develop.api/api/app_dev.php/items/grooveshark/search/:key",
+  "CreateToken" : getUrl("/security/tokens/creates.json"),
+  "CreateUser"  : getUrl("/users"),
+  "IsConnected" : getUrl("/api/connected"),
+  "PrefUser" : getUrl("/api/users/:id"),
+  "Genres" : getUrl("/genres"),
+  "ItemGenre" : getUrl("/items/genre/:id"),
+  "Artistes" : getUrl("/artistes.json"),
+  "SearchArtists" : getUrl("/artistes/search/:key"),
+  "ItemArtiste" : getUrl("/items/artiste/:id"),
+  "ItemPopular" : getUrl("/items/get/popular.json"),
+  "ItemSearch" : getUrl("/items/search/:key"),
+  "ArtisteSearch" : getUrl("/artistes/search/:key"),
+  "PlaylistDetail" : getUrl("/users/:iduser/playl)ists/:id"),
+  "RandomItemByGenre" : getUrl("/items/genre/:id"),
+  "RandomItemByArtiste" : getUrl("/items/artiste/:id"),
+  "Sessions" : getUrl("/users/:id/sessions"),
+  "EcoutesBySession" : getUrl("/users/:id/sessions/:id_session"),
+  "TagsBySession" : getUrl("/users/:id/sessions/:id_session/tags/:idtag"),
+  "PlaylistTags" : getUrl("/users/:iduser/playlists/:id/tags/:idtag"),
+  "PlaylistUser" : getUrl("/users/:iduser/playlist/:idplaylist"),
+  "Friends" : getUrl("/users/:iduser/friends/:idfriend"),
+  "Albums" : getUrl("/items/albums/:idartiste"),
+  "ItemsByAction" : getUrl("/users/:iduser/action/:idaction/items"),
+  "RateItem" : getUrl("/users/:iduser/note/item/:iditem"),
+  "AddItemPlaylist" : getUrl("/users/:iduser/playlist/:idplaylist/items/:iditem"),
+  "AddInteraction" : getUrl("/users/:iduser/interaction"),
+  "AddAction" : getUrl("/users/:iduser/action"),
+  "AddEcoute" : getUrl("/users/:iduser/ecoute"),
+  "GetTypes" : getUrl("/users/:iduser/actions/:iditem"),
+  "ArtistScore" : getUrl("/users/:iduser/note/artiste/:idartiste"),
+  "Artist" : getUrl("/artistes/:idartiste"),
+  "Playlists" : getUrl("/users/:iduser/playlist"),
+  "PlaylistTracks" : getUrl("/users/:iduser/playlist/:idplaylist"),
+  "TagsByPlaylist" : getUrl("/users/:iduser/playlists/:idplaylist/tags/:idtag"),
+  //"getStreaming" : getUrl("/items/grooveshark/:iditem",
+  "mark30seconds" : getUrl("/items/grooveshark/mark30secondes"),
+  "markComplete" : getUrl("/items/grooveshark/markComplete"),
+  "getSearchGrooveshark" : getUrl("/items/"),
+  "searchItemGrooveshark" : getUrl("/items/grooveshark/search/:key"),
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,
@@ -649,19 +674,19 @@ app.constant("routeRessource", {
   "blockAction" : 1,
   "likeAction" : 2,
   "shareAction" : 3,
-  "LastEcoutes" : "http://develop.api/api/app_dev.php/users/:id/ecoute.json",
-  "TagsItem" : "http://develop.api/api/app_dev.php/items/:id/tags/:idtag",
-  "NoteTagsItem" : "http://develop.api/api/app_dev.php/users/:iduser/items/:id/tags/:idtag",
-  "RhapsodyToken": "http://develop.api/api/app_dev.php/users/:iduser/rhapsody/new",
-  "RhapsodyRefreshToken": "http://develop.api/api/app_dev.php/users/:iduser/rhapsody/refresh",
-  "EndSession":"http://develop.api/api/app_dev.php/users/:iduser/session/end",
-  "Algos" : "http://develop.api/api/app_dev.php/algorithms",
-  "Tests" : "http://develop.api/api/app_dev.php/tests",
-  "CurrentTest" : "http://develop.api/api/app_dev.php/tests/current/:iduser",
-  "EndTest" : "http://develop.api/api/app_dev.php/tests/:idtest/end",
-  "Groups" : "http://develop.api/api/app_dev.php/groups/verify",
-  "Recommandations" : "http://develop.api/api/app_dev.php/users/:iduser/recommandations",
-  "SearchGenres" : "http://develop.api/api/app_dev.php/genres/:key",
-  "GetStreaming" : "http://develop.api/api/app_dev.php/items/xbox/streaming/:iditem",
-
+  "LastEcoutes" : getUrl("/users/:id/ecoute.json"),
+  "TagsItem" : getUrl("/items/:id/tags/:idtag"),
+  "NoteTagsItem" : getUrl("/users/:iduser/items/:id/tags/:idtag"),
+  "RhapsodyToken": getUrl("/users/:iduser/rhapsody/new"),
+  "RhapsodyRefreshToken": getUrl("/users/:iduser/rhapsody/refresh"),
+  "EndSession":getUrl("/users/:iduser/session/end"),
+  "Algos" : getUrl("/algorithms"),
+  "Tests" : getUrl("/tests"),
+  "CurrentTest" : getUrl("/tests/current/:iduser"),
+  "EndTest" : getUrl("/tests/:idtest/end"),
+  "Groups" : getUrl("/groups/verify"),
+  "Recommandations" : getUrl("/users/:iduser/recommandations"),
+  "SearchGenres" : getUrl("/genres/:key"),
+  "GetStreaming" : getUrl("/items/xbox/streaming/:iditem"),
+  "LastFM_Artiste": "http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=30c3c9603ff7e5fba386bf8348abdb46"
 });

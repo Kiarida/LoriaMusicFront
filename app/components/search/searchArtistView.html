@@ -1,15 +1,15 @@
 <div class='overlay album-result'></div>
 <div  class='thumbnail album-result'>
-  <div class='artist-search-result' ng-init="id = card.idartiste ? card.idartiste[0].id : card.id; artiste = card.idartiste ? card.idartiste[0] : card; nom = card.idartiste ? card.titre : card.nom">
+  <div class='artist-search-result'>
 	<a href="#/artist/{{id}}" ng-click="$root.stockArtist(artiste)" class='play go-page'>
 		<p>Go to page</p>
 	</a>
-	<div class='caption'>
-		<h4>{{nom}}</h4>
 
+	<div class='caption'>
+		<h4>{{card.name}}</h4>
 	</div>
 
-	<img src='{{card.urlCover ? card.urlCover : card.url_cover}}' alt='{{card.libelle}}'>
+	<img ng-src='{{card.image[3]["#text"]}}' alt='{{card.name}}'>
 </div>
 
 

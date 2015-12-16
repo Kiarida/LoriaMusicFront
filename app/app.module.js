@@ -381,17 +381,30 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $rootScope.resItem = error.data;
           }
         );
-        var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
-            function(){
-              $rootScope.resArtiste = artisteItem;
-              if($rootScope.smallSearch==true){
-                $rootScope.smallResArtiste=$rootScope.resArtiste.slice(0,9);
-              }
-            },
-            function(error){
-              $rootScope.resArtiste = error.data;
-            }
-        );
+        // var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
+        //     function(){
+        //       $rootScope.resArtiste = artisteItem;
+        //       if($rootScope.smallSearch==true){
+        //         //$rootScope.smallResArtiste=$rootScope.resArtiste.slice(0,9);
+        //         $rootScope.smallResArtiste=$rootScope.resArtiste;
+        //       }
+        //     },
+        //     function(error){
+        //       $rootScope.resArtiste = error.data;
+        //     }
+        // );
+
+        var artisteItem = $resource(routeRessource.LastFM_Artiste, 
+        { 
+          artist: "@artistName",
+          format: 'json'
+        });
+
+        artisteItem.get({artist: $rootScope.wordSearched.search}).$promise.then(function(data) {
+          $rootScope.smallResArtiste = data.results.artistmatches.artist;
+
+          console.info("Résultats pour Artiste", $rootScope.smallResArtiste);
+        });
       }
     };
 
@@ -663,5 +676,5 @@ app.constant("routeRessource", {
   "Recommandations" : "http://develop.api/api/app_dev.php/users/:iduser/recommandations",
   "SearchGenres" : "http://develop.api/api/app_dev.php/genres/:key",
   "GetStreaming" : "http://develop.api/api/app_dev.php/items/xbox/streaming/:iditem",
-
+  "LastFM_Artiste": "http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=30c3c9603ff7e5fba386bf8348abdb46"
 });

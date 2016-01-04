@@ -190,6 +190,27 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     }
 
+    $rootScope.youtubePlayer = function(trackName, artistName) {
+      gapi.client.setApiKey("AIzaSyCzX7TPX4Nkbov_oktRLpUH7pxvL0Q3B34");
+
+      gapi.client.load('youtube', 'v3', function() {
+        var request = gapi.client.youtube.search.list({
+          q: trackName + " " + artistName,
+          part: 'snippet',
+        });
+
+      function renderIFrame(videoId) {
+        return '<iframe src="http://www.youtube.com/embed/' + videoId + '?autoplay=1" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+      }
+
+      request.execute(function(response) {
+        console.log(response.result.items);
+
+        angular.element(document).find("body").append(renderIFrame(response.result.items[0].id.videoId));
+      });
+    });
+  };
+
     $rootScope.launchPlay = function(track, param){
       if(!$rootScope.radioMode && $rootScope.wideRadio){
          $rootScope.radioMode=false;
@@ -344,6 +365,16 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       Auth.setUser($cookieStore.get('user'));
     }
 
+    var trackItem = $resource(routeRessource.LastFM_Track, {
+      track: "@trackName",
+      format: 'json'
+    });
+
+    var artisteItem = $resource(routeRessource.LastFM_Artiste, { 
+        artist: "@artistName",
+        format: 'json'
+    });
+
 
 
     $rootScope.search = function(){
@@ -357,29 +388,48 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
        $rootScope.resArtiste =[];
         $rootScope.resItem = [];
         $rootScope.resAlbum = [];
-        var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
-          function(){
-            $rootScope.resItem = [];
-            for(var i=0; i<item.length; i++){
+        
+        trackItem.get({track: $rootScope.wordSearched.search}).$promise.then(function(data) {
+          $rootScope.smallResItem = data.results.trackmatches.track;
+
+          console.info("Résultats pour Titres", $rootScope.smallResItem);
+        }).catch(function(error) {
+          //$rootScope.resItem = error.data;
+        });
+
+        artisteItem.get({artist: $rootScope.wordSearched.search}).$promise.then(function(data) {
+          $rootScope.smallResArtiste = data.results.artistmatches.artist;
+
+          console.info("Résultats pour Artiste", $rootScope.smallResArtiste);
+        }).catch(function(error) {
+            //$rootScope.resArtiste = error.data;
+        });
+
+
+
+        // var item = $rootScope.Search.query({key:$rootScope.wordSearched.search},
+        //   function(){
+        //     $rootScope.resItem = [];
+        //     for(var i=0; i<item.length; i++){
               
-              if(item[i].typeitem == 1){
-                    $rootScope.resItem.push(item[i]);
-              }
-              else{
-                $rootScope.resAlbum.push(item[i]);
-              }
-            }
-            if($rootScope.smallSearch==true){
-              $rootScope.smallResItem=$rootScope.resItem.slice(0,9);
-              $rootScope.smallResAlbum=$rootScope.resAlbum.slice(0,9);
-            }
+        //       if(item[i].typeitem == 1){
+        //             $rootScope.resItem.push(item[i]);
+        //       }
+        //       else{
+        //         $rootScope.resAlbum.push(item[i]);
+        //       }
+        //     }
+        //     if($rootScope.smallSearch==true){
+        //       $rootScope.smallResItem=$rootScope.resItem.slice(0,9);
+        //       $rootScope.smallResAlbum=$rootScope.resAlbum.slice(0,9);
+        //     }
             
            
-          },
-          function(error){
-            $rootScope.resItem = error.data;
-          }
-        );
+        //   },
+        //   function(error){
+        //     $rootScope.resItem = error.data;
+        //   }
+        // );
         // var artisteItem = $rootScope.SearchArtiste.query({key:$rootScope.wordSearched.search},
         //     function(){
         //       $rootScope.resArtiste = artisteItem;
@@ -392,18 +442,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         //       $rootScope.resArtiste = error.data;
         //     }
         // );
-
-        var artisteItem = $resource(routeRessource.LastFM_Artiste, 
-        { 
-          artist: "@artistName",
-          format: 'json'
-        });
-
-        artisteItem.get({artist: $rootScope.wordSearched.search}).$promise.then(function(data) {
-          $rootScope.smallResArtiste = data.results.artistmatches.artist;
-
-          console.info("Résultats pour Artiste", $rootScope.smallResArtiste);
-        });
       }
     };
 
@@ -688,5 +726,6 @@ app.constant("routeRessource", {
   "Recommandations" : getUrl("/users/:iduser/recommandations"),
   "SearchGenres" : getUrl("/genres/:key"),
   "GetStreaming" : getUrl("/items/xbox/streaming/:iditem"),
-  "LastFM_Artiste": "http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=30c3c9603ff7e5fba386bf8348abdb46"
+  "LastFM_Artiste": "http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=30c3c9603ff7e5fba386bf8348abdb46",
+  "LastFM_Track": "http://ws.audioscrobbler.com/2.0/?method=track.search&api_key=30c3c9603ff7e5fba386bf8348abdb46"
 });

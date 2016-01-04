@@ -1,7 +1,7 @@
 <table>
 	<tbody ng-drop="draggable" ng-init="hideTags=true" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" ng-drag="draggable" ng-drag-data="ecoutes" >
 		<tr ng-class="{active : controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-			<td ng-if="!withPlayer" ng-click="$root.typeEcoute = 0;$root.launchPlay(ecoutes);" class="index">
+			<td ng-if="!withPlayer" ng-click="$root.typeEcoute = 0;$root.youtubePlayer(ecoutes.name, ecoutes.artist);" class="index">
 				<a href="">
 					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 					<i class="icon-volume-medium" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
@@ -19,11 +19,11 @@
 			</td>
 			<td class="title">
 				<a class="wrap">
-					<span tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
+					<span tooltip="{{ecoutes.name}}">{{ecoutes.name}}</span>
 				</a>
 			</td>
 
-			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{artiste}}</span></a></td>
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{ecoutes.artist}}</span></a></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
 				<span tooltip="Average rating : {{ecoutes.note}}
 				Your rating : {{ecoutes.userRate}}">

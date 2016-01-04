@@ -4,7 +4,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
     templateUrl: function(tElement, tAttrs){
     	if (tAttrs.type) {
             if (tAttrs.type === 'playlist') {
-               return "app/components/player/playlistTemplate.html?t=000";
+               return "app/components/player/playlistTemplate.html";
             }
             if(tAttrs.type === 'smallPlaylist'){
             	return "app/components/player/smallPlaylistTemplate.html";

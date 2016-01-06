@@ -199,14 +199,27 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           part: 'snippet',
         });
 
-      function renderIFrame(videoId) {
-        return '<iframe src="http://www.youtube.com/embed/' + videoId + '?autoplay=1" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+      function generateLink(videoId) {
+        return "http://www.youtube.com/embed/" + videoId + "?autoplay=1";
+      }
+
+      function renderFrame(videoId) {
+        return '<iframe id="youtube_player" style="position:absolute;right:20px;top:10px" src="'+ generateLink(videoId) +'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+      }
+
+      function showIframe(videoId) {
+        var $player = angular.element(document.getElementById("youtube_player"));
+
+        if($player.length == 0) {
+          angular.element(document.body).append(renderFrame(videoId));
+        } else {
+          $player.attr('src', generateLink(videoId));
+        }
       }
 
       request.execute(function(response) {
         console.log(response.result.items);
-
-        angular.element(document).find("body").append(renderIFrame(response.result.items[0].id.videoId));
+        showIframe(response.result.items[0].id.videoId);
       });
     });
   };

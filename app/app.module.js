@@ -204,7 +204,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
 
       function renderFrame(videoId) {
-        return '<iframe id="youtube_player" style="position:absolute;right:20px;top:10px" src="'+ generateLink(videoId) +'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+        return '<iframe id="youtube_player" style="position:absolute;z-index:100;right:20px;top:10px" src="'+ generateLink(videoId) +'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
       }
 
       function showIframe(videoId) {

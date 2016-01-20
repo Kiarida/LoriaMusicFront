@@ -211,17 +211,63 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     };
 
+    var SearchItem = $resource(routeRessource.searchItem, {}, {
+      'query': {
+          method: 'GET',
+          isArray: true,
+          params: {key:"@key"}
+      }
+    });
+
+    var GetItemGrooveshark = null;
+
     $rootScope.launchPlay = function(track, param){
       if(!$rootScope.radioMode && $rootScope.wideRadio){
-         $rootScope.radioMode=false;
+        $rootScope.radioMode=false;
         $rootScope.recomMode=false;
         $rootScope.wideRadio=false;
       }
 
       console.log(">>>>>>>>>>>>>>", track);
-      // TODO get from server the track 
-      // then
-      $rootScope.playByYouTube("jz5lA0kXG1s");
+
+      if(!GetItemGrooveshark) {
+        GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
+        {
+          'save': {
+              method: 'POST',
+              isArray: true,
+              headers: {
+                "Authorization" : 'WSSE profile="UsernameToken"',
+                "X-wsse" : Auth.getUser().wsse
+              },
+              params:{}
+          }
+        });
+      }
+      
+      SearchItem.query({ key: track.name }).$promise.then(function(items) {
+        if(items.length == 0) {
+
+          return GetItemGrooveshark.save({
+            url: track.url, 
+            titre: track.name, 
+            nom: track.artist,
+            nomAlbum: '',
+            duration: 0,
+            urlCover: (track.image.length > 0) ? track.image[0]['#text'] : null,
+          }).$promise.then(function(item) {
+            $rootScope.playByYouTube(item.YouTubeVideoId);
+            $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
+          });
+
+        } else {
+          var item = items[0];
+          $rootScope.playByYouTube(item.YouTubeVideoId);
+          $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
+        }
+      }).catch(function(error) {
+        console.error(error);
+      });
      
       /*var Stream = $resource(routeRessource.GetStreaming, {},{
         'query': {
@@ -248,21 +294,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
         //$location.path('/home');
 
-
         //Rhapsody.player.play(track.url);
-
-        var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
-        {
-          'save': {
-              method: 'POST',
-              isArray: true,
-              headers: {
-                "Authorization" : 'WSSE profile="UsernameToken"',
-                "X-wsse" : Auth.getUser().wsse
-              },
-              params:{}
-            }
-        });
         var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom, duration:track.duration}, function(mess){
         track.id=mess[0].id;
         } );
@@ -706,6 +738,7 @@ app.constant("routeRessource", {
   "markComplete" : getUrl("/items/grooveshark/markComplete"),
   "getSearchGrooveshark" : getUrl("/items/"),
   "searchItemGrooveshark" : getUrl("/items/grooveshark/search/:key"),
+  "searchItem": getUrl("/items/search/:key"),
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,

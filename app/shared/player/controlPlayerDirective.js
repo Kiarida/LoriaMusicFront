@@ -89,7 +89,9 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 
 		}; 
 
-		$rootScope.youtubePlayer.addEventListener("onStateChange", playInLoop);
+		if($rootScope.youtubePlayer) {
+			$rootScope.youtubePlayer.addEventListener("onStateChange", playInLoop);
+		}
 
 		function playInLoop(state) {
 			if(state.data == YT.PlayerState.ENDED && scope.controller.loop) {

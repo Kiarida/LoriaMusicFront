@@ -107,7 +107,10 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	};
 
-
+	this.onVolumeChange = function(volume) {
+		var volumeYoutube = volume * 100;
+  		$rootScope.youtubePlayer.setVolume(volumeYoutube);
+  	};
 
 	this.onCompleteVideo = function() {
 		controller.isCompleted = true;

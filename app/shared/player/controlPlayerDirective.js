@@ -89,10 +89,18 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 
 		}; 
 
+		$rootScope.youtubePlayer.addEventListener("onStateChange", playInLoop);
+
+		function playInLoop(state) {
+			if(state.data == YT.PlayerState.ENDED && scope.controller.loop) {
+				$rootScope.youtubePlayer.playVideo();
+			}
+		}
+
 		scope.loop = function(){
-			if(scope.controller.loop)
+			if(scope.controller.loop) {
 				scope.controller.loop = false;
-			else{
+			} else{
 				createInteraction(routeRessource.loopInteraction);
 				scope.controller.loop = true;
 			}
@@ -193,19 +201,36 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 		};
 
 		scope.mute = function(){
-			if(scope.controller.API.volume == 0)
+			var isMuted = $rootScope.youtubePlayer.isMuted();
+
+			if(!isMuted) {
+				$rootScope.youtubePlayer.mute();
 				createInteraction(routeRessource.muteInteraction);
+			} else {
+				$rootScope.youtubePlayer.unMute();
+			}
 		}
 
 		scope.pause = function(){
-			if(Rhapsody.player.paused ==false){
-				Rhapsody.player.pause();
+			var playerState = $rootScope.youtubePlayer.getPlayerState();
+
+			if(playerState != YT.PlayerState.PAUSED){
+				$rootScope.youtubePlayer.pauseVideo();
 				createInteraction(routeRessource.playInteraction);
 			}
 			else{
-				Rhapsody.player.play();
+				$rootScope.youtubePlayer.playVideo();
 				createInteraction(routeRessource.stopInteraction);
 			}
+
+			// if(Rhapsody.player.paused ==false){
+			// 	Rhapsody.player.pause();
+			// 	createInteraction(routeRessource.playInteraction);
+			// }
+			// else{
+			// 	Rhapsody.player.play();
+			// 	createInteraction(routeRessource.stopInteraction);
+			// }
 
 		}
 

@@ -1,7 +1,7 @@
 <table>
 	<tbody ng-drop="draggable" ng-init="hideTags=true" ng-drop-success="onDropComplete1($data,$event, ecoutes)" ng-repeat="ecoutes in content" ng-drag="draggable" ng-drag-data="ecoutes" >
 		<tr ng-class="{active : controller.currentVideo ==$index }" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-			<td ng-if="!withPlayer" ng-click="$root.typeEcoute = 0;$root.youtubePlayer(ecoutes.name, ecoutes.artist);" class="index">
+			<td ng-if="!withPlayer" ng-click="$root.typeEcoute = 0;$root.launchPlay(ecoutes);" class="index">
 				<a href="">
 					<i class="icon-play2" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 					<i class="icon-volume-medium" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>

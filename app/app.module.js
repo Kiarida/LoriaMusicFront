@@ -71,11 +71,15 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   });
 
 
+  // initialisation du player Rhapsody
   Rhapsody.init({
-       consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
-       version: 'v1',
-       catalog: 'FR'
-    });
+     consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
+     version: 'v1',
+     catalog: 'FR'
+  });
+
+
+
     $rootScope.$on('$routeChangeStart', function (event) {
       $rootScope.searchingG=false;
       $rootScope.searchingA=false;
@@ -190,39 +194,22 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     }
 
-    $rootScope.youtubePlayer = function(trackName, artistName) {
-      gapi.client.setApiKey("AIzaSyCzX7TPX4Nkbov_oktRLpUH7pxvL0Q3B34");
+    $rootScope.playByYouTube = function(videoId) {
+      if(!$rootScope.youtubePlayer) {
+          angular.element(document.body).append('<div id="youtube_player"></div>');
 
-      gapi.client.load('youtube', 'v3', function() {
-        var request = gapi.client.youtube.search.list({
-          q: trackName + " " + artistName,
-          part: 'snippet',
-        });
-
-      function generateLink(videoId) {
-        return "http://www.youtube.com/embed/" + videoId + "?autoplay=1";
+          $rootScope.youtubePlayer = new YT.Player('youtube_player', {
+              height: 0,
+              width: 0,
+              videoId: videoId,
+              events: {
+                'onReady': function(e) { e.target.playVideo(); }
+              }
+            });
+      } else {
+        $rootScope.youtubePlayer.loadVideoById(videoId).playVideo();
       }
-
-      function renderFrame(videoId) {
-        return '<iframe id="youtube_player" style="position:absolute;z-index:100;right:20px;top:10px" src="'+ generateLink(videoId) +'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-      }
-
-      function showIframe(videoId) {
-        var $player = angular.element(document.getElementById("youtube_player"));
-
-        if($player.length == 0) {
-          angular.element(document.body).append(renderFrame(videoId));
-        } else {
-          $player.attr('src', generateLink(videoId));
-        }
-      }
-
-      request.execute(function(response) {
-        console.log(response.result.items);
-        showIframe(response.result.items[0].id.videoId);
-      });
-    });
-  };
+    };
 
     $rootScope.launchPlay = function(track, param){
       if(!$rootScope.radioMode && $rootScope.wideRadio){
@@ -230,6 +217,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         $rootScope.recomMode=false;
         $rootScope.wideRadio=false;
       }
+
+      console.log(">>>>>>>>>>>>>>", track);
+      // TODO get from server the track 
+      // then
+      $rootScope.playByYouTube("jz5lA0kXG1s");
      
       /*var Stream = $resource(routeRessource.GetStreaming, {},{
         'query': {
@@ -256,9 +248,8 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
         //$location.path('/home');
 
-        Rhapsody.player.play(track.url);
 
-
+        //Rhapsody.player.play(track.url);
 
         var GetItemGrooveshark = $resource(routeRessource.getSearchGrooveshark, {},
         {
@@ -296,6 +287,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
       }
       else{
+
         if(param != "radio"){
           $rootScope.lienRandomItemByGenre ="";
         }
@@ -340,7 +332,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           //$route.reload();
         }
 
-        if($rootScope.$$childTail.$$childHead.API){
+        if($rootScope.$$childTail.$$childHead && $rootScope.$$childTail.$$childHead.API){
           $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
           $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
           $rootScope.$$childTail.$$childHead.API.play();
@@ -380,12 +372,14 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
 
     var trackItem = $resource(routeRessource.LastFM_Track, {
       track: "@trackName",
-      format: 'json'
+      format: 'json',
+      limit: 20
     });
 
     var artisteItem = $resource(routeRessource.LastFM_Artiste, { 
         artist: "@artistName",
-        format: 'json'
+        format: 'json',
+        limit: 20
     });
 
 

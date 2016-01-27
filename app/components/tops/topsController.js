@@ -28,7 +28,7 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 
 	$scope.lien = routeRessource.ItemPopular;
 	
-	this.tops = getTops();
+	getTops();
 
 	// this.videos = [
 	// 	{
@@ -92,7 +92,7 @@ app.controller('TopsCtrl', ['$scope', '$resource', '$rootScope', 'Auth','routeRe
 	        }
         });
 		
-				Res.query(null,function(mess){ controller.tops = mess; },function(error){ controller.tops = error.data; });
+		Res.query(null,function(mess){ controller.tops = mess; },function(error){ controller.tops = error.data; });
 				
 	}
 

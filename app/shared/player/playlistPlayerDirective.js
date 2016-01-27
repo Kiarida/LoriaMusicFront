@@ -20,7 +20,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
             }
         }
         else{
-        	return "app/components/player/playlistTemplate.html?t=000";
+        	return "app/components/player/playlistTemplate.html";
         }
     },
     scope : {
@@ -131,7 +131,7 @@ app.directive('playlistPlayer', function(Auth, routeRessource, $resource, $timeo
 			var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : scope.content[i].id},
 				function(res){
 					for(var i=0;i<scope.content.length;i++){
-						if(scope.content[i].id == res.idItem)
+						if(scope.content[i].id == res.idItem && res[0])
 							scope.content[i].userRate = res[0].note;
 
 					}

@@ -18,12 +18,12 @@
 				</a>
 			</td>
 			<td class="title">
-				<a class="wrap">
-					<span tooltip="{{ecoutes.name}}">{{ecoutes.name}}</span>
+				<a class="wrap" ng-init="titre = ecoutes.name ? ecoutes.name : ecoutes.titre">
+					<span tooltip="{{titre}}">{{titre}}</span>
 				</a>
 			</td>
 
-			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{ecoutes.artist}}</span></a></td>
+			<td ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.artist ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste" ><i class="icon-microphone"></i><a ng-click="$root.stockArtist(artiste)" href="#/artist/{{id_artiste}}"><span tooltip="{{artiste}}">{{artiste}}</span></a></td>
 			<td class="rating" ng-click="editRate(ecoutes)">
 				<span tooltip="Average rating : {{ecoutes.note}}
 				Your rating : {{ecoutes.userRate}}">

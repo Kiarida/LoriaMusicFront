@@ -58,18 +58,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   var code = codeUrl[3].split("?code=")[1];
   var access_token = params[0].split("/access_token=")[1];
   console.log(code);
-  $http.post(getUrl("/items/xbox/streaming"), {code:code}).success(function(data, status, headers, config) {
-    // this callback will be called asynchronously
-    // when the response is available
-    //console.log(data);
-    $rootScope.uhs = data[0];
-    $rootScope.xtoken=data[1];
-  }).
-  error(function(data, status, headers, config) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  });
-
 
   // initialisation du player Rhapsody
   Rhapsody.init({
@@ -211,17 +199,15 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       }
     };
 
-    var SearchItem = $resource(routeRessource.searchItem, {}, {
-      'query': {
-          method: 'GET',
-          isArray: true,
-          params: {key:"@key"}
-      }
-    });
-
     var GetItemGrooveshark = null;
 
     $rootScope.launchPlay = function(track, param){
+
+      if(!track.idartiste) {
+        track.titre = track.name;
+        track.idartiste = [{ nom : track.artist }];
+      }
+
       if(!$rootScope.radioMode && $rootScope.wideRadio){
         $rootScope.radioMode=false;
         $rootScope.recomMode=false;
@@ -235,7 +221,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         {
           'save': {
               method: 'POST',
-              isArray: true,
               headers: {
                 "Authorization" : 'WSSE profile="UsernameToken"',
                 "X-wsse" : Auth.getUser().wsse
@@ -245,10 +230,13 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
         });
       }
       
-      SearchItem.query({ key: track.name }).$promise.then(function(items) {
-        if(items.length == 0) {
+      $rootScope.Search.query({ titre: track.titre, nomArtiste: track.idartiste[0].nom }).$promise.then(function(items) {
+          var item = items[0];
 
-          return GetItemGrooveshark.save({
+          $rootScope.playByYouTube(item.YouTubeVideoId);
+          $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
+      }).catch(function(error) {
+        GetItemGrooveshark.save({
             url: track.url, 
             titre: track.name, 
             nom: track.artist,
@@ -256,17 +244,11 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             duration: 0,
             urlCover: (track.image.length > 0) ? track.image[0]['#text'] : null,
           }).$promise.then(function(item) {
+            console.log(item);
+
             $rootScope.playByYouTube(item.YouTubeVideoId);
             $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
           });
-
-        } else {
-          var item = items[0];
-          $rootScope.playByYouTube(item.YouTubeVideoId);
-          $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
-        }
-      }).catch(function(error) {
-        console.error(error);
       });
      
       /*var Stream = $resource(routeRessource.GetStreaming, {},{
@@ -282,37 +264,32 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       });
 */
       
-
-
-
       $rootScope.smallSearch=false;
       if(track.gs){
         if(!track.urlCover){
-              track.urlCover="assets/img/placeholder.png";
-            }
+          track.urlCover="assets/img/placeholder.png";
+        }
 
 
         //$location.path('/home');
 
-        //Rhapsody.player.play(track.url);
-        var item = GetItemGrooveshark.save({titre:track.titre, url:track.url, nomAlbum:track.nomAlbum, nom:track.nom, duration:track.duration}, function(mess){
-        track.id=mess[0].id;
-        } );
-          $rootScope.playing = true;
-          $rootScope.playlist = [];
-          getColor(track, param);
-          newtrack = track;
-          newtrack.sources = [{src: $sce.trustAsResourceUrl(String(track.url)), type:"audio/mp3"}];
-          $rootScope.playlist.push(newtrack);
+        // Rhapsody.player.play(track.url);
+        $rootScope.playing = true;
+        $rootScope.playlist = [];
+        getColor(track, param);
+        newtrack = track;
+        newtrack.sources = [{src: $sce.trustAsResourceUrl(String(track.url)), type:"audio/mp3"}];
+        $rootScope.playlist.push(newtrack);
 
-          $rootScope.$broadcast('someEvent', newtrack);
+        $rootScope.$broadcast('someEvent', newtrack);
 
-          if($rootScope.$$childTail.$$childHead.API){
-            $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
-            $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
-            $rootScope.$$childTail.$$childHead.API.play();
+        if($rootScope.$$childTail.$$childHead.API){
+          $rootScope.$$childTail.$$childHead.controller.videos=$rootScope.playlist;
+          $rootScope.$$childTail.$$childHead.controller.currentVideo=0;
+          $rootScope.$$childTail.$$childHead.API.play();
 
-          }
+        }
+
         $rootScope.small = true;
         //$rootScope.createEcoute({"idItem" : $rootScope.playlist[0].id, "typeEcoute" : $rootScope.typeEcoute});
         $rootScope.getLast5Ecoutes();
@@ -538,20 +515,19 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       });
     }
 
+    $rootScope.Search = $resource(routeRessource.ItemSearch, {}, {
+        'query': {
+            method: 'GET',
+            isArray: true,
+            params: {
+              titre: "@titre",
+              nomArtiste: "@nomArtiste"
+            }
+        }
+    });
+
     $rootScope.initSearch = function(){
-      if(Auth.getUser() && $rootScope.Search == null){
-        $rootScope.Search = $resource(routeRessource.ItemSearch,{},
-        {
-          'query': {
-              method: 'GET',
-              isArray: true,
-              headers: {
-                "Authorization" : 'WSSE profile="UsernameToken"',
-                "X-wsse" : Auth.getUser().wsse
-              },
-              params:{key: "@key"}
-          }
-        });
+      if(Auth.getUser() && $rootScope.SearchArtiste == null){
 
         $rootScope.SearchArtiste = $resource(routeRessource.ArtisteSearch,{},
         {
@@ -709,7 +685,7 @@ app.constant("routeRessource", {
   "SearchArtists" : getUrl("/artistes/search/:key"),
   "ItemArtiste" : getUrl("/items/artiste/:id"),
   "ItemPopular" : getUrl("/items/get/popular.json"),
-  "ItemSearch" : getUrl("/items/search/:key"),
+  "ItemSearch" : getUrl("/items/search/:titre/:nomArtiste"),
   "ArtisteSearch" : getUrl("/artistes/search/:key"),
   "PlaylistDetail" : getUrl("/users/:iduser/playl)ists/:id"),
   "RandomItemByGenre" : getUrl("/items/genre/:id"),
@@ -738,7 +714,6 @@ app.constant("routeRessource", {
   "markComplete" : getUrl("/items/grooveshark/markComplete"),
   "getSearchGrooveshark" : getUrl("/items/"),
   "searchItemGrooveshark" : getUrl("/items/grooveshark/search/:key"),
-  "searchItem": getUrl("/items/search/:key"),
   "nextInteraction" : 1,
   "previousInteraction" : 2,
   "stopInteraction" : 3,

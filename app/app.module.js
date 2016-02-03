@@ -57,16 +57,6 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
   console.log(codeUrl);
   var code = codeUrl[3].split("?code=")[1];
   var access_token = params[0].split("/access_token=")[1];
-  console.log(code);
-
-  // initialisation du player Rhapsody
-  Rhapsody.init({
-     consumerKey: "Yzc0YmI1YzUtY2IzNi00NjY1LTgyMTQtMTUyZGQ1OTczMjFj",
-     version: 'v1',
-     catalog: 'FR'
-  });
-
-
 
     $rootScope.$on('$routeChangeStart', function (event) {
       $rootScope.searchingG=false;

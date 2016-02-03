@@ -2155,3 +2155,7 @@ h4{
 
 
 
+#youtube_player {
+  width: 0;
+  height: 0;
+}

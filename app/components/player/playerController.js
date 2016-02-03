@@ -70,34 +70,20 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 			//Creation cookie
 			GetToken.query({iduser:Auth.getUser().id}, function(mess){
 				$cookieStore.put('rhapsody', mess);
-
-				 Rhapsody.member.set({
-				        accessToken:$cookieStore.get("rhapsody").access_token,
-				        refreshToken:$cookieStore.get("rhapsody").refresh_token
-				      });
 			});
 
-
-        	
-      	}
-      	else{
-      		
+      	} else{
       		//$cookieStore.remove("rhapsody");
-
       		//console.log($cookieStore.get('rhapsody').refresh_token);
+ 			
  			//Rafraîchissement cookie
       		var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
-      			//console.log(mess);
       			$cookieStore.put("rhapsody",mess);
-      			Rhapsody.member.set({
-				    accessToken:$cookieStore.get("rhapsody").access_token,
-				    refreshToken:$cookieStore.get("rhapsody").refresh_token
-				});
       		});
       		
-      		//console.log($cookieStore.get("rhapsody"));
-      		
+      		//console.log($cookieStore.get("rhapsody"));      		
       	}
+
 		controller.API = API;
 		controller.API.autoPlay = true;
 		//console.log($scope.launchRandomTrack(1));
@@ -188,97 +174,89 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 
 	};
 
-	Rhapsody.player.on("playtimer", function(e){
 		//console.log("created "+created);
 		//tweak
-		var deferred = $q.defer();
+		// var deferred = $q.defer();
 		
 
-		$scope.$apply(function(){
+		// $scope.$apply(function(){
 			
-			if(recommended==false){
-				if($rootScope.radioMode){
-				$rootScope.$broadcast('creationEcoute');
-				}
+		// 	if(recommended==false){
+		// 		if($rootScope.radioMode){
+		// 		$rootScope.$broadcast('creationEcoute');
+		// 		}
 			
-				else if($rootScope.recomMode){
-			      	$scope.getRecommandation();
-			      }
-			      recommended=true;
-			}
-		$rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
-		if($rootScope.currentTime.split(":")[1] == 5 && created == false){
-			created=true;
-			//if(recommended == false){
+		// 		else if($rootScope.recomMode){
+		// 	      	$scope.getRecommandation();
+		// 	      }
+		// 	      recommended=true;
+		// 	}
+		// $rootScope.currentTime=$rootScope.convertTime(e.data.currentTime);
+		// if($rootScope.currentTime.split(":")[1] == 5 && created == false){
+		// 	created=true;
+		// 	//if(recommended == false){
 			
-			//}
-			console.log($rootScope.playlist);
+		// 	//}
+		// 	console.log($rootScope.playlist);
 			
-			$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : $rootScope.typeEcoute}, function(mess){
+		// 	$rootScope.createEcoute({"idItem" : $rootScope.playlist[controller.currentVideo].id, "typeEcoute" : $rootScope.typeEcoute}, function(mess){
 
-			});
-			//$rootScope.$broadcast('creationEcoute');
-			//created=true;
-		}
-		$rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
-		$rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
-		$("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
+		// 	});
+		// 	//$rootScope.$broadcast('creationEcoute');
+		// 	//created=true;
+		// }
+		// $rootScope.totalTime=$rootScope.convertTime(e.data.totalTime);
+		// $rootScope.percent=(e.data.currentTime*100)/e.data.totalTime;
+		// $("vg-scrubbarcurrenttime").css("width", $rootScope.percent+"%");
 
-		//Tweak pour déclencher l'event onCompleteVideo
+		// //Tweak pour déclencher l'event onCompleteVideo
 		
-		//if($rootScope.currentTime.split(':')[1]==29 && ended ==false){
-		if(e.data.currentTime > 29.80 && ended ==false){
-			$scope.controller.onCompleteVideo();
-			ended=true;
-		}
+		// //if($rootScope.currentTime.split(':')[1]==29 && ended ==false){
+		// if(e.data.currentTime > 29.80 && ended ==false){
+		// 	$scope.controller.onCompleteVideo();
+		// 	ended=true;
+		// }
 
-		});
+		// });
 
 		//console.log($rootScope.totalTime);
 
-	})
+
+		//controller.isCompleted = true;
+		// this.onCompleteVideo();
+
+		// if(!controller.loop){
+		// 	if(controller.random){
+		// 		var random = controller.currentVideo;
+		// 		while(random == controller.currentVideo){
+		// 			random = Math.floor(Math.random()*($rootScope.playlist.length));
+		// 		}
+		// 		controller.currentVideo = random;
+		// 	}
+  //     else if($rootScope.lienRandomItemByGenre){
+  // 			if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
+  // 				$scope.launchRandomTrack($rootScope.idRadio);
+  // 				controller.currentVideo++;
+  // 			}
+  // 			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
+  // 				$scope.launchRandomTrack($rootScope.idRadio);
+  // 				controller.currentVideo++;
+  // 			}
+  //     }
+		// 	else{
+		// 		if(controller.currentVideo == $rootScope.playlist.length-1)
+		// 				controller.currentVideo = 0
+		// 		else
+		// 			controller.currentVideo++;
+		// 	}
+		// 	controller.like = false;
+		// }
 
 
-	Rhapsody.player.on('playevent', function(e) {
+		// controller.config.sources = $rootScope.playlist[controller.currentVideo].sources;
 
-  		if(e.code == "PlayComplete"){
-  			
-  			//controller.isCompleted = true;
-  			this.onCompleteVideo();
-		if(!controller.loop){
-			if(controller.random){
-				var random = controller.currentVideo;
-				while(random == controller.currentVideo){
-					random = Math.floor(Math.random()*($rootScope.playlist.length));
-				}
-				controller.currentVideo = random;
-			}
-      else if($rootScope.lienRandomItemByGenre){
-  			if(($rootScope.lienRandomItemByGenre).indexOf("artiste") > 0 ){
-  				$scope.launchRandomTrack($rootScope.idRadio);
-  				controller.currentVideo++;
-  			}
-  			else if(($rootScope.lienRandomItemByGenre).indexOf("genre") > 0 ){
-  				$scope.launchRandomTrack($rootScope.idRadio);
-  				controller.currentVideo++;
-  			}
-      }
-			else{
-				if(controller.currentVideo == $rootScope.playlist.length-1)
-						controller.currentVideo = 0
-				else
-					controller.currentVideo++;
-			}
-			controller.like = false;
-		}
-
-
-		controller.config.sources = $rootScope.playlist[controller.currentVideo].sources;
-
-		controller.API.autoPlay = true;
-		controller.API.play();
-  		}
-	});
+		// controller.API.autoPlay = true;
+		// controller.API.play();
 
 
 	this.setVideo = function(index) {
@@ -355,6 +333,8 @@ app.controller('PlayerCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
 	}
 
 $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.videos[controller.currentVideo]'], function(){
+
+		$rootScope.playlist[controller.currentVideo] = $rootScope.playlist[controller.currentVideo] || {};
         $rootScope.playlist[controller.currentVideo].sources = [{src: $sce.trustAsResourceUrl("url"), type:"audio/mp3"}];
     	if($cookieStore.get("rhapsody")){
     		var cookie = RefreshToken.update({iduser:Auth.getUser().id, refreshToken:$cookieStore.get("rhapsody").refresh_token}, function(mess){
@@ -362,48 +342,32 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
       				var cookieCreate=GetToken.query({iduser:Auth.getUser().id}, function(mess2){
       					$cookieStore.put("rhapsody",mess2);
       				});
-      			}
-      			else{
+      			} else{
 					$cookieStore.put("rhapsody",mess);
       			}
-      			Rhapsody.member.set({
-				    accessToken:$cookieStore.get("rhapsody").access_token,
-				    refreshToken:$cookieStore.get("rhapsody").refresh_token
-				});
-				Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
+      			
+      			//$rootScope.playByYouTube($rootScope.playlist[controller.currentVideo].url);
 				
 				marked=false;
     			created=false;
       		});
-    	}
-    	else{
+    	} else{
     		var cookieCreate=GetToken.query({iduser:Auth.getUser().id}, function(mess2){
-      					$cookieStore.put("rhapsody",mess2);
-      					Rhapsody.member.set({
-						    accessToken:$cookieStore.get("rhapsody").access_token,
-						    refreshToken:$cookieStore.get("rhapsody").refresh_token
-						});
+				$cookieStore.put("rhapsody",mess2);
+				//$rootScope.playByYouTube($rootScope.playlist[controller.currentVideo].url);
 
-						Rhapsody.player.play($rootScope.playlist[controller.currentVideo].url);
-						
-				
-						marked=false;
-		    			created=false;
-		    			recommended=false;
-      				});
+				marked=false;
+				created=false;
+				recommended=false;
+			});
 
     	}
+
     	$rootScope.currentVideo=$rootScope.playlist[controller.currentVideo];
     	created = false;
 		marked=false;
 		ended=false;
 		recommended=false;
-    	
-    	//$scope.start();
-		
-    	
-    	
-        
 	});
 
 	
@@ -411,13 +375,5 @@ $scope.$watchGroup(['controller.videos', 'controller.currentVideo', 'controller.
 		controller.videos=$rootScope.playlist;
         controller.currentVideo=0;
         controller.API.play();
-
-
-			
-		});
-
-	
-
-	
-
+	});
 }]);

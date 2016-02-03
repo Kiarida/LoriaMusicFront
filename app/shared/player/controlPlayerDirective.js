@@ -56,6 +56,8 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 					console.log("Nexttrack !");
 					scope.controller.currentVideo++;
 			}
+
+			scope.controller.config = scope.controller.config || {};
 			scope.controller.config.sources = scope.$root.playlist[scope.controller.currentVideo].sources;
 			scope.controller.like = false;
 			scope.controller.API.play();
@@ -80,6 +82,8 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 				else
 					scope.controller.currentVideo--;
 			}
+
+			scope.controller.config = scope.controller.config || {};
 			scope.controller.config.sources = scope.$root.playlist[scope.controller.currentVideo].sources;
 			scope.controller.like = false;
 			scope.controller.API.play();
@@ -103,6 +107,7 @@ app.directive('controlPlayer', function(Auth, routeRessource, $resource, $timeou
 			if(scope.controller.loop) {
 				scope.controller.loop = false;
 			} else{
+				console.log("loooping!");
 				createInteraction(routeRessource.loopInteraction);
 				scope.controller.loop = true;
 			}

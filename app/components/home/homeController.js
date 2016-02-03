@@ -19,13 +19,16 @@ app.controller('HomeCtrl', ['$scope', 'PaysFactory', '$resource', '$rootScope', 
 
 	$scope.newUser = function(){
 		var Signup = $resource(routeRessource.CreateUser);
-		Signup.save(null,$scope.user, function(){
+		$scope.user.genre_ = +$scope.user.genre;
+		Signup.save($scope.user, function(){
 			$scope.userConn._username = $scope.user.username;
 			$scope.userConn._password = $scope.user.plainPassword;
       
 			$scope.connectUser();
 		},
 		function(error){
+			console.log($scope.user);
+
 			$scope.errorSignUp = "";
 			if(typeof error.data.message != "undefined")
 				$scope.errorSignUp = error.data.message+"   ";

@@ -132,8 +132,9 @@ app.controller('ArtistCtrl', ['$scope', '$resource', '$rootScope', 'Auth','route
       var usernote = RateItem.query({iduser: Auth.getUser().id, iditem : controller.artist.albums[i].id},
         function(res){
           for(var i=0;i<controller.artist.albums.length;i++){
-            if(controller.artist.albums[i].id == res.idItem)
-            controller.artist.albums[i].userRate = res[0].note;
+          	
+            if(controller.artist.albums[i].id == res.idItem && res[0])
+            	controller.artist.albums[i].userRate = res[0].note;
           }
         },
         function(error){

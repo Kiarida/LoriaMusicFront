@@ -12,7 +12,7 @@
 				</a>
 			</div>
 		<div ng-if="!$root.radioMode && !$root.recomMode" ng-click="controller.setVideo($index)" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-			<a href="">
+			<a href="#!">
 				<i class="icon-play2 text-center" ng-class="{hide : (controller.API.currentState != 'stop' && controller.API.currentState != 'pause') || controller.currentVideo !=$index }"></i>
 				<i class="icon-volume-medium text-center" ng-class="{hide : controller.currentVideo!=$index || controller.API.currentState != 'play'}"></i>
 				<i class="icon-play2 text-center" ng-class="{hide : !hover || controller.currentVideo==$index}"></i>
@@ -22,7 +22,7 @@
 			</a>
 		</div>
 		<div ng-if="$root.radioMode || $root.recomMode" class="index" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-			<a href="">
+			<a href="#!">
 				<span class="title-span" ng-class="{'active': (controller.currentVideo == $index)}" tooltip="{{ecoutes.titre}}">{{ecoutes.titre}}</span>
 			</a>
 		</div><div ng-if="!$root.radioMode && !$root.recomMode" ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste text-center" >
@@ -36,7 +36,7 @@
 
 			<div ng-if="$root.radioMode || $root.recomMode" ng-init="artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].nom : ecoutes.nom ; id_artiste = ecoutes.idartiste[0] ? ecoutes.idartiste[0].id : ecoutes.idArtiste" class="artiste text-center" >
 				
-				<a>
+				<a href="#!">
 					<i class="icon-microphone"></i>
 					<span tooltip="{{artiste}}" class="text-center">{{artiste}}
 					</span>

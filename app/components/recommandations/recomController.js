@@ -27,6 +27,8 @@ var Recommandations = $resource(routeRessource.Recommandations,{},
           });
 
   $scope.getRecommandation=function(){
+    console.info("RECOMMENDATION");
+
     var algostrack=[];
     $scope.listAlgos=$rootScope.currentUserTest[0].idgroup[0].idalgorithm;
     $scope.listAlgos[0].angle=-30;

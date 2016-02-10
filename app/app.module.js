@@ -226,12 +226,18 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
           $rootScope.playByYouTube(item.YouTubeVideoId);
           $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
       }).catch(function(error) {
-        GetItemGrooveshark.save({
+       getAlbum.get({
+          track: track.name,
+          artist: track.artist
+       }).$promise.then(function(infos) {
+          console.info("INFOS TRACK : ", infos);
+
+           GetItemGrooveshark.save({
             url: track.url, 
             titre: track.name, 
             nom: track.artist,
-            nomAlbum: '',
-            duration: 0,
+            nomAlbum: infos.track.album.title,
+            duration: infos.track.duration,
             urlCover: (track.image.length > 0) ? track.image[0]['#text'] : null,
           }).$promise.then(function(item) {
             console.log(item);
@@ -239,6 +245,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             $rootScope.playByYouTube(item.YouTubeVideoId);
             $rootScope.createEcoute({"idItem" : item.id, "typeEcoute" : $rootScope.typeEcoute});
           });
+       })
       });
      
       /*var Stream = $resource(routeRessource.GetStreaming, {},{
@@ -373,6 +380,12 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
       track: "@trackName",
       format: 'json',
       limit: 20
+    });
+
+    var getAlbum = $resource(routeRessource.LastFM_Album, {
+      track: "@trackName",
+      artist: "@artistName",
+      format: 'json',
     });
 
     var artisteItem = $resource(routeRessource.LastFM_Artiste, { 
@@ -732,5 +745,6 @@ app.constant("routeRessource", {
   "SearchGenres" : getUrl("/genres/:key"),
   "GetStreaming" : getUrl("/items/xbox/streaming/:iditem"),
   "LastFM_Artiste": "http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=30c3c9603ff7e5fba386bf8348abdb46",
-  "LastFM_Track": "http://ws.audioscrobbler.com/2.0/?method=track.search&api_key=30c3c9603ff7e5fba386bf8348abdb46"
+  "LastFM_Track": "http://ws.audioscrobbler.com/2.0/?method=track.search&api_key=30c3c9603ff7e5fba386bf8348abdb46",
+  "LastFM_Album" : "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=30c3c9603ff7e5fba386bf8348abdb46",
 });

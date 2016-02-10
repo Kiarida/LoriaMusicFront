@@ -236,7 +236,7 @@ app.run(['$rootScope', '$location', 'Auth', '$resource','routeRessource', '$cook
             url: track.url, 
             titre: track.name, 
             nom: track.artist,
-            nomAlbum: infos.track.album.title,
+            nomAlbum: (infos.track.album) ? infos.track.album.title : "",
             duration: infos.track.duration,
             urlCover: (track.image.length > 0) ? track.image[0]['#text'] : null,
           }).$promise.then(function(item) {

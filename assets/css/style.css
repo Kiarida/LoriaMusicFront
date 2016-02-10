@@ -2154,8 +2154,22 @@ h4{
 }
 
 
-
 #youtube_player {
   width: 0;
   height: 0;
+}
+
+.home-link {
+  text-decoration: underline;
+  color: #FFF;
+}
+
+.home-link:hover {
+  cursor: pointer;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.modal-body .home-link, .modal-body .home-link:hover {
+  color: #000;
 }
